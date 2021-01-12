@@ -20,7 +20,23 @@ Your directory should look like this :
 
 
 
-## 2. Defining classes
+## 2. Changing default entry point
+In **public/config/**, open *config.inc.php* (or *default.inc.php*, unrecommended) and adapt this :
+```php
+define('default_package', 'myapp');	// replace 'myapp' with your package's name
+```
+In **public/packages/myapp/**, create a *config.inc.php* file and write this :
+```php
+<?php
+namespace config;
+
+define('DEFAULT_APP', 'landing');	// it refers to packages/myapp/apps/landing.php
+```
+And you're done, eQual will now display your webapp's landing.php as default landing page
+
+
+
+## 3. Defining classes
 
 In **public/packages/myapp/classes/**, you can add a new **.class.php** file for each class you want to use. 
 In this example, we define the class **Task** for a todo-list app :
@@ -55,7 +71,9 @@ That's where the types **many2many**, **one2many**, and **many2one** come in han
         'user_id'	=> ['type' => 'many2one', 'foreign_object' => 'myapp\User']
       );
 ```
+
 We also need to do the opposite in *User.class.php* :
+
 ```php
 // User
 // ...
@@ -64,29 +82,6 @@ We also need to do the opposite in *User.class.php* :
         'task_id'	=> ['type' => 'one2many', 'foreign_object' => 'myapp\Task']
       );
 ```
-
-
-
-## 3. Creating database tables
-
-Now that we have classes, we want to use them in a real database
-###### /!\ Work in progress ~
-
-
-
-## 4. Changing default entry point
-In **public/config/**, open *config.inc.php* (or *default.inc.php*, unrecommended) and adapt this :
-```php
-define('default_package', 'myapp');	// replace 'myapp' with your package's name
-```
-In **public/packages/myapp/**, create a *config.inc.php* file and write this :
-```php
-<?php
-namespace config;
-
-define('DEFAULT_APP', 'landing');	// it refers to packages/myapp/apps/landing.php
-```
-And you're done, eQual will now display your webapp's landing.php as default landing page
 
 
 
