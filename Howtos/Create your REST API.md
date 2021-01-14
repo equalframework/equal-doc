@@ -1,6 +1,6 @@
 # Create your REST API
 
-This detailled section will cover how to make a REST API from scratch and use it in your project.
+This detailled section will cover how to make a REST API from scratch and use it in your project
 
 If you're not familiar with REST concepts, see [this great explanation](https://www.infoq.com/articles/rest-introduction/)
 
@@ -275,17 +275,20 @@ Finally, we use **$context** to send it and get a REST response
 
 
 
-Now we can use it in our browser as an http request, like so :
+### Using DO in your browser
 
 ```markdown
+DO : CREATE
 http://equal-framework/index.php?do=todolist_task_create&title=my task&content=lorem ipsum&user_id=1
-
-?do=todolist_task_create => /todolist/actions/task/create.php
 ```
 
+Equal-framework does the work of reading ```?do=todolist_task_create``` as ```/todolist/actions/task/create.php```
 
 
-After CREATE, let's implement PUT and DELETE. We'll do that with no further explanation as you should be familiar with how it works
+
+After CREATE, let's implement PUT and DELETE.
+
+We'll do that with no further explanation as you should now be familiar with how it works
 
 ##### /actions/task/change.php
 
@@ -348,6 +351,7 @@ $context->httpResponse()
 How to call it :
 
 ```
+DO : PUT/PATCH
 http://equal-framework/index.php?do=todolist_task_change&title=...&...
 ```
 
@@ -387,6 +391,7 @@ $context->httpResponse()
 To call it :
 
 ```
+DO : DELETE
 http://equal-framework/index.php?do=todolist_task_delete&id=...
 ```
 
@@ -395,6 +400,7 @@ http://equal-framework/index.php?do=todolist_task_delete&id=...
 ## Finalizing the REST API
 
 Go back to the root of equal-framework, and open this file: **/config/routing/api_default.json**
+
 Replace everything with this :
 
 ```json
@@ -422,5 +428,9 @@ Replace everything with this :
 }
 ```
 
-What it does is pretty self-explanatory
+What it does is pretty self-explanatory. The **/:id** is a way for us to target and retrieve a single task when needed.
+
 Now adding ``` /tasks``` to our API url does exactly the same as ``` ?get=todolist_tasks```
+
+
+
