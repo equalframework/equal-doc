@@ -87,6 +87,6 @@ We also need to do the opposite in *User.class.php* :
 
 
 
-## What next?
+### More learning ressources
 
-See *Howtos* for more learning ressources
+See [*Howtos*](../Howtos/) and [*Basics*](../Basics/)

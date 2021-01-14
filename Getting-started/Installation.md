@@ -22,10 +22,10 @@ You will need the following installed on your computer :
 - Create a new virtual host using *.../equal-framework/public/* as the root path
 
 If done correctly you should now see something like this on your browser:
-<img src="C:\Users\Simon Romainville\AppData\Roaming\Typora\typora-user-images\image-20210104113008810.png" alt="image-20210104113008810" style="zoom: 50%;" />
+<img src="https://imgur.com/a/PGopNKX" alt="eQual-workbench" style="zoom: 50%;" />
 
 
 
-## What next?
+### What next?
 
-See *Configuration*
+See [*Configuration*](Configuration.md)

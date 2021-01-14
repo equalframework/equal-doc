@@ -6,11 +6,15 @@
 
 ##### WAMP server
 ​	Open PHPMyAdmin as root user,
+
 ​	Create a database named **equal**,
+
 ​	Privileges > create a new user named **equaldba** and let "grant all access" checked
 
+
+
 ##### equal-framework/config
-​	Open *default.inc.php*\* and update the following values :
+​	Open *default.inc.php* and update the following values :
 ```php
 define('DB_DBMS', 'MYSQL'); 
 define('DB_HOST', '127.0.0.1'); 
@@ -21,13 +25,12 @@ define('DB_NAME', 'equal');   		// and this
 define('DB_CHARSET', 'UTF8'); 
 ```
 
-\* If you want to properly override the default file, open *config-example.inc.php* and follow the instructions
-To avoid requirement issues it's recommend to copy paste *default.inc.php* into *config.inc.php*, and edit from there
+Please note that directly editing *default.inc.php* is fine if you only need to configurate your database access, but overall it's bad practice
+
+What you want to do instead is open *config-example.inc.php* and follow the given instructions to properly override default settings
 
 
 
-## What next?
+### What next?
 
-See *Directory structure*
-
-or *Quick Start*
+See [*Quick Start*](Quick-Start.md)

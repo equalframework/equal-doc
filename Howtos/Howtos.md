@@ -4,3 +4,9 @@ This section aims to answer the most common questions through easy to understand
 
 
 
+## See the console
+
+``` [absolute root path to eQual] + /console.php ```
+
+
+

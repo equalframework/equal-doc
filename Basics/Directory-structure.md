@@ -2,6 +2,8 @@
 
 To understand the framework, here is what you need to know about its folders
 
+/**!**\	This part is currently non-exhaustive	/**!**\
+
 
 
 ## public
@@ -39,5 +41,5 @@ To understand the framework, here is what you need to know about its folders
 
 ## What next?
 
-See *Quick Start*
+See [*Quick Start*](Quick-Start.md)
 

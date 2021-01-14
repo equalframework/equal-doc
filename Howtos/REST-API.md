@@ -12,7 +12,7 @@ Let's get started!
 
 ## Prerequisites
 
-First, you'll need a working setup of equal-framework on your localhost. See **Getting started > Quick start** (you can skip *3. Defining classes*)
+First, you'll need a working setup of equal-framework on your localhost. See [**Getting started > Quick start**](../Getting-started/Quick-Start.md) (skip point *3. Defining classes*)
 
 If you look at the **Directory structure**, you'll get a good idea of what comes with every project. In this one, we'll use **actions**, **classes**, and **data**.
 
@@ -38,8 +38,8 @@ To continue with our previous todolist-app example, we'll create two classes: Ta
 
 ```php
 <?php
-namespace todolist; 	// declaring the package
-use qinoa\orm\Model;	// calling the built-in Object handler
+namespace todolist;
+use qinoa\orm\Model;	// calling the built-in Object facilitator
 
 class Task extends Model {
 
@@ -60,10 +60,10 @@ class Task extends Model {
 
 ```php
 <?php
-namespace todolist; 	// declaring the package
-use qinoa\orm\Model;	// calling the built-in Object handler
+namespace todolist;
+use core\User as UserModel;		// calling the User object 'core' already has
 
-class User extends Model {
+class User extends UserModel {
 
     public static function getColumns() {
         return [
@@ -102,25 +102,13 @@ use todolist\Task;	// calling our newly defined Task class
 
 list($params, $providers) = announce([
     'description'   => 'Retrieve the list of existing tasks',
-    'params'        => [
-        'limit'     => [
-            'type'      => 'integer',
-            'min'       => 1,
-            'max'       => 50,
-            'default'   => 5
-        ],
-        'offset'     => [
-            'type'      => 'integer',
-            'min'       => 0,
-            'default'   => 0
-        ],
-    ],
-    'response' => [
-        'content-type'  => 'application/json',
-        'charset'       => 'utf-8',
-        'accept-origin' => ['*']
-    ],
-    'providers' => ['context']
+    'params'        => [],
+    'response' 		=> [
+                       	'content-type'  => 'application/json',
+                       	'charset'       => 'utf-8',
+                      	'accept-origin' => ['*']
+                       ],
+    'providers' 	=> ['context']
 ]);
 
 list($context) = [ $providers['context'] ];
@@ -135,30 +123,23 @@ $context->httpResponse()
     	->send();
 ```
 
-#### Code breakdown
+###### What it does :
 
-**list()** does a lot of work :
+**announce()** will handle the values of our query :
 
-- **announce()** to define values for our upcoming Http query
-  - **description** explains what the query does
-  - **params** can define the pagination method aswell as additional requirements for our Http query
-    - **limit** tells how much items we expect, preventing data overload
-    - **offset** allows to expand the **limit**
-    - We can also use **id**, it's a common parameter to manipulate an item's ID
-  - **response** defines the format of the server's response
-  - **providers** helps us to access some useful services such as **context**, **orm**, **auth**
-- ``` list($context) = [ $providers['context'] ]; ``` to implement the services we want to use
+- **description**
+- **params** gives additional requirements and conditions
+- **response** defines the format of the server response
+- **providers** helps us to access useful services such as **context**, **orm**, **auth**
 
+We use ``` list($context) = [$providers['context']] ``` to implement the services we want to use
 
+Then **$list** is where we receive the data from our query :
 
-**$list** is where we receive the data from our query :
-
-- **Task::search([])**  searchs for the array containing Task item(s)
-- **->read([])** tells which object's parameters we want to retrieve
-- **->adapt('txt')** turns the data to strings so it's easily readable
-- **->get(true)** self-explanatory
-
-
+- **Task::search([])**  searchs for data associated with Task
+- **->read([])** tells which parameters we want to retrieve from Task
+- **->adapt('txt')** turns the data into strings
+- **->get(true)**
 
 Finally, **$context** is used to accomplish REST's purpose, displaying the data on our browser as JSON
 
@@ -265,7 +246,7 @@ $context->httpResponse()
 
 ###### What it does :
 
-**params** defines the properties of our class **Task** (title, content, deadline, user_id). Some of them are declared with a **required** field, which is useful if we want to override the default "is optional" behavior of a parameter.
+**params** defines the properties of our class **Task** (title, content, deadline, user_id). Some of them are declared with a **required** field which will make them mandatory (or not if "false", which is the default behavior)
 
 **$user** is used to retrieve the ID of a single user, based on the field **user_id**
 
@@ -279,7 +260,7 @@ Finally, we use **$context** to send it and get a REST response
 
 ```markdown
 DO : CREATE
-http://equal-framework/index.php?do=todolist_task_create&title=my task&content=lorem ipsum&user_id=1
+http://equal-framework/index.php?do=todolist_task_create&title=my+task&content=lorem+ipsum&user_id=1
 ```
 
 Equal-framework does the work of reading ```?do=todolist_task_create``` as ```/todolist/actions/task/create.php```
@@ -290,7 +271,7 @@ After CREATE, let's implement PUT and DELETE.
 
 We'll do that with no further explanation as you should now be familiar with how it works
 
-##### /actions/task/change.php
+##### /actions/task/update.php
 
 ```php
 <?php 
@@ -348,11 +329,15 @@ $context->httpResponse()
         ->send();
 ```
 
-How to call it :
+In practice :
 
 ```
 DO : PUT/PATCH
-http://equal-framework/index.php?do=todolist_task_change&title=...&...
+http://equal-framework/index.php?do=todolist_task_update&id=1
+
+id= refers to the task we update
+Additionnal parameters can be used, like title, content, dealine* and user_id
+*deadline is of "datetime" type and requires an ISO format to be understood by the server
 ```
 
 
@@ -374,9 +359,9 @@ list($params, $providers) = announce([
     'response'      => [
         'content-type'  => 'application/json',
         'charset'       => 'utf-8',
-        'accept-origin' => ['http://localhost:4200', '*']     
+        'accept-origin' => ['http://localhost:4200', '*']
     ],
-    'providers'     => ['context'] 
+    'providers'     => ['context']
 ]);
 
 list($context) = [$providers['context']];
@@ -388,18 +373,20 @@ $context->httpResponse()
         ->send();
 ```
 
-To call it :
+In practice :
 
 ```
 DO : DELETE
-http://equal-framework/index.php?do=todolist_task_delete&id=...
+http://equal-framework/index.php?do=todolist_task_delete&id=1
+
+id= refers to the task we delete
 ```
 
 
 
 ## Finalizing the REST API
 
-Go back to the root of equal-framework, and open this file: **/config/routing/api_default.json**
+Back to the root of equal-framework, open this file: **/config/routing/api_default.json**
 
 Replace everything with this :
 
@@ -411,14 +398,16 @@ Replace everything with this :
             "operation": "?get=todolist_tasks"
         }
     },
-    "/task/:id" : {
+    "/task": {	
         "POST": {
-            "description": "create a new task",
+            "description": "get all tasks",
             "operation": "?do=todolist_task_create"
-        },
+        }
+    },
+    "/task/:id" : {
         "PUT": {
             "description": "update a task",
-            "operation": "?do=todolist_task_change"
+            "operation": "?do=todolist_task_update"
         },
         "DELETE": {
             "description": "delete a task",
@@ -431,6 +420,3 @@ Replace everything with this :
 What it does is pretty self-explanatory. The **/:id** is a way for us to target and retrieve a single task when needed.
 
 Now adding ``` /tasks``` to our API url does exactly the same as ``` ?get=todolist_tasks```
-
-
-

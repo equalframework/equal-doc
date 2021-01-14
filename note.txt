@@ -1,3 +1,0 @@
-Ce doc est structuré de manière à commencer par Getting Started > Installation
-Pour ensuite laisser le lecteur suivre un ordre chronologique: Installation -> Configuration -> Directory Structure -> Quick Start -> Howtos
-Une fois à Howtos il n'y a plus de suggestions
