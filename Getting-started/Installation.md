@@ -21,8 +21,7 @@ You will need the following installed on your computer :
 - Unzip into your localhost repository
 - Create a new virtual host using *.../equal-framework/public/* as the root path
 
-If done correctly you should now see something like this on your browser:
-<img src="https://imgur.com/a/PGopNKX" alt="eQual-workbench" style="zoom: 50%;" />
+If done correctly you should now see the eQual workench (where you can see and manipulate your package classes)
 
 
 
