@@ -89,4 +89,4 @@ We also need to do the opposite in *User.class.php* :
 
 ### More learning ressources
 
-See [*Howtos*](../Howtos/) and [*Basics*](../Basics/)
+See [*Basics*](../Basics/Directory-structure.md) and [*Howtos*](../Howtos/Short-howtos.md)
