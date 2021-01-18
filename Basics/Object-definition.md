@@ -95,7 +95,7 @@ Complex fields include **many2one**, **one2many**, **many2many**, **related**, *
 
 #### many2one
 
-N-1 relation, generating an integer to identify the associated one2many object
+N-1 relation, generating an integer to identify the related one2many object
 
 ```php
 // todolist\Class
@@ -107,7 +107,7 @@ N-1 relation, generating an integer to identify the associated one2many object
 
 #### one2many
 
-1-N relation, associated with a many2one object
+1-N relation, related to a many2one object
 
 ```php
 // todolist\User
