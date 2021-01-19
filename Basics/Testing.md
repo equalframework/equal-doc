@@ -6,7 +6,7 @@ The testing folder should be located at the root of each package, under the name
 
 In this folder you have to create a new file named **default.php**
 
-Here is minimalist template for test-writing :
+Here is a minimal template for test-writing :
 
 ```php
 // \tests\default.php
