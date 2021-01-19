@@ -44,15 +44,15 @@ public function test() {
 }
 ```
 
-What it does :
+It tells $status = 'ok' as default, and stores the 'test' function results in $result
 
-- Tells $status = 'ok' as default, and stores the 'test' function results in $result
-- Inside the **if** logic :
-  - Checking if both $result and 'return' are stored in array
-  - Checking if the 'expected' field has been set
-  - Comparing the type of $result with 'return'
-  - If $result is an array, calls the array_equals() method to verify if $result and 'expected' are identical
-  - If it's not an array, use a simpler method to verify if $result and 'expected' are identical
+Inside the **if** logic :
+
+- Checking if both $result and 'return' are stored in array
+- Checking if the 'expected' field has been set
+- Comparing the type of $result with 'return'
+- If $result is an array, calls the array_equals() method to verify if $result and 'expected' are identical
+- If it's not an array, use a simpler method to verify if $result and 'expected' are identical
 
 
 
