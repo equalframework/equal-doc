@@ -12,6 +12,8 @@
 
 ### 	[Object definition](Basics/Object-definition.md)
 
+### 	[Testing](Basics/Testing.md)
+
 ## Howtos
 
 ### 	[Short howtos](Howtos/Short-howtos.md)

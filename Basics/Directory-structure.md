@@ -2,7 +2,7 @@
 
 To understand the framework, here is what you need to know about its folders
 
-/**!**\	This part is currently non-exhaustive	/**!**\
+note: This page is currently non-exhaustive !
 
 
 
