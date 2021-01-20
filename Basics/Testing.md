@@ -27,15 +27,15 @@ $tests = [
     ],
     // working example
     '0002' => [
-        'description'   =>  'retrieving test_value',
-        'return'        =>  ['string'], 	
+        'description'   =>  'checking test_value',
+        'return'        =>  ['string'], 
         'expected'      =>  "test",
         'test'          =>  function(){
             					$test_value = "test"
             					return $test_value;
                             }
     ],
-	// ...
+	// ... add as many as you want!
 ]
 ```
 
@@ -52,7 +52,9 @@ They have to fit between 'expected' and 'test' in order to work
 
 The type of value expected in **'return'** must be in array (ex: ['integer'], ['boolean'], ['array'] ... )
 
-When the 'test' function returns a value, it's going through some logic that tells us whether it's "ok" or "ko"
+The **'expected'** field can be anything but **null**
+
+In the **'test'** part you can do pretty much any logic you want, but you have to **return** something in the end. When this 'test' function returns a value, it's going through some logic that tells us whether it's "ok" or "ko"
 
 To understand that we can look at the source code of **Tester.class.php** :
 
@@ -62,16 +64,16 @@ public function test() {
     $result = $test['test']();
     $status = 'ok';
     
-    if(in_array(gettype($result), $test['return'])) {							// (1)
-        if(isset($test['expected'])) {											// (2)
-            if(gettype($result) == gettype($test['expected'])) {				// (3)
-                if(gettype($result) == "array") {								// (4)
-                    if(!self::array_equals($result, $test['expected'])) {		// (5)
+    if(in_array(gettype($result), $test['return'])) {						// (1)
+        if(isset($test['expected'])) {										// (2)
+            if(gettype($result) == gettype($test['expected'])) {			// (3)
+                if(gettype($result) == "array") {							// (4)
+                    if(!self::array_equals($result, $test['expected'])) {	// (5)
                         $status= 'ko';
                     }
                 }
                 else {
-                    if($result != $test['expected']) {							// (6)
+                    if($result != $test['expected']) {						// (6)
                         $status = 'ko';
                     }
                 }
@@ -92,11 +94,15 @@ It tells $status = 'ok' as default, and stores the 'test' function results in $r
 
 Inside the **if** logic :
 
-- (1) Checking if both $result and 'return' are stored in array
-- (2) Checking if the 'expected' field has been set
-- (3) Comparing the type of $result with 'return'
-- (4) If $result is an array, (5) calls the array_equals() method to verify if $result and 'expected' are identical
-- (6) If it's not an array, use a simpler method to verify if $result and 'expected' are identical
+**(1)** Checking if both $result and 'return' are stored in array
+
+**(2)** Checking if the 'expected' field has been set
+
+**(3)** Comparing the type of $result with 'return'
+
+**(4)** If $result is an array, **(5)** calls the array_equals() method to verify if $result and 'expected' are identical
+
+**(6)** If it's not an array, use a simpler method to verify if $result and 'expected' are identical
 
 
 
@@ -110,4 +116,4 @@ php run.php --do=test_package --package=myapp
 
 Each test you wrote will result as "ok" or "ko" depending on the expected results
 
-But, if you can't see anything, it means you've made an error somewhere in your code. Tip: use **/console.php** in your browser for potential insights
+But, if you can't see anything it means you've made an error somewhere in your code. Tip: use **/console.php** in your browser for potential insights
