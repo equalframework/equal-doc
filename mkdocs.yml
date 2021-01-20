@@ -1,0 +1,76 @@
+site_name: eQual framework documentation
+site_url: https://equal.yb.run/
+docs_dir: docs
+# dev_addr: 127.0.0.1:8000
+repo_name: equal-framework
+repo_url: https://github.com/cedricfrancoys/equal-framework
+edit_uri: ""
+theme:
+  name: material
+  feature:
+    tabs: true
+  # 404 page
+  static_templates:
+    - 404.html
+extra_css:
+  - 'assets/css/extra.css'
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+nav:                                                   
+  - 'Welcome':                                  
+      - 'Prologue': 'index.md'                  
+      - 'Release notes': ''                              
+      - 'Contribution Guide': ''                       
+  - 'Getting Started':                                     
+      - 'Installation': 'Getting-started/Installation.md'
+      - 'Quick Start': 'Getting-started/Quick-Start.md'  
+      - 'Configuration': 'Getting-started/Configuration.md'
+      - 'Deployment': ''                                   
+  - 'Architecture Concepts':                               
+      - 'HTTP native': ''                                  
+      - 'Services': ''                                     
+      - 'Dependency injection': ''                           
+      - 'ORM': ''                                          
+  - 'Usage':                                               
+     - 'Directory Structure': 'Basics/Directory-structure.md'
+     - 'Model Definition': 'Basics/Model-defintion.md'       
+     - 'Controllers': ''                                     
+     - 'CRUD': ''                                            
+     - 'Searching': ''                                       
+     - 'Validation': ''                                      
+     - 'Routing': ''                                         
+     - 'Views': ''                                           
+     - 'i18n': ''                                            
+     - 'Error Handling': ''                                  
+     - 'Debugging': ''                                       
+     - 'Testing': 'Basics/Testing.md'                        
+  - 'How-Tos & Examples':                                    
+      - 'Generic Cheat Sheet': 'Howtos/Short-howtos.md'      
+      - 'Basic Controller' : ''                              
+      - 'ReST API': 'Howtos/REST-API.md'                     
+  - 'Advanced':                                              
+     - 'Security': ''                                        
+     - 'Logging': ''                                         
+     - 'Remote APIs': ''                                     
+     - 'Cascade Configuration': ''                           
+  - 'Contact & Support':                                     
+     - 'Contact': 'contact.md'                               
+     - 'Support': ''  
