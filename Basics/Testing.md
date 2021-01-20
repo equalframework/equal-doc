@@ -52,11 +52,11 @@ They have to fit between 'expected' and 'test' in order to work
 
 The type of value expected in **'return'** must be in array (ex: ['integer'], ['boolean'], ['array'] ... )
 
-The **'expected'** field can be anything but **null**
+The **'expected'** field value can be anything **but null**
 
 In the **'test'** part you can do pretty much any logic you want, but you have to **return** something in the end. When this 'test' function returns a value, it's going through the built-in function test() to tell us whether it's "ok" or "ko"
 
-Let's have a look at **Tester.class.php** to understand how the testing work :
+Let's have a look at **Tester.class.php** to understand how the testing works :
 
 ```php
 public function test() {
