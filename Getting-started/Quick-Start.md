@@ -1,44 +1,30 @@
 # Quick Start
-In this section we'll cover the first steps to manage your web application or API
+This section covers the first steps to manage your web application or API
 
 
 
-## 0. eQual setup
-See *Installation*
 
-## 1. Creating a package
 
-In **public/packages/**, create a **new folder** (we'll name it "myapp")
-In myapp, create a bunch of new folders named **apps**, **classes**, and **views**
+## 1. Create your package
+
+In **public/packages/**, create a **new folder**. For this example, we'll name it *"myapp"*.
+In `myapp`, create a bunch of new folders named `classes` and `data`
 Your directory should look like this :
-  ..
-  /packages
+
+```
+/packages
     /myapp
-      /apps
-      /classes
-      /views
-
-
-
-## 2. Changing default entry point
-In **public/config/**, open *config.inc.php* (or *default.inc.php*, unrecommended) and adapt this :
-```php
-define('default_package', 'myapp');	// replace 'myapp' with your package's name
+        /classes
+        /data
 ```
-In **public/packages/myapp/**, create a *config.inc.php* file and write this :
-```php
-<?php
-namespace config;
-
-define('DEFAULT_APP', 'landing');	// it refers to packages/myapp/apps/landing.php
-```
-And you're done, eQual will now display your webapp's landing.php as default landing page
 
 
 
-## 3. Defining classes
 
-In **public/packages/myapp/classes/**, you can add a new **.class.php** file for each class you want to use. 
+
+## 2. Define custom classes
+
+In `public/packages/myapp/classes/`, you can add a new **.class.php** file for each class you want to use. 
 In this example, we define the class **Task** for a todo-list app :
 
 *../packages/newpackage/classes/Task.class.php*
@@ -84,6 +70,28 @@ We also need to do the opposite in *User.class.php* :
 ```
 
 
+## 3. Change default entry point
+
+In **public/config/**, open *config.inc.php* (or *default.inc.php*, unrecommended) and adapt this :
+
+```php
+define('default_package', 'myapp');	// replace 'myapp' with your package's name
+```
+
+In **public/packages/myapp/**, create a *config.inc.php* file and write this :
+
+```php
+<?php
+namespace config;
+
+define('DEFAULT_APP', 'landing');	// it refers to packages/myapp/apps/landing.php
+```
+
+And you're done, eQual will now display your webapp's landing.php as default landing page
+
+
+
+## 
 
 
 
