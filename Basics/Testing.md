@@ -54,7 +54,7 @@ The type of value expected in **'return'** must be in array (ex: ['integer'], ['
 
 The **'expected'** field can be anything but **null**
 
-In the **'test'** part you can do pretty much any logic you want, but you have to **return** something in the end. When this 'test' function returns a value, it's going through some logic that tells us whether it's "ok" or "ko"
+In the **'test'** part you can do pretty much any logic you want, but you have to **return** something in the end. When this 'test' function returns a value, it's going through the built-in function test() to tell us whether it's "ok" or "ko"
 
 To understand that we can look at the source code of **Tester.class.php** :
 
