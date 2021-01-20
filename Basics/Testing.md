@@ -54,7 +54,7 @@ The type of value expected in **'return'** must be in array (ex: ['integer'], ['
 
 The **'expected'** field value can be anything **but null**
 
-In the **'test'** part you can do pretty much any logic you want, but you have to **return** something in the end. When this 'test' function returns a value, it's going through the built-in function test() to tell us whether it's "ok" or "ko"
+The **'test'** field is where the logic is written, it has to end with a **return**. This returned value will go through the built-in function test() which tells us whether it's "ok" or "ko"
 
 Let's have a look at **Tester.class.php** to understand how the testing works :
 
@@ -114,6 +114,6 @@ Open your CLI at the root of eQual (where run.php is), then launch this :
 php run.php --do=test_package --package=myapp
 ```
 
-Each test you wrote will result as "ok" or "ko" depending on the expected results
+It should give you a log of each test you wrote resulting as "ok" or "ko", depending on the expected results
 
-But, if you can't see anything it means you've made an error somewhere in your code. Tip: use **/console.php** in your browser for potential insights
+If you can't see anything it means there is an error somewhere in your code. Tip: use **/console.php** in your browser for potential insights
