@@ -56,7 +56,7 @@ The **'expected'** field can be anything but **null**
 
 In the **'test'** part you can do pretty much any logic you want, but you have to **return** something in the end. When this 'test' function returns a value, it's going through the built-in function test() to tell us whether it's "ok" or "ko"
 
-To understand that we can look at the source code of **Tester.class.php** :
+To understand that we can look at the source code in **Tester.class.php** :
 
 ```php
 public function test() {
@@ -94,15 +94,15 @@ It tells $status = 'ok' as default, and stores the 'test' function results in $r
 
 Inside the **if** logic :
 
-**(1)** Checking if both $result and 'return' are stored in array
+- **(1)** Checking if both $result and 'return' are stored in array
 
-**(2)** Checking if the 'expected' field has been set
+- **(2)** Checking if the 'expected' field has been set
 
-**(3)** Comparing the type of $result with 'return'
+- **(3)** Comparing the type of $result with 'return'
 
-**(4)** If $result is an array, **(5)** calls the array_equals() method to verify if $result and 'expected' are identical
+- **(4)** If $result is an array, **(5)** calls the array_equals() method to verify if $result and 'expected' are identical
 
-**(6)** If it's not an array, use a simpler method to verify if $result and 'expected' are identical
+- **(6)** If it's not an array, use a simpler method to verify if $result and 'expected' are identical
 
 
 
