@@ -56,7 +56,7 @@ The **'expected'** field can be anything but **null**
 
 In the **'test'** part you can do pretty much any logic you want, but you have to **return** something in the end. When this 'test' function returns a value, it's going through the built-in function test() to tell us whether it's "ok" or "ko"
 
-To understand that we can look at the source code in **Tester.class.php** :
+Let's have a look at **Tester.class.php** to understand how the testing work :
 
 ```php
 public function test() {
