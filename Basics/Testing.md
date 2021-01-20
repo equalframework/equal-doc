@@ -4,7 +4,7 @@
 
 The testing folder should be located at the root of each package, under the name **/tests**
 
-In this folder you have to create a new file named **default.php**
+In this folder a file named **default.php** is required
 
 Here is a minimal template for test-writing :
 
@@ -114,6 +114,6 @@ Open your CLI at the root of eQual (where run.php is), then launch this :
 php run.php --do=test_package --package=myapp
 ```
 
-It should give you a log of each test you wrote resulting as "ok" or "ko", depending on the expected results
+It should log an overview of each test you wrote, resulting as "ok" or "ko" depending on the expected results
 
 If you can't see anything it means there is an error somewhere in your code. Tip: use **/console.php** in your browser for potential insights
