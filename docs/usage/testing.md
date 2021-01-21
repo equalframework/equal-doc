@@ -1,15 +1,39 @@
 # Testing
 
+Before anything, please check your package consistency :
+
+```bash
+php run.php --do=test_package-consistency --package=mypackage
+```
+
+It will tell you if you have available tests. If it's not the case, scroll down to "**Writing the tests**"
+
+
+
+## Running the tests
+
+Open your CLI at the root of eQual (where run.php is), then launch this :
+
+```bash
+php run.php --do=test_package --package=mypackage
+```
+
+It should log an overview of each test you wrote, resulting as "ok" or "ko" depending on the expected results
+
+If you can't see anything it means there is an error somewhere in your code. Tip: use **/console.php** in your browser for potential insights
+
+
+
 ## Writing the tests
 
 The testing folder should be located at the root of each package, under the name **/tests**
 
-In this folder a file named **default.php** is required
+In this folder add a file **mytests.php** (or whatever name you want)
 
 Here is a minimal template for test-writing :
 
 ```php
-// \tests\default.php
+// \tests\mytests.php
 <?php
 use qinoa\http\HttpRequest;
 use myapp\Myobject
@@ -41,14 +65,14 @@ $tests = [
 
 There is 2 additional parameters you can use in case you need to run some specific function before and after a test :
 
-- **'arrange' =>** is used before the test
-- **'rollback' =>** is used after the test
+- **'arrange' => function(){  }**    (used before the test)
+- **'rollback' => function(){  }**    (used after the test)
 
 They have to fit between 'expected' and 'test' in order to work
 
 
 
-## Syntax must-know
+## Syntax details
 
 The type of value expected in **'return'** must be in array (ex: ['integer'], ['boolean'], ['array'] ... )
 
@@ -99,26 +123,16 @@ public function test() {
 
 Store the 'test' function results in $result, and tell $status = 'ok' by default
 
-Inside the **if** logic :
+Cascading logic :
 
-- **(1)** Check if both $result and 'return' are stored in array
-- **(2)** Check if the 'expected' field has been set. If it's not, **(3)** Check if there is an 'assert' field instead
-- **(4)** Compare the type of $result with 'return'
-- **(5)** If $result is of type "array", **(6)** Call the array_equals() method to verify if $result and 'expected' are identical. If it's not, **(7)** Use a simpler logic to do the verification
+- **(1)** If $result and 'return' value are respectively inside an array (if 'return' isn't, do so automatically)
+- **(2)** If the 'expected' field has been set. If not, **(3)** Check if there is an 'assert' field available
+- **(4)** If the type of $result is the same as 'return'
+- **(5)** If $result is of type "array", **(6)** Call the array_equals() method to verify if $result and 'expected' are identical. If not, **(7)** Use a simpler logic to do the verification
 
 '$success = false' is the equivalent of '$status = ko'
 
 
 
-## Running the tests
 
-Open your CLI at the root of eQual (where run.php is), then launch this :
-
-```bash
-php run.php --do=test_package --package=myapp
-```
-
-It should log an overview of each test you wrote, resulting as "ok" or "ko" depending on the expected results
-
-If you can't see anything it means there is an error somewhere in your code. Tip: use **/console.php** in your browser for potential insights
 
