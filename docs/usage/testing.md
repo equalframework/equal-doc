@@ -59,8 +59,10 @@ The **'test'** field is where the logic is written, it has to end with a **retur
 Let's have a look at **Tester.class.php** to understand how the testing works :
 
 ```php
+<?php
+// [...]
 public function test() {
-// ...
+// [...]
     $result = $test['test']();
     $status = 'ok';
     
