@@ -35,7 +35,7 @@ $tests = [
             					return $test_value;
                             }
     ],
-	// ... add as many as you want!
+	// [...] add as many as you want!
 ]
 ```
 
@@ -60,51 +60,53 @@ Let's have a look at **Tester.class.php** to understand how the testing works :
 
 ```php
 <?php
-// [...]
+
 public function test() {
 // [...]
     $result = $test['test']();
     $status = 'ok';
     
-    if(in_array(gettype($result), $test['return'])) {						// (1)
-        if(isset($test['expected'])) {										// (2)
-            if(gettype($result) == gettype($test['expected'])) {			// (3)
-                if(gettype($result) == "array") {							// (4)
-                    if(!self::array_equals($result, $test['expected'])) {	// (5)
-                        $status= 'ko';
-                    }
-                }
-                else {
-                    if($result != $test['expected']) {						// (6)
-                        $status = 'ko';
-                    }
-                }
+    if(in_array(gettype($result), (array) $test['return'])) {				// (1)
+      if(isset($test['expected'])) {										// (2)
+        if(gettype($result) == gettype($test['expected'])) {				// (4)
+          if(gettype($result) == "array") {									// (5)
+            if(!self::array_equals($result, $test['expected'])) {			// (6)
+              $success = false;
             }
-            else {
-                $status = 'ko';
+          }
+          else {
+            if($result != $test['expected']) {								// (7)
+              $success = false;
             }
+          }
         }
+        else {
+          $success = false;
+        }
+      }
+      else if(isset($test['assert']) && is_callable($test['assert'])) {		// (3)
+        $success = $test['assert']($result);
+      }
     }
     else {
-        $status = 'ko';
+      $success = false;
     }
-// ...
+// [...]
 }
 ```
 
-It tells $status = 'ok' as default, and stores the 'test' function results in $result
+**What it does :**
+
+Store the 'test' function results in $result, and tell $status = 'ok' by default
 
 Inside the **if** logic :
 
-- **(1)** Checking if both $result and 'return' are stored in array
+- **(1)** Check if both $result and 'return' are stored in array
+- **(2)** Check if the 'expected' field has been set. If it's not, **(3)** Check if there is an 'assert' field instead
+- **(4)** Compare the type of $result with 'return'
+- **(5)** If $result is of type "array", **(6)** Call the array_equals() method to verify if $result and 'expected' are identical. If it's not, **(7)** Use a simpler logic to do the verification
 
-- **(2)** Checking if the 'expected' field has been set
-
-- **(3)** Comparing the type of $result with 'return'
-
-- **(4)** If $result is an array, **(5)** calls the array_equals() method to verify if $result and 'expected' are identical
-
-- **(6)** If it's not an array, use a simpler method to verify if $result and 'expected' are identical
+'$success = false' is the equivalent of '$status = ko'
 
 
 
