@@ -1,21 +1,32 @@
-## Getting started
+# Installation
 
-### 	[Installation](Getting-started/Installation.md)
+eQual is an accessible and multi-language web ORM, aiming to simplify the interactions between apps and data-servers
 
-### 	[Configuration](Getting-started/Configuration.md)
 
-### 	[Quick start](Getting-started/Quick-Start.md)
 
-## Basics
+## Requirements
 
-### 	[Directory structure](Basics/Directory-structure.md)
+You will need the following installed on your computer :
 
-### 	[Object definition](Basics/Object-definition.md)
+- **PHP 7.3+** (default config with MySQL support)
+- **Apache 2.4+** (default config with PHP support)
+- **MySQL 5.7+**
 
-### 	[Testing](Basics/Testing.md)
+[Install](https://www.wampserver.com/en/) **WAMP Server 3.2+** for a ready-to-use database and localhost service
 
-## Howtos
 
-### 	[Short howtos](Howtos/Short-howtos.md)
 
-### 	[Create a REST API](Howtos/REST-API.md)
+## Get eQual
+
+- https://github.com/cedricfrancoys/equal-framework > Download code as ZIP, or clone with Git
+- Unzip into your localhost repository
+- Create a new virtual host using *.../equal-framework/public/* as the root path
+
+If done correctly you should now see the eQual workench (where you can see and manipulate your package classes)
+
+
+
+### What next?
+
+See [*Configuration*](getting-started/configuration.md)
+

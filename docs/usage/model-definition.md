@@ -1,6 +1,6 @@
 # Object definition
 
-Every class of object is defined by the **.class.php** file type, and is located in the **/classes** file of your project (see [Directory Structure](Directory-structure.md))
+Every class of object is defined by the **.class.php** file type, and is located in the **/classes** file of your project (see [Directory Structure](directory-structure.md))
 
 See this example for class definition syntax :
 

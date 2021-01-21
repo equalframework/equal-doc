@@ -39,12 +39,3 @@ mypackage/
 ## run.php
 
 ​	Defines the DO, GET and SHOW behaviors for our queries, either by CLI, HTTP or PHP
-
-
-
-
-
-## What next?
-
-See [*Quick Start*](Quick-Start.md)
-

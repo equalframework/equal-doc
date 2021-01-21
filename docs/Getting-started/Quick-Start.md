@@ -1,4 +1,5 @@
 # Quick Start
+
 This section covers the first steps to manage your web application or API
 
 
@@ -97,4 +98,4 @@ And you're done, eQual will now display your webapp's landing.php as default lan
 
 ### More learning ressources
 
-See [*Basics*](../Basics/Directory-structure.md) and [*Howtos*](../Howtos/Short-howtos.md)
+See [*Usage*](../usage/directory-structure.md) and [*Howtos*](../howtos-and-examples/generic-cheat-sheet.md)

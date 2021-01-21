@@ -5,6 +5,7 @@
 ## Database setup example
 
 ##### WAMP server
+
 ​	Open PHPMyAdmin as root user,
 
 ​	Create a database named **equal**,
@@ -14,7 +15,9 @@
 
 
 ##### equal-framework/config
+
 ​	Open *default.inc.php* and update the following values :
+
 ```php
 define('DB_DBMS', 'MYSQL'); 
 define('DB_HOST', '127.0.0.1'); 
@@ -33,4 +36,4 @@ What you want to do instead is open *config-example.inc.php* and follow the give
 
 ### What next?
 
-See [*Quick Start*](Quick-Start.md)
+See [*Quick Start*](quick-start.md)

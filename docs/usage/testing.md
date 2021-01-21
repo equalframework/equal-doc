@@ -117,3 +117,4 @@ php run.php --do=test_package --package=myapp
 It should log an overview of each test you wrote, resulting as "ok" or "ko" depending on the expected results
 
 If you can't see anything it means there is an error somewhere in your code. Tip: use **/console.php** in your browser for potential insights
+

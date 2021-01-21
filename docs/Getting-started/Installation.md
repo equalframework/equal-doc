@@ -7,6 +7,7 @@ eQual is an accessible and multi-language web ORM, aiming to simplify the intera
 ## Requirements
 
 You will need the following installed on your computer :
+
 - **PHP 7.3+** (default config with MySQL support)
 - **Apache 2.4+** (default config with PHP support)
 - **MySQL 5.7+**
@@ -27,4 +28,4 @@ If done correctly you should now see the eQual workench (where you can see and m
 
 ### What next?
 
-See [*Configuration*](Configuration.md)
+See [*Configuration*](configuration.md)
