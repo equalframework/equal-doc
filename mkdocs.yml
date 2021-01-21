@@ -43,7 +43,7 @@ nav:
       - 'Installation': 'getting-started/installation.md'
       - 'Quick Start': 'getting-started/quick-start.md'  
       - 'Configuration': 'getting-started/configuration.md'
-      - 'Deployment': ''                                   
+      - 'Deployment': 'getting-started/deployment.md'                                   
   - 'Architecture Concepts':                               
       - 'HTTP native': 'architecture-concepts/http-native.md'                                  
       - 'Services': 'architecture-concepts/services.md'                                     
@@ -60,7 +60,7 @@ nav:
      - 'Views': 'usage/views.md'                                           
      - 'i18n': 'usage/i18n.md'                                            
      - 'Error Handling': 'usage/error-handling.md'                                  
-     - 'Debugging': 'usage/debbugging.md'                                       
+     - 'Debugging': 'usage/debugging.md'                                       
      - 'Testing': 'usage/testing.md'                        
   - 'How-Tos & Examples':                                    
       - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'      
