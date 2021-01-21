@@ -6,7 +6,7 @@ Before anything, please check your package consistency :
 php run.php --do=test_package-consistency --package=mypackage
 ```
 
-It will tell you if you have available tests. If it's not the case, scroll down to "**Writing the tests**"
+It will tell you if you have available tests. If it's not the case, see [**Writing the tests**](#writing-the-tests)
 
 
 
