@@ -1,5 +1,28 @@
 # Quick Start
 
+
+
+You've just installed eQual ... and now what ?
+
+If you haven't done it yet, the first thing to do is to ensure that your installation has completed successfully.
+
+You can test your installation by calling the //core_setup// application. For instance, [[http://localhost/easyobject/index.php?show=setup]]
+
+(If you are getting confused, see eQual URL mechanism) 
+
+
+Applications included in the core package are : 
+  * //core_setup//
+  * //core_utils//
+  * //core_manage//
+  * //core_validate//
+
+You may install a package from the ones available on this website.
+
+
+
+
+
 This section covers the first steps to manage a backend service or API, using eQual
 
 

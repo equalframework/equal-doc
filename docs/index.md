@@ -1,32 +1,197 @@
-# Installation
+# eQual Framework
 
-eQual is an accessible and multi-language web ORM, aiming to simplify the interactions between apps and data-servers
-
-
-
-## Requirements
-
-You will need the following installed on your computer :
-
-- **PHP 7.3+** (default config with MySQL support)
-- **Apache 2.4+** (default config with PHP support)
-- **MySQL 5.7+**
-
-[Install](https://www.wampserver.com/en/) **WAMP Server 3.2+** for a ready-to-use database and localhost service
+eQual is a versatile, language-agnostic, and web-oriented framework, aiming to elegantly manage interactions between front-end Apps and Business Logic involved in modern Web Applications.
 
 
 
-## Get eQual
+**Rock Solid Security**
+	Secure every API endpoint with User Management, Role-Based Access Controls, SSO Authentication, JWT, CORS, and OAuth.
 
-- https://github.com/cedricfrancoys/equal-framework > Download code as ZIP, or clone with Git
-- Unzip into your localhost repository
-- Create a new virtual host using *.../equal-framework/public/* as the root path
+**Server-Side Scripting**
+	Implement custom logic on the request or response of any API endpoint or quickly build your own custom APIs with JavaScript V8, Node.js, or PHP.
 
-If done correctly you should now see the eQual workench (where you can see and manipulate your package classes)
+**Instant APIs Without Code**
+	Automatically generate a complete set of REST APIs with live documentation for any SQL or NoSQL database, file storage system, or external service.
 
 
 
-### What next?
+```php
+<?php
+// Tired of steep learning curves?
+echo "This is a valid Contoller!"
+```
 
-See [*Configuration*](getting-started/configuration.md)
+
+
+## Why eQual
+
+A lot of framework require a long time to master and, while learning, you find yourself struggling to achieve event the most simple things.
+
+
+
+eQual has been designed to oppose as little constraints as possible to developers. While is a fully featured framework that has all you need to do almost anything, taking advantage of all the native features, only some of them or even none is entirely up to you.
+
+
+
+Since you're reading this, you already know everything to start using it.
+
+So, use it your way.
+
+
+
+> Personally what I value the most in eQual is its high level of re-usability and its way of defining controllers by announcing what they do and what they expect, which relieves me from documenting boredom.
+
+*Cédric Françoys*
+
+
+
+
+## Sneak peek ?
+
+
+`/public/packages/demo/data/simple.php`:
+
+```php
+<?php
+/**
+ * Zero learning-curve development
+ *
+ */
+echo 'This is a valid HTTP controller';
+
+```
+
+`/public/packages/demo/data/reuse.php`:
+```php
+<?php
+use config\QNLib;
+/**
+ * Code re-usability
+ *
+ */
+echo eQual::run('get', 'demo_simple');
+
+```
+Using HTTP request
+
+`wget http://localhost/index.php?get=demo_simple`
+
+> Response:
+> Header excerpt:
+> Status Code: 200 OK
+> Content-Length: 26
+> Content-Type: text/html; charset=UTF-8
+> Body:
+> This is a valid controller!
+
+Using CLI:
+```
+$> php run.php --get=demo_simple
+This is a valid controller!
+````
+
+
+
+`/public/packages/demo/data/reuse.php`:
+
+```php
+<?php
+use config\QNLib as QN;
+use qinoa\http\HttpRequest;
+
+/**
+ * HTTP native support
+ *
+ */
+list($params, $providers) = QN::announce([
+    'description'   => 'Get picture data from imgur API',
+    'params'        => [
+        'id' => [
+            'description'   => 'Hash of the image to retrieve',
+            'type'          => 'string',
+            'required'      => true
+        ]
+    ],
+    'response'      => [
+        'content-type'  => 'application/json',
+        'charset'       => 'utf-8'
+    ],
+    'providers'     => ['context']
+]);
+
+$request = new httpRequest("GET https://api.imgur.com/3/image/{$params['id']}");
+
+$response = $request
+            ->header('Authorization', "Client-ID 34030ab1f5ef12d")
+            ->send();
+            
+$providers['context']
+    ->httpResponse()
+    ->body(['result' => $response->body()])
+    ->send();
+```
+
+
+
+## In short
+
+eQual uses only **3** kinds of **operations** 
+
+1.  **'do'** something (Action handlers)
+2.  **'get'** something (Data providers)
+3.  **'show'** something (App providers)
+
+**5 methods**
+
+1. Create 
+2. Read
+3. Update
+4. Delete
+5. Search
+
+and **a few native features** : 
+
+* I/O as HTTP messages 
+* Configuration Cascade 
+* Dependency injection
+* Services overload
+* ORM & Collections support
+* Data Adapter
+* Authentication Management
+* Access Control
+* Unit testing
+* Logging
+* Debugging console
+
+
+
+
+
+This framework is made for those who:
+* don't want to always re-invent the wheel (but might occasionally enjoy it)
+* dislike learning whole frameworks over and over again
+* don't want to deal with dozens of files to achieve simple things
+
+
+In most cases, you don't need everything a framework offers.
+
+You might be interested in a few features but in order to take advantage of it, you have to comply with the framework specific logic and structure.
+
+
+
+A learning curve that is actually more like learning stairs without having to start from scratch (or, said otherwise, one can use it without knowing it!)
+
+when needed use existing components, or not. (using the ones you already know is encouraged!)
+
+
+
+
+* **client-server oriented**: intended for REST API development and back-end processing
+	HTTP oriented
+	
+* **code reusability**: easy integration of existing controllers results (use controllers as functions)
+  	
+* **code self-documented**: available tools invite to be descriptive about data structure (how it is structured, what is expected, what error
+  	
+* **self-explaining API**
 
