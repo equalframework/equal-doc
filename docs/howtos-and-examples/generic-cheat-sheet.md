@@ -36,19 +36,15 @@ You can grant only one right for one entity at a time
 php run.php --do=group_grant --group=2 --right=read --entity=mypackage\MyObject
 ```
 
-#### Test eQual consistency
+#### Test package consistency
 
-```bash
-php run.php --do=test_package-consistency
-```
-
-#### Test your package consistency
+It works with any package, even "core"
 
 ```bash
 php run.php --do=test_package-consistency --package=mypackage
 ```
 
-#### Initiate eQual's core in DB
+#### Initiate eQual core in DB
 
 (this step is mandatory for every new database)
 

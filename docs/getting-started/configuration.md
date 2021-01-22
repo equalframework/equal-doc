@@ -30,7 +30,7 @@ define('DB_CHARSET', 'UTF8');
 
 Please note that directly editing *default.inc.php* is fine if you only need to configurate your database access, but overall it's bad practice
 
-What you want to do instead is open *config-example.inc.php* and follow the given instructions to properly override default settings
+What you want to do instead is create a *config.inc.php* file, and copy-paste the content of *default.inc.php*. From there you can safely apply custom changes
 
 
 
