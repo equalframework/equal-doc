@@ -128,9 +128,12 @@ For instance, we'll continue with our todolist example and grant the permission 
 php run.php --do=group_grant --group=2 --right=read --entity=mypackage\Task
 ```
 
-**You can only grant one right for one entity at a time**, it means we'll need to repeat this command for every permission we want to give, and for every object
+**You can only grant one right at a time**, it means we'll need to repeat this command for every permission we want to give
 
-The good thing is once it's done you don't ever need to redo it, unless you initiated the core package again in the DB (it wipes its data, including core_permissions)
+If you want to target **all the classes** of a package, you can specify with ``` --entity=mypackage\* ```
+
+
+The good thing is you only have to do it once, unless you initiated the core package again in the DB (it wipes its data, including core_permissions)
 
 ### Debug mode
 
