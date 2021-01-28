@@ -113,7 +113,7 @@ run('do', 'mypackage_myobject_action', [/* parameters */])
 - Delete = model_delete
 
 ```bash
-php run.php --do=model_update --entity=mypackage\MyObject --fields=['id'=>1,'name'=>'example']
+php run.php --do=model_update --entity=mypackage\MyObject --fields=[id]=1 --fields=[name]=example
 ```
 
 
