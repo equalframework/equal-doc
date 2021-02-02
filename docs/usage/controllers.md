@@ -1,0 +1,3 @@
+Controllers are everywhere and refer to every action involving data manipulation. They mainly play the role of data funnels and dispatchers, but they are also required when it comes to security: making sure every input has the permission to continue before it's being processed
+
+Speaking of security, eQual has a built-in "control tower" called AccessController.php (in */lib/qinoa/access/*), granting or not the permission to perform CRUD actions depending on a few parameters. You can also overwrite this controller to your own needs (but carefully), this is particularly useful for future-proof security if you know some parameters will never change
