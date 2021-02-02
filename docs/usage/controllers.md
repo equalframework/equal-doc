@@ -24,14 +24,35 @@ Then, in the **config.inc.php** file of your package (located at /public/package
 register('access', 'myapp\access\AccessController');
 ```
 
-Finally, find the original AccessController.php in /lib/qinoa/access/ and copy paste its content in the new one
+Finally, open you newly created AccessController.class.php and copy paste this :
 
-You're done! From there you can apply your own rules and filters within the functions
+```php
+<?php
+namespace myapp\access; // change 'myapp' with actual name
+use qinoa\organic\Service;
+use qinoa\services\Container;
 
-Some examples:
+class AccessController extends \qinoa\access\AccessController {
+    
+  // rewrite functions here to override their default behavior
+    
+  // here is a non-exhaustive example with filter:
+  filter($operation, $object_class='*', $object_fields=[], $object_ids=[]){
+    $user_id = $this->container->get('auth')->userId();
+    // grant READ rights over 'User' class when an user is authenticated
+    if($object_class == 'myapp\User') {
+      if($operation == QN_R_READ) {
+        if($user_id > 0) {
+          return $object_ids;
+        }    
+      }
+    }
+  }
+    
+}
+```
 
-- isAllowed() is used to grant CRUD permissions
-- filter() is a way to filter only the data an user has the rights for
+You're ready!
 
-
+It might be confusing so don't hesitate to look back at */lib/qinoa/access/AccessController.class.php* for inspiration
 
