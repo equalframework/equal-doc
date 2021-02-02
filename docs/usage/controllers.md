@@ -10,7 +10,7 @@ They mainly play the role of data funnels and dispatchers, but they are also req
 
 Speaking of security, eQual has a built-in "control tower" called AccessController.class.php (in */lib/qinoa/access/*), granting or not the permission to perform CRUD actions depending on a few parameters. This service is called by default.
 
-You can also overwrite AccessController to your own needs (and your own risks), this is particularly useful to establish future-proof settings, aswell as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md/#grant-db-rights)).
+You can also overwrite AccessController to your own needs (and your own risks), this is particularly useful to establish future-proof settings, aswell as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
 
 In the next section we'll see how to proceed
 
