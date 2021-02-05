@@ -1,8 +1,8 @@
-===== 6. Rights management =====
+# Rights management
 
 The 'Permission' class is dedicated to the rights management: for each object class (including the 'Permission' class itself), rights can be assigned to each existing group.
 
-==== Users ====
+## Users 
 Every User object holds a list of groups to which it belongs.\ 
 Note: a user belongs at least to one group (see //DEFAULT_GROUP_ID// in /fc.lib.php).
 
@@ -27,9 +27,7 @@ public static function getColumns() {
 
 
 
-
-
-==== Groups ====
+## Groups
 
 
 Structure is define in the core\Group class (library/classes/objects/core/Group.class.php)
@@ -51,7 +49,7 @@ public static function getColumns() {
 ```
 
 
-==== ACL ====
+## ACL 
 core\Permission (library/classes/objects/core/Permission.class.php)
 ```php
 public static function getColumns() {
@@ -68,7 +66,14 @@ public static function getColumns() {
 ```
 
 
-==== Permission algorithm ====
+
+## Default rights 
+In addition, all users receive the default permissions, defined in the configuration file (see //DEFAULT_RIGHTS// constant in /config.inc.php).
+
+
+
+
+## Permission management
 The field 'rights' of the Permission class is a binary mask (logical OR) of the rights given to the related group. 
 If a user belongs to several groups, the permission set will result in the most permissive combination of the rights from all its groups.
 
@@ -82,5 +87,53 @@ Rights values that can be assigned are defined in the file /fc.lib.php :
 ```
 
 
-==== Default rights ====
-In addition, all users receive the default permissions, defined in the configuration file (see //DEFAULT_RIGHTS// constant in /config.inc.php).
+### AccessController.php
+
+Speaking of security, eQual has a built-in "control tower" called AccessController.class.php (in */lib/qinoa/access/*), granting or not the permission to perform CRUD actions depending on a few parameters. This service is called by default.
+
+You can also overwrite AccessController to your own needs (and your own risks), this is particularly useful to establish future-proof settings, aswell as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
+
+In the next section we'll see how to proceed
+
+### Overriding AccessController
+
+In **/lib**, create a folder by the name of your project, you want a directory exactly like this: **/lib/myapp/access/AccessController.class.php**
+
+Then, in the **config.inc.php** file of your package (located at /public/packages/myapp/config.inc.php), add this line:
+
+```php
+register('access', 'myapp\access\AccessController');
+```
+
+Finally, open you newly created AccessController.class.php and copy paste this :
+
+```php
+<?php
+namespace myapp\access; // change 'myapp' with actual name
+use qinoa\organic\Service;
+use qinoa\services\Container;
+
+class AccessController extends \qinoa\access\AccessController {
+    
+  // rewrite functions here to override their default behavior
+    
+  // here is a non-exhaustive example with filter:
+  filter($operation, $object_class='*', $object_fields=[], $object_ids=[]){
+    $user_id = $this->container->get('auth')->userId();
+    // grant READ rights over 'User' class when an user is authenticated
+    if($object_class == 'myapp\User') {
+      if($operation == QN_R_READ) {
+        if($user_id > 0) {
+          return $object_ids;
+        }    
+      }
+    }
+  }
+    
+}
+```
+
+You're ready!
+
+It might be confusing so don't hesitate to look back at */lib/qinoa/access/AccessController.class.php* for inspiration
+

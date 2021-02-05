@@ -1,4 +1,4 @@
-## Utility and stand-alone scripts
+# Utilities and stand-alone scripts
 
 Some tools are included in the core to ease management and development of new packages.
 
@@ -11,19 +11,60 @@ Those act like some sort of plugins, written in PHP and located in the folder: `
 Here is a complete list of the scripts that come out-of-the-box.
 
 
-### Installation & Config utilities
+## Installation & Config utilities
 
-### Package utilities
 
-\- core validation
-\- package validation: consistency checks between DB and class as well as syntax validation for
+## Package utilities
+
+
+
+### Test package consistency
+
+Consistency checks between DB and class as well as syntax validation for
 classes (PHP), views (HTML) and translation files (json)
 
 
-\- Create a compatible database based on a SQL schema
-\- Generate a PHP class from an existing table
-\- Generate files for default views (list.default.html and form.default.html)
-\- Data import / export
+```bash
+equal.run --do=test_package-consistency --package=mypackage
+```
 
-To consult the list of the plugins and apply them to one or more package, you may use the `core_utils` application (URL example: http://localhost/easyobject/index.php?show=core_utils).
+#### Run package test cases
+
+```bash
+equal.run --do=test_package --package=mypackage
+```
+
+
+### Init a Package
+Creates a compatible database based on a SQL schema.
+
+```bash
+equal.run --do=init_package --package=mypackage
+```
+
+
+
+
+
+## Rights management utilities
+
+
+Should be located at the root of eQual (where *run.php* is)
+
+### Grant DB rights
+
+Available rights: "create", "read", "update", "delete", "manage"
+
+You can grant only one right for one entity at a time
+
+```bash
+equal.run --do=group_grant --group=2 --right=read --entity="mypackage\MyObject"
+```
+
+
+
+
+
+
+
 

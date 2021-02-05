@@ -1,23 +1,21 @@
 # Generic cheat-sheet
 
-This section aims to answer common questions through easy to understand examples
-
-```[eQ]``` is always referring to your absolute root path to eQual
+This section presents common questions along with some relevant examples.
 
 
 
-## eQual functionalities
+## eQual Apps
 
 ### Console
 
 ```
-[eQ]/console.php
+http://[eQ]/console.php
 ```
 
 ### Workbench
 
 ```
-[eQ]?show=workbench
+http://[eQ]?show=workbench
 ```
 
 
@@ -28,12 +26,12 @@ Should be located at the root of eQual (where *run.php* is)
 
 #### Grant DB rights
 
-Avalaible rights: "create", "read", "update", "delete", "manage"
+Available rights: "create", "read", "update", "delete", "manage"
 
 You can grant only one right for one entity at a time
 
 ```bash
-php run.php --do=group_grant --group=2 --right=read --entity=mypackage\MyObject
+equal.run --do=group_grant --group=2 --right=read --entity="mypackage\MyObject"
 ```
 
 #### Test package consistency
@@ -41,7 +39,7 @@ php run.php --do=group_grant --group=2 --right=read --entity=mypackage\MyObject
 It works with any package, even "core"
 
 ```bash
-php run.php --do=test_package-consistency --package=mypackage
+equal.run --do=test_package-consistency --package=mypackage
 ```
 
 #### Initiate eQual core in DB
@@ -49,19 +47,19 @@ php run.php --do=test_package-consistency --package=mypackage
 (this step is mandatory for every new database)
 
 ```bash
-php run.php --do=init_package --package=core
+equal.run --do=init_package --package=core
 ```
 
 #### Initiate your package in DB
 
 ```bash
-php run.php --do=init_package --package=mypackage
+equal.run --do=init_package --package=mypackage
 ```
 
 #### Run package testing
 
 ```bash
-php run.php --do=test_package --package=mypackage
+equal.run --do=test_package --package=mypackage
 ```
 
 
@@ -70,34 +68,34 @@ php run.php --do=test_package --package=mypackage
 
 ### GET :
 
-Path example :  *../packages/mypackage/data/myobject.php*
+Related Path :  `../packages/mypackage/data/my-controller.php`
 
 **HTTP :**
 
 ```http
-[eQ]?get=mypackage_myobject
+http://[eQ]?get=mypackage_my-controller
 ```
 
 **PHP :**
 
 ```php
-run('get', 'mypackage_myobject')
+run('get', 'mypackage_MyClass')
 ```
 
 **CLI :**
 
 ```bash
-php run.php --get=model_collection --entity=mypackage\MyObject
+euqal.run --get=model_collection --entity="mypackage\MyClass"
 ```
 
 ### DO :
 
-Path example :  *../packages/mypackage/actions/myobject/action.php*
+Related path :  `../packages/mypackage/actions/subdir/my-action.php`
 
 **HTTP :**
 
 ```http
-[eQ]?do=mypackage_myobject_action
+http://[eQ]?do=mypackage_subdir_my-action
 ```
 
 **PHP :**
@@ -108,12 +106,8 @@ run('do', 'mypackage_myobject_action', [/* parameters */])
 
 **CLI :**
 
-- Create = model_create
-- Update = model_update
-- Delete = model_delete
-
 ```bash
-php run.php --do=model_update --entity=mypackage\MyObject --fields=[id]=1 --fields=[name]=example
+equal.run --do=model_update --entity=mypackage\MyObject --fields=[id]=1 --fields=[name]=example
 ```
 
 
@@ -128,6 +122,7 @@ php run.php --do=model_update --entity=mypackage\MyObject --fields=[id]=1 --fiel
 > You need to modify at least one field in order for the object to be available fo further use
 
 ```php
+<?php
 // for instance
 update('core\User', $ids, array('firstname'=>'Bart'));
 $bart_id = $ids[0];
@@ -145,6 +140,7 @@ print_r(browse('core\User', $ids));
 
 ### How to check if a given object does exist?
 ```php
+<?php
 // count the number of items returned by the search method
 if(count(search($object_class, array(array(array('id', '=', $object_id)))))) {...}
 ```
@@ -152,6 +148,7 @@ if(count(search($object_class, array(array(array('id', '=', $object_id)))))) {..
 
 ### How to browse all objects of a given class?
 ```php
+<?php
 // note: ensure the specified class does actually exist
 $res = browse($object_class, search($object_class));
 ```
@@ -159,6 +156,7 @@ $res = browse($object_class, search($object_class));
 
 ### How to add a clause to every condition?
 ```php
+<?php
 // example: add the (deleted = 1) clause to every condition
 for($i = 0, $j = count($domain); $i < $j; ++$i)
 	$domain[$i] = array_merge($domain[$i], array(array('deleted', '=', '1')));
@@ -167,6 +165,7 @@ for($i = 0, $j = count($domain); $i < $j; ++$i)
 
 ### How to obtain output (json/html) from another script ? ====
 ```php
+<?php
 // There are 2 possibilities :
 
 // either use a HTTP request
@@ -185,6 +184,7 @@ $result = get_include_contents('packages/core/data/objects/list.php');
 
 ### How to sort the result of the browse method (without calling search method)?
 ```php
+<?php
 // $order is an array containing fields names on which we want the result set sorted 
 // $result is an array returned by a call to the browse method
 
@@ -197,31 +197,12 @@ foreach($order as $ofield) {
 ```
 
 
-### How to retrieve the current language?
-```php
-The current session language is stored in $_SESSION['LANG']
-```
 
-
-### How to override DEFAULT_LANG as default language for a specific application?
-```php
-// set default language
-isset($_SESSION['myapp_lang']) or $_SESSION['myapp_lang'] = 'fr';
-
-// fetch the lang parameter (you can add other params here)
-$params = get_params(array('lang'=>null));
-
-// if lang param was not in the URL, use previously chosen or default
-if(is_null($params['lang'])) $params['lang'] = $_SESSION['LANG'] = $_SESSION['myapp_lang'];
-// otherwise, remember the chosen language
-else $_SESSION['myapp_lang'] = $params['lang'];
-
-// from here, use $params['lang'] to retrieve current lang
-```
 
 ### How to request fields from all sub-objects at once?
 ```php
-$pages_values = &browse('icway\Page', $pages_ids, array('url_resolver_id'), $lang);			
+<?php
+$pages_values = $orm->read('icway\Page', $pages_ids, array('url_resolver_id'), $lang);			
 $url_ids = array_map(function($a){return $a['url_resolver_id'];}, $pages_values);
-$url_values = &browse('core\UrlResolver', $url_ids, array('human_readable_url'));
+$url_values = $orm->read('core\UrlResolver', $url_ids, ['human_readable_url']);
 ```
