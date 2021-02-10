@@ -71,7 +71,8 @@ nav:
      - 'Security': 'advanced/security.md'                                        
      - 'Logging': 'advanced/logging.md'                                         
      - 'Remote APIs': 'advanced/remote-apis.md'                                     
-     - 'Cascade Configuration': 'advanced/cascade-configuration.md'                           
+     - 'Cascade Configuration': 'advanced/cascade-configuration.md'     
+     - 'CI/CD' : 'advanced/ci-cd.md'                      
   - 'Contact & Support':                                     
      - 'Contact': 'contact-and-support/contact.md'                               
      - 'Support': 'contact-and-support/support.md'  

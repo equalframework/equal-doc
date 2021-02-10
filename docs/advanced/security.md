@@ -89,15 +89,15 @@ Rights values that can be assigned are defined in the file /fc.lib.php :
 
 ### AccessController.php
 
-Speaking of security, eQual has a built-in "control tower" called AccessController.class.php (in */lib/qinoa/access/*), granting or not the permission to perform CRUD actions depending on a few parameters. This service is called by default.
+This file is the built-in "control tower" of eQual, and is located in **/lib/qinoa/access/**. What it does is granting the permission (or not) to perform CRUD actions depending on a few set criteria. This service is called by default and you usually don't have to think about it
 
-You can also overwrite AccessController to your own needs (and your own risks), this is particularly useful to establish future-proof settings, aswell as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
+But if you need custom security rules, you can also **overwrite AccessController** (at your own risks). This is particularly useful to establish future-proof settings, aswell as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
 
-In the next section we'll see how to proceed
+In the following section we'll see how to proceed:
 
 ### Overriding AccessController
 
-In **/lib**, create a folder by the name of your project, you want a directory exactly like this: **/lib/myapp/access/AccessController.class.php**
+In **/lib**, create a folder by the name of your project, you want a directory similar to this: **/lib/myapp/access/AccessController.class.php**
 
 Then, in the **config.inc.php** file of your package (located at /public/packages/myapp/config.inc.php), add this line:
 
@@ -105,7 +105,7 @@ Then, in the **config.inc.php** file of your package (located at /public/package
 register('access', 'myapp\access\AccessController');
 ```
 
-Finally, open you newly created AccessController.class.php and copy paste this :
+Finally, open your newly created AccessController.class.php and copy paste this :
 
 ```php
 <?php
@@ -120,7 +120,7 @@ class AccessController extends \qinoa\access\AccessController {
   // here is a non-exhaustive example with filter:
   filter($operation, $object_class='*', $object_fields=[], $object_ids=[]){
     $user_id = $this->container->get('auth')->userId();
-    // grant READ rights over 'User' class when an user is authenticated
+    // grant READ rights over 'User' class when an user is authenticated (0 = guest_user)
     if($object_class == 'myapp\User') {
       if($operation == QN_R_READ) {
         if($user_id > 0) {
@@ -133,7 +133,7 @@ class AccessController extends \qinoa\access\AccessController {
 }
 ```
 
-You're ready!
+You're ready to write your own rules!
 
 It might be confusing so don't hesitate to look back at */lib/qinoa/access/AccessController.class.php* for inspiration
 

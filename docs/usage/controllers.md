@@ -2,9 +2,9 @@
 
 Controllers are everywhere and refer to every action involving data manipulation.
 
-They mainly play the role of data funnels and dispatchers
+They mainly play the role of data funnels and dispatchers.
 
-but they're also involved in rights management: making sure the user that performs a request has the required permissions.
+But they're also involved in rights management: making sure the user performing a request has the required permissions.
 
 
 

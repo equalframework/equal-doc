@@ -9,13 +9,13 @@ This section presents common questions along with some relevant examples.
 ### Console
 
 ```
-http://[eQ]/console.php
+http://[eQual-host]/console.php
 ```
 
 ### Workbench
 
 ```
-http://[eQ]?show=workbench
+http://[eQual-host]?show=workbench
 ```
 
 
@@ -73,7 +73,7 @@ Related Path :  `../packages/mypackage/data/my-controller.php`
 **HTTP :**
 
 ```http
-http://[eQ]?get=mypackage_my-controller
+http://[eQual-host]?get=mypackage_my-controller
 ```
 
 **PHP :**
@@ -85,7 +85,7 @@ run('get', 'mypackage_MyClass')
 **CLI :**
 
 ```bash
-euqal.run --get=model_collection --entity="mypackage\MyClass"
+equal.run --get=model_collection --entity="mypackage\MyClass"
 ```
 
 ### DO :
@@ -95,7 +95,7 @@ Related path :  `../packages/mypackage/actions/subdir/my-action.php`
 **HTTP :**
 
 ```http
-http://[eQ]?do=mypackage_subdir_my-action
+http://[eQual-host]?do=mypackage_subdir_my-action
 ```
 
 **PHP :**
@@ -163,7 +163,7 @@ for($i = 0, $j = count($domain); $i < $j; ++$i)
 ```
 
 
-### How to obtain output (json/html) from another script ? ====
+### How to obtain output (json/html) from another script ?
 ```php
 <?php
 // There are 2 possibilities :
