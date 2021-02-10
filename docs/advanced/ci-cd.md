@@ -12,7 +12,7 @@ We'll immediately see if something goes wrong, and easily locate where the probl
 
 ## Travis CI
 
-[Travis CI](https://www.travis-ci.com/)
+[Travis CI](https://docs.travis-ci.com/) is a complete testing environment offering many options and compatibilities
 
 Configuration example (in YAML) for a **.travis.yml** file, running tests for a todo-list app running on eQual :
 
@@ -52,7 +52,7 @@ script:
 
 ## BitBucket Pipelines
 
-[BitBucket](https://bitbucket.org/) has a built-in testing environment that relies on [Docker](https://www.docker.com/)
+[BitBucket](https://bitbucket.org/) has a built-in testing environment called Pipelines that relies on [Docker](https://www.docker.com/)
 
 They have an amazing [tutorial to get started](https://support.atlassian.com/bitbucket-cloud/docs/get-started-with-bitbucket-pipelines/), aswell as a [YAML validator](https://bitbucket-pipelines.prod.public.atl-paas.net/validator) with all the information you need
 
