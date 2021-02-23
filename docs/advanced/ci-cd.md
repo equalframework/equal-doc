@@ -14,11 +14,7 @@ We'll immediately see if something goes wrong, and easily locate where the probl
 
 In this section we'll focus on the main role of docker: setting up a **replicable environment** for your project (with eQual)
 
-[Docker](https://www.docker.com/get-started) is a very complete tool and could very well have its own dedicated page. It works similarly to a virtual machine (VM), the big difference is that it isolates every service into separate containers, thus ensuring you only use the ressources needed and nothing more
-
-While it can feel less intuitive than a VM, Docker provides unrivalled performances plus the possibility to easily connect to the outside world
-
-Below we'll give a specific example to use docker with eQual, if you're looking for more general informations please read the [getting started with docker](https://docs.docker.com/get-started/) guide
+Below we'll give a specific example to use eQual with Docker, if you're looking for more general informations please read the [getting started with docker](https://docs.docker.com/get-started/) guide
 
 ### Setup
 
@@ -157,7 +153,7 @@ What we'll do is create a .cmd script (for windows) that we'll launch from the r
 
 ```bash
 docker build --file .docker/Dockerfile -t todolist .
-docker-compose up --build --detach
+docker-compose up -d
 sleep 10
 docker exec -ti localhost /bin/bash .docker/init.sh
 ```
