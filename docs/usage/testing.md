@@ -158,12 +158,12 @@ $tests = [
 ]
 ```
 
-There is 2 additional parameters you can use in case you need to run some specific function before and after a test :
+There is 2 additional parameters (they have to fit right between 'expected' and 'test') you can use in case you need to run some specific function before and after a test :
 
-- **'arrange' => function(){  }**    (used before the test)
-- **'rollback' => function(){  }**    (used after the test)
+- **'arrange' => function(){  }**    (used to do something before the test)
+- **'rollback' => function(){  }**    (used to do something after the test)
 
-They have to fit between 'expected' and 'test' in order to work
+**Important :** Keep in mind that 'arrange' doesn't trigger if the test fails or doesn't match with the 'expected' field
 
 
 

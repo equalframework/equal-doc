@@ -7,12 +7,6 @@ A simple set of system-related operations allows to handle most common tasks
 
 
 
-
-
-
-
-
-
 ### user_id 
 Indicates the identifier of the current user.
 
