@@ -12,9 +12,11 @@ We'll immediately see if something goes wrong, and easily locate where the probl
 
 ## Docker
 
-In this section we'll focus on the main role of docker: setting up a **replicable environment** for your project (with eQual)
+> Note: if you're looking for a guide that is not specific to eQual, please read [getting started with docker](https://docs.docker.com/get-started/)
 
-Below we'll give a specific example to use eQual with Docker, if you're looking for more general informations please read the [getting started with docker](https://docs.docker.com/get-started/) guide
+In this section we'll focus on the main role of docker: setting up a **replicable environment** for your project
+
+Below is a specific example to use eQual with Docker using an official php image
 
 ### Setup
 
@@ -120,7 +122,7 @@ services:
 To launch the associated Docker command :
 
 ```bash
-docker-compose up --build --detach
+docker-compose up -d
 ```
 
 With this, you have what you need to develop and test your application using docker
