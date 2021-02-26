@@ -12,7 +12,7 @@ But they're also involved in rights management: making sure the user performing 
 
 ### CRUD syntax
 
-To have a good overview of the CREATE, READ, UPDATE, DELETE commands, see [*Building a REST API*](../howtos-and-examples/rest-api.md)
+To get an overview on CREATE, READ, UPDATE, DELETE commands, see [*Building a REST API*](../howtos-and-examples/rest-api.md)
 
 The following examples show the **minimal** syntax required to operate CRUD commands in a database
 
