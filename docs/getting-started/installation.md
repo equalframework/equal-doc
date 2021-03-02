@@ -85,9 +85,5 @@ The database configuration is only for demo and more stringent passwords and set
   	`create user equal identified by 'password';`
 * Grant the user full rights to the database
   	`grant all on equal.* to equal;`
-
-
-
-### What's next?
-
-See [*Configuration*](configuration.md)
+  	
+  	

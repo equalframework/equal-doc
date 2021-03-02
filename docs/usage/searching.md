@@ -1,3 +1,5 @@
+# Searching
+
 ### Domains
 **About domain syntax**
 

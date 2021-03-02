@@ -60,6 +60,7 @@ So, use it your way.
 echo 'This is a valid HTTP controller';
 ```
 
+When needed use existing components, or not. (using the ones you already know is encouraged!)
 `/public/packages/demo/data/reuse.php`:
 ```php
 <?php
@@ -84,13 +85,13 @@ echo eQual::run('get', 'demo_simple');
 
 ### Using CLI
 ```bash
-$> php run.php --get=demo_simple
+$> equal.run --get=demo_simple
 This is a valid controller!
 ```
 
 
-When needed use existing components, or not. (using the ones you already know is encouraged!)
-`/public/packages/demo/data/reuse.php`:
+## Real life action
+`/public/packages/demo/data/image.php`:
 
 ```php
 <?php
@@ -140,11 +141,11 @@ eQual uses only **3** kinds of **operations**
 
 **5 methods**
 
-1. Create 
-2. Read
-3. Update
-4. Delete
-5. Search
+1. **C**reate 
+2. **R**ead
+3. **U**pdate
+4. **D**elete
+5. **S**earch
 
 and **a few native features** : 
 
@@ -155,43 +156,33 @@ and **a few native features** :
 * ORM & Collections support
 * Data Adapter
 * Authentication Management
-* Access Control
+* Access Controlling
 * Unit testing
 * Logging
 * Debugging console
 
 
 
+## More
 
 
-This framework is made for those who:
+This framework has been designed for those who:
 * don't want to always re-invent the wheel (but might occasionally enjoy it)
 * dislike learning whole frameworks over and over again
 * don't want to deal with dozens of files to achieve simple things
 
 
-In most cases, you don't need everything a framework offers.
-
-You might be interested in a few features but in order to take advantage of it, you have to comply with the framework specific logic and structure.
+In most cases, you don't need everything a framework offers: You might be interested in a few features but in order to take advantage of it, you have to comply with the framework specific logic and structure.
 
 
-A learning curve that is actually more like learning stairs without having to start from scratch (or, said otherwise, one can use it without knowing it!)
+eQual learning curve is actually more like learning stairs : one can use it without having to start from scratch or even without knowing it.
 
 
 
+### Key features
 
-
-* **client-server oriented**: intended for REST API development and back-end processing
-	HTTP oriented
-* **code reusability**: easy integration of existing controllers results (use controllers as functions)
-* **code self-documented**: available tools invite to be descriptive about data structure (how it is structured, what is expected, what error
+* **client-server oriented**: HTTP native support, intended for REST API development and back-end processing
+* **code reusability**: easy integration of existing controllers results (controllers can be used as functions)
+* **self-documented code**: available tools invite to be descriptive about data structure: how it is structured, what is expected, what errors can occur
 * **self-explanatory API**
-
-
-
-
-
-
-
-
 

@@ -4,23 +4,24 @@ The 'Permission' class is dedicated to the rights management: for each object cl
 
 ## Users 
 Every User object holds a list of groups to which it belongs.\ 
-Note: a user belongs at least to one group (see //DEFAULT_GROUP_ID// in /fc.lib.php).
+Note: a user belongs at least to one group (see //DEFAULT_GROUP_ID// in `/eq.lib.php`).
 
 Structure is define in the core\User class (library/classes/objects/core/User.class.php)
 ```php
+<?php
 public static function getColumns() {
 	return array(
-		'firstname'		=> array('type' => 'string'),
-		'lastname'		=> array('type' => 'string'),
-		'login'			=> array('type' => 'string', 'label' => 'Username'),
-		'password'		=> array('type' => 'string', 'label' => 'Password'),
-		'language'		=> array('type' => 'string'),
-		'groups_ids'		=> array('type' => 'many2many', 
+		'firstname'		=> ['type' => 'string'],
+		'lastname'		=> ['type' => 'string'],
+		'login'			=> ['type' => 'string', 'label' => 'Username'],
+		'password'		=> ['type' => 'string', 'label' => 'Password'],
+		'language'		=> ['type' => 'string'],
+		'groups_ids'	=> ['type' => 'many2many', 
 						  'foreign_object'	=> 'core\Group', 
 						  'foreign_field'	=> 'users_ids', 
 						  'rel_table'		=> 'core_rel_group_user', 
 						  'rel_foreign_key'	=> 'group_id', 
-						  'rel_local_key'	=> 'user_id')
+						  'rel_local_key'	=> 'user_id')]
 	);
 }
 ```
@@ -32,10 +33,11 @@ public static function getColumns() {
 
 Structure is define in the core\Group class (library/classes/objects/core/Group.class.php)
 ```php
+<?php
 public static function getColumns() {
 	return array(
-		'name'			=> array('type' => 'string'),
-		'users_ids'		=> array('type' => 'many2many', 
+		'name'			=> ['type' => 'string'],
+		'users_ids'		=> ['type' => 'many2many', 
 						  'foreign_object'	=> 'core\User', 
 						  'foreign_field'	=> 'groups_ids', 
 						  'rel_table'		=> 'core_rel_group_user', 
@@ -43,7 +45,7 @@ public static function getColumns() {
 						  'rel_local_key'	=> 'group_id'),
 		'permissions_ids'	=> array('type' => 'one2many', 
 						'foreign_object'	=> 'core\Permission', 
-						'foreign_field'		=> 'group_id')
+						'foreign_field'		=> 'group_id']
 	);
 }
 ```
@@ -52,15 +54,16 @@ public static function getColumns() {
 ## ACL 
 core\Permission (library/classes/objects/core/Permission.class.php)
 ```php
+<?php
 public static function getColumns() {
 	return array(
-		'class_name'		=> array('type' => 'string'),
-		'group_id'		=> array(
-						'type'			=> 'many2one', 
+		'class_name'	=> ['type' => 'string'],
+		'group_id'		=> [
+						'type'				=> 'many2one', 
 						'foreign_object'	=> 'core\Group', 
 						'foreign_field'		=> 'permissions_ids'
-					),
-		'rights'		=> array('type' => 'integer')
+					],
+		'rights'		=> ['type' => 'integer']
 	);
 }
 ```
@@ -68,7 +71,7 @@ public static function getColumns() {
 
 
 ## Default rights 
-In addition, all users receive the default permissions, defined in the configuration file (see //DEFAULT_RIGHTS// constant in /config.inc.php).
+In addition, all users receive the default permissions, defined in the configuration file (see //DEFAULT_RIGHTS// constant in `/config.inc.php`).
 
 
 
@@ -77,13 +80,15 @@ In addition, all users receive the default permissions, defined in the configura
 The field 'rights' of the Permission class is a binary mask (logical OR) of the rights given to the related group. 
 If a user belongs to several groups, the permission set will result in the most permissive combination of the rights from all its groups.
 
-Rights values that can be assigned are defined in the file /fc.lib.php :
+Rights values that can be assigned are defined in the file `/eq.lib.php` :
 ```php
-	define('R_CREATE',	1);	
-	define('R_READ',	2);	
-	define('R_WRITE',	4);	
-	define('R_DELETE',	8); 	
-	define('R_MANAGE',	16); 	// autorisation to manage the rights 
+<?php
+    
+define('R_CREATE',	1);	
+define('R_READ',	2);	
+define('R_WRITE',	4);	
+define('R_DELETE',	8); 	
+define('R_MANAGE',	16); 	// autorisation to manage the rights 
 ```
 
 
@@ -97,11 +102,17 @@ In the following section we'll see how to proceed:
 
 ### Overriding AccessController
 
+The default AccesController service is defined in  `/lib/qinoa/access/AccessController.class.php` , and can be overridden by a custom service to match any specific logic.
+
+
+
 In **/lib**, create a folder by the name of your project, you want a directory similar to this: **/lib/myapp/access/AccessController.class.php**
 
 Then, in the **config.inc.php** file of your package (located at /public/packages/myapp/config.inc.php), add this line:
 
 ```php
+<?php
+namespace config;
 register('access', 'myapp\access\AccessController');
 ```
 
@@ -132,8 +143,4 @@ class AccessController extends \qinoa\access\AccessController {
     
 }
 ```
-
-You're ready to write your own rules!
-
-It might be confusing so don't hesitate to look back at */lib/qinoa/access/AccessController.class.php* for inspiration
 

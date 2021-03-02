@@ -11,7 +11,9 @@ Those act like some sort of plugins, written in PHP and located in the folder: `
 Here is a complete list of the scripts that come out-of-the-box.
 
 
+
 ## Installation & Config utilities
+
 
 
 ## Package utilities
@@ -48,8 +50,7 @@ equal.run --do=init_package --package=mypackage
 
 ## Rights management utilities
 
-
-Should be located at the root of eQual (where *run.php* is)
+>  Note: Calls must be made at the root of eQual (where *run.php* is located).
 
 ### Grant DB rights
 
@@ -58,7 +59,7 @@ Available rights: "create", "read", "update", "delete", "manage"
 You can grant only one right for one entity at a time
 
 ```bash
-equal.run --do=group_grant --group=2 --right=read --entity="mypackage\MyObject"
+equal.run --do=group_grant --group=default --right=read --entity="mypackage\MyObject"
 ```
 
 

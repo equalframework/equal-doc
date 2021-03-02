@@ -33,7 +33,3 @@ Please note that directly editing *default.inc.php* is fine if you only need to 
 What you want to do instead is create a *config.inc.php* file, and copy-paste the content of *default.inc.php*. From there you can safely apply custom changes
 
 
-
-### What next?
-
-See [*Quick Start*](quick-start.md)

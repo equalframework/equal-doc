@@ -1,12 +1,12 @@
 # CI/CD 
 
-CI stands for Continuous Integration and CD for Continuous Development. It is an [Agile](https://www.agilealliance.org/agile101/the-agile-manifesto/) concept closely related to Test Driven Development (TDD)
+CI/CD (standing for Continuous Integration & Continuous Development) is an [Agile](https://www.agilealliance.org/agile101/the-agile-manifesto/) concept closely related to Test Driven Development (TDD).
 
-The idea is to run a tought ahead set of tests whenever we apply a change during development, in doing so we have a feedback loop as small as possible that allows us to quickly identify eventual new problems
+The idea is to run  set of tests whenever an update is made during development. By doing so we have a feedback loop as small as possible that allows to quickly identify potential issues.
 
-A real-world situation would be, for example, using a versioning platform (like GitHub) with a pipeline service (like Travis CI) that automatically runs our test units in any needed environment, whenever we make a new commit
+A real-world situation would be, for example, using a GIT versioning platform with a CI pipeline service that automatically runs our test units in any needed environment, whenever we make a new commit.
 
-We'll immediately see if something goes wrong, and easily locate where the problem comes from depending of the quality of our tests set
+We'll immediately see if something goes wrong, and easily locate where the problem comes from depending of the quality of our tests set.
 
 
 
@@ -17,6 +17,8 @@ We'll immediately see if something goes wrong, and easily locate where the probl
 In this section we'll focus on the main role of docker: setting up a **replicable environment** for your project
 
 Below is a specific example to use eQual with Docker using an official php image
+
+
 
 ### Setup
 
@@ -38,6 +40,8 @@ project@root/
  		another-config-file.example
 	docker-compose.yml
 ```
+
+
 
 ### Dockerfile
 
@@ -77,6 +81,8 @@ To build an image out of this file, use the following command :
 ```bash
 docker build --file .docker/Dockerfile -t todolist .
 ```
+
+
 
 ### docker-compose.yml
 
@@ -147,6 +153,8 @@ docker exec -ti CONTAINER_ID /bin/bash /full/directory/path/script.sh
 
 The following section will cover how that command can be used
 
+
+
 ### Automating the process & database init
 
 Unfortunately if you want to setup a database once a container has been created, you still need to run a few commands manually. We'll work this around and use it as an opportunity to automate the whole process, from image creation to deployment
@@ -172,7 +180,7 @@ php run.php --do=init_package --package=core
 php run.php --do=init_package --package=todolist
 ```
 
-> Note: if it returns a "wrong host" error, try to increase the sleep time to 20 or 30 sec. If it still doesn't work it means some config for apache is either missing or uncorrect
+> Note: if it returns a "wrong host" error, try to increase the sleep time to 20 or 30 sec. If it still doesn't work it means some config for apache is either missing or incorrect
 
 
 
@@ -220,18 +228,37 @@ script:
 
 [BitBucket](https://bitbucket.org/) has a built-in testing environment called Pipelines that relies on [Docker](https://www.docker.com/)
 
-They have an amazing [tutorial to get started](https://support.atlassian.com/bitbucket-cloud/docs/get-started-with-bitbucket-pipelines/), aswell as a [YAML validator](https://bitbucket-pipelines.prod.public.atl-paas.net/validator) with all the information you need
+They have an amazing [tutorial to get started](https://support.atlassian.com/bitbucket-cloud/docs/get-started-with-bitbucket-pipelines/), as well as a [YAML validator](https://bitbucket-pipelines.prod.public.atl-paas.net/validator) with all the information you need
 
 Here is a minimal syntax example taken from their page about [build artifacts](https://support.atlassian.com/bitbucket-cloud/docs/publish-and-link-your-build-artifacts/) :
 
 ```yaml
-image: python:3.5.1
-
+image: php:7.2-fpm
 pipelines:
- branches:
-  master:
-   - step:
-    script:
-     - python run_tests.py
+  default:
+    - step:
+        script:
+          - apt-get update && apt-get install -y default-mysql-client
+          - docker-php-ext-install mysqli
+          # check that mandatory directories are present and have correct access rights set
+          - php run.php --do=test_fs-consistency
+          # check ability to connect to the dbms service
+          - php run.php --do=test_db-connectivity
+          # create an empty database
+          - php run.php --do=init_db
+          # initialise database with demo data
+          - php run.php --do=init_package --package=core
+
+          # run test units
+          - php run.php --do=test_package --package=equal --logs=true
+        services: 
+          - mysql
+definitions: 
+  services: 
+    mysql: 
+      image: mysql:5.7
+      environment: 
+        MYSQL_DATABASE: 'qinoa'
+        MYSQL_ROOT_PASSWORD: 'test'
 ```
 

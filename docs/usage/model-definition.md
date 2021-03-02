@@ -6,9 +6,9 @@ Each Model  is defined in a `.class.php` file , located in the `/packages/{packa
 
 
 
-Every class inherits from a common ancestor:\\ the  `Model` class declared in the `qinoa\orm` namespace and defined in `/lib/qinoa/orm/Model.class.php`
+Every class inherits from a common ancestor: the  `Model` class declared in the `qinoa\orm` namespace and defined in `/lib/qinoa/orm/Model.class.php`
 
-Using eQual API, a class is always referred to with the package name to which it belongs.
+Using eQual API, a class is always referred to with the package name to which it belongs (packages are used as namespaces).
 
 The syntax is : `package_name\class_name` (ex. :'school\Teacher').
 
@@ -237,7 +237,7 @@ public static function getRightsTxt($om, $ids, $lang) {
 
 
 
-==== Fields attributes ====
+## Fields attributes
 
 | Type         | Attribute   |Usage                    |
 | - | -|-|
@@ -275,7 +275,7 @@ public static function getRightsTxt($om, $ids, $lang) {
 ]
 ```
 
-### onchange methods
+### onchange method
 
 When updating a field, if `onchange` attribute is defined, related method is executed
 (method is in charge of updating fields that depends on current field)
