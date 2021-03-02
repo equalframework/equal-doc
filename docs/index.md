@@ -29,7 +29,7 @@ A lot of framework require a long time to master and, while learning, you find y
 
 
 
-eQual has been designed to oppose as little constraints as possible to developers. While is a fully featured framework that has all you need to do almost anything, taking advantage of all the native features, only some of them or even none is entirely up to you.
+eQual has been designed to oppose as little constraints as possible to developers. While being a fully featured framework that has all you need to do almost anything, taking advantage of all the native features, only some of them or even none is entirely up to you.
 
 
 
@@ -48,7 +48,7 @@ So, use it your way.
 
 ## Sneak peek ?
 
-
+### Using PHP controllers
 `/public/packages/demo/data/simple.php`:
 
 ```php
@@ -58,7 +58,6 @@ So, use it your way.
  *
  */
 echo 'This is a valid HTTP controller';
-
 ```
 
 `/public/packages/demo/data/reuse.php`:
@@ -70,10 +69,9 @@ use config\QNLib;
  *
  */
 echo eQual::run('get', 'demo_simple');
-
 ```
-Using HTTP request
 
+### Using HTTP request
 `wget http://localhost/index.php?get=demo_simple`
 
 > Response:
@@ -84,26 +82,25 @@ Using HTTP request
 > Body:
 > This is a valid controller!
 
-Using CLI:
-```
+### Using CLI
+```bash
 $> php run.php --get=demo_simple
 This is a valid controller!
-````
+```
 
 
-
+When needed use existing components, or not. (using the ones you already know is encouraged!)
 `/public/packages/demo/data/reuse.php`:
 
 ```php
 <?php
-use config\QNLib as QN;
 use qinoa\http\HttpRequest;
 
 /**
  * HTTP native support
  *
  */
-list($params, $providers) = QN::announce([
+list($params, $providers) = eQual::announce([
     'description'   => 'Get picture data from imgur API',
     'params'        => [
         'id' => [
@@ -178,20 +175,23 @@ In most cases, you don't need everything a framework offers.
 You might be interested in a few features but in order to take advantage of it, you have to comply with the framework specific logic and structure.
 
 
-
 A learning curve that is actually more like learning stairs without having to start from scratch (or, said otherwise, one can use it without knowing it!)
 
-when needed use existing components, or not. (using the ones you already know is encouraged!)
 
 
 
 
 * **client-server oriented**: intended for REST API development and back-end processing
 	HTTP oriented
-	
 * **code reusability**: easy integration of existing controllers results (use controllers as functions)
-  	
 * **code self-documented**: available tools invite to be descriptive about data structure (how it is structured, what is expected, what error
-  	
-* **self-explaining API**
+* **self-explanatory API**
+
+
+
+
+
+
+
+
 
