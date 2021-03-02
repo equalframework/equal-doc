@@ -141,11 +141,11 @@ eQual uses only **3** kinds of **operations**
 
 **5 methods**
 
-1. **C**reate 
-2. **R**ead
-3. **U**pdate
-4. **D**elete
-5. **S**earch
+1. Create 
+2. Read
+3. Update
+4. Delete
+5. Search
 
 and **a few native features** : 
 
