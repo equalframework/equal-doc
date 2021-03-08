@@ -12,7 +12,8 @@ Here is how URL must be built:
 
 First part is the **regular URL** (for instance ''http://www.mywebsite.com/'') with the name of the script to call (the only entry-point of eQual is `index.php`).
 
-Second part consists of the parameters: 
+Second part consists of the parameters:  
+
 * The main parameter tells what kind of operation must be performed. 
     * `key` must be one of the following : 
       * GET some data: ''?get=...''
