@@ -16,9 +16,9 @@ Second part consists of the parameters:
 
 * The main parameter tells what kind of operation must be performed. 
     * `key` must be one of the following : 
-      * GET some data: ''?get=...''
-      * DO something: ''?do=...''
-      * SHOW an App: ''?show=...''
+        * **GET** some data: ''?get=...''
+        * **DO** something: ''?do=...''
+        * **SHOW** an App: ''?show=...''
     * `value` specifies the name of the **package** to be invoked (must be the name of a subfolder of the 'packages' directory, for instance 'core'), as well as the **script** to be called(a package may have several scripts - stored in the subfolders 'action', 'data', or 'apps')
 * In addition, some specific parameters required be the script can also be present
 
