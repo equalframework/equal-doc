@@ -36,13 +36,13 @@ In this example, the main entry point (index.php) will try to execute the follow
 In addition, the main config file (`config/config.inc.php`) allows to define a default package, and a default app can be defined for every package.  
 
 
-```
+```php
 <?php
 define('DEFAULT_PACKAGE', 'equal');
 ```
 
 In turn, each package can define a default App in its own config file (i.e. `packages/equal/config.inc.php`)
-```
+```php
 <?php
 namespace config;
 define('DEFAULT_APP', 'workbench');
