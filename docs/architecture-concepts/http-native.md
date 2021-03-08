@@ -25,13 +25,28 @@ Second part consists of the parameters:
 
 
 Here is an example of such URL :  
-http://www.mywebsite.com/?show=core_manage&package=blog''  
+``` 
+http://www.mywebsite.com/?show=core_manage&package=blog
+```
 
-In this example, the main entry point (index.php) will try to execute the following script : ''packages/core/apps/manage.php''.  
+In this example, the main entry point (index.php) will try to execute the following script : `packages/core/apps/manage.php`  
 
 
 
 In addition, the main config file (`config/config.inc.php`) allows to define a default package, and a default app can be defined for every package.  
 
-In other words, this allows you to make ''http://www.mywebsite.com/index.php'' redirect to your webapp
-or ''http://www.mywebsite.com/index.php?show=mypackage'' redirect to ''http://www.mywebsite.com/index.php?show=mypackage_myapp''
+
+```
+<?php
+define('DEFAULT_PACKAGE', 'equal');
+```
+
+In turn, each package can define a default App in its own config file (i.e. `packages/equal/config.inc.php`)
+```
+namespace config;
+define('DEFAULT_APP', 'workbench');
+
+```
+
+This allows to make the root entry point  (`http://www.mywebsite.com/`) redirect to a webapp (in this exemaple:  `http://www.mywebsite.com/index.php?show=equal_workbench'`)
+
