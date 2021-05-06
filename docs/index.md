@@ -4,14 +4,11 @@ eQual is a versatile, language-agnostic, and web-oriented framework, aiming to e
 
 
 
-**Rock Solid Security**
-	Secure every API endpoint with User Management, Role-Based Access Controls, SSO Authentication, JWT, CORS, and OAuth.
+**Natively Secure** Benefit from native HTTP auth support (JWT, CORS) to secure every endpoint with User Management, Role-Based Access Controls, or custom Access management.
 
-**Server-Side Scripting**
-	Implement custom logic on the request or response of any API endpoint or quickly build your own custom APIs with JavaScript V8, Node.js, or PHP.
+**Server-Side Scripting** Implement custom logic on any route endpoint to quickly build micro-services and  APIs of your own.
 
-**Instant APIs Without Code**
-	Automatically generate a complete set of REST APIs with live documentation for any SQL or NoSQL database, file storage system, or external service.
+**Instant APIs Without Code** Automatically generate a complete set of REST APIs with live documentation for any kind of service.
 
 
 
@@ -39,7 +36,7 @@ So, use it your way.
 
 
 
-> Personally what I value the most in eQual is its high level of re-usability and its way of defining controllers by announcing what they do and what they expect, which relieves me from documenting boredom.
+> Personally what I value the most in eQual is its high level of re-usability and its way of defining controllers by announcing what they do and what they expect, which relieves me from documenting boredom and memory blackouts.
 
 *Cédric Françoys*
 
@@ -181,8 +178,8 @@ eQual learning curve is actually more like learning stairs : one can use it with
 
 ### Key features
 
-* **client-server oriented**: HTTP native support, intended for REST API development and back-end processing
-* **code reusability**: easy integration of existing controllers results (controllers can be used as functions)
-* **self-documented code**: available tools invite to be descriptive about data structure: how it is structured, what is expected, what errors can occur
-* **self-explanatory API**
+* **client-server oriented**: HTTP native support, intended for REST API development and back-end processing.
+* **code reusability**: easy integration of existing controllers results (controllers can be used as functions).
+* **self-documented code**: available tools invite to be descriptive about data structure: how it is structured, what is expected, what errors can occur.
+* **self-explanatory API** : each route comes with a description (announcement) of its dependencies and expected parameters, which eases greatly the communication between front-end and back-end developers.
 
