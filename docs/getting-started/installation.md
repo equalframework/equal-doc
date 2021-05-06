@@ -18,13 +18,13 @@ eQual requires the following dependencies:
 
 - Download code as ZIP: 
 
-  `wget https://github.com/cedricfrancoys/equal-framework/archive/master.zip`
+  `wget https://github.com/cedricfrancoys/equal/archive/master.zip`
 
 **OR**
 
 - Clone with Git :
 
-  `git clone https://github.com/cedricfrancoys/equal-framework.git`
+  `git clone https://github.com/cedricfrancoys/equal.git`
   
   
 
@@ -56,7 +56,7 @@ Move the extracted directory to your document root
 
 Not sure what you document root is using the below you can quickly find out
 	`cat /etc/httpd/conf/httpd.conf | grep DocumentRoot`
-	`mv equal-framework*/* /var/www/html/`
+	`mv equal/* /var/www/html/`
 
 Now you may need to update the SELinux labels on the directories and files to httpd so that apache has the rights to serve the files. Using the below will do just this.
 	`chcon -Rt httpd_sys_content_t /var/www/html/*`
@@ -67,7 +67,7 @@ Now you may need to update SELinux boolean to allow httpd to network_connect_db 
 ## Host config
 
 
-- Create a new virtual host using *.../equal-framework/public/* as the root path
+- Create a new virtual host using *.../equal/public/* as the root path
 
 If done correctly you should now see the eQual workench (where you can see and manipulate your package classes)
 
@@ -85,5 +85,5 @@ The database configuration is only for demo and more stringent passwords and set
   	`create user equal identified by 'password';`
 * Grant the user full rights to the database
   	`grant all on equal.* to equal;`
-  	
+
   	

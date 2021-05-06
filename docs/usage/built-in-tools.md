@@ -27,13 +27,13 @@ classes (PHP), views (HTML) and translation files (json)
 
 
 ```bash
-equal.run --do=test_package-consistency --package=mypackage
+./equal.run --do=test_package-consistency --package=core
 ```
 
 #### Run package test cases
 
 ```bash
-equal.run --do=test_package --package=mypackage
+./equal.run --do=test_package --package=core
 ```
 
 
@@ -41,7 +41,7 @@ equal.run --do=test_package --package=mypackage
 Creates a compatible database based on a SQL schema.
 
 ```bash
-equal.run --do=init_package --package=mypackage
+./equal.run --do=init_package --package=core
 ```
 
 
@@ -59,7 +59,7 @@ Available rights: "create", "read", "update", "delete", "manage"
 You can grant only one right for one entity at a time
 
 ```bash
-equal.run --do=group_grant --group=default --right=read --entity="mypackage\MyObject"
+./equal.run --do=group_grant --group=default --right=read --entity="core\User"
 ```
 
 

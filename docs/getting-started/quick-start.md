@@ -6,20 +6,18 @@ You've just installed eQual ... and now what ?
 
 If you haven't done it yet, the first thing to do is to ensure that your installation has completed successfully.
 
-You can test your installation by calling the //core_setup// application. For instance, [[http://localhost/easyobject/index.php?show=setup]]
+You can test your installation by calling the `core_setup` application. For instance, [[http://localhost/equal/?show=setup]]
 
 (If you are getting confused, see eQual URL mechanism) 
 
 
 Applications included in the core package are : 
-  * //core_setup//
-  * //core_utils//
-  * //core_manage//
-  * //core_validate//
+* `core_setup`
+* `core_utils`
+* `core_manage`
+* `core_validate`
 
 You may install a package from the ones available on this website.
-
-
 
 
 
@@ -39,8 +37,6 @@ Directory should look like this :
         /classes
         /data
 ```
-
-
 
 ## 2. Define custom classes
 
@@ -70,6 +66,7 @@ But, what if we want to establish a relation between two classes, like nesting t
 That's where the types **many2many**, **one2many**, and **many2one** come in handy (*see [Understanding DBMS relationships](https://afteracademy.com/blog/what-are-the-different-types-of-relationships-in-dbms)*)
 
 ```php
+<?php
 // Task
 // ...
       return array(
@@ -81,6 +78,7 @@ That's where the types **many2many**, **one2many**, and **many2one** come in han
 We also need to do the opposite in *User.class.php* :
 
 ```php
+<?php
 // User
 // ...
       return array(
@@ -148,7 +146,7 @@ The rights available are **"create", "read", "update", "delete", "manage"**
 For instance, we'll continue with our todolist example and grant the permission to **read** for the group of objects **Task** :
 
 ```bash
-php run.php --do=group_grant --group=2 --right=read --entity=mypackage\Task
+equal.run --do=group_grant --group=2 --right=read --entity=mypackage\Task
 ```
 
 **You can only grant one right at a time**, it means we'll need to repeat this command for every permission we want to give
