@@ -140,13 +140,7 @@ eQual uses only **3** kinds of **operations**
 2.  **'get'** something (Data providers)
 3.  **'show'** something (App providers)
 
-**5 methods**
-
-1. Create 
-2. Read
-3. Update
-4. Delete
-5. Search
+**5 methods** : Create, Read, Update, Delete, Search
 
 and **a few native features** : 
 
@@ -168,9 +162,12 @@ and **a few native features** :
 
 
 This framework has been designed for those who:  
+
 * don't want to always re-invent the wheel (but might occasionally enjoy it)
 * dislike learning whole frameworks over and over again
 * don't want to deal with dozens of files to achieve simple things
+
+
 
 
 In most cases, you don't need everything a framework offers: You might be interested in a few features but in order to take advantage of it, you have to comply with the framework specific logic and structure.
