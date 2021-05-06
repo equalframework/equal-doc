@@ -57,34 +57,38 @@ So, use it your way.
 echo 'This is a valid HTTP controller';
 ```
 
-When needed use existing components, or not. (using the ones you already know is encouraged!)
+When needed, use existing components, or not. (using the ones you already know is encouraged!)
 `/public/packages/demo/data/reuse.php`:
+
 ```php
 <?php
-use config\QNLib;
 /**
  * Code re-usability
  *
  */
-echo eQual::run('get', 'demo_simple');
+echo run('get', 'test_simple');
 ```
 
+
 ### Using HTTP request
+
 `wget http://localhost/index.php?get=demo_simple`
 
-> Response:
-> Header excerpt:
-> Status Code: 200 OK
-> Content-Length: 26
-> Content-Type: text/html; charset=UTF-8
-> Body:
+> Response:  
+> Header excerpt:  
+> Status Code: 200 OK  
+> Content-Length: 26  
+> Content-Type: text/html; charset=UTF-8  
+> Body:  
 > This is a valid controller!
 
 ### Using CLI
 ```bash
-$> equal.run --get=demo_simple
-This is a valid controller!
+#!/bin/bash
+equal.run --get=demo_simple
 ```
+
+> This is a valid controller!
 
 
 ## Real life action
@@ -163,7 +167,7 @@ and **a few native features** :
 ## More
 
 
-This framework has been designed for those who:
+This framework has been designed for those who:  
 * don't want to always re-invent the wheel (but might occasionally enjoy it)
 * dislike learning whole frameworks over and over again
 * don't want to deal with dozens of files to achieve simple things
