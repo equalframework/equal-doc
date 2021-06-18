@@ -66,7 +66,7 @@ When needed, use existing components, or not. (using the ones you already know i
  * Code re-usability
  *
  */
-echo run('get', 'test_simple');
+echo run('get', 'demo_simple');
 ```
 
 
@@ -85,30 +85,30 @@ echo run('get', 'test_simple');
 ### Using CLI
 ```bash
 #!/bin/bash
-equal.run --get=demo_simple
+./equal.run --get=demo_simple
 ```
 
 > This is a valid controller!
 
 
 ## Real life action
-`/public/packages/demo/data/image.php`:
+`/packages/demo/data/image.php`:
 
 ```php
 <?php
-use qinoa\http\HttpRequest;
+use equal\http\HttpRequest;
 
 /**
  * HTTP native support
  *
  */
 list($params, $providers) = eQual::announce([
-    'description'   => 'Get picture data from imgur API',
+    'description'   => 'Get picture data from imgur.com using imgur API.',
     'params'        => [
         'id' => [
             'description'   => 'Hash of the image to retrieve',
             'type'          => 'string',
-            'required'      => true
+            'default'       => 'a5NE1kW'
         ]
     ],
     'response'      => [

@@ -1,31 +1,55 @@
 # Quick Start
 
-
-
 You've just installed eQual ... and now what ?
 
-If you haven't done it yet, the first thing to do is to ensure that your installation has completed successfully.
+## Init your environment
 
-You can test your installation by calling the `core_setup` application. For instance, [[http://localhost/equal/?show=setup]]
+First, let's configure it according to your environment.
 
-(If you are getting confused, see eQual URL mechanism) 
+A default configuration file is already present and can be modified, but it is a good practice to leave it untouched, especially if you're using git or any other versioning system, so that the configuration details of your environment remain confidential (not part of the repository).
+
+```bash
+cp config/default.inc.php config/config.inc.php
+```
+Update the values of the DBMS access (from line 109). Usage of config constants is quite obvious : 
+
+```php
+define('DB_HOST',       '127.0.0.1');
+define('DB_PORT',       '3306');   
+define('DB_USER',       'root');
+define('DB_PASSWORD',   'test');
+define('DB_NAME',       'equal');
+```
+Notes : 
+* You can choose any name for the database : if it does not exist, you'll be able to create it using the command line
+* Of course, make sure the MySQL / MariaDB server is running on the specified host and port.
+
+You can now test your installation by calling the `test_db-connectivity` test tool :
+```bash
+./equal.run --do=test_db-connectivity
+```
+
+If no error message is returned (the command ends with a `0` exit code), you can create your database by calling the `init_db` tool :
+
+```bash
+./equal.run --do=init_db
+```
+eQual holds a native `core` package that holds a few classes and operations. All packages depends on the ORM layer, which is responsible of storing the objects  into the database. So, in order to start using a package that defines object classes, you have to initialize it. This can be done using the `init_package` tool :
+
+```bash
+./equal.run --do=init_package --package=core
+```
 
 
-Applications included in the core package are : 
-* `core_setup`
-* `core_utils`
-* `core_manage`
-* `core_validate`
-
-You may install a package from the ones available on this website.
 
 
 
-This section covers the first steps to manage a backend service or API, using eQual
 
+## Create your first package
 
+This section covers the first steps to setup a backend service or API using eQual.
 
-## 1. Create your package
+### 1. Create a new package
 
 In **public/packages/**, create a **new folder**. For this example, we'll name it *"myapp"*.
 In `mypackage`, create a bunch of new folders named `classes` and `data`
@@ -38,7 +62,7 @@ Directory should look like this :
         /data
 ```
 
-## 2. Define custom classes
+### 2. Define some custom classes
 
 In `public/packages/mypackage/classes/`, we add a new **.class.php** file for each class we want to use. 
 In this example, we define the class **Task** for a todo-list app :
@@ -89,7 +113,7 @@ We also need to do the opposite in *User.class.php* :
 
 
 
-## 3. Initiate package in the database
+### 3. Initialize the new package
 
 For this step, we use mySQL with a dedicated database (See [Configuration](configuration.md))
 
@@ -109,7 +133,7 @@ php run.php --do=init_package --package=mypackage
 
 Now the dabase "equal" should have the following tables: core_contact, core_group, core_log, core_permission, core_rel_group_user, core_translation, core_user, core_version, mypackage_task, mypackage_user
 
-##### Troubleshooting
+#### Troubleshooting
 
 If none of the above is working. Try this :
 
@@ -127,7 +151,7 @@ php run.php --do=test_package-consistency --package=mypackage
 
 
 
-## 4. Grant CRUD permissions
+### 4. Grant CRUD permissions
 
 By default you don't have any rights to read, write or delete in the DB. This is for security reasons
 
@@ -146,7 +170,7 @@ The rights available are **"create", "read", "update", "delete", "manage"**
 For instance, we'll continue with our todolist example and grant the permission to **read** for the group of objects **Task** :
 
 ```bash
-equal.run --do=group_grant --group=2 --right=read --entity=mypackage\Task
+./equal.run --do=group_grant --group=2 --right=read --entity=mypackage\Task
 ```
 
 **You can only grant one right at a time**, it means we'll need to repeat this command for every permission we want to give
