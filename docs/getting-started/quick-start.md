@@ -1,6 +1,6 @@
 # Quick Start
 
-You've just installed eQual ... and now what ?
+You've just installed eQual. And now what ?
 
 ## Init your environment
 
@@ -43,17 +43,15 @@ eQual holds a native `core` package that holds a few classes and operations. All
 
 
 
-
-
 ## Create your first package
 
 This section covers the first steps to setup a backend service or API using eQual.
 
 ### 1. Create a new package
 
-In **public/packages/**, create a **new folder**. For this example, we'll name it *"myapp"*.
-In `mypackage`, create a bunch of new folders named `classes` and `data`
-Directory should look like this :
+In `/packages`, create a **new folder**. For this example, we'll name it *"mypackage"*.
+In `/packages/mypackage`, create 2 new folders named `classes` and `data`.
+Directory should look like this :  
 
 ```
 /packages
@@ -62,17 +60,18 @@ Directory should look like this :
         /data
 ```
 
+
 ### 2. Define some custom classes
 
-In `public/packages/mypackage/classes/`, we add a new **.class.php** file for each class we want to use. 
+In `/packages/mypackage/classes/`, add a new **.class.php** file for each class we want to use. 
 In this example, we define the class **Task** for a todo-list app :
 
-*../packages/mypackage/classes/Task.class.php*
+`/packages/mypackage/classes/Task.class.php`
 
 ```php
 <?php  
 namespace mypackage;
-use qinoa\orm\Model; // this is a built-in object handler
+use equal\orm\Model; // this is a built-in object handler
     
 class Task extends Model {
     public static function getColumns() {
@@ -93,22 +92,22 @@ That's where the types **many2many**, **one2many**, and **many2one** come in han
 <?php
 // Task
 // ...
-      return array(
+      return [
         // ...
-        'user_id'	=> ['type' => 'many2one', 'foreign_object' => 'myapp\User']
-      );
+        'user_id'	=> ['type' => 'many2one', 'foreign_object' => 'mypackage\User']
+      ];
 ```
 
-We also need to do the opposite in *User.class.php* :
+We also need to do the opposite in `User.class.php` :
 
 ```php
 <?php
 // User
 // ...
-      return array(
+      return [
         // ...
-        'task_id'	=> ['type' => 'one2many', 'foreign_object' => 'myapp\Task']
-      );
+        'task_id'	=> ['type' => 'one2many', 'foreign_object' => 'mypackage\Task']
+      ];
 ```
 
 
@@ -131,7 +130,16 @@ Then we do the same for our package. It will automatically create **one table pe
 php run.php --do=init_package --package=mypackage
 ```
 
-Now the dabase "equal" should have the following tables: core_contact, core_group, core_log, core_permission, core_rel_group_user, core_translation, core_user, core_version, mypackage_task, mypackage_user
+Now the database should have the following tables:  
+* `core_user`
+* `core_group`
+* `core_rel_group_user`
+* `core_log`
+* `core_permission`
+* `core_translation`
+* `core_version`
+* `mypackage_task`
+* `mypackage_user`
 
 #### Troubleshooting
 
@@ -165,12 +173,12 @@ If you want to bypass this you have 2 options :
 
 When you make a CLI command, eQual automatically bypass all limitations. It makes it the only reliable way to give and retain rights within your project
 
-The rights available are **"create", "read", "update", "delete", "manage"**
+The rights available are **create**, **read**, **update**, **delete**, **manage**
 
 For instance, we'll continue with our todolist example and grant the permission to **read** for the group of objects **Task** :
 
 ```bash
-./equal.run --do=group_grant --group=2 --right=read --entity=mypackage\Task
+./equal.run --do=group_grant --group=default --right=read --entity=mypackage\Task
 ```
 
 **You can only grant one right at a time**, it means we'll need to repeat this command for every permission we want to give
@@ -184,9 +192,9 @@ The good thing is you only have to do it once, unless you initiated the core pac
 
 Alternatively, you can grant all access through all the project. This should only be used for testing purpose
 
-In the **config** folder, open the config.inc.php file. If you don't have one open default.inc.php instead
+In the `/config` folder, open the `config.inc.php` file. If you don't have one, create one by copying it from `default.inc.php`.
 
-There is a parameter called "DEFAULT_RIGHTS" you can tweak :
+There is a parameter called "DEFAULT_RIGHTS" you can customize :
 
 ```php
 // config.inc.php
@@ -201,23 +209,19 @@ There is a parameter called "DEFAULT_RIGHTS" you can tweak :
 
 Uncomment the commented part, comment the uncommented part, then save
 
-It's using a binary mask and 0 means no rights. Create is 1, read is 2, write/update is 4, delete is 8, and manage is 16.
-
-Alternatively, you can temporarily replace 0 with the addition of the binary values of the rights you want to give
-
-Don't forget to **switch back** once you're done
+Note: eQual uses binary masks for granting rights : 0 means no rights; create is 1; read is 2; write/update is 4; delete is 8; and manage is 16.
 
 
 
 ## 5. Change default view
 
-In **public/config/**, open *config.inc.php* or *default.inc.php* (unrecommended) and adapt this :
+In `/config`, open *config.inc.php* or *default.inc.php* (unrecommended) and adapt this :
 
 ```php
 define('default_package', 'mypackage');
 ```
 
-In **public/packages/myapp/**, create a *config.inc.php* file and write this :
+In `/packages/mypackage`, create a *config.inc.php* file and add these lines :
 
 ```php
 <?php
@@ -226,10 +230,11 @@ namespace config;
 define('DEFAULT_APP', 'landing');	// it refers to packages/mypackage/apps/landing.php
 ```
 
-And we're done, eQual will now display landing.php as default landing page
+And we're done, eQual will now use the landing controller when requesting mypackage.
 
-
+To test it, navigate to: [http://equal.local/?show=mypackage](http://equal.local/?show=mypackage)
 
 ### More learning ressources
 
 See [*Usage*](../usage/directory-structure.md) and [*Howtos*](../howtos-and-examples/generic-cheat-sheet.md)
+
