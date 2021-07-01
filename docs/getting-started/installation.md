@@ -40,28 +40,62 @@ Under Windows, you can use any of the following tools for a ready-to-use MySQL a
 * [WAMP Server 3.2+](https://www.wampserver.com/en/) 
 * [DevServer 17.x](https://www.easyphp.org/easyphp-devserver.php)
 
+Retrieve the path of the PHP executable:
+```
+where php
+```
+This will output something like `C:\wamp64\bin\php\php7.2.18\php.exe` 
 
+Add the PHP binary to the PATH environment variable:
+```
+SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
+```
 
 ### Ubuntu
 
+```bash
+sudo apt update
+sudo apt install php libapache2-mod-php
+```
+
+```bash
+sudo systemctl restart apache2
+```
+Retrieve the path of the PHP binary:
+```bash
+which php
+```
+This will output something like `/usr/bin/php` 
+
+Add the PHP binary to the PATH environment variable:
+```  
+export PATH=$PATH:/usr/bin/php
+```
+
 ### Fedora/Centos 
 
-Open terminal and ensure that your operating system is updated with the latest patches
-	`yum update`
-Now install mysql server, php and apache
-	`yum install httpd php mysql-server php-mysql`
-
+Install Mysql server, PHP and Apache
+```bash
+yum update
+yum install httpd php mysql-server php-mysql
+```
 
 Move the extracted directory to your document root
 
 Not sure what you document root is using the below you can quickly find out
-	`cat /etc/httpd/conf/httpd.conf | grep DocumentRoot`
-	`mv equal/* /var/www/html/`
+```bash
+cat /etc/httpd/conf/httpd.conf | grep DocumentRoot
+mv equal/* /var/www/html/
+```
 
 Now you may need to update the SELinux labels on the directories and files to httpd so that apache has the rights to serve the files. Using the below will do just this.
-	`chcon -Rt httpd_sys_content_t /var/www/html/*`
+```bash
+chcon -Rt httpd_sys_content_t /var/www/html/*
+```
 Now you may need to update SELinux boolean to allow httpd to network_connect_db to allow it to make a connection to mysql.
-	`setsebool -P httpd_can_network_connect_db 1`
+```bash
+setsebool -P httpd_can_network_connect_db 1
+```
 
 
 ## Host config

@@ -121,32 +121,32 @@ First we **initiate the core component**; this is required every time we want to
 Open your CLI at the root of eQual's folder and use this :
 
 ```bash
-php run.php --do=init_package --package=core
+./equal.run --do=init_package --package=core
 ```
 
 Then we do the same for our package. It will automatically create **one table per associated class**
 
 ```bash
-php run.php --do=init_package --package=mypackage
+./equal.run --do=init_package --package=mypackage
 ```
 
 Now the database should have the following tables:  
-* `core_user`
-* `core_group`
-* `core_rel_group_user`
-* `core_log`
-* `core_permission`
-* `core_translation`
-* `core_version`
-* `mypackage_task`
-* `mypackage_user`
+* `core_user`  
+* `core_group`  
+* `core_rel_group_user`  
+* `core_log`  
+* `core_permission`  
+* `core_translation`  
+* `core_version`  
+* `mypackage_task`  
+* `mypackage_user`  
 
 #### Troubleshooting
 
 If none of the above is working. Try this :
 
 ```bash
-php run.php --do=test_package-consistency --package=core
+./equal.run --do=test_package-consistency --package=core
 ```
 
 It will tell you if something is wrong or missing. You can ignore any error related to view or translation (they are optional but will display a warning nonetheless)
@@ -154,7 +154,7 @@ It will tell you if something is wrong or missing. You can ignore any error rela
 You can run the same command with your package's name instead of "core", see if the problem lies in here
 
 ```bash
-php run.php --do=test_package-consistency --package=mypackage
+./equal.run --do=test_package-consistency --package=mypackage
 ```
 
 
