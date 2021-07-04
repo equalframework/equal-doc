@@ -12,8 +12,6 @@ eQual requires the following dependencies:
 
 
 
-
-
 ## Get eQual
 
 - Download code as ZIP: 
@@ -25,12 +23,10 @@ eQual requires the following dependencies:
 - Clone with Git :
 
   `git clone https://github.com/cedricfrancoys/equal.git`
-  
-  
 
 
 
-## Install 
+## Environment installation
 
 ### Windows
 
@@ -58,6 +54,12 @@ sudo apt update
 sudo apt install php libapache2-mod-php
 ```
 
+Make sure that the mod-rewrite module is enabled: 
+```bash
+sudo a2enmod rewrite
+```
+
+Restart Apache: 
 ```bash
 sudo systemctl restart apache2
 ```
@@ -98,18 +100,82 @@ setsebool -P httpd_can_network_connect_db 1
 ```
 
 
-## Host config
+
+## Virtual host configuration
+
+Create a new virtual host and using `/public` as the root path
+
+Example for Apache2:
+
+```
+<VirtualHost *:80>
+  ServerName equal.local
+  DocumentRoot "c:/dev/wamp64/www/equal/public"
+  <Directory  "c:/dev/wamp64/www/equal/public/">
+    Options +Indexes +Includes +FollowSymLinks +MultiViews
+    AllowOverride All
+    Require local
+  </Directory>
+</VirtualHost>
+```
+
+ 
+
+Of course, the related domain name must be set in your local hosts file:
+
+* Windows :  `C:\Windows\System32\drivers\etc\hosts`
+* Linux : `/etc/hosts`
 
 
-- Create a new virtual host using *.../equal/public/* as the root path
 
-If done correctly you should now see the eQual workench (where you can see and manipulate your package classes)
+You should now be able to query some operations using your browser:
+
+http://equal.local/index.php?get=demo_hello
 
 
 
-## Database Init
+## eQual configuration
 
-The database configuration is only for demo and more stringent passwords and setup for production uses.
+eQual expects at least one config file in the `/config` directory (if no `config.inc.php` file is found , then `default.inc.php` is used).
+
+To create and customize your config file, start with copying `default.inc.php`
+
+```
+cp config/default.inc.php config/config.inc.php
+```
+
+
+
+Open `config.inc.php` and update the following constant to the values related to your environment:
+
+```php
+define('DB_DBMS',     'MYSQL'); 
+define('DB_HOST',     '127.0.0.1'); 
+define('DB_PORT',     '3306'); 
+define('DB_USER',     'equaldb'); 	   	// adapt this
+define('DB_PASSWORD', 'mypass');  		// this (with your own password)
+define('DB_NAME',     'mydb');   		// and this
+define('DB_CHARSET',  'UTF8'); 
+```
+
+
+
+
+## Database initialization
+
+You can use the dedicated controller for creating the database.
+
+Either using your browser : http://equal.local/?do=init_db
+
+or with the command line interface:
+
+```bash
+./equal.run --do=init_db
+```
+
+
+
+Alternatively, you can create the database manually : 
 
 * Open MySQL session as root – type the password upon request (if none set omit -p)
   	`mysql -uroot -p`
