@@ -9,13 +9,13 @@ This section presents common questions along with some relevant examples.
 ### Console
 
 ```
-http://[eQual-host]/console.php
+http://equal.local/console.php
 ```
 
 ### Workbench
 
 ```
-http://[eQual-host]?show=workbench
+http://equal.local?show=workbench
 ```
 
 
@@ -28,38 +28,38 @@ Should be located at the root of eQual (where *run.php* is)
 
 Available rights: "create", "read", "update", "delete", "manage"
 
-You can grant only one right for one entity at a time
+You can grant one right for one entity at a time:
 
 ```bash
-equal.run --do=group_grant --group=2 --right=read --entity="mypackage\MyObject"
+./equal.run --do=group_grant --group=default --right=update --entity="core\User"
 ```
 
 #### Test package consistency
 
-It works with any package, even "core"
+This controller runs some consistency checks and works with any package:
 
 ```bash
-equal.run --do=test_package-consistency --package=mypackage
+./equal.run --do=test_package-consistency --package=core
 ```
 
 #### Initiate eQual core in DB
 
-(this step is mandatory for every new database)
+(this step is mandatory for every new installation)
 
 ```bash
-equal.run --do=init_package --package=core
+./equal.run --do=init_package --package=core
 ```
 
 #### Initiate your package in DB
 
 ```bash
-equal.run --do=init_package --package=mypackage
+./equal.run --do=init_package --package=mypackage
 ```
 
-#### Run package testing
+#### Run package test unit
 
 ```bash
-equal.run --do=test_package --package=mypackage
+./equal.run --do=test_package --package=mypackage
 ```
 
 
@@ -68,13 +68,11 @@ equal.run --do=test_package --package=mypackage
 
 ### GET :
 
-Related Path :  `../packages/mypackage/data/my-controller.php`
+Related Path :  `/packages/mypackage/data/my-controller.php`
 
 **HTTP :**
 
-```http
-http://[eQual-host]?get=mypackage_my-controller
-```
+[http://equal.local?get=mypackage_my-controller](http://equal.local?get=mypackage_my-controller)
 
 **PHP :**
 
@@ -85,18 +83,17 @@ run('get', 'mypackage_MyClass')
 **CLI :**
 
 ```bash
-equal.run --get=model_collection --entity="mypackage\MyClass"
+./equal.run --get=model_collection --entity="mypackage\MyClass"
 ```
 
 ### DO :
 
-Related path :  `../packages/mypackage/actions/subdir/my-action.php`
+Related path :  `/packages/mypackage/actions/subdir/my-action.php`
 
 **HTTP :**
 
-```http
-http://[eQual-host]?do=mypackage_subdir_my-action
-```
+[http://equal.local?do=mypackage_subdir_my-action](http://equal.local?do=mypackage_subdir_my-action)
+
 
 **PHP :**
 
@@ -107,7 +104,7 @@ run('do', 'mypackage_myobject_action', [/* parameters */])
 **CLI :**
 
 ```bash
-equal.run --do=model_update --entity=mypackage\MyObject --fields=[id]=1 --fields=[name]=example
+./equal.run --do=model_update --entity=mypackage\MyObject --fields=[ids]=1 --fields=[name]=example
 ```
 
 
