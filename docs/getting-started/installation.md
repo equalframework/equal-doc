@@ -12,20 +12,6 @@ eQual requires the following dependencies:
 
 
 
-## Get eQual
-
-- Download code as ZIP: 
-
-  `wget https://github.com/cedricfrancoys/equal/archive/master.zip`
-
-**OR**
-
-- Clone with Git :
-
-  `git clone https://github.com/cedricfrancoys/equal.git`
-
-
-
 ## Environment installation
 
 ### Windows
@@ -74,44 +60,51 @@ Add the PHP binary to the PATH environment variable:
 export PATH=$PATH:/usr/bin/php
 ```
 
-### Fedora/Centos 
+### RHEL / Fedora / Centos 
 
-Install Mysql server, PHP and Apache
+Install Mysql server, PHP and Apache:
 ```bash
 yum update
 yum install httpd php mysql-server php-mysql
 ```
 
-Move the extracted directory to your document root
 
-Not sure what you document root is using the below you can quickly find out
-```bash
-cat /etc/httpd/conf/httpd.conf | grep DocumentRoot
-mv equal/* /var/www/html/
-```
 
-Now you may need to update the SELinux labels on the directories and files to httpd so that apache has the rights to serve the files. Using the below will do just this.
-```bash
-chcon -Rt httpd_sys_content_t /var/www/html/*
+## Get eQual
+
+- Download code as ZIP: 
+
+  `wget https://github.com/cedricfrancoys/equal/archive/master.zip`
+
+**OR**
+
+- Clone with Git :
+
+  `git clone https://github.com/cedricfrancoys/equal.git`
+
+
+
+Copy the files to your webserver HTML directory.
+
+Example : 
+
 ```
-Now you may need to update SELinux boolean to allow httpd to network_connect_db to allow it to make a connection to mysql.
-```bash
-setsebool -P httpd_can_network_connect_db 1
+cp equal /var/www/html/
 ```
 
 
 
 ## Virtual host configuration
 
-Create a new virtual host and using `/public` as the root path
+In the HTTP server config, create a virtual host that uses `/public` as DocumentRoot.
 
-Example for Apache2:
+Example for Apache2:	
 
 ```
 <VirtualHost *:80>
   ServerName equal.local
-  DocumentRoot "c:/dev/wamp64/www/equal/public"
-  <Directory  "c:/dev/wamp64/www/equal/public/">
+  DocumentRoot "c:/wamp64/www/equal/public"
+  <Directory "c:/wamp64/www/equal/public/">
     Options +Indexes +Includes +FollowSymLinks +MultiViews
     AllowOverride All
     Require local
@@ -163,9 +156,25 @@ define('DB_CHARSET',  'UTF8');
 
 ## Database initialization
 
-You can use the dedicated controller for creating the database.
+You should now have a properly configured environment.
 
-Either using your browser : http://equal.local/?do=init_db
+To make sure the DBMS can be access, you can use the following controller : 
+```
+./equal.run --do=test_db-connectivity
+```
+Upon success this controller exits with no message (exit 0), and the database is created. If an error occurs, a JSON message is returned with a short description about the issue. Example:
+```
+{
+    "errors": {
+        "INVALID_CONFIG": "Unable to establish connection to DBMS host (wrong hostname or port)"
+    }
+}
+```
+
+
+The database can be created by using the `core_init_db controller` 
+
+Either using your browser : [http://equal.local/?do=init_db](http://equal.local/?do=init_db)
 
 or with the command line interface:
 
@@ -175,15 +184,147 @@ or with the command line interface:
 
 
 
-Alternatively, you can create the database manually : 
-
-* Open MySQL session as root – type the password upon request (if none set omit -p)
+>  Alternatively, you can create the database manually : 
+>
+> 
+> * Open MySQL session as root – type the password upon request (if none set omit -p)
   	`mysql -uroot -p`
-* Create eQual database
-  	`create database equal character set utf8;`
-* Create dedicated user for the database
-  	`create user equal identified by 'password';`
-* Grant the user full rights to the database
-  	`grant all on equal.* to equal;`
+> * Create eQual database
+  	`create database mydb character set utf8;`
 
   	
+
+## Package  initialization
+
+In order to be able to manipulate entities, the related package needs to be initialized (each package contains the class definition of its own entities).
+This can be done by using the `core_init_package` controller.
+
+```
+./equal.run --do=init_package --package=core
+```
+This controller should populate the database with the tables related to the specified package.
+
+Now, you should be able to fetch data by using the default (core) controllers.
+For instance : 
+http://equal.local/?get=model_collect&entity=core\User
+
+
+
+## API requests
+
+A list of routes related to default API is defined in `/config/routing/api_default.json`
+Here below are some examples of HTTP calls and their responses (in JSON):
+
+
+
+Fetch the details of user[1] (admin).
+
+GET http://equal.local/user/1
+```
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "state": "instance",
+        "modified": "2012-08-18T15:06:43+02:00"
+    }
+]
+```
+
+
+
+Fetch the full list of existing groups.
+
+GET http://equal.local/users
+
+```
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "state": "instance",
+        "modified": "2012-08-18T15:06:43+02:00"
+    },
+    {
+        "id": 2,
+        "name": "cedric@equal.run",
+        "state": "instance",
+        "modified": "2014-09-04T12:21:34+02:00"
+    }
+]
+```
+
+
+
+Fetch the full list of existing groups.
+
+GET http://equal.local/groups
+
+```
+[
+    {
+        "id": 1,
+        "name": "root",
+        "state": "",
+        "modified": "2012-05-30T20:45:20+02:00"
+    },
+    {
+        "id": 2,
+        "name": "default",
+        "state": "",
+        "modified": "2012-05-30T20:45:20+02:00"
+    }
+]
+```
+
+
+
+Create a new group.
+
+POST http://equal.local/group
+
+```
+{
+    "entity": "core\\Group",
+    "id": 3
+}
+```
+
+
+
+Update the 'name' property of the group[3].
+
+PUT http://equal.local/group/3?fields[name]=test
+
+```
+[]
+```
+
+
+
+Fetch the full list of existing groups.
+
+GET http://equal.local/groups
+
+```
+[
+    {
+        "id": 1,
+        "name": "root",
+        "state": "",
+        "modified": "2012-05-30T20:45:20+02:00"
+    },
+    {
+        "id": 2,
+        "name": "default",
+        "state": "instance",
+        "modified": "2021-07-05T12:40:49+02:00"
+    },
+    {
+        "id": 3,
+        "name": "test",
+        "state": "instance",
+        "modified": "2021-07-05T12:42:30+02:00"
+    }
+]
+```
