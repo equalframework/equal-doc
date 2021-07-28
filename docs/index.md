@@ -92,6 +92,11 @@ echo run('get', 'demo_simple');
 
 
 ## Real life action
+```bash
+#!/bin/bash
+./equal.run --get=demo_image
+```
+
 `/packages/demo/data/image.php`:
 
 ```php
