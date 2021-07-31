@@ -8,7 +8,7 @@ edit_uri: ""
 theme:
   name: material
   favicon: 'assets/img/favicon.png'
-  logo: 'assets/img/eq_logo.png'  
+  logo: 'assets/img/eq_logo.png'
   feature:
     tabs: true
   # 404 page
@@ -36,45 +36,46 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
-nav:                                                   
-  - 'Welcome':                                  
-      - 'Prologue': 'index.md'                  
-      - 'Release notes': 'welcome/release-notes.md'                              
-      - 'Contribution Guide': 'welcome/contribution-guide.md'                       
-  - 'Getting Started':                                     
+nav:
+  - 'Welcome':
+      - 'Prologue': 'index.md'
+      - 'Release notes': 'welcome/release-notes.md'
+      - 'Contribution Guide': 'welcome/contribution-guide.md'
+  - 'Getting Started':
       - 'Installation': 'getting-started/installation.md'
-      - 'Quick Start': 'getting-started/quick-start.md'  
+      - 'Quick Start': 'getting-started/quick-start.md'
       - 'Configuration': 'getting-started/configuration.md'
-      - 'Deployment': 'getting-started/deployment.md'                                   
-  - 'Architecture Concepts':                               
-      - 'HTTP native': 'architecture-concepts/http-native.md'                                  
-      - 'Services': 'architecture-concepts/services.md'                                     
-      - 'Dependency injection': 'architecture-concepts/dependency-injection.md'                           
-      - 'ORM': 'architecture-concepts/orm.md'                                          
-  - 'Usage':                                               
+      - 'Deployment': 'getting-started/deployment.md'
+  - 'Architecture Concepts':
+      - 'HTTP native': 'architecture-concepts/http-native.md'
+      - 'Services': 'architecture-concepts/services.md'
+      - 'Dependency injection': 'architecture-concepts/dependency-injection.md'
+      - 'ORM': 'architecture-concepts/orm.md'
+  - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
-     - 'Directory Structure': 'usage/directory-structure.md'     
-     - 'Model Definition': 'usage/model-definition.md'       
-     - 'Controllers': 'usage/controllers.md'                                     
-     - 'CRUD': 'usage/crud.md'                                            
-     - 'Searching': 'usage/searching.md'                                       
-     - 'Validation': 'usage/validation.md'                                      
-     - 'Routing': 'usage/routing.md'                                         
-     - 'Views': 'usage/views.md'                                           
-     - 'i18n': 'usage/i18n.md'                                            
-     - 'Error Handling': 'usage/error-handling.md'                                  
-     - 'Debugging': 'usage/debugging.md'                                       
-     - 'Testing': 'usage/testing.md'                        
-  - 'How-Tos & Examples':                                    
-      - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'      
-      - 'Basic Controller' : 'howtos-and-examples/basic-controller.md'                              
-      - 'ReST API': 'howtos-and-examples/rest-api.md'                     
-  - 'Advanced':                                              
-     - 'Security': 'advanced/security.md'                                        
-     - 'Logging': 'advanced/logging.md'                                         
-     - 'Remote APIs': 'advanced/remote-apis.md'                                     
-     - 'Cascade Configuration': 'advanced/cascade-configuration.md'     
-     - 'CI/CD' : 'advanced/ci-cd.md'                      
-  - 'Contact & Support':                                     
-     - 'Contact': 'contact-and-support/contact.md'                               
-     - 'Support': 'contact-and-support/support.md'  
+     - 'Directory Structure': 'usage/directory-structure.md'
+     - 'Model Definition': 'usage/model-definition.md'
+     - 'Controllers': 'usage/controllers.md'
+     - 'CRUD': 'usage/crud.md'
+     - 'Searching': 'usage/searching.md'
+     - 'Validation': 'usage/validation.md'
+     - 'Routing': 'usage/routing.md'
+     - 'Views': 'usage/views.md'
+     - 'i18n': 'usage/i18n.md'
+     - 'Error Handling': 'usage/error-handling.md'
+     - 'Debugging': 'usage/debugging.md'
+     - 'Testing': 'usage/testing.md'
+  - 'How-Tos & Examples':
+      - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'
+      - 'Basic Controller' : 'howtos-and-examples/basic-controller.md'
+      - 'ReST API': 'howtos-and-examples/rest-api.md'
+  - 'Advanced':
+     - 'Security': 'advanced/security.md'
+     - 'Logging': 'advanced/logging.md'
+     - 'Remote APIs': 'advanced/remote-apis.md'
+     - 'Cascade Configuration': 'advanced/cascade-configuration.md'
+     - 'CI/CD' : 'advanced/ci-cd.md'
+     - 'External libraries' : 'advanced/external-libraries.md'
+  - 'Contact & Support':
+     - 'Contact': 'contact-and-support/contact.md'
+     - 'Support': 'contact-and-support/support.md'
