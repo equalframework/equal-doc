@@ -18,9 +18,8 @@ When we have an x2many field the widgets:
 	=> allows you to select one or more other objects (list)
 
 
-===Examples===
+## Class related to a view
 
-**Class related to a view**
 ```php
 class Option extends Model {
     public static function getColumns() {
@@ -46,9 +45,8 @@ class Option extends Model {
 }
 ```
 
-==== Menus ==== 
+## Menu
 
-**Menu View**
 Menus are defined by App and are injected into the side bars (navigation drawer).
 
 ```js
@@ -73,14 +71,13 @@ Menus are defined by App and are injected into the side bars (navigation drawer)
 ```
 
 
-==== Forms ==== 
+## Forms
 
-**Form View**
 Forms are the view and edit view for individual objects. It is possible to define as many views as desired, the only constraint is the definition of a default view. This view should contain all the fields present in its corresponding class, except for the fields that are of type computed. 
 The name of form view is displayed like so: `packages/core/views/User.form.default.json`
 A form is defined according to the following structure:
 
-```js
+```json
 {
     "name": "User",
     "description": "Simple form for displaying User",
@@ -91,7 +88,7 @@ A form is defined according to the following structure:
                 "sections": [                   // if several sections, display with tabs (there is always 1 section at least)
                     {
                         "label": "",		// name of the section that will be displayed as tab
-						"visible": []		// visibilty of the section
+						"visible": [],		// visibilty of the section
                         "rows": [		// rows are stacked vertically
                             {
                                 "columns": [
@@ -109,15 +106,15 @@ A form is defined according to the following structure:
                                             {
                                                 "type": "field",
                                                 "id": "firstname",	// the identifier of a field is the name of the associated field
-                                                "width": "50%"
+                                                "width": "50%",
                                                 "widget": {
-													"header": true  // the field is a title (scaled 1.5)
-	                                            	"view": ""      // in the case of a widget using a view: the view ID (the type of view is implicit in the widget, but can be forced e.g. `list.detailed`)
+													"header": true,  // the field is a title (scaled 1.5)
+	                                            	"view": "" ,     // in the case of a widget using a view: the view ID (the type of view is implicit in the widget, but can be forced e.g. `list.detailed`)
         	                                    	"domain": []    // in the case of a widget using a domain
 												},
 												"visible": [ 
-													['object.field', '=', 'value']		// the visibility of a control can be conditioned (by default it is the rule of the diagram that applies, if it is defined) ...
-													['user.field', '=', 'value'],		
+													["object.field", "=", "value"]		// the visibility of a control can be conditioned (by default it is the rule of the diagram that applies, if it is defined) ...
+													["user.field", "=", "value"],		
 							   					]		// the names 'object' and 'user' are reserved and are associated with the context
                                             }
                                         ]
@@ -134,17 +131,16 @@ A form is defined according to the following structure:
 ```
 
 
-==== Lists ==== 
+## List Views
 
-**List View**
 List views are the ones that displays the important fields that were saved in the form view. By clicking on one row in the list, it redirects you to the editable form related to the view.
 The name of file is displayed like so: `packages/core/views/User.list.default.json`
 A list is defined according to the following structure:
 
-```js
+```json
 {
-    "name": '',
-    "description": '',
+    "name": "",
+    "description": "",
     "domain": [],			// syntax can be either ["id", ">", "3"] or "['id', '>', '3']"
     "filters": [
         {
@@ -155,8 +151,8 @@ A list is defined according to the following structure:
         }
     ],
     "layout": {
-		"filter": bool,			// display or not a filter zone
-		"pager": bool,			// display or not a navigation bar
+		"filter": "bool",			// display or not a filter zone
+		"pager": "bool",			// display or not a navigation bar
 		"selection_actions": [		// These actions allow either to modify the selected objects (archive, delete) with refresh of the 									list; either to execute an action with the selection as input (export, print, ...)
 			{
 				"label": "export",
