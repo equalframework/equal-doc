@@ -22,6 +22,7 @@ composer require "twig/twig:^2.0"
 ```
 
 ```
+<?php
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 ```
@@ -33,6 +34,7 @@ composer require phpoffice/phpspreadsheet
 ```
 
 ```php
+<?php
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 ```
@@ -44,6 +46,7 @@ composer require dompdf/dompdf
 ```
 
 ```php
+<?php
 use Dompdf\Dompdf;
 use Dompdf\Options;
 ```
@@ -51,6 +54,7 @@ use Dompdf\Options;
 
 For libraries that do not support autoloading, it is still a good practive to store them in the `/vendor` folder, and then including them manually by using `include` or `require`:
 ```php
+<?php
 require_once '../vendor/swiftmailer/swiftmailer/lib/swift_required.php';
 ```
 

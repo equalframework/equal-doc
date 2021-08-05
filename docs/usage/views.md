@@ -3,37 +3,42 @@ To define the layout of the forms, the list of the fields and the possible inter
 Each package has a folder named ‘views’ that contains, for each class, two JQUERY views, one for the form and the other for the list.
 These files are written in JSON format, and contain information about the fields and labels to display and their positioning, for the edition of the related class.
 
-**Filename format** is: ''//view_name//.(list | form).//default//.json''
+**Generic filename format** is: `/{class_name}.{view_type}.{view_name}.json`
 
-A **view** has an entity, a type (form, list, menu or kanban), a view name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
+* `class_name`: the class name of the entity the view relates to (e.g. view related to core\User are stored as `packages/core/views/User.form.default.json` and `packages/core/views/User.form.default.json`)
+* `view_type`: Possible values are '*list*', '*form*' and '*card*'
+* `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
+
+A **view** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
 Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications.
 
 A **Model** is a collection of objects of a given entity. This class keeps the full schema of the entity with the default values that are then updated by this model after it requests the corresponding data from the server.
 
 A **Layout** is the layout associated with a given view. It is always linked to a Model.
 
-A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchornizes its value with the Model to which it is associated via the Layout and the View that is using it.
+A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
 When we have an x2many field the widgets: 
-	=> allows you to see the selected object (form)
-	=> allows you to select one or more other objects (list)
+
+* allows to see the selected object (form)
+* allows to select one or more other objects (list)
 
 
-## Class related to a view
+## Mapping between Model and View
 
 A `class` contains all the fields that are related to a specific category, for example: address, user, booking, bank statement and many more detailed categories. Each class contains at least one of these properties: 
 
-⋅⋅* `type`: this property is always present for each field of the classes. The existing types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*.
-⋅⋅* `alias`: which represents another name that the field in known for. For example: field name is "name" so the alias would be "display_name".
-⋅⋅* `function`: it calls a function present in a class to get it's value.
-⋅⋅* `result_type`: the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
-⋅⋅* `store`: is usually deisplayed as true for the fields that are of type "computed".
-⋅⋅* `description`: is a small brief about the field.
-⋅⋅* `onchange`: calls a function to get it's value whenever a change exists.
-⋅⋅* `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
-⋅⋅* `visible`: displays the conditions that allows the field to be visible or not.
-⋅⋅* `foreign_object`: is the path to the parent class of a field in another one.
-⋅⋅* `foreign_field`: the name of the field that refers to the parent class.
-⋅⋅* `required`: is set to true whenever the field is required.
+* `type`: this property is always present for each field of the classes. The existing types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*.
+* `alias`: which represents another name that the field in known for. For example: field name is "name" so the alias would be "display_name".
+* `function`: it calls a function present in a class to get it's value.
+* `result_type`: the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
+* `store`: is usually displayed as true for the fields that are of type "computed".
+* `description`: is a small brief about the field.
+* `onchange`: calls a function to get it's value whenever a change exists.
+* `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
+* `visible`: displays the conditions that allows the field to be visible or not.
+* `foreign_object`: is the path to the parent class of a field in another one.
+* `foreign_field`: the name of the field that refers to the parent class.
+* `required`: is set to true whenever the field is required.
 
 
 Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
@@ -98,35 +103,42 @@ Below is an example of a Booking Menu drawer, as shown by the ```name``` propert
               "description": "",
               "icon": "menu_book",
               "type": "entry",  //either entry or parent
-              "route": "/booking"
-            },
-            {
-              "id": "item.customers",
-              "value": "Customers",
-              "description": "",
-              "icon": "person_outline",
-              "type": "entry",
-              "route": "/planning"
-            }                      
+              "children": [
+                {
+                  "type": "entry",
+                  "value": "New booking",
+                  "description": "", 
+                  "icon": "add",
+                  "entity": "sale\\booking\\Booking",
+                  "view": "form.default",
+                  "purpose": "create"
+                },
+                {
+                  "type": "entry",
+                  "value": "All bookings",
+                  "description": "", 
+                  "entity": "sale\\booking\\Booking",
+                  "view": "list.default"
+                }
+              ] 
+            }
         ]
     }
 }
 ```
 
 Some of the additional properties that can be added to a menu are: 
-⋅⋅* `target`: "view_name" 
-⋅⋅* `domain`: ""
-⋅⋅* `sort`: ""
-⋅⋅* `order`: "desc" or "asc"
-⋅⋅* `limit`: ""
-
+* `domain`: ""
+* `sort`: ""
+* `order`: '*desc*' or '*asc*'
+* `limit`: ""
 
 ## Forms
 
 Forms are the view and edit view for individual objects. It is possible to define as many views as desired, the only constraint is the definition of a default view. This view should contain all the fields present in its corresponding class, except for the fields that are of type computed. 
 The most used properties of a form view are `name`, `description`, `layout`, `groups`, `sections`, `rows` and `columns`,  which all just describe the view and design the layout for it by grouping it and assigning the rows and columns. Then for each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
 
-The name of form view is displayed like so: *packages/core/views/User.form.default.json*
+The name of form view is displayed like so: `packages/core/views/User.form.default.json`
 A form is defined according to the following structure:
 
 ```json
@@ -275,7 +287,7 @@ The view's name is *Category.form.default.json* and is as follows:
 List views are the ones that displays the important fields that were saved in the form view. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and many more. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it.
 By clicking on one row in the list, it redirects you to the editable form related to the view. 
 
-The name of file is displayed like so: *packages/core/views/User.list.default.json*
+The name of file is displayed like so: `packages/core/views/User.list.default.json`
 A list view is defined according to the following structure:
 
 ```json
