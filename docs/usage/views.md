@@ -25,20 +25,22 @@ When we have an x2many field the widgets:
 
 ## Mapping between Model and View
 
-A `class` contains all the fields that are related to a specific category, for example: address, user, booking, bank statement and many more detailed categories. Each class contains at least one of these properties: 
+A `class` contains a series of fields definition that relate to a specific entity (ex.: name, address, user_id,  ...)  
 
-* `type`: this property is always present for each field of the classes. The existing types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*.
+Each `field` definition may contain one or more of these properties: 
+
+* `type` (mandatory): The existing types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*.
 * `alias`: which represents another name that the field in known for. For example: field name is "name" so the alias would be "display_name".
-* `function`: it calls a function present in a class to get it's value.
-* `result_type`: the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
-* `store`: is usually displayed as true for the fields that are of type "computed".
-* `description`: is a small brief about the field.
-* `onchange`: calls a function to get it's value whenever a change exists.
+* `function`: Mandatory when type is '*computed*'. It tells which method to call for computing the value of the field.
+* `result_type`: Mandatory when type is '*computed*'. It specifies the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
+* `store`: Applies when type is '*computed*'. It tells if the resulting value has to be stored in the DB or computed each time it is requested.
+* `description` (optional): is a small brief about the field.
+* `onchange` (optional): calls a function to get it's value whenever a change exists.
 * `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
-* `visible`: displays the conditions that allows the field to be visible or not.
+* `visible`: It specifies the conditions that must be met in order for the field to be relevant.
 * `foreign_object`: is the path to the parent class of a field in another one.
 * `foreign_field`: the name of the field that refers to the parent class.
-* `required`: is set to true whenever the field is required.
+* `required`: Marks a field as mandatory (storing an object without giving a value for that field will raise an error).
 
 
 Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
@@ -195,9 +197,9 @@ A form is defined according to the following structure:
 }
 ```
 
-A real example of a form view is shown below, which is the Category form of a package having multiple `sections` (tabs) each having a label(Categories, Product Models and Booking Types) and an id(section.categories_id, section.product_models, section.booking_types) to be able to be translated in using the "i18n". The field called ```name``` has a `widget` header set to true which makes it have a bigger font as mentioned earlier and the most important field of this view.
+A real example of a form view is shown below, which is the Category form of a package having multiple `sections` (tabs) each having a label(Categories, Product Models and Booking Types) and an id(`section.categories_id`, `section.product_models`, `section.booking_types`) to be able to be translated in using the "i18n". The field called `name` has a `widget` property with an attribute `header` set to true which makes it have a bigger font as mentioned earlier and the most important field of this view.
 
-The view's name is *Category.form.default.json* and is as follows:
+The view's name is `Category.form.default.json` and is as follows:
 
 ```json
 {
