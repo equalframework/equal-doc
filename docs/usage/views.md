@@ -4,7 +4,7 @@ Each package has a folder named ‘views’ that contains, for each class, two J
 These files are written in JSON format, and contain information about the fields and labels to display and their positioning, for the edition of the related class.
 
 **Filename format** is: ''//view_name//.(list | form).//default//.json''
-*
+
 A **view** has an entity, a type (form, list, menu or kanban), a view name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
 Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications.
 
@@ -20,61 +20,113 @@ When we have an x2many field the widgets:
 
 ## Class related to a view
 
+A `class` contains all the fields that are related to a specific category, for example: address, user, booking, bank statement and many more detailed categories. Each class contains at least one of these properties: 
+
+⋅⋅* `type`: this property is always present for each field of the classes. The existing types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*.
+⋅⋅* `alias`: which represents another name that the field in known for. For example: field name is "name" so the alias would be "display_name".
+⋅⋅* `function`: it calls a function present in a class to get it's value.
+⋅⋅* `result_type`: the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
+⋅⋅* `store`: is usually deisplayed as true for the fields that are of type "computed".
+⋅⋅* `description`: is a small brief about the field.
+⋅⋅* `onchange`: calls a function to get it's value whenever a change exists.
+⋅⋅* `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
+⋅⋅* `visible`: displays the conditions that allows the field to be visible or not.
+⋅⋅* `foreign_object`: is the path to the parent class of a field in another one.
+⋅⋅* `foreign_field`: the name of the field that refers to the parent class.
+⋅⋅* `required`: is set to true whenever the field is required.
+
+
+Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
+
 ```php
-class Option extends Model {
+class Category extends Model {
     public static function getColumns() {
+        /**
+         * Categories are not related to Families and allow a different way of grouping Products.
+         */
         return [
             'name' => [
                 'type'              => 'string',
-                'description'       => 'Unique name of this option.'
+                'description'       => "Name of the product category (used for all variants).",
+                'required'          => true
             ],
 
             'description' => [
                 'type'              => 'string',
-                'description'       => "Short description of the option."
+                'description'       => "Short string describing the purpose and usage of the category."
             ],
             
-            'family_id' => [
-                'type'              => 'many2one',
-                'foreign_object'    => 'sale\catalog\Family',
-                'description'       => "Product Family this option belongs to.",
-                'required'          => true
-            ]
+            'product_models_ids' => [ 
+                'type'              => 'many2many', 
+                'foreign_object'    => 'sale\catalog\ProductModel', 
+                'foreign_field'     => 'categories_ids', 
+                'rel_table'         => 'sale_product_rel_productmodel_category', 
+                'rel_foreign_key'   => 'productmodel_id',
+                'rel_local_key'     => 'category_id',
+                'description'       => 'List of product models assigned to this category.'
+            ],
+
+            'booking_types_ids' => [ 
+                'type'              => 'many2many', 
+                'foreign_object'    => 'sale\booking\BookingType', 
+                'foreign_field'     => 'product_categories_ids', 
+                'rel_table'         => 'sale_rel_productcategory_bookingtype', 
+                'rel_local_key'     => 'productcategory_id',
+                'rel_foreign_key'   => 'bookingtype_id',
+                'description'       => 'List of booking types assigned to this category.'
+            ]            
         ];
     }
 }
 ```
 
+
 ## Menu
 
 Menus are defined by App and are injected into the side bars (navigation drawer).
 
-```js
-[
-    {
-        name: [],
-        description: [],
-        icon: [],
-        type: [entry | parent],
+Below is an example of a Booking Menu drawer, as shown by the ```name``` property. The ```layout``` is how the items are going to be displayed. Then we have the ```items``` property that contains all the fields with their additional properties like `id`, `description`, `icon`...
 
-        target: [view_name] 
-        domain:[]
-        sort: []
-        order: ['desc', 'asc']
-        limit:
-      
-    	children: [
-    		// sub-items
+```json
+{
+    "name": "Booking menu",
+    "layout": {
+        "items": [
+            {
+              "id": "item.bookings",
+              "value": "Bookings",
+              "description": "",
+              "icon": "menu_book",
+              "type": "entry",  //either entry or parent
+              "route": "/booking"
+            },
+            {
+              "id": "item.customers",
+              "value": "Customers",
+              "description": "",
+              "icon": "person_outline",
+              "type": "entry",
+              "route": "/planning"
+            }                      
         ]
-	}
-]
+    }
+}
 ```
+
+Some of the additional properties that can be added to a menu are: 
+⋅⋅* `target`: "view_name" 
+⋅⋅* `domain`: ""
+⋅⋅* `sort`: ""
+⋅⋅* `order`: "desc" or "asc"
+⋅⋅* `limit`: ""
 
 
 ## Forms
 
 Forms are the view and edit view for individual objects. It is possible to define as many views as desired, the only constraint is the definition of a default view. This view should contain all the fields present in its corresponding class, except for the fields that are of type computed. 
-The name of form view is displayed like so: `packages/core/views/User.form.default.json`
+The most used properties of a form view are `name`, `description`, `layout`, `groups`, `sections`, `rows` and `columns`,  which all just describe the view and design the layout for it by grouping it and assigning the rows and columns. Then for each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
+
+The name of form view is displayed like so: *packages/core/views/User.form.default.json*
 A form is defined according to the following structure:
 
 ```json
@@ -130,12 +182,101 @@ A form is defined according to the following structure:
 }
 ```
 
+A real example of a form view is shown below, which is the Category form of a package having multiple `sections` (tabs) each having a label(Categories, Product Models and Booking Types) and an id(section.categories_id, section.product_models, section.booking_types) to be able to be translated in using the "i18n". The field called ```name``` has a `widget` header set to true which makes it have a bigger font as mentioned earlier and the most important field of this view.
+
+The view's name is *Category.form.default.json* and is as follows:
+
+```json
+{
+    "name": "Category",
+    "description": "Categories are not related to Families and allow a different way of grouping Products.",
+    "layout": {
+        "groups": [
+            {
+                "sections": [
+                    {
+                        "label": "Categories",
+                        "id": "section.categories_id",
+                        "rows": [
+                            {
+                                "columns": [
+                                    {
+                                        "width": "50%",
+                                        "items": [
+                                            {
+                                                "type": "field",
+                                                "value": "name",
+                                                "width": "100%",
+                                                "widget": {
+                                                    "header": true
+                                                }
+                                            },
+                                            {
+                                                "type": "field",
+                                                "value": "description",
+                                                "width": "100%"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Product Models",
+                        "id": "section.product_models",
+                        "rows": [
+                            {
+                                "columns": [
+                                    {
+                                        "width": "100%",
+                                        "items": [
+                                            {
+                                                "type": "field",
+                                                "value": "product_models_ids",
+                                                "width": "100%"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Booking Types",
+                        "id": "section.booking_types",
+                        "rows": [
+                            {
+                                "columns": [
+                                    {
+                                        "width": "100%",
+                                        "items": [
+                                            {
+                                                "type": "field",
+                                                "value": "booking_types_ids",
+                                                "width": "100%"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+       ]
+    }
+}
+```
+
 
 ## List Views
 
-List views are the ones that displays the important fields that were saved in the form view. By clicking on one row in the list, it redirects you to the editable form related to the view.
-The name of file is displayed like so: `packages/core/views/User.list.default.json`
-A list is defined according to the following structure:
+List views are the ones that displays the important fields that were saved in the form view. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and many more. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it.
+By clicking on one row in the list, it redirects you to the editable form related to the view. 
+
+The name of file is displayed like so: *packages/core/views/User.list.default.json*
+A list view is defined according to the following structure:
 
 ```json
 {
@@ -172,6 +313,30 @@ A list is defined according to the following structure:
 				}
 			}
 		]
+    }
+}
+```
+
+The list view of the Category form mentioned in the above section contains the `name` of the list which is Categories, a `description` and the main fields to be displayed for quick use like the "name" and the "description" of the categories.
+The list view is named *Category.list.default.json* and has the following structure:
+
+```json
+{
+    "name": "Categories",
+    "description": "This view is intended for displaying the list of categories.",
+    "layout": {
+        "items": [
+            {
+                "type": "field",
+                "value": "name",
+                "width": "15%"
+            },
+            {
+                "type": "field",
+                "value": "description",
+                "width": "25%"
+            }
+        ]
     }
 }
 ```
