@@ -1,7 +1,7 @@
 To define the layout of the forms, the list of the fields and the possible interactions between them, we use a system of views similar to templates.
 
-Each package has a folder named ‘views’ that contains, for each class, two JQUERY views, one for the form and the other for the list.
-These files are written in JSON format, and contain information about the fields and labels to display and their positioning, for the edition of the related class.
+Each package has a folder named ‘views’ that contains, for each class, a series of views.  
+These files are intended to describe how to present lists of objects (list) or single objects (form) under a given context (i.e. which fields to display and how to position them), and are written in JSON format.
 
 **Generic filename format** is: `{class_name}.{view_type}.{view_name}.json`
 
@@ -131,6 +131,8 @@ Some of the additional properties that can be added to a menu are:
 * `sort`: ""
 * `order`: '*desc*' or '*asc*'
 * `limit`: ""
+
+
 
 ## Forms
 
