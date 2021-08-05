@@ -3,7 +3,7 @@ To define the layout of the forms, the list of the fields and the possible inter
 Each package has a folder named ‘views’ that contains, for each class, two JQUERY views, one for the form and the other for the list.
 These files are written in JSON format, and contain information about the fields and labels to display and their positioning, for the edition of the related class.
 
-**Generic filename format** is: `/{class_name}.{view_type}.{view_name}.json`
+**Generic filename format** is: `{class_name}.{view_type}.{view_name}.json`
 
 * `class_name`: the class name of the entity the view relates to (e.g. view related to core\User are stored as `packages/core/views/User.form.default.json` and `packages/core/views/User.form.default.json`)
 * `view_type`: Possible values are '*list*', '*form*' and '*card*'
@@ -44,21 +44,19 @@ A `class` contains all the fields that are related to a specific category, for e
 Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
 
 ```php
+<?php 
 class Category extends Model {
     public static function getColumns() {
-        /**
-         * Categories are not related to Families and allow a different way of grouping Products.
-         */
         return [
             'name' => [
                 'type'              => 'string',
-                'description'       => "Name of the product category (used for all variants).",
+                'description'       => "Name of the category (for all variants).",
                 'required'          => true
             ],
 
             'description' => [
                 'type'              => 'string',
-                'description'       => "Short string describing the purpose and usage of the category."
+                'description'       => "A few details about category purpose and usage."
             ],
             
             'product_models_ids' => [ 
@@ -68,7 +66,7 @@ class Category extends Model {
                 'rel_table'         => 'sale_product_rel_productmodel_category', 
                 'rel_foreign_key'   => 'productmodel_id',
                 'rel_local_key'     => 'category_id',
-                'description'       => 'List of product models assigned to this category.'
+                'description'       => 'List of product models assigned to the category.'
             ],
 
             'booking_types_ids' => [ 
@@ -78,7 +76,7 @@ class Category extends Model {
                 'rel_table'         => 'sale_rel_productcategory_bookingtype', 
                 'rel_local_key'     => 'productcategory_id',
                 'rel_foreign_key'   => 'bookingtype_id',
-                'description'       => 'List of booking types assigned to this category.'
+                'description'       => 'List of booking types assigned to the category.'
             ]            
         ];
     }
@@ -86,7 +84,8 @@ class Category extends Model {
 ```
 
 
-## Menu
+
+## Menus
 
 Menus are defined by App and are injected into the side bars (navigation drawer).
 
@@ -282,7 +281,8 @@ The view's name is *Category.form.default.json* and is as follows:
 ```
 
 
-## List Views
+
+## Lists
 
 List views are the ones that displays the important fields that were saved in the form view. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and many more. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it.
 By clicking on one row in the list, it redirects you to the editable form related to the view. 
