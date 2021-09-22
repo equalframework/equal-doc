@@ -10,7 +10,9 @@ These files are intended to describe how to present lists of objects (list) or s
 * `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
 
 A **view** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
-Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications.
+Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications. 
+
+Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
 
 A **Model** is a collection of objects of a given entity. This class keeps the full schema of the entity with the default values that are then updated by this model after it requests the corresponding data from the server.
 
@@ -139,7 +141,55 @@ Some of the additional properties that can be added to a menu are:
 ## Forms
 
 Forms are the view and edit view for individual objects. It is possible to define as many views as desired, the only constraint is the definition of a default view. This view should contain all the fields present in its corresponding class, except for the fields that are of type computed. 
-The most used properties of a form view are `name`, `description`, `layout`, `groups`, `sections`, `rows` and `columns`,  which all just describe the view and design the layout for it by grouping it and assigning the rows and columns. Then for each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
+The most used properties of a form view are `name`, `description`, `layout`, `groups`, `sections`, `rows` and `columns` ,  which all just describe the view and design the layout for it by grouping it and assigning the rows and columns. Then for each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
+
+A property `actions` could also be added to the form which will contain a list of objects defining the actions that this model can make, for example: set something as option, confirm booking, check in/out and so on. These actions have "id", "label" and "description" that are present in the other properties and in addition, they have a "controller" which will let the action work and is written likeso, `"controller": "lodging_booking_option"`, and finally a visible property that specifies when this action is visible to the user, written as follows: `"visible": ["status", "=", "quote"]` and this example indicates that the action is visible if the status is equal to quote. 
+
+Below is how actions are displayed in a form view:
+
+```json
+"actions": [
+        {
+            "id": "action.option",
+            "label": "Set as Option",
+            "description": "Rental units will be blocked but no funding will be claimed yet.",
+            "controller": "lodging_booking_option",
+            "visible": ["status", "=", "quote"]
+        },
+        {
+            "id": "action.validate",
+            "label": "Confirm Booking",
+            "description": "Rental units will be blocked and the invoicing plan will be set up.",
+            "controller": "lodging_booking_confirm",
+            "visible": ["status", "in", ["quote", "option"]]
+        },
+        {
+            "id": "action.checkin",
+            "label": "Check In",
+            "description": "The host has arrived: the rental units will be marked as occupied.",
+            "controller": "lodging_booking_checkin",
+            "visible": ["status", "=", "validated"]
+        },
+        {
+            "id": "action.checkout",
+            "label": "Check Out",
+            "description": "The host is leaving: the rental units will be marked for cleaning.",
+            "controller": "lodging_booking_checkout",
+            "visible": ["status", "=", "checkedin"]
+        },
+        {
+            "id": "action.invoice",
+            "label": "Invoice",
+            "description": "The host has left and room has been reviewed: emit the invoice.",
+            "controller": "lodging_booking_invoice",
+            "visible": ["status", "=", "checkedout"]
+        }
+    ]
+```
+
+
+
+
 
 The name of form view is displayed like so: `packages/core/views/User.form.default.json`
 A form is defined according to the following structure:
@@ -152,7 +202,7 @@ A form is defined according to the following structure:
         "groups": [				// the groups are stacked vertically (there is always at least 1 group)
             {
                 "label": "",			// name of the group
-                "sections": [                   // if several sections, display with tabs (there is always 1 section at least)
+                "sections": [                   // if several sections, display with tabs (there is always 1 													section at least)
                     {
                         "label": "",		// name of the section that will be displayed as tab
 						"visible": [],		// visibilty of the section
@@ -160,29 +210,29 @@ A form is defined according to the following structure:
                             {
                                 "columns": [
                                     {
-                                        "width": "50%",			// the width is adapted according to a flex grid logic (1/12)
+                                        "width": "50%",			// the width is adapted according to a flex 																grid logic (1/12)
                                         "align": "left",
-                                        "items": [			// within a column, items are stacked by default, or side-by-side if the specified width of the items allows
+                                        "items": [			// within a column, items are stacked by 																	default, or side-by-side if the specified width 															of the items allows
                                             {
-                                                "type": "label",  // the labels can be either relative to a control, or independent
+                                                "type": "label",  // the labels can be either relative to a 																	control, or independent
 												"id": "identifier",
                                                 "value": "identifier",
-                                                "width": "50%",		// the width is relative to that of the column (100% by default)
+                                                "width": "50%",		// the width is relative to that of the 																	column (100% by default)
                                                 "align": "right"
                                             },
                                             {
                                                 "type": "field",
-                                                "id": "firstname",	// the identifier of a field is the name of the associated field
+                                                "id": "firstname",	// the identifier of a field is the name 																	of the associated field
                                                 "width": "50%",
                                                 "widget": {
 													"header": true,  // the field is a title (scaled 1.5)
-	                                            	"view": "" ,     // in the case of a widget using a view: the view ID (the type of view is implicit in the widget, but can be forced e.g. `list.detailed`)
-        	                                    	"domain": []    // in the case of a widget using a domain
+	                                            	"view": "" ,     // in the case of a widget using a 																			view: the view ID (the type of view 																		is implicit in the widget, but can 																			be forced e.g. `list.detailed`)
+        	                                    	"domain": []    // in the case of a widget using a 																				domain
 												},
 												"visible": [ 
-													["object.field", "=", "value"]		// the visibility of a control can be conditioned (by default it is the rule of the diagram that applies, if it is defined) ...
+													["object.field", "=", "value"]		// the visibility of 																					a control can be 																							conditioned (by default 																					it is the rule of the 																				diagram that applies, if it is 																					defined) ...
 													["user.field", "=", "value"],		
-							   					]		// the names 'object' and 'user' are reserved and are associated with the context
+							   					]		// the names 'object' and 'user' are reserved and 																are associated with the context
                                             }
                                         ]
                                     }
