@@ -93,37 +93,46 @@ class Category extends Model {
 
 Menus are defined by App and are injected into the side bars (navigation drawer).
 
-Below is an example of a Booking Menu drawer, as shown by the ```name``` property. The ```layout``` is how the items are going to be displayed. Then we have the ```items``` property that contains all the fields with their additional properties like `id`, `description`, `icon`...
+Below is an example of a Booking Menu drawer, as shown by the ```name``` property. The ```layout``` is how the items are going to be displayed. Then we have the ```items``` property that contains all the fields with their additional properties like `id` which will also be used to translate this field, `description`, `icon` related to the field label, `type` is either parent or entry which will contain one or more children that you can view once clicked on this parent. Then we have the `children` related too the parent containing all the fields already mentioned, as well as additional ones like the `context` that can itself hold multiple fields like `entity` with is the class name of the that this child belongs to, also a `view` field which represents the view type like "form.default" and "list.default", a `purpose` field which as its name show is the purpose of this child like "create" to create new data. `order` and `sort` fields can also be present, and are usually added for list views to respectively order the list by "id" for example and sort it either in "desc" (descending order) or "asc" (ascending order). In the example shown below, one parent menu item is present named "New Booking" and it contains two children, "New Booking" to create a new booking and "All Bookings" that displays the list of all the bookings ordered by id and sorted in descending order.
 
 ```json
 {
     "name": "Booking menu",
     "layout": {
         "items": [
-            {
-              "id": "item.bookings",
-              "value": "Bookings",
-              "description": "",
-              "icon": "menu_book",
-              "type": "entry",  //either entry or parent
-              "children": [
-                {
-                  "type": "entry",
-                  "value": "New booking",
-                  "description": "", 
-                  "icon": "add",
-                  "entity": "sale\\booking\\Booking",
-                  "view": "form.default",
-                  "purpose": "create"
-                },
-                {
-                  "type": "entry",
-                  "value": "All bookings",
-                  "description": "", 
-                  "entity": "sale\\booking\\Booking",
-                  "view": "list.default"
-                }
-              ] 
+                    {
+                        "id": "item.bookings",
+                        "label": "Bookings",
+                        "description": "",
+                        "icon": "menu_book",
+                        "type": "parent",
+                        "children": [
+                          {
+                            "id": "item.new_booking",
+                            "type": "entry",
+                            "label": "New booking",
+                            "description": "",
+                            "icon": "add",
+                            "context": {
+                              "entity": "lodging\\sale\\booking\\Booking",
+                              "view": "form.default",
+                              "purpose": "create"
+                            }
+                          },
+                          {
+                            "id": "item.all_booking",
+                            "type": "entry",
+                            "label": "All bookings",
+                            "description": "",
+                            "context": {
+                              "entity": "lodging\\sale\\booking\\Booking",
+                              "view": "list.default",
+                              "order": "id",
+                              "sort": "desc"
+                            }
+                          }
+                    }
+        		]
             }
         ]
     }
@@ -143,7 +152,7 @@ Some of the additional properties that can be added to a menu are:
 Forms are the view and edit view for individual objects. It is possible to define as many views as desired, the only constraint is the definition of a default view. This view should contain all the fields present in its corresponding class, except for the fields that are of type computed. 
 The most used properties of a form view are `name`, `description`, `layout`, `groups`, `sections`, `rows` and `columns` ,  which all just describe the view and design the layout for it by grouping it and assigning the rows and columns. Then for each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
 
-A property `actions` could also be added to the form which will contain a list of objects defining the actions that this model can make, for example: set something as option, confirm booking, check in/out and so on. These actions have "id", "label" and "description" that are present in the other properties and in addition, they have a "controller" which will let the action work and is written likeso, `"controller": "lodging_booking_option"`, and finally a visible property that specifies when this action is visible to the user, written as follows: `"visible": ["status", "=", "quote"]` and this example indicates that the action is visible if the status is equal to quote. 
+A property `actions` could also be added to the form which will contain a list of objects defining the actions that this model can make, for example: set something as option, confirm booking, check in/out and so on all of them and the related model for each of these actions is a .php file and is placed in an actions folder in its corresponding package. These actions have "id", "label" and "description" that are present in the other properties and in addition, they have a "controller" which will let the action work and is written likeso, `"controller": "lodging_booking_option"`, and finally a visible property that specifies when this action is visible to the user, written as follows: `"visible": ["status", "=", "quote"]` and this example indicates that the action is visible if the status is equal to quote. 
 
 Below is how actions are displayed in a form view:
 
