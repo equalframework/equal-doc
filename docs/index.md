@@ -1,7 +1,8 @@
+![](assets/img/equal_logo_w_bg.png)
+
 # eQual Framework
 
 eQual is a versatile, language-agnostic, and web-oriented framework, aiming to elegantly manage interactions between front-end Apps and Business Logic involved in modern Web Applications.
-
 
 
 **Natively Secure** Benefit from native HTTP auth support (JWT, CORS) to secure every endpoint with User Management, Role-Based Access Controls, or custom Access management.
@@ -9,7 +10,6 @@ eQual is a versatile, language-agnostic, and web-oriented framework, aiming to e
 **Server-Side Scripting** Implement custom logic on any route endpoint to quickly build micro-services and  APIs of your own.
 
 **Instant APIs Without Code** Automatically generate a complete set of REST APIs with live documentation for any kind of service.
-
 
 
 ```php
