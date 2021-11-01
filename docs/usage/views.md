@@ -19,6 +19,13 @@ A **Model** is a collection of objects of a given entity. This class keeps the f
 A **Layout** is the layout associated with a given view. It is always linked to a Model.
 
 A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
+
+<em>widget</em> can have multiple field options such as: 
+
+* ```view```: than represents the view to which this value points to.
+* ```header```: is a Boolean. When it's true, the field is considered as header and will have bigger font size than the other fields.
+* ```readonly```: is a Boolean. When it's true, the field can't be changed even if the update event is triggered.
+
 When we have an x2many field the widgets: 
 
 * allows to see the selected object (form)
@@ -33,17 +40,61 @@ A `class` contains a series of fields definition that relate to a specific entit
 Each `field` definition may contain one or more of these properties: 
 
 * `type` (mandatory): The existing types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*.
+
 * `alias`: which represents another name that the field in known for. For example: field name is "name" so the alias would be "display_name".
+
 * `function`: Mandatory when type is '*computed*'. It tells which method to call for computing the value of the field.
+
 * `result_type`: Mandatory when type is '*computed*'. It specifies the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
+
 * `store`: Applies when type is '*computed*'. It tells if the resulting value has to be stored in the DB or computed each time it is requested.
+
+* ```default```: is the default value of the field.
+
 * `description` (optional): is a small brief about the field.
+
 * `onchange` (optional): calls a function to get it's value whenever a change exists.
+
+* ```ondelete```: has 2 values, either <em>cascade</em> or <em>null</em>. 
+
+  * <em>cascade</em> is used in the context of on delete action for the parent class, delete this field too. 
+  * <em>null</em> is used to identify that when deleting the parent class, the current field shouldn't be delete with it.
+
+* ```ondetach```: has one value which is <em>delete</em>, which is triggered when the update event for a field is happening. 
+
 * `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
+
 * `visible`: It specifies the conditions that must be met in order for the field to be relevant.
+
 * `foreign_object`: is the path to the parent class of a field in another one.
+
 * `foreign_field`: the name of the field that refers to the parent class.
+
 * `required`: Marks a field as mandatory (storing an object without giving a value for that field will raise an error).
+
+* ```domain```: is a condition set for a field which implies for example that a field is equal, or in the range of, or different than another one. It is written like so: ```'domain'       => ['relationship', '=', 'customer']```. This means that the specific field that has this domain must have a relationship type equal to customer.
+
+* ```usage```: it specifies under which format the field is used. For example: 
+
+  * markup/html
+
+  * country/iso-3166:2 (for the country address)
+
+  * amount/money (for the price)
+
+  * phone, email, url
+
+  * uri/urn:iban (for the account iban)
+
+  * amount/percent (for the rate)
+
+  * date/year:4 (for the year)
+
+  * uri/urn:ean (for the ean code)
+
+  * language/iso-639:2 (for the language abbreviation like fr, en, du...)
+
+    
 
 
 Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
@@ -366,7 +417,7 @@ The view's name is `Category.form.default.json` and is as follows:
 
 ## Lists
 
-List views are the ones that displays the important fields that were saved in the form view. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and many more. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it.
+List views are the ones that displays the important fields that were saved in the form view. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and many more. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it. ```sortable``` property could also be added to the list view, which enables the action of sorting the list when it has the value "true" since it's of type Boolean.
 By clicking on one row in the list, it redirects you to the editable form related to the view. 
 
 The name of file is displayed like so: `packages/core/views/User.list.default.json`
@@ -434,3 +485,40 @@ The list view is named *Category.list.default.json* and has the following struct
   }
 }
 ```
+
+
+
+```actions``` displayed in a list is an array of objects that contain 3 main fields which are: the action ```id```, the ```view``` form to which it relates to and the ```description``` of this action. It is displayed like so: 
+
+```json
+"actions": [
+        {
+            "id": "ACTIONS.CREATE",
+            "view": "form.create",
+            "description": "overload form to use for booking creation"
+        }
+    ]
+```
+
+
+
+## Printing a document
+
+Printing a document such as a contract can be done in the ```list``` view. Multiple fields will have to be added such as the ```id``` of the contract, the ```label```, the ```icon``` of the printer also known as "print" is added. Also, a small ```description```, a ```controller``` having the value "model_export-print" used to trigger the printing action, the ```view``` which corresponds to the specific view "print.default" and finally ```visible``` field should be displayed as well. 
+
+All these fields are added inside of the <em>exports</em> section of list view, which is an array of objects that has the below structure:
+
+```json
+"exports": [
+        {
+            "id": "export.print.contract",
+            "label": "Print contract",
+            "icon": "print",
+            "description": "Print contract related to the booking.",
+            "controller": "model_export-print",
+            "view": "print.default",
+            "visible": ["status", "=", "quote"]
+        }
+    ]
+```
+
