@@ -522,3 +522,6 @@ All these fields are added inside of the <em>exports</em> section of list view, 
     ]
 ```
 
+
+
+The view value "print.default" points to the view having the format of .html and is used to design the contract that will be printed. This html file will contain the information about the customer that is booking as well as the company that is hosting them. 
