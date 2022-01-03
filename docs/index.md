@@ -51,7 +51,7 @@ So, use it your way.
 ```php
 <?php
 /**
- * Zero learning-curve development
+ * (near) Zero learning-curve development
  *
  */
 echo 'This is a valid HTTP controller';
