@@ -8,6 +8,14 @@ But they're also involved in rights management: making sure the user performing 
 
 
 
-Developer can create as many custom controllers as necessary.
+The Developer can create as many custom controllers as necessary.
 
 Controllers are re-usable and can be inter-dependant.
+
+eQual's controllers can be found inside the "Actions", "data" & "Apps" folders. 
+
+They are separated because they can achieve different kinds of operation/action's.
+
+- Action's folder => "DO" operation (post, put/patch, delete)
+- Data's folder =>"GET" operation
+- APP's folder => "SHOW" operation

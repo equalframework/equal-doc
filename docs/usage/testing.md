@@ -130,7 +130,7 @@ Here is a minimal template for test-writing :
 ```php
 // \tests\mytests.php
 <?php
-use qinoa\http\HttpRequest;
+use equal\http\HttpRequest;
 use myapp\Myobject
     
 $providers = inject(['context']);

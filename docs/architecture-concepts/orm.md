@@ -29,9 +29,9 @@ Tries to log a user in with the given credentials.
 bool login( string $login, string $password [, string $session_id=SESSION_ID ] )
 ```
 
-Note : even when not using https, we guarantee minimum privacy
+Note : even when not using https, we guarantee maximum privacy
   * Only MD5 values of the password are sent from client to server. So user's password stays unknown from the admin/app developper.
-  * The value that is sent is always different (i.e. : MD5 value is only valid for current session). So, one cannot grab user's password by capturing http packet.
+  * The value that is sent is always different (i.e. : MD5 value is only valid for current session). So, one cannot grab the user's password by capturing the http packet.
 
 #### Parameters
   * **login** : login/username under which we want to identify
@@ -69,7 +69,7 @@ Retrieve the specified object.
 <?php
 object &get( string $object_class, int $object_id [, $session_id=SESSION_ID ] )
 ```
-Returns an instance of the specified class holding data associated with specified identifier.\\ 
+Returns an instance of the specified class holding data associated with the specified identifier.\\ 
 Because handling the object instance required the class to be declared this method only works in PHP
 (In order to use it in other languages, it would be necessary to declare the classes in each programming language and overload the setters and getters).
 
@@ -114,7 +114,7 @@ mixed search( string $object_class [, array $domain=null, string $order='id', st
 #### Parameters
   * **object_class** : class of the objects we want to look for
   * **domain** : search criteria that objects have to match
-  * **order** : field on which resulting list must be sorted
+  * **order** : field on which the resulting list must be sorted
   * **sort** : sorting order
   * **start** : position in the global resulting list from which we want the ids
   * **limit** : amount of ids to return

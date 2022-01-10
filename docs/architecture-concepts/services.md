@@ -1,17 +1,20 @@
-​        'report'  => 'qinoa\error\Reporter',
+'report'  => 'equal\error\Reporter',
 
-​        'auth'   => 'qinoa\auth\AuthenticationManager',
+'auth'   => 'equal\auth\AuthenticationManager',
 
-​        'access'  => 'qinoa\access\AccessController',
+'access'  => 'equal\access\AccessController',
 
-​        'context'  => 'qinoa\php\Context',
+'context'  => 'equal\php\Context',
 
-​        'validate' => 'qinoa\data\DataValidator',
+'validate' => 'equal\data\DataValidator',
 
-​        'adapt'   => 'qinoa\data\DataAdapter',
+'adapt'   => 'equal\data\DataAdapter',
 
-​        'orm'    => 'qinoa\orm\ObjectManager',
+'orm'    => 'equal\orm\ObjectManager',
 
-​        'route'   => 'qinoa\route\Router',
+'route'   => 'equal\route\Router',
 
-​        'spool'   => 'qinoa\email\EmailSpooler'
+'spool'   => 'equal\email\EmailSpooler'
+
+​       
+

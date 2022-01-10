@@ -1,3 +1,5 @@
+Located in the folder: `data/utils/` ->
+
 ```php
 <?php
 list($params, $providers) = announce([
@@ -18,7 +20,7 @@ list($params, $providers) = announce([
 
 
 
-For instance, here is how Access controller and Authentication manager can be overridden:
+For instance, here is how the Access controller and Authentication manager can be overridden:
 
 ```php
   'providers' => [
@@ -31,4 +33,4 @@ For instance, here is how Access controller and Authentication manager can be ov
 
 
 
-Access control is handled inside the `qinoa\orm\Collection` class
+Access control is handled inside the `equal\orm\Collection` class

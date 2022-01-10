@@ -8,11 +8,11 @@ eQual complies with HTTP methods and is ready to be used in a RESTful API contex
 
 URL mechanism is quite simple. The idea is to ask eQual to perform some operation based on parameters provided in the URL.
 
-Here is how URL must be built: 
+An URl is built in two parts: 
 
-First part is the **regular URL** (for instance ''http://www.mywebsite.com/'') with the name of the script to call (the only entry-point of eQual is `index.php`).
+The First part is the **regular URL** (for instance ''http://www.mywebsite.com/'') with the name of the script to call (the only entry-point of eQual is `index.php`).
 
-Second part consists of the parameters:  
+The Second part consists of the parameters:  
 
 * The main parameter tells what kind of operation must be performed. 
     * `key` must be one of the following : 
@@ -20,7 +20,7 @@ Second part consists of the parameters:
         * **DO** something (`/?do=...`)
         * **SHOW** an App (`/?show=...`)
     * `value` specifies the name of the **package** to be invoked (must be the name of a subfolder of the 'packages' directory, for instance 'core'), as well as the **script** to be called(a package may have several scripts - stored in the subfolders 'action', 'data', or 'apps')
-* In addition, some specific parameters required be the script can also be present
+* In addition, some specific parameters required by the script can also be present
 
 
 
@@ -29,7 +29,17 @@ Here is an example of such URL :
 http://www.mywebsite.com/?show=core_manage&package=blog
 ```
 
-In this example, the main entry point (index.php) will try to execute the following script : `packages/core/apps/manage.php`  
+In this example, the main entry point (index.php) will try to execute the following script : `packages/core/apps/manage.php` 
+
+
+
+Here is an example with eQual : 
+
+```
+http://equal.local/?get=model_collect&entity=core\Group
+```
+
+In this example,  the entry point index.php will try to execute the following script : packages/core/data/model/collect.php
 
 
 
@@ -38,7 +48,7 @@ In addition, the main config file (`config/config.inc.php`) allows to define a d
 
 ```php
 <?php
-define('DEFAULT_PACKAGE', 'equal');
+define('DEFAULT_PACKAGE', 'core');
 ```
 
 In turn, each package can define a default App in its own config file (i.e. `packages/equal/config.inc.php`)

@@ -6,7 +6,7 @@ Each Model  is defined in a `.class.php` file , located in the `/packages/{packa
 
 
 
-Every class inherits from a common ancestor: the  `Model` class declared in the `qinoa\orm` namespace and defined in `/lib/qinoa/orm/Model.class.php`
+Every class inherits from a common ancestor: the  `Model` class declared in the `equal\orm` namespace and defined in `/lib/equal/orm/Model.class.php`
 
 Using eQual API, a class is always referred to with the package name to which it belongs (packages are used as namespaces).
 
@@ -27,7 +27,7 @@ Here is an example of the class definition syntax :
 ```php
 <?php
 namespace school;
-use qinoa\orm\Model;
+use equal\orm\Model;
 
 class Student extends Model {
   public static function getColumns() {
@@ -75,7 +75,7 @@ Numeric value of Boolean type (**true** or **false**)
 
 Signed numeric value (negative or positive)
 
-> With PHP it depends on the platform (generally 32 bits signed), with SQL it depends on t he chosen type and size
+> With PHP it depends on the platform (generally 32 bits signed), with SQL it depends on the chosen type and size
 
 #### float
 
@@ -143,7 +143,7 @@ Complex fields include , **one2many**, **many2many**, **function**
 
 		foreign_object -> select amongst other classes
 		foreign_field -> select amongst fields of other class
-				+ ability to create a new one (many2many) : création temporaire dans un Sens ou un autre !
+				+ ability to create a new one (many2many) : temporary creation in one of both ways !
 		rel_table -> check amongst existing rel tables ({package}_rel_local_foreign or rel_foreign_local)
 				if no table yet -> create
 		rel_local_key -> {local_class}_id
@@ -185,13 +185,13 @@ M-N relation
 	store : boolean
 Calls any mentioned function, it's mostly used to return a processed value
 
-> Most of the time use of the store attribute requires that field(s) on which depends the computed value of has an onchange event, triggering the update of the calculated field (see example).
+> Most of the time the use of the store attribute requires that field(s) on which depends the computed value, has an onchange event, triggering the update of the calculated field (see example).
 
 When trying to load a function field, 
 
   * if 'store' is not defined or set to false, it computes the value using the provided method each time the field value is requested
-  * if 'store' is set to true and field is not is DB (NULL), it computes the value using the provided method
-  * if 'store' is set to true and field is in DB, it uses the DB value
+  * if 'store' is set to true and the field isn't in the DB (NULL), it computes the value using the provided method
+  * if 'store' is set to true and the field is in the DB, it uses the DB value
 
 ```php
 // Example from core\Permission

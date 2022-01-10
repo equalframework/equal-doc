@@ -38,9 +38,7 @@ SEARCH:
 MyObject::search($search_domain);
 ```
 
-
-
-## Search
+**Example** :
 
 
 ```php
@@ -48,3 +46,4 @@ MyObject::search(['firstname', 'ilike', '%ro%'])
 		->from($params['offset'])
 		->limit($params['limit']);
 ```
+
