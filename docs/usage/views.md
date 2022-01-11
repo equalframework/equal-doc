@@ -5,7 +5,7 @@ These files are intended to describe how to present lists of objects (list) or s
 
 **Generic filename format** is: `{class_name}.{view_type}.{view_name}.json`
 
-* `class_name`: the class name of the entity the view relates to (e.g. view related to core\User are stored as `packages/core/views/User.form.default.json` and `packages/core/views/User.form.default.json`)
+* `class_name`: the class name of the entity the view relates to (e.g. view related to `core\User` are stored as `packages/core/views/User.form.default.json` and `packages/core/views/User.form.default.json`)
 * `view_type`: Possible values are '*list*', '*form*' and '*card*'
 * `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
 
