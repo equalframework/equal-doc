@@ -48,8 +48,8 @@ Each `field` definition may contain one or more of these properties:
 * `description` (optional): is a small brief about the field.
 * `onchange` (optional): calls a function to get it's value whenever a change exists.
 * ```ondelete```: has 2 values, either <em>cascade</em> or <em>null</em>. 
-  * <em>cascade</em> is used in the context of on delete action for the parent class, delete this field too. 
-  * <em>null</em> is used to identify that when deleting the parent class, the current field shouldn't be delete with it.
+    * <em>cascade</em> is used in the context of on delete action for the parent class, delete this field too. 
+    * <em>null</em> is used to identify that when deleting the parent class, the current field shouldn't be delete with it.
 * ```ondetach```: has one value which is <em>delete</em>, which is triggered when the update event for a field is happening. 
 * `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
 * `visible`: It specifies the conditions that must be met in order for the field to be relevant.
@@ -57,17 +57,16 @@ Each `field` definition may contain one or more of these properties:
 * `foreign_field`: the name of the field that refers to the parent class.
 * `required`: Marks a field as mandatory (storing an object without giving a value for that field will raise an error).
 * ```domain```: is a condition set for a field which implies for example that a field is equal, or in the range of, or different than another one. It is written like so: ```'domain'       => ['relationship', '=', 'customer']```. This means that the specific field that has this domain must have a relationship type equal to customer.
-
 * ```usage```: it specifies under which format the field is used. For example: 
-  * markup/html
-  * country/iso-3166:2 (for the country address)
-  * amount/money (for the price)
-  * phone, email, url
-  * uri/urn:iban (for the account iban)
-  * amount/percent (for the rate)
-  * date/year:4 (for the year)
-  * uri/urn:ean (for the ean code)
-  * language/iso-639:2 (for the language abbreviation like fr, en, du...)
+    * markup/html
+    * country/iso-3166:2 (for the country address)
+    * amount/money (for the price)
+    * phone, email, url
+    * uri/urn:iban (for the account iban)
+    * amount/percent (for the rate)
+    * date/year:4 (for the year)
+    * uri/urn:ean (for the ean code)
+    * language/iso-639:2 (for the language abbreviation like fr, en, du...)
 
 
 Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
