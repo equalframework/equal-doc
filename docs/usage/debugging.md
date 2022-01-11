@@ -2,7 +2,8 @@
 
 
 
-To help you with human-readable data, eQual comes with its own console (which simply reads the **qn_error.log** file in /log)
+## console
+To help you with human-readable data, eQual comes with its own  UI debug console (which simply reads the `qn_error.log` located  in the `/log` directory)
 
 > Note: qn_error.log gets loads of information for each occuring event, so don't forget to delete that file from time to time if you don't want to end up with a few unused Mo of old logs. Especially if you're running a lot of tests
 
@@ -11,7 +12,6 @@ To access it from the browser:
 ```
 http://your-localhost-path/console.php
 ```
-
 
 
 There you can find informations about your error, here is an **example** :
@@ -55,5 +55,20 @@ http://[localhost]/?get=model_collect&entity=core\User
 I will get a JSON-object with all the users. 
 
 
+## Debug mode
 
-The error codes can be found inside the **"eq.lib.php" file**.
+It is possible to filter the kind of errors that are present in the console, by setting the DEBUG_MODE parameter in your `config.inc.php` file
+
+```
+define('DEBUG_MODE', QN_DEBUG_PHP | QN_DEBUG_ORM | QN_DEBUG_SQL | QN_DEBUG_APP);
+```
+
+The DEBUG_MODE constant expects a binary mask with the following values : 
+
+|Value|Meaning|
+|-|-|
+|QN_DEBUG_PHP||
+|QN_DEBUG_ORM||
+|QN_DEBUG_SQL||
+|QN_DEBUG_APP||
+
