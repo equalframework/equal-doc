@@ -169,6 +169,7 @@ In the example shown below, one parent menu item is present named "New Booking" 
 ```
 
 Some of the additional properties that can be added to a menu are:  
+
 * **domain**: array (definition of the filter to apply)
 * **sort**: string (name of the field to sort results on)
 * **order**: string ('*desc*' or '*asc*')
