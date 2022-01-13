@@ -15,14 +15,14 @@ http://equal.local/console.php
 ### Workbench
 
 ```
-http://equal.local?show=workbench
+http://equal.local/?show=workbench
 ```
 
 
 
 ## CLI commands
 
-Should be located at the root of eQual (where *run.php* is)
+Should be located at the root of eQual (folder containing file `run.php`)
 
 #### Grant DB rights
 
@@ -64,7 +64,7 @@ This controller runs some consistency checks and works with any package:
 
 
 
-## REST API
+## Invoking Controllers
 
 ### GET :
 
@@ -109,33 +109,22 @@ run('do', 'mypackage_myobject_action', [/* parameters */])
 
 
 
-## Howtos 
+## Howtos 	
 
 ### How to create a new object?
-`	$ids = update('core\User', array(0));`
-
-> note: new object is not fully created unless we actually update it (until then, it  is considered as a draft)
-> So, previous call will generate a new object which id may be found in the returned array
-> You need to modify at least one field in order for the object to be available fo further use
-
 ```php
 <?php
-// for instance
-update('core\User', $ids, array('firstname'=>'Bart'));
-$bart_id = $ids[0];
+use core\User;
 
-//You may also create several objects at once:
-$ids = update('core\User', array(0, 0, 0), array('firstname'=>'test'));
-
-//And then change other fields:
-update('core\User', $ids, array('lastname'=>'othertest');
-
-//And finaly browse them:
-print_r(browse('core\User', $ids));
+User::create(['firstname'=>'Bart']);
+// which is equivalent to
+User::create()->update(['firstname'=>'Bart']);
 ```
 
+> Note: When creating an object, by default, the `state` fields is assigned to 'instance', unless another value is given as parameter (ex. state=draft)
 
 ### How to check if a given object does exist?
+
 ```php
 <?php
 // count the number of items returned by the search method

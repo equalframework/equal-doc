@@ -1,49 +1,99 @@
-eQual complies with HTTP methods and is ready to be used in a RESTful API context.
+eQual complies with HTTP standard (so it is ready to be used in a RESTful API context) and analyzes HTTP messages to route client requests to the appropriate controller.
 
 
 
 
+## Controllers
 
-## URL mechanism 
+Any invocation made to an eQual-driven server is handled as an HTTP request (even within a CLI context) and relayed to the appropriate controller which, in turn, produces an HTTP response.
 
-URL mechanism is quite simple. The idea is to ask eQual to perform some operation based on parameters provided in the URL.
+Controllers are nothing more than regular PHP scripts.
 
-An URl is built in two parts: 
+Here is an example of a minimalist controller:
 
-The First part is the **regular URL** (for instance ''http://www.mywebsite.com/'') with the name of the script to call (the only entry-point of eQual is `index.php`).
+```
+<?php
+echo "Hello World";
+```
+When invoked, this controller will produce following HTTP response :
+```
+HTTP/1.1 200 OK
+Server: Apache/2.2.14
+Content-Length: 11
+Content-Type: text/html
+Connection: Closed
+```
 
-The Second part consists of the parameters:  
 
-* The main parameter tells what kind of operation must be performed. 
+
+## Invoking controllers
+
+Controllers are considered as **operations** that run specific sets of instructions based on parameters provided in the HTTP request.
+
+For convenience, controllers can also be invoked in a CLI context, or directly within a PHP script.
+
+**Examples :** 
+
+HTTP request
+
+```
+GET http://equal.local/?get=demo_simple
+```
+
+CLI command
+
+```bash
+$> ./equal.run --get=demo_simple
+```
+
+PHP script
+
+```php
+<?php
+echo eQual::run('get', 'demo_simple');
+```
+
+
+
+A controller invocation consists of two parts: 
+
+* The first part tells what kind of operation must be performed:
     * `key` must be one of the following : 
         * **GET** some data (`/?get=...`)
         * **DO** something (`/?do=...`)
         * **SHOW** an App (`/?show=...`)
-    * `value` specifies the name of the **package** to be invoked (must be the name of a subfolder of the 'packages' directory, for instance 'core'), as well as the **script** to be called(a package may have several scripts - stored in the subfolders 'action', 'data', or 'apps')
-* In addition, some specific parameters required by the script can also be present
+    * `value` specifies the name of the **package** to be invoked (must be the name of a subfolder of the `packages` directory), as well as the **script** to be called(a package may have several scripts - stored in the subfolders `action`, `data`, or `apps`)
+* The second part is either the body or a series of parameters
 
 
 
-Here is an example of such URL :  
+Here is an example of a controller invocation :  
 ``` 
-http://www.mywebsite.com/?show=core_manage&package=blog
-```
-
-In this example, the main entry point (index.php) will try to execute the following script : `packages/core/apps/manage.php` 
-
-
-
-Here is an example with eQual : 
-
-```
 http://equal.local/?get=model_collect&entity=core\Group
 ```
 
-In this example,  the entry point index.php will try to execute the following script : packages/core/data/model/collect.php
+In this example, the main entry point (`index.php`) will try to execute the following script : `packages/core/data/model/collect.php` 
 
 
 
-In addition, the main config file (`config/config.inc.php`) allows to define a default package, and a default app can be defined for every package.  
+If no controller matches the received request, a response with a 404 status is returned.
+
+Example:
+
+http://equal.local/?do=foo
+```
+{
+    "errors": {
+        "UNKNOWN_OBJECT": "Unknown ACTION_HANDLER (do) public:foo"
+    }
+}
+```
+
+
+
+## Default controller
+
+The main config file (`config/config.inc.php`) allows to define a default package, and a default App can be defined for every package.  
 
 
 ```php
@@ -58,5 +108,5 @@ namespace config;
 define('DEFAULT_APP', 'workbench');
 ```
 
-This allows to make the root entry point  (`http://www.mywebsite.com/`) redirect to a webapp (in this example:  `http://www.mywebsite.com/index.php?show=equal_workbench'`)
+This allows to make the root entry point  redirect to a webapp (in this example:  `http://equal.local/index.php?show=core_workbench'`)
 
