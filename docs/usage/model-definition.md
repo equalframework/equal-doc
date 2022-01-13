@@ -133,7 +133,7 @@ N-1 relation, generating an integer to identify the related one2many object
 
 Those fields require additional processing to be retrieved
 
-Complex fields include , **one2many**, **many2many**, **function**
+Complex fields include , **one2many**, **many2many**, **computed**
 
 
 
@@ -178,16 +178,21 @@ M-N relation
 ]
 ```
 
-#### function
+#### computed
 
+	type: 'computed'
+	'function': any
 	result_type : select ('boolean', 'integer', 'float', 'string', 'text', 'html' )
-	create handler name auto
 	store : boolean
-Calls any mentioned function, it's mostly used to return a processed value
+The 'computed' type doesn't exist directly inside the DB. 
 
-> Most of the time the use of the store attribute requires that field(s) on which depends the computed value, has an onchange event, triggering the update of the calculated field (see example).
+To get it,  we use the 'function' key, that will point at any function.
 
-When trying to load a function field, 
+ It will return a processed value and afterwards, it can be stored inside the DB.
+
+> Most of the time the use of the store attribute requires that field(s) on which depends the computed value, has an onchange event, triggering the update of the calculated field (see example). 
+
+When trying to load a computed field, 
 
   * if 'store' is not defined or set to false, it computes the value using the provided method each time the field value is requested
   * if 'store' is set to true and the field isn't in the DB (NULL), it computes the value using the provided method
@@ -201,7 +206,7 @@ When trying to load a function field,
         'onchange'	   => 'core\Permission::onchangeRights'
     ],
     'rights_txt' => [
-        'type'		   => 'function', 
+        'type'		   => 'computed', 
         'store'		   => true, 
         'result_type'  => 'string', 
         'function'	   => 'core\Permission::getRightsTxt'
