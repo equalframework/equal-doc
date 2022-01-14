@@ -1,12 +1,8 @@
 # Create your REST API
 
-This detailled section will cover how to make a REST API from scratch and use it in your project
+This section covers how to make a REST API from scratch and consume it in any App (Web or Mobile).
 
-If you're not familiar with REST concepts, see [this great explanation](https://www.infoq.com/articles/rest-introduction/)
-
-...
-
-Let's get started!
+If you're not familiar with REST concepts, see [this great explanation](https://www.infoq.com/articles/rest-introduction/).
 
 
 
@@ -30,7 +26,7 @@ Go ahead and create them in your package directory (ex: */public/packages/todoli
 
 ## Defining classes
 
-Open **/classes** (what a surprise!), and create a new file for each class you want to use.
+Inside foler `/classes` create a new PHP file for each class you want to declare.
 
 To continue with our previous todolist-app example, we'll create two classes: Task and User.
 
@@ -39,17 +35,25 @@ To continue with our previous todolist-app example, we'll create two classes: Ta
 ```php
 <?php
 namespace todolist;
-use qinoa\orm\Model;	// calling the built-in Object facilitator
+use equal\orm\Model;
 
 class Task extends Model {
 
     public static function getColumns() {
         return [
-            'title'      => ['type' => 'string'],
-            'content'    => ['type' => 'string'],
-            'deadline'   => ['type' => 'datetime'],
-            'user_id'    => ['type' => 'many2one',
-                             'foreign_object' => 'todolist\User']
+            'title' => [
+                'type' => 'string'
+            ],
+            'content' => [
+                'type' => 'string'
+            ],
+            'deadline' => [	
+                'type' => 'datetime'
+            ],
+            'user_id' => [
+                'type' 			 => 'many2one',
+                'foreign_object' => 'todolist\User'
+            ]
         ];
     }
 
@@ -61,16 +65,19 @@ class Task extends Model {
 ```php
 <?php
 namespace todolist;
-use core\User as UserModel;		// calling the User object 'core' already has
 
-class User extends UserModel {
+class User extends \core\User {
 
     public static function getColumns() {
         return [
-            'name'       => ['type' => 'string'],
-            'tasks_ids'  => ['type' => 'one2many',
-                             'foreign_object' => 'todolist\Task',
-                             'foreign_field' => 'user_id']
+            'name' => [
+                'type' 				=> 'string'
+            ],
+            'tasks_ids' => [
+                'type' 				=> 'one2many',
+                'foreign_object' 	=> 'todolist\Task',
+                'foreign_field' 	=> 'user_id'
+            ]
         ];
     }
 
@@ -98,7 +105,7 @@ In the following example, we're asking our database to retrieve all *tasks* :
 
 ```php
 <?php 
-use todolist\Task;	// calling our newly defined Task class
+use todolist\Task;
 
 list($params, $providers) = announce([
     'description'   => 'Retrieve the list of existing tasks',
@@ -144,7 +151,10 @@ Then **$list** is where we receive the data from our query :
 Finally, **$context** is used to accomplish REST's purpose, displaying the data on our browser as JSON
 
 ```php
-$context->httpResponse()->body($list)->send();
+$context
+    ->httpResponse()// get the HTTP response being built
+    ->body($list)	// populate the body with resulting list
+    ->send();		// output the response (i.e. some plain text @see https://www.w3.org/Protocols/rfc2616)
 ```
 
 
@@ -154,8 +164,8 @@ $context->httpResponse()->body($list)->send();
 We'll assume we already have an existing database containing a data sample of tasks, and have already done the following :
 
 ```bash
-php run.php --do=public:qinoa_test_package-consistency --package=todolist
-php run.php --do=public:qinoa_init_package --package=todolist
+$> php run.php --do=test_package-consistency --package=todolist
+$> php run.php --do=init_package --package=todolist
 ```
 
 Open your browser, and in the localhost page you defined for eQual
@@ -177,7 +187,7 @@ As easy as that. You now have a REST response that you can use in any frontend p
 ## Defining DO
 
 Open **/actions**, and create a new folder for each class you defined previously. Here is an example :
-
+```
 /public
 	/packages
 		/todolist
@@ -185,7 +195,7 @@ Open **/actions**, and create a new folder for each class you defined previously
 				/task
 				/user
 				...
-
+```
 Go in the folder associated with the class you want to manipulate, and create a new file for each DO action you want to achieve (for more clarity, rename each file after their intended roles).
 
 Now let's define the CREATE function of our API:
@@ -260,7 +270,7 @@ Finally, we use **$context** to send it and get a REST response
 
 ```markdown
 DO : CREATE
-http://equal-framework/index.php?do=todolist_task_create&title=my+task&content=lorem+ipsum&user_id=1
+http://equal.local/index.php?do=todolist_task_create&title=my+task&content=lorem+ipsum&user_id=1
 ```
 
 Equal-framework does the work of reading ```?do=todolist_task_create``` as ```/todolist/actions/task/create.php```
@@ -333,12 +343,11 @@ In practice :
 
 ```
 DO : PUT/PATCH
-http://equal-framework/index.php?do=todolist_task_update&id=1
-
-id= refers to the task we update
-Additionnal parameters can be used, like title, content, dealine* and user_id
-*deadline is of "datetime" type and requires an ISO format to be understood by the server
+http://equal.local/index.php?do=todolist_task_update&id=1
 ```
+
+* id refers to the task we update
+* Additionnal parameters can be used, like title, content, dealine and user_id
 
 
 
@@ -386,7 +395,7 @@ id= refers to the task we delete
 
 ## Finalizing the REST API
 
-Back to the root of equal-framework, open this file: **/config/routing/api_default.json**
+Back to the root folder of equal installation, create a file: **/config/routing/20-api_todolist.json**
 
 Replace everything with this :
 
@@ -419,4 +428,4 @@ Replace everything with this :
 
 What it does is pretty self-explanatory. The **/:id** is a way for us to target and retrieve a single task when needed.
 
-Now adding ``` /tasks``` to our API url does exactly the same as ``` ?get=todolist_tasks```
+From now on, route  `http://equal.local/tasks` is equivalent to calling ` http://equal.local/?get=todolist_tasks`

@@ -8,7 +8,7 @@ eQual requires the following dependencies:
 
 - **PHP 7.1+** with following extensions : `mysqli` (mandatory) + `gd` `opcache` `zip` `tidy` (optional)
 - **Apache 2+** or **Nginx**
-- **MySQL 5+** compatible DBMS (up to MySQL 5.7 and MariaDB 10.3)
+- **MySQL 5+** compatible DBMS (MySQL or MariaDB)
 
 
 
@@ -70,7 +70,7 @@ yum install httpd php mysql-server php-mysql
 
 
 
-## Get eQual
+## Getting eQual
 
 - Download code as ZIP: 
 
@@ -94,7 +94,11 @@ cp equal /var/www/html/
 
 
 
-## Virtual host configuration
+## Setting up virtual host
+
+Within the documentation pages, we refer to the installation that runs on a local web server using `equal.local`as servername  (accessible through http://equal.local).
+
+If this is the first time you install eQual, we suggest you use that domain name to make things easier.
 
 In the HTTP server config, create a virtual host that uses `/public` as DocumentRoot.
 
@@ -112,22 +116,19 @@ Example for Apache2:
 </VirtualHost>
 ```
 
- 
-
-Of course, the related domain name must be set in your local hosts file:
+Remember that the related domain name must be set in your local hosts file:
 
 * Windows :  `C:\Windows\System32\drivers\etc\hosts`
 * Linux : `/etc/hosts`
 
 
+To make sure everything is setup properly, try to request the hello controller by browsing to http://equal.local/index.php?get=demo_hello
 
-You should now be able to query some operations using your browser:
-
-http://equal.local/index.php?get=demo_hello
-
+You should get this output : "hello universe".
+If not, please review carefully the previous steps of the installation.
 
 
-## eQual configuration
+## Configuration file
 
 eQual expects at least one config file in the `/config` directory (if no `config.inc.php` file is found , then `default.inc.php` is used).
 
@@ -156,7 +157,7 @@ define('DB_CHARSET',  'UTF8');
 
 ## Database initialization
 
-You should now have a properly configured environment.
+You should now have a properly configured environment and be able to perform some operations calls.
 
 To make sure the DBMS can be access, you can use the following controller : 
 ```
@@ -217,7 +218,7 @@ Here below are some examples of HTTP calls and their responses (in JSON):
 
 
 
-Fetch the details of user[1] (admin).
+**Fetch the details of user[1] (admin).**
 
 GET http://equal.local/user/1
 ```
@@ -233,7 +234,7 @@ GET http://equal.local/user/1
 
 
 
-Fetch the full list of existing groups.
+**Fetch the full list of existing groups.**
 
 GET http://equal.local/users
 
@@ -256,7 +257,7 @@ GET http://equal.local/users
 
 
 
-Fetch the full list of existing groups.
+**Fetch the full list of existing groups.**
 
 GET http://equal.local/groups
 
@@ -279,7 +280,7 @@ GET http://equal.local/groups
 
 
 
-Create a new group.
+**Create a new group.**
 
 POST http://equal.local/group
 
@@ -292,9 +293,9 @@ POST http://equal.local/group
 
 
 
-Update the 'name' property of the group[3].
+**Update the 'name' property of the group[3].**
 
-PUT http://equal.local/group/3?fields[name]=test
+PUT [http://equal.local/group/3?fields[name]=test](http://equal.local/group/3?fields[name]=test)
 
 ```
 []
@@ -302,7 +303,7 @@ PUT http://equal.local/group/3?fields[name]=test
 
 
 
-Fetch the full list of existing groups.
+**Fetch the full list of existing groups.**
 
 GET http://equal.local/groups
 

@@ -5,7 +5,7 @@ These files are intended to describe how to present lists of objects (list) or s
 
 **Generic filename format** is: `{class_name}.{view_type}.{view_name}.json`
 
-* `class_name`: the class name of the entity the view relates to (e.g. view related to core\User are stored as `packages/core/views/User.form.default.json` and `packages/core/views/User.form.default.json`)
+* `class_name`: the class name of the entity the view relates to (e.g. default form view for  `core\User` is stored as `packages/core/views/User.form.default.json`)
 * `view_type`: Possible values are '*list*', '*form*' and '*card*'
 * `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
 
@@ -40,61 +40,33 @@ A `class` contains a series of fields definition that relate to a specific entit
 Each `field` definition may contain one or more of these properties: 
 
 * `type` (mandatory): The existing types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*.
-
 * `alias`: which represents another name that the field in known for. For example: field name is "name" so the alias would be "display_name".
-
 * `function`: Mandatory when type is '*computed*'. It tells which method to call for computing the value of the field.
-
 * `result_type`: Mandatory when type is '*computed*'. It specifies the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
-
 * `store`: Applies when type is '*computed*'. It tells if the resulting value has to be stored in the DB or computed each time it is requested.
-
 * ```default```: is the default value of the field.
-
 * `description` (optional): is a small brief about the field.
-
 * `onchange` (optional): calls a function to get it's value whenever a change exists.
-
 * ```ondelete```: has 2 values, either <em>cascade</em> or <em>null</em>. 
-
-  * <em>cascade</em> is used in the context of on delete action for the parent class, delete this field too. 
-  * <em>null</em> is used to identify that when deleting the parent class, the current field shouldn't be delete with it.
-
+    * <em>cascade</em> is used in the context of on delete action for the parent class, delete this field too. 
+    * <em>null</em> is used to identify that when deleting the parent class, the current field shouldn't be delete with it.
 * ```ondetach```: has one value which is <em>delete</em>, which is triggered when the update event for a field is happening. 
-
 * `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
-
 * `visible`: It specifies the conditions that must be met in order for the field to be relevant.
-
 * `foreign_object`: is the path to the parent class of a field in another one.
-
 * `foreign_field`: the name of the field that refers to the parent class.
-
 * `required`: Marks a field as mandatory (storing an object without giving a value for that field will raise an error).
-
 * ```domain```: is a condition set for a field which implies for example that a field is equal, or in the range of, or different than another one. It is written like so: ```'domain'       => ['relationship', '=', 'customer']```. This means that the specific field that has this domain must have a relationship type equal to customer.
-
 * ```usage```: it specifies under which format the field is used. For example: 
-
-  * markup/html
-
-  * country/iso-3166:2 (for the country address)
-
-  * amount/money (for the price)
-
-  * phone, email, url
-
-  * uri/urn:iban (for the account iban)
-
-  * amount/percent (for the rate)
-
-  * date/year:4 (for the year)
-
-  * uri/urn:ean (for the ean code)
-
-  * language/iso-639:2 (for the language abbreviation like fr, en, du...)
-
-    
+    * markup/html
+    * country/iso-3166:2 (for the country address)
+    * amount/money (for the price)
+    * phone, email, url
+    * uri/urn:iban (for the account iban)
+    * amount/percent (for the rate)
+    * date/year:4 (for the year)
+    * uri/urn:ean (for the ean code)
+    * language/iso-639:2 (for the language abbreviation like fr, en, du...)
 
 
 Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
@@ -145,9 +117,9 @@ class Category extends Model {
 
 Menus are defined by App and are injected into the side bars (navigation drawer).
 
-Below is an example of a Booking Menu drawer, as shown by the ```name``` property. The ```layout``` is how the items are going to be displayed. 
+Below is an example of a Booking Menu drawer, as shown by the `name` property. The `layout` is how the items are going to be displayed. 
 
-Then we have the ```items``` property that contains all the fields with their additional properties like `id` which will also be used to translate this field, `description`, `icon` related to the field label, `type` is either parent or entry which will contain one or more children that you can view once clicked on this parent. 
+Then we have the `items` property that contains all the fields with their additional properties like `id` which will also be used to translate this field, `description`, `icon` related to the field label, `type` is either parent or entry which will contain one or more children that you can view once clicked on this parent. 
 
 Then we have the `children` related too the parent containing all the fields already mentioned, as well as additional ones like the `context` that can itself hold multiple fields like `entity` with is the class name of the that this child belongs to, also a `view` field which represents the view type like "form.default" and "list.default", a `purpose` field which as its name show is the purpose of this child like "create" to create new data. `order` and `sort` fields can also be present, and are usually added for list views to respectively order the list by "id" for example and sort it either in "desc" (descending order) or "asc" (ascending order). 
 
@@ -196,12 +168,12 @@ In the example shown below, one parent menu item is present named "New Booking" 
 }
 ```
 
-Some of the additional properties that can be added to a menu are: 
-* `domain`: ""
-* `sort`: ""
-* `order`: '*desc*' or '*asc*'
-* `limit`: ""
+Some of the additional properties that can be added to a menu are:  
 
+* **domain**: array (definition of the filter to apply)
+* **sort**: string (name of the field to sort results on)
+* **order**: string ('*desc*' or '*asc*')
+* **limit**: integer (max size of result set)
 
 
 ## Forms
@@ -504,7 +476,7 @@ The list view is named *Category.list.default.json* and has the following struct
 
 ## Printing a document
 
-Printing a document such as a contract can be done in the ```list``` view. Multiple fields will have to be added such as the ```id``` of the contract, the ```label```, the ```icon``` of the printer also known as "print" is added. Also, a small ```description```, a ```controller``` having the value "model_export-print" used to trigger the printing action, the ```view``` which corresponds to the specific view "print.default" and finally ```visible``` field should be displayed as well. 
+Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well. 
 
 All these fields are added inside of the <em>exports</em> section of list view, which is an array of objects that has the below structure:
 
@@ -521,7 +493,5 @@ All these fields are added inside of the <em>exports</em> section of list view, 
         }
     ]
 ```
-
-
 
 The view value "print.default" points to the view having the format of .html and is used to design the contract that will be printed. This html file will contain the information about the customer that is booking as well as the company that is hosting them. 

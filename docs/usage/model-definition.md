@@ -12,7 +12,7 @@ Using eQual API, a class is always referred to with the package name to which it
 
 The syntax is : `package_name\class_name` (ex. :'school\Teacher').
 
-A class consists of several fields, each of them having a name and a type, and a list of methods.\\ 
+A class consists of several fields, each of them having a name and a type, and a list of methods.
 Some methods are system (their name is standard and used by the ORM), and others are specific to a class and defined by the user (see below).
 
 
@@ -42,7 +42,9 @@ class Student extends Model {
 
 
 
-## Consistency between a .class.php definition and database schema 
+## Consistency with Database
+
+**We need Consistency between a .class.php definition and the database schema**
 
 In parallel, a table must be defined in the database that has a structure matching the related class definition. The main constraint being that the types must be compatibles (ex.: a varchar(255) column in the database may represent a string, as well as a short_text or a text in the related class).
 
@@ -102,7 +104,7 @@ Any binary value (ex : a picture, a document, …)
 #### date, time & datetime
 
 
-Internally dates, times and datetimes are handled as timestamps.
+Internally, dates, times and datetimes are handled as timestamps.
 
 However, when stored to the DBMS, those types follow the standard SQL format:
 
@@ -246,10 +248,10 @@ public static function getRightsTxt($om, $ids, $lang) {
 
 | Type         | Attribute   |Usage                    |
 | - | -|-|
-| ***Basic fields*** | type        | specify the field type   |
-|              | [multilang] | boolean telling if current field can be translated (default value: false)  |
+| ***Basic fields*** | type        | specify the field type |
+|              | [multilang] | boolean telling if current field can be translated (default value: false) [More info](i18n.md) |
 |              | [onchange] | string holding the name of the method to invoke when field is updated, with format : `package\Class::method` (note : this method will be called with PHP function `call_user_func()`) |
-|              | [selection] | Value selected from a pre-defined list (*) |
+|              | [selection] | Value selected from a pre-defined list   <a href="#anchor">Example</a> |
 | **many2one**    | foreign_object     | class toward which current field is pointing back |
 | **one2many**    | foreign_object     | class toward which current field is pointing back |
 |     | foreign_field     | name of the field of the pointed class that is pointing back toward the current class        |
@@ -271,7 +273,7 @@ public static function getRightsTxt($om, $ids, $lang) {
 
 
 
-(*) Example of a basic field using the `selection` attribute:
+<a name="anchor">Example of a basic field using the `selection` attribute:</a> 
 
 ```php 
 'fieldname' => [
