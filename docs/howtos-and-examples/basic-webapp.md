@@ -137,7 +137,7 @@ Open your internet browser and go to the //core_utils// application. For instanc
 
 (If you are getting confused, see easyObject [[http://easyobject.cedricfrancoys.be/wiki/url_mechanism|URL mechanism]].)
 
-Now, among packages list, select the newly created //blog// package, then choose the //sql-schema// plugin and click 'ok'.
+Now, among the packages list, select the newly created //blog// package, then choose the //sql-schema// plugin and click 'ok'.
 
 In the right panel, you should see the following SQL code : 
 ```sql

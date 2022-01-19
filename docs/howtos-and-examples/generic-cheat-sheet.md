@@ -15,7 +15,7 @@ http://equal.local/console.php
 ### Workbench
 
 ```
-http://equal.local/?show=workbench
+http://equal.local/workbench
 ```
 
 
@@ -83,8 +83,10 @@ run('get', 'mypackage_MyClass')
 **CLI :**
 
 ```bash
-./equal.run --get=model_collection --entity="mypackage\MyClass"
+./equal.run --get=model_collect --entity="mypackage\MyClass"
 ```
+
+*Collect is the name of the controller, and model the directory to which it belongs.*
 
 ### DO :
 

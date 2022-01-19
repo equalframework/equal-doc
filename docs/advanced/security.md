@@ -3,10 +3,12 @@
 The 'Permission' class is dedicated to the rights management: for each object class (including the 'Permission' class itself), rights can be assigned to each existing group.
 
 ## Users 
-Every User object holds a list of groups to which it belongs.\ 
-Note: a user belongs at least to one group (see //DEFAULT_GROUP_ID// in `/eq.lib.php`).
+The structure is defined inside the core\User class (library/classes/objects/core/User.class.php).
 
-Structure is define in the core\User class (library/classes/objects/core/User.class.php)
+Every User object holds a list of groups to which it belongs.
+
+> Note: a user belongs at least to one group (see //DEFAULT_GROUP_ID// in `/eq.lib.php`), where you will find out that the DEFAULT_GROUP_ID is 2.
+
 ```php
 <?php
 public static function getColumns() {
@@ -30,8 +32,10 @@ public static function getColumns() {
 
 ## Groups
 
+The structure is defined inside the core\Group class (library/classes/objects/core/Group.class.php).
 
-Structure is define in the core\Group class (library/classes/objects/core/Group.class.php)
+There, you will find informations about the users inside the group, and also the rights attached to these groups. *//next section*
+
 ```php
 <?php
 public static function getColumns() {
@@ -51,8 +55,15 @@ public static function getColumns() {
 ```
 
 
+
 ## ACL 
-core\Permission (library/classes/objects/core/Permission.class.php)
+
+The structure is defined inside the core\Permission (library/classes/objects/core/Permission.class.php).
+
+In resume of the previous sections, Users are inside groups, and those groups have different rights (property **group_id**).
+
+They are similar to the **classical roles** (admin,...) to which you can assign users.
+
 ```php
 <?php
 public static function getColumns() {
@@ -70,14 +81,9 @@ public static function getColumns() {
 
 
 
-## Default rights 
-In addition, all users receive the default permissions, defined in the configuration file (see //DEFAULT_RIGHTS// constant in `/config.inc.php`).
-
-
-
-
 ## Permission management
-The field 'rights' of the Permission class is a binary mask (logical OR) of the rights given to the related group. 
+
+The field 'rights' of the Permission class is a binary mask (logical OR) of the rights given to the related group.
 If a user belongs to several groups, the permission set will result in the most permissive combination of the rights from all its groups.
 
 Rights values that can be assigned are defined in the file `/eq.lib.php` :
@@ -91,18 +97,46 @@ define('R_DELETE',	8);
 define('R_MANAGE',	16); 	// autorisation to manage the rights 
 ```
 
+### Default rights 
+In any case, all users receive the default permissions, defined in the configuration file (see //DEFAULT_RIGHTS// constant in `/config.inc.php`).
 
 ### AccessController.php
 
-This file is the built-in "control tower" of eQual, and is located in **/lib/qinoa/access/**. What it does is granting the permission (or not) to perform CRUD actions depending on a few set criteria. This service is called by default and you usually don't have to think about it
+This file is the built-in "control tower" of eQual, and is located in **/lib/equal/access/**. What it does is granting the permission (or not) to perform CRUD actions depending on a few set criteria. This service is called by default and you usually don't have to think about it.
 
-But if you need custom security rules, you can also **overwrite AccessController** (at your own risks). This is particularly useful to establish future-proof settings, aswell as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
+#### Examples
+
+* The controller tells us that the root_user has access to every rights.
+
+* On the other hand, the **filter** method checks if a specific **user** has the rights to execute a specific operation.
+
+* Own objects :
+
+  For example, if the user created the object himself, then he will have the rights to **read** it.
+
+> Remember : The permission object has the rights property, where you decide which rights are available for which users/groups
+
+* The User also has the rights to **read and write(update)** his own object.
+
+* If you use collection methods from the collection class, you often need rights to perform them.
+
+   *for example*:
+
+   The search method checks if you have the rights to perform the **read** operation, with a sub-condition : if you have the right to perform the **create** operation, you as a consequence, also have the right to perform the **create** operation.  
+
+  
+
+#### Custom security rules
+
+If you need custom security rules, you can also **overwrite AccessController** (at your own risks). This is particularly useful to establish future-proof settings, aswell as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
+
+
 
 In the following section we'll see how to proceed:
 
 ### Overriding AccessController
 
-The default AccesController service is defined in  `/lib/qinoa/access/AccessController.class.php` , and can be overridden by a custom service to match any specific logic.
+The default AccesController service is defined in  `/lib/equal/access/AccessController.class.php` , and can be overridden by a custom service to match any specific logic.
 
 
 
@@ -121,10 +155,10 @@ Finally, open your newly created AccessController.class.php and copy paste this 
 ```php
 <?php
 namespace myapp\access; // change 'myapp' with actual name
-use qinoa\organic\Service;
-use qinoa\services\Container;
+use equal\organic\Service;
+use equal\services\Container;
 
-class AccessController extends \qinoa\access\AccessController {
+class AccessController extends \equal\access\AccessController {
     
   // rewrite functions here to override their default behavior
     
