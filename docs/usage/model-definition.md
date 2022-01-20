@@ -12,7 +12,7 @@ Using eQual API, a class is always referred to with the package name to which it
 
 The syntax is : `package_name\class_name` (ex. :'school\Teacher').
 
-A class consists of several fields, each of them having a name and a type, and a list of methods.\\ 
+A class consists of several fields, each of them having a name and a type, and a list of methods.
 Some methods are system (their name is standard and used by the ORM), and others are specific to a class and defined by the user (see below).
 
 
@@ -42,7 +42,9 @@ class Student extends Model {
 
 
 
-## Consistency between a .class.php definition and database schema 
+## Consistency with Database
+
+**We need Consistency between a .class.php definition and the database schema**
 
 In parallel, a table must be defined in the database that has a structure matching the related class definition. The main constraint being that the types must be compatibles (ex.: a varchar(255) column in the database may represent a string, as well as a short_text or a text in the related class).
 
@@ -102,7 +104,7 @@ Any binary value (ex : a picture, a document, …)
 #### date, time & datetime
 
 
-Internally dates, times and datetimes are handled as timestamps.
+Internally, dates, times and datetimes are handled as timestamps.
 
 However, when stored to the DBMS, those types follow the standard SQL format:
 
@@ -133,7 +135,7 @@ N-1 relation, generating an integer to identify the related one2many object
 
 Those fields require additional processing to be retrieved
 
-Complex fields include , **one2many**, **many2many**, **function**
+Complex fields include , **one2many**, **many2many**, **computed**
 
 
 
@@ -178,16 +180,21 @@ M-N relation
 ]
 ```
 
-#### function
+#### computed
 
+	type: 'computed'
+	'function': any
 	result_type : select ('boolean', 'integer', 'float', 'string', 'text', 'html' )
-	create handler name auto
 	store : boolean
-Calls any mentioned function, it's mostly used to return a processed value
+The 'computed' type doesn't exist directly inside the DB. 
 
-> Most of the time the use of the store attribute requires that field(s) on which depends the computed value, has an onchange event, triggering the update of the calculated field (see example).
+To get it,  we use the 'function' key, that will point at any function.
 
-When trying to load a function field, 
+ It will return a processed value and afterwards, it can be stored inside the DB.
+
+> Most of the time the use of the store attribute requires that field(s) on which depends the computed value, has an onchange event, triggering the update of the calculated field (see example). 
+
+When trying to load a computed field, 
 
   * if 'store' is not defined or set to false, it computes the value using the provided method each time the field value is requested
   * if 'store' is set to true and the field isn't in the DB (NULL), it computes the value using the provided method
@@ -201,7 +208,7 @@ When trying to load a function field,
         'onchange'	   => 'core\Permission::onchangeRights'
     ],
     'rights_txt' => [
-        'type'		   => 'function', 
+        'type'		   => 'computed', 
         'store'		   => true, 
         'result_type'  => 'string', 
         'function'	   => 'core\Permission::getRightsTxt'
@@ -241,10 +248,10 @@ public static function getRightsTxt($om, $ids, $lang) {
 
 | Type         | Attribute   |Usage                    |
 | - | -|-|
-| ***Basic fields*** | type        | specify the field type   |
-|              | [multilang] | boolean telling if current field can be translated (default value: false)  |
+| ***Basic fields*** | type        | specify the field type |
+|              | [multilang] | boolean telling if current field can be translated (default value: false) [More info](i18n.md) |
 |              | [onchange] | string holding the name of the method to invoke when field is updated, with format : `package\Class::method` (note : this method will be called with PHP function `call_user_func()`) |
-|              | [selection] | Value selected from a pre-defined list (*) |
+|              | [selection] | Value selected from a pre-defined list   <a href="#anchor">Example</a> |
 | **many2one**    | foreign_object     | class toward which current field is pointing back |
 | **one2many**    | foreign_object     | class toward which current field is pointing back |
 |     | foreign_field     | name of the field of the pointed class that is pointing back toward the current class        |
@@ -266,7 +273,7 @@ public static function getRightsTxt($om, $ids, $lang) {
 
 
 
-(*) Example of a basic field using the `selection` attribute:
+<a name="anchor">Example of a basic field using the `selection` attribute:</a> 
 
 ```php 
 'fieldname' => [
