@@ -95,17 +95,8 @@ class Category extends Model {
           'rel_foreign_key'   => 'productmodel_id',
           'rel_local_key'     => 'category_id',
           'description'       => 'List of product models assigned to the category.'
-        ],
+        ]
 
-        'booking_types_ids' => [
-          'type'              => 'many2many', 
-          'foreign_object'    => 'sale\booking\BookingType', 
-          'foreign_field'     => 'product_categories_ids', 
-          'rel_table'         => 'sale_rel_productcategory_bookingtype', 
-          'rel_local_key'     => 'productcategory_id',
-          'rel_foreign_key'   => 'bookingtype_id',
-          'description'       => 'List of booking types assigned to the category.'
-        ]            
       ];
     }
 }
@@ -113,53 +104,46 @@ class Category extends Model {
 
 
 
-## Menus
 
-Menus are defined by App and are injected into the side bars (navigation drawer).
 
-Below is an example of a Booking Menu drawer, as shown by the `name` property. The `layout` is how the items are going to be displayed. 
 
-Then we have the `items` property that contains all the fields with their additional properties like `id` which will also be used to translate this field, `description`, `icon` related to the field label, `type` is either parent or entry which will contain one or more children that you can view once clicked on this parent. 
+## Form views
 
-Then we have the `children` related too the parent containing all the fields already mentioned, as well as additional ones like the `context` that can itself hold multiple fields like `entity` with is the class name of the that this child belongs to, also a `view` field which represents the view type like "form.default" and "list.default", a `purpose` field which as its name show is the purpose of this child like "create" to create new data. `order` and `sort` fields can also be present, and are usually added for list views to respectively order the list by "id" for example and sort it either in "desc" (descending order) or "asc" (ascending order). 
+**Forms** allow to view and edit individual objects. It is possible to define as many views as desired, the only constraint is the definition of a default view. 
+A form should contain all the fields present in its corresponding class, except for the fields that are of type computed. 
+The most used properties of a form view are `name`, `description`, `layout`, `groups`, `sections`, `rows` and `columns`. 
+Theses describe the view and design the layout for it by grouping it and assigning the rows and columns. 
 
-In the example shown below, one parent menu item is present named "New Booking" and it contains two children, "New Booking" to create a new booking and "All Bookings" that displays the list of all the bookings ordered by id and sorted in descending order.
+### Minimal example
 
+Example.form.default.json
 ```json
 {
-  "name": "Booking menu",
+  "name": "Example",
+  "description": "Simple form for displaying Example objects",
+  "actions": [],
   "layout": {
-    "items": [
+    "groups": [	
       {
-        "id": "item.bookings",
-        "label": "Bookings",
-        "description": "",
-        "icon": "menu_book",
-        "type": "parent",
-        "children": [
+        "label": "",
+        "sections": [
           {
-            "id": "item.new_booking",
-            "type": "entry",
-            "label": "New booking",
-            "description": "",
-            "icon": "add",
-            "context": {
-              "entity": "lodging\\sale\\booking\\Booking",
-              "view": "form.default",
-              "purpose": "create"
-            }
-          },
-          {
-            "id": "item.all_booking",
-            "type": "entry",
-            "label": "All bookings",
-            "description": "",
-            "context": {
-              "entity": "lodging\\sale\\booking\\Booking",
-              "view": "list.default",
-              "order": "id",
-              "sort": "desc"
-            }
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "width": "50%",
+                    "items": [
+                      {
+                          "type": "field",
+                          "value": "id",
+                          "width": "100%"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
@@ -168,20 +152,8 @@ In the example shown below, one parent menu item is present named "New Booking" 
 }
 ```
 
-Some of the additional properties that can be added to a menu are:  
 
-* **domain**: array (definition of the filter to apply)
-* **sort**: string (name of the field to sort results on)
-* **order**: string ('*desc*' or '*asc*')
-* **limit**: integer (max size of result set)
-
-
-## Forms
-
-Forms are the view and edit view for individual objects. It is possible to define as many views as desired, the only constraint is the definition of a default view. This view should contain all the fields present in its corresponding class, except for the fields that are of type computed. 
-The most used properties of a form view are `name`, `description`, `layout`, `groups`, `sections`, `rows` and `columns`. Theses describe the view and design the layout for it by grouping it and assigning the rows and columns. 
-
-Then for each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
+### Structure
 
 A property `actions` could also be added to the form which will contain a list of objects defining the actions that this model can make, for example: set something as option, confirm booking, check in/out and so on all of them and the related model for each of these actions is a `.php` file and is placed in an actions folder in its corresponding package. These actions have "id", "label" and "description" that are present in the other properties and in addition, they have a "controller" which will let the action work and is written likeso, `"controller": "lodging_booking_option"`, and finally a visible property that specifies when this action is visible to the user, written as follows: `"visible": ["status", "=", "quote"]` and this example indicates that the action is visible if the status is equal to quote. 
 
@@ -276,8 +248,8 @@ A form is defined according to the following structure:
                       } 
                     ]
                   }
-                ],
-              },
+                ]
+              }
             ]
           }
         ]
@@ -287,16 +259,72 @@ A form is defined according to the following structure:
 }
 ```
 
+#### layout.groups
+
+The groups are stacked vertically. A layout must always have at least 1 group.
+
+|property|description|
+|--|--|
+|label|name of the group|
+|sections|Array of sections . A group must always have at least 1 section.|
+
+
+
+#### layout.groups.sections
+
+When several sections are present, each section is displayed under a tabs.
+
 |property|description|
 |--|--|
 |name||
 |description||
 |layout||
-|layout.groups|the groups are stacked vertically (there is always at least 1 group)|
+|layout.groups|the groups are stacked vertically. A layout must always have at least 1 group.|
 |layout.groups.label|name of the group|
-|layout.groups.sections|if several sections, display with tabs (there is always 1section at least)|
+|layout.groups.sections|A group must always have at least 1 section.|
+|||
+
+#### layout.groups.sections.rows
+
+|property|description|
+|--|--|
+|columns||
 
 
+#### layout.groups.sections.rows.columns
+
+|property|description|
+|--|--|
+|width||
+|items||
+
+
+
+#### layout.groups.sections.rows.columns.items
+
+Each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
+
+|property|description|
+|--|--|
+|label|(optional)|
+|type||
+|value||
+|width|width relative to parent column, in %|
+|visible|(optional)|
+|domain|["type", "<>", "I"]|
+|widget|(optional) additional settings to apply on the widget that holds the fields|
+
+#### layout.groups.sections.rows.columns.items.widget
+|property|description|
+|--|--|
+|header|(optional)[true|false]|
+|readonly|(optional)[true|false]|
+|action_select|(optional)[true|false]|
+|action_create|(optional)[true|false]|
+
+
+
+### Real life example
 
 A real example of a form view is shown below, which is the Category form of a package having multiple `sections` (tabs) each having a label(Categories, Product Models and Booking Types) and an id(`section.categories_id`, `section.product_models`, `section.booking_types`) to be able to be translated in using the "i18n". The field called `name` has a `widget` property with an attribute `header` set to true which makes it have a bigger font as mentioned earlier and the most important field of this view.
 
@@ -387,10 +415,14 @@ The view's name is `Category.form.default.json` and is as follows:
 
 
 
-## Lists
+## List views
 
 List views are the ones that displays the important fields that were saved in the form view. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and many more. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it. ```sortable``` property could also be added to the list view, which enables the action of sorting the list when it has the value "true" since it's of type Boolean.
 By clicking on one row in the list, it redirects you to the editable form related to the view. 
+
+
+
+### Minimal example
 
 The name of file is displayed like so: `packages/core/views/User.list.default.json`
 A list view is defined according to the following structure:
@@ -458,7 +490,7 @@ The list view is named *Category.list.default.json* and has the following struct
 }
 ```
 
-
+### Structure
 
 ```actions``` displayed in a list is an array of objects that contain 3 main fields which are: the action ```id```, the ```view``` form to which it relates to and the ```description``` of this action. It is displayed like so: 
 
@@ -474,7 +506,7 @@ The list view is named *Category.list.default.json* and has the following struct
 
 
 
-## Printing a document
+#### Exports
 
 Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well. 
 
@@ -495,3 +527,70 @@ All these fields are added inside of the <em>exports</em> section of list view, 
 ```
 
 The view value "print.default" points to the view having the format of .html and is used to design the contract that will be printed. This html file will contain the information about the customer that is booking as well as the company that is hosting them. 
+
+
+## Print views
+
+
+
+## Menus
+
+Menus are defined by App and are injected into the side bars (navigation drawer).
+
+Below is an example of a Booking Menu drawer, as shown by the `name` property. The `layout` is how the items are going to be displayed. 
+
+Then we have the `items` property that contains all the fields with their additional properties like `id` which will also be used to translate this field, `description`, `icon` related to the field label, `type` is either parent or entry which will contain one or more children that you can view once clicked on this parent. 
+
+Then we have the `children` related too the parent containing all the fields already mentioned, as well as additional ones like the `context` that can itself hold multiple fields like `entity` with is the class name of the that this child belongs to, also a `view` field which represents the view type like "form.default" and "list.default", a `purpose` field which as its name show is the purpose of this child like "create" to create new data. `order` and `sort` fields can also be present, and are usually added for list views to respectively order the list by "id" for example and sort it either in "desc" (descending order) or "asc" (ascending order). 
+
+In the example shown below, one parent menu item is present named "New Booking" and it contains two children, "New Booking" to create a new booking and "All Bookings" that displays the list of all the bookings ordered by id and sorted in descending order.
+
+```json
+{
+  "name": "Booking menu",
+  "layout": {
+    "items": [
+      {
+        "id": "item.bookings",
+        "label": "Bookings",
+        "description": "",
+        "icon": "menu_book",
+        "type": "parent",
+        "children": [
+          {
+            "id": "item.new_booking",
+            "type": "entry",
+            "label": "New booking",
+            "description": "",
+            "icon": "add",
+            "context": {
+              "entity": "lodging\\sale\\booking\\Booking",
+              "view": "form.default",
+              "purpose": "create"
+            }
+          },
+          {
+            "id": "item.all_booking",
+            "type": "entry",
+            "label": "All bookings",
+            "description": "",
+            "context": {
+              "entity": "lodging\\sale\\booking\\Booking",
+              "view": "list.default",
+              "order": "id",
+              "sort": "desc"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Some of the additional properties that can be added to a menu are:  
+
+* **domain**: array (definition of the filter to apply)
+* **sort**: string (name of the field to sort results on)
+* **order**: string ('*desc*' or '*asc*')
+* **limit**: integer (max size of result set)
