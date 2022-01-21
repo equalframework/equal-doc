@@ -11,6 +11,8 @@ As sample webapp, we are going to build a basic blog.
 
 For installation notes, see [[http://easyobject.cedricfrancoys.be/wiki/install|easyObject quickstart]]
 
+> URL ?
+
 ===== 1. Create a new package =====
 **(Estimated time : 1 minute)**
 
@@ -137,6 +139,8 @@ Open your internet browser and go to the //core_utils// application. For instanc
 
 (If you are getting confused, see easyObject [[http://easyobject.cedricfrancoys.be/wiki/url_mechanism|URL mechanism]].)
 
+> URL ?
+
 Now, among the packages list, select the newly created //blog// package, then choose the //sql-schema// plugin and click 'ok'.
 
 In the right panel, you should see the following SQL code : 
@@ -206,7 +210,7 @@ Tree structure is now:
 **(Estimated time : 1 minute)**
 
   * Open your internet browser and go to the //core_manage// application. 
-''For instance:
+''For instanceb:
 http://localhost/easyobject/index.php?show=core_manage''
   * Among packages list, select the //blog// package, then click on the //Post// class.
   * On the right panel, click on the 'create new' button.
@@ -219,7 +223,6 @@ http://localhost/easyobject/index.php?show=core_manage''
 
 ===== 6. Create an application =====
 **(Estimated time : 2 minutes)**
-
 
 ==== 1. Template ====
 

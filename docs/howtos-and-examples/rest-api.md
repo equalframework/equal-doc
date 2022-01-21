@@ -144,8 +144,13 @@ We use ``` list($context) = [$providers['context']] ``` to implement the service
 Then **$list** is where we receive the data from our query :
 
 - **Task::search([])**  searchs for data associated with Task
+
+  > Function defined inside the Collection class
+
 - **->read([])** tells which parameters we want to retrieve from Task
+
 - **->adapt('txt')** turns the data into strings
+
 - **->get(true)**
 
 Finally, **$context** is used to accomplish REST's purpose, displaying the data on our browser as JSON
