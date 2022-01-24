@@ -2,27 +2,31 @@
 
 The controllers are usually seperated in three different directories: **"Data, Actions, Apps"**.
 
-In the folder Data, we will be **Fetching**  the data, **method GET**.
+- In the folder Data, we will be **Fetching**  the data, **method GET**.
 
 > Example :  /core/data/model/search.php**.
 >
 > The controller "Search" => "Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order."
 
-In the folder Actions, we will be modifying the data, **method DO (Post, Put, Delete)**. 
+- In the folder Actions, we will be modifying the data, **method DO (Post, Put, Delete)**. 
 
 > Example : **/core/actions/model/create.php**.
 >
 > The controller "Create" => "Create a new object using given fields values."
 
-In Apps, we will be **showing an APP/UI**, with different types of content.
+- In Apps, we will be **showing an APP/UI**, with different types of content.
 
 > Example : **/core/apps/model/controllers.php**.
 >
 >  The controller "Controllers" => "UI for browsing controllers and their definition amongst packages."  
 
+
+
 Let's go a bit more into details...
 
 > You can also check out [rest-api](rest-api.md) for more info.
+
+
 
 ##  DATA Controllers
 
@@ -105,9 +109,14 @@ $context->httpResponse()
 **announce()** will handle the values of our query :
 
 - **description** tells what the controller does
+
 - **params** gives additional requirements and conditions
+
 - **response** defines the format of the server response
+
 - **providers** helps us to access useful services such as **context**, **orm**, **auth**
+
+  
 
 ### About Providers
 
@@ -270,8 +279,10 @@ If we type in the browser :
 ```
 
 > The login and the password are **required** from the User class ('core/classes/User.class.php')
+>
+> Equal-framework does the work of reading ```?do=model_create``` as ```/core/actions/model/create.php```
 
-Equal-framework does the work of reading ```?do=model_create``` as ```/core/actions/model/create.php```
+Congrats, you created a new User !
 
 
 
@@ -301,6 +312,8 @@ list($params, $providers) = announce([
 
 This controller **adds html through javascript**  and gives it to the **context**, that will send it and get a response.
 
+
+
 ### Using SHOW in your browser
 
 If we type in the browser :
@@ -309,9 +322,9 @@ If we type in the browser :
 ?show=model_controllers&package=core
 ```
 
-The response has the form of an APP/UI, where we can browse controllers and their definition amongst packages.
+The response has the form of an **APP/UI**, where we can browse controllers and their definition amongst packages.
 
 It's very usefull to have a quick overview.
 
-You know all the basics of a controller, good luck !
+You know all the basics of controllers, **good luck** !
 
