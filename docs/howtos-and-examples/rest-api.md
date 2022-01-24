@@ -26,7 +26,7 @@ Go ahead and create them in your package directory (ex: */public/packages/todoli
 
 ## Defining classes
 
-Inside foler `/classes` create a new PHP file for each class you want to declare.
+Inside folder `/classes` create a new PHP file for each class you want to declare.
 
 To continue with our previous todolist-app example, we'll create two classes: Task and User.
 

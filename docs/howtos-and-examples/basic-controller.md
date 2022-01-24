@@ -2,17 +2,23 @@
 
 The controllers are usually seperated in three different directories: **"Data, Actions, Apps"**.
 
-In Data, we will be **Getting/Searching**  the data.
+In the folder Data, we will be **Fetching**  the data, **method GET**.
 
-> Example : "Search" => "Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order."
+> Example :  /core/data/model/search.php**.
+>
+> The controller "Search" => "Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order."
 
-In  Actions, we will be modifying the data **(Post, Put, Delete)**. 
+In the folder Actions, we will be modifying the data, **method DO (Post, Put, Delete)**. 
 
-> Example : "Create" => "Create a new object using given fields values."
+> Example : **/core/actions/model/create.php**.
+>
+> The controller "Create" => "Create a new object using given fields values."
 
 In Apps, we will be **showing an APP/UI**, with different types of content.
 
-> Example : "Controllers" => "UI for browsing controllers and their definition amongst packages."  
+> Example : **/core/apps/model/controllers.php**.
+>
+>  The controller "Controllers" => "UI for browsing controllers and their definition amongst packages."  
 
 Let's go a bit more into details...
 
@@ -27,13 +33,13 @@ Let's open  **/core/data/model/search.php**.
 ```php
 list($params, $providers) = announce([
     'description'   => 'Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order.',
-    'response'      => [
-        'content-type'      => 'application/json',
+    'response'      => [   // defines the format of the server response
+        'content-type'      => 'application/json', 
         'charset'           => 'UTF-8',
         'accept-origin'     => '*',
         'cacheable'         => false
     ],    
-    'params'        => [
+    'params'        => [ // gives additional requirements and conditions
         'entity' =>  [
             'description'   => 'Full name (including namespace) of the class to look into (e.g. \'core\\User\').',
             'type'          => 'string', 
@@ -70,7 +76,7 @@ list($params, $providers) = announce([
         'charset'       => 'utf-8',
         'accept-origin' => '*'
     ],
-    'providers'     => [ 'context' ] 
+    'providers'     => [ 'context' ] // helps us to access useful services such as context, orm, auth
 ]);
 
 list($context) = [ $providers['context'] ];
@@ -98,22 +104,22 @@ $context->httpResponse()
 
 **announce()** will handle the values of our query :
 
-- **description**
+- **description** tells what the controller does
 - **params** gives additional requirements and conditions
 - **response** defines the format of the server response
 - **providers** helps us to access useful services such as **context**, **orm**, **auth**
 
 ### About Providers
 
-We use ``` list($context) = [$providers['context']] ``` to implement the services we want to use
+We use ``` list($context) = [$providers['context']] ``` to implement the services we want to use.
 
-The **$collection** variable is what we try to get from the controller :
+In the above example (*search controller*) the **$collection** variable is where we receive the data from our query :
 
-- **$params['entity']::search([$params])**  searchs for data associated with the "Entity" and that respects the "Parameters" given
+- **$params['entity']::search([$params])**  searchs for data associated with a specific **Entity or Class** and that matches the **params** given
 
-  > Example: If we use the entity "User", we will do a research amongst all the Users from our database.
+  > Example: If we use the entity **User**, we will do a research amongst all the Users from our database.
   >
-  > If we don't use any other requirements/conditions, we will have a list with all the users.
+  > If we don't use any requirements/conditions, we will have a list with all the users.
 
 
 Finally, **$context** is used to accomplish REST's purpose, displaying the data on our browser as JSON
@@ -121,7 +127,7 @@ Finally, **$context** is used to accomplish REST's purpose, displaying the data 
 ```php
 $context
     ->httpResponse()// get the HTTP response being built
-    ->body($view)	// populate the body with resulting view
+    ->body($result)	// populate the body with resulting result
     ->send();		// output the response (i.e. some plain text @see https://www.w3.org/Protocols/rfc2616)
 ```
 
@@ -134,25 +140,24 @@ We'll assume we already have an existing database containing a data sample of ta
 ```bash
 $> php run.php --do=test_package-consistency --package=todolist 
 // The test_package_consistency controller checks if the package has the right values, if there are errors, ...
+
 $> php run.php --do=init_package --package=todolist 
 // The init_package controller should populate the database with the tables related to the specified package.
 ```
 
-Open your browser, and in the localhost page you defined for eQual
-
-To the address bar, add this :
+Open your browser, and in the localhost page you defined for eQual, add this :
 
 ```
 ?get=core_model_search 
 ```
 
-> "core"  (the name of the package) is not necessary in this scenario.
+> "core"  (the name of the package) is not necessary here.
 >
->  We simplified it, because we use this package quite a lot. 
+>  We simplified it, inside the **eq.lib.php** script, because we use this package quite a lot. 
 >
-> Summary : **?get=model_search** would also work.
+> **Summary** : *?get=model_search* would also work.
 
-And we will get : 
+The query result : 
 
 ```
 "errors": {
@@ -160,7 +165,7 @@ And we will get :
  }
 ```
 
-> Remember that it is required.
+> Remember that the entity is required.
 
 If we type: 
 
@@ -168,11 +173,11 @@ If we type:
 ?get=model_search&entity=core\User 
 ```
 
-Equal-framework does the work of reading ```?get=model_search```  as ```/core/classes/User.class.php ```
+Equal-framework does the work of reading ```?get=model_search```  as ```/core/classes/User.class.php ```.
 
 It will display a JSON formatted answer showing an array with all the User identifiers.
 
-As easy as that. You now have a REST response that you can use in any frontend project
+As easy as that. You now have a REST response that you can use in any frontend project.
 
 
 
@@ -294,7 +299,7 @@ list($params, $providers) = announce([
 + A LOT OF JS
 ```
 
-This controller **adds html through javascript**  and gives it to the context, that will send it and get a response.
+This controller **adds html through javascript**  and gives it to the **context**, that will send it and get a response.
 
 ### Using SHOW in your browser
 
@@ -305,4 +310,8 @@ If we type in the browser :
 ```
 
 The response has the form of an APP/UI, where we can browse controllers and their definition amongst packages.
+
+It's very usefull to have a quick overview.
+
+You know all the basics of a controller, good luck !
 
