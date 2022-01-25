@@ -286,7 +286,7 @@ Congrats, you created a new User !
 
 
 
-## APP Controllers
+## APPS Controllers
 
 Let's open  **/core/apps/model/controllers.php**.
 
@@ -322,9 +322,19 @@ If we type in the browser :
 ?show=model_controllers&package=core
 ```
 
+
+
+**The Response** :
+
+![](https://files.yesbabylon.org/document/80db9aa19789aef24bded69bdc687299)
+
+
+
 The response has the form of an **APP/UI**, where we can browse controllers and their definition amongst packages.
 
 It's very usefull to have a quick overview.
 
 You know all the basics of controllers, **good luck** !
+
+
 
