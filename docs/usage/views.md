@@ -74,6 +74,7 @@ Below is an example of a class called Category having multiple fields for which 
 ```php
 <?php 
 class Category extends Model {
+    
     public static function getColumns() {
       return [
         'name' => [
@@ -266,32 +267,30 @@ The groups are stacked vertically. A layout must always have at least 1 group.
 |property|description|
 |--|--|
 |label|name of the group|
-|sections|Array of sections . A group must always have at least 1 section.|
+|sections|Array of sections objects. A group must always have at least 1 section.|
 
 
 
-#### layout.groups.sections
+#### group.sections
+
+A group must always have at least 1 section.
 
 When several sections are present, each section is displayed under a tabs.
 
 |property|description|
 |--|--|
-|name||
-|description||
-|layout||
-|layout.groups|the groups are stacked vertically. A layout must always have at least 1 group.|
-|layout.groups.label|name of the group|
-|layout.groups.sections|A group must always have at least 1 section.|
-|||
+|label|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
+|id|(optional) the id is used to override the label in translation files|
+|rows|Array of rows objects. A section must always have at least 1 row.|
 
-#### layout.groups.sections.rows
+#### section.rows
 
 |property|description|
 |--|--|
 |columns||
 
 
-#### layout.groups.sections.rows.columns
+#### row.columns
 
 |property|description|
 |--|--|
@@ -300,7 +299,7 @@ When several sections are present, each section is displayed under a tabs.
 
 
 
-#### layout.groups.sections.rows.columns.items
+#### column.items
 
 Each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
 
@@ -310,17 +309,18 @@ Each item of there's a `type` which is usually a label, an `id`, `value` which i
 |type||
 |value||
 |width|width relative to parent column, in %|
-|visible|(optional)|
+|visible|(optional) either a boolean (true, false) or a domain (ex. ["is_complete", "=", true] )|
 |domain|["type", "<>", "I"]|
 |widget|(optional) additional settings to apply on the widget that holds the fields|
 
-#### layout.groups.sections.rows.columns.items.widget
+#### item.widget
 |property|description|
 |--|--|
-|header|(optional)[true|false]|
-|readonly|(optional)[true|false]|
-|action_select|(optional)[true|false]|
-|action_create|(optional)[true|false]|
+|header|(optional) if set to true, the widget is emphasized|
+|readonly|(optional) if set to true, the value cannot be modified (mark as disabled in edit mode)|
+|action_select|(optional) force the display (true) of the 'select' button for M2M and O2M fields|
+|action_create|(optional) force the display (true) of the 'create' button for M2M and O2M fields|
+|view|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default". (ex.: "form.create")|
 
 
 
