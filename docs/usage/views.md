@@ -56,7 +56,7 @@ Each `field` definition may contain one or more of these properties:
 * `foreign_object`: is the path to the parent class of a field in another one.
 * `foreign_field`: the name of the field that refers to the parent class.
 * `required`: Marks a field as mandatory (storing an object without giving a value for that field will raise an error).
-* ```domain```: is a condition set for a field which implies for example that a field is equal, or in the range of, or different than another one. It is written like so: ```'domain'       => ['relationship', '=', 'customer']```. This means that the specific field that has this domain must have a relationship type equal to customer.
+* ```domain```: is a condition set for a field which implies for example that a field is equal, or in the range of, or different than another one. It is written like so: ```'domain' => ['relationship', '=', 'customer']```. This means that the specific field that has this domain must have a relationship type equal to customer.
 * ```usage```: it specifies under which format the field is used. For example: 
     * markup/html
     * country/iso-3166:2 (for the country address)
@@ -451,7 +451,7 @@ The view's name is `Category.form.default.json` and is as follows:
 
 ## List views
 
-List views are the ones that displays the important fields that were saved in the form view. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and many more. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it. ```sortable``` property could also be added to the list view, which enables the action of sorting the list when it has the value "true" since it's of type Boolean.
+List views are used to display collections of items. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and a few additional ones. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it. ```sortable``` property could also be added to the list view, which enables the action of sorting the list when it has the value "true" since it's of type Boolean.
 By clicking on one row in the list, it redirects you to the editable form related to the view. 
 
 
@@ -559,6 +559,8 @@ Bear in mind that the default controller (core_mode_collect), has a `max` constr
 
 #### domain
 
+#### filters
+
 
 #### actions
 
@@ -574,7 +576,7 @@ Bear in mind that the default controller (core_mode_collect), has a `max` constr
     ]
 ```
 
-#### Exports
+#### exports
 
 Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well. 
 
@@ -595,6 +597,31 @@ All these fields are added inside of the <em>exports</em> section of list view, 
 ```
 
 The view value "print.default" points to the view having the format of .html and is used to design the contract that will be printed. This html file will contain the information about the customer that is booking as well as the company that is hosting them. 
+
+#### layout
+
+
+
+#### layout.items
+
+
+
+#### operations
+
+This property allows to apply a series of operations on one or more columns, for the displayed records set.
+
+```
+"operations": {
+  "total" : {
+	"price": {
+		"type": "SUM",
+		"usage": "amount/money:2"
+	}
+  }
+}
+```
+
+Supported operations are : 'SUM', 'MIN', 'MAX', 'AVG', 'COUNT'
 
 
 ## Print views
