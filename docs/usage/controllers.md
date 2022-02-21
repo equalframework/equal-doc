@@ -10,12 +10,48 @@ But they're also involved in rights management: making sure the user performing 
 
 The Developer can create as many custom controllers as necessary.
 
-Controllers are re-usable and can be inter-dependant.
+Controllers are re-usable and can be interdependent.
 
-eQual's controllers can be found inside the "Actions", "data" & "Apps" folders. 
+eQual's controllers can be found inside the `actions`, `data` & `apps` folders. 
 
 They are separated because they can achieve different kinds of operation/action's.
 
-- Action's folder => "DO" operation (post, put/patch, delete)
-- Data's folder =>"GET" operation
-- APP's folder => "SHOW" operation
+- Action's folder => "DO" operations (post, put/patch, delete)
+- Data's folder =>"GET" operations (get)
+- App's folder => "SHOW" operations
+
+
+
+## Announcement
+
+Properties
+
+### description
+
+### params
+
+### constants
+
+### access
+
+```
+'access' => [
+  'visibility'  => 'public',                 // 'public' (default) or 'private' (CLI only)
+  'users'       => [ROOT_USER_ID],           // list of users ids granted 
+  'groups'      => ['sales.bookings.users'], // list of groups ids or names granted 
+]
+```
+
+
+### response
+```
+'response' => [
+  'content-type'    => 'application/json',
+  'charset'         => 'utf-8',
+  'accept-origin'   => '*'
+],
+```
+
+
+
+### providers

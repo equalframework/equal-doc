@@ -110,10 +110,9 @@ class Category extends Model {
 
 ## Form views
 
-**Forms** allow to view and edit individual objects. It is possible to define as many views as desired, the only constraint is the definition of a default view. 
-A form should contain all the fields present in its corresponding class, except for the fields that are of type computed. 
-The most used properties of a form view are `name`, `description`, `layout`, `groups`, `sections`, `rows` and `columns`. 
-Theses describe the view and design the layout for it by grouping it and assigning the rows and columns. 
+**Forms** allow to view and edit individual objects. It is possible to define as many views as desired, and a given entity should always have default form view (`{entity}.form.default.json`). 
+
+Forms views are JSON objects that describe the layout for viewing and editing a given entity, by grouping fields within rows and columns.
 
 ### Minimal example
 
@@ -156,9 +155,45 @@ Example.form.default.json
 
 ### Structure
 
-A property `actions` could also be added to the form which will contain a list of objects defining the actions that this model can make, for example: set something as option, confirm booking, check in/out and so on all of them and the related model for each of these actions is a `.php` file and is placed in an actions folder in its corresponding package. These actions have "id", "label" and "description" that are present in the other properties and in addition, they have a "controller" which will let the action work and is written likeso, `"controller": "lodging_booking_option"`, and finally a visible property that specifies when this action is visible to the user, written as follows: `"visible": ["status", "=", "quote"]` and this example indicates that the action is visible if the status is equal to quote. 
 
-Below is how actions are displayed in a form view:
+
+| property    | description                                                  |
+| ----------- | ------------------------------------------------------------ |
+| name        | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| description | Array of sections objects. A group must always have at least 1 section. |
+|header_actions|This section allows to override the order of actions for buttons with multiple actions (split buttons) that are displayed in the header of the form.|
+|actions||
+
+
+
+#### header
+This section allows to override the order of actions for buttons with multiple actions (split buttons) that are displayed in the header of the form.
+
+Default order is as follow : 
+```
+    "header": {
+        "actions_order": {
+    	    "ACTIONS.CREATE": [],
+	        "ACTIONS.SAVE": ["SAVE_AND_CLOSE", "SAVE_AND_VIEW", "SAVE_AND_CONTINUE"],
+        	"ACTIONS.CANCEL": ["CANCEL_AND_CLOSE", "CANCEL_AND_VIEW"]        
+        }
+    },
+```
+
+#### actions
+The `actions`  property  contains a list of objects defining the actions that this model can make, for example: set something as option, confirm booking, check in/out and so on all of them and the related model for each of these actions is a `.php` file and is placed in an actions folder in its corresponding package. These actions have "id", "label" and "description" that are present in the other properties and in addition, they have a "controller" which will let the action work and is written likeso, `"controller": "lodging_booking_option"`, and finally a visible property that specifies when this action is visible to the user, written as follows: `"visible": ["status", "=", "quote"]` and this example indicates that the action is visible if the status is equal to quote. 
+
+
+
+| property    | description                                                  |
+| ----------- | ------------------------------------------------------------ |
+| id          | Identifier of the action for translation purpose (can be set in the i18n related file). |
+| description | The description that is displayed to the user when (s)he clicks on the related button. |
+| label       | Label assigned to the view.                                  |
+| controller  | Controller to invoke when the user confirms the action.      |
+| visible     | Domain (array) of conditions to meet in order to make the action button visible. |
+
+Example:
 
 ```json
 "actions": [
@@ -200,8 +235,7 @@ Below is how actions are displayed in a form view:
 ]
 ```
 
-
-
+#### layout
 
 
 The name of form view is displayed like so: `packages/core/views/User.form.default.json`
@@ -287,15 +321,15 @@ When several sections are present, each section is displayed under a tabs.
 
 |property|description|
 |--|--|
-|columns||
+|columns|An array of columns objects that should be displayed within the row.|
 
 
 #### row.columns
 
 |property|description|
 |--|--|
-|width||
-|items||
+|width|Width of the column (in %). Ex.: "25%"|
+|items|An array of items that should be displayer within the column.|
 
 
 
@@ -492,6 +526,42 @@ The list view is named *Category.list.default.json* and has the following struct
 
 ### Structure
 
+#### name
+
+#### description
+
+#### order
+String holding the name(s) of the field to sort results on, separated with commas.
+Example : 
+
+```
+    "order": "sku,product_model_id"
+```
+#### sort
+
+String litteral ('*desc*' or '*asc*')
+
+Example:
+```
+    "sort": "asc"
+```
+
+#### limit
+integer (max size of result set)
+
+Example : 
+
+```
+    "limit": 100
+```
+
+Bear in mind that the default controller (core_mode_collect), has a `max` constraint of `500` for this parameter.
+
+#### domain
+
+
+#### actions
+
 ```actions``` displayed in a list is an array of objects that contain 3 main fields which are: the action ```id```, the ```view``` form to which it relates to and the ```description``` of this action. It is displayed like so: 
 
 ```json
@@ -503,8 +573,6 @@ The list view is named *Category.list.default.json* and has the following struct
         }
     ]
 ```
-
-
 
 #### Exports
 
@@ -588,9 +656,3 @@ In the example shown below, one parent menu item is present named "New Booking" 
 }
 ```
 
-Some of the additional properties that can be added to a menu are:  
-
-* **domain**: array (definition of the filter to apply)
-* **sort**: string (name of the field to sort results on)
-* **order**: string ('*desc*' or '*asc*')
-* **limit**: integer (max size of result set)

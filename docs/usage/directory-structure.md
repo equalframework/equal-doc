@@ -2,8 +2,6 @@
 
 To understand the framework, here is what you need to know about its folders
 
-note: This page is currently non-exhaustive !
-
 
 
 ## Root directory structure
@@ -31,13 +29,15 @@ The root folder is also the place where to place a `composer.json` file and the 
 | File        | Description                                                  |
 | ----------- | ------------------------------------------------------------ |
 | .htaccess   | Apache configuration file  used to prevent directory listing and handling url rewriting |
-| qn.lib.php  | Boostrap library. Defines constants and global utilities     |
 | index.php   | This script is also referred to as the dispatcher : its task is to include required libraries and to set the context. This is the main entry point. |
 | console.php | This is the only alternate entry point.                      |
+| assets      |                                                              |
+| assets/env  |                                                              |
+| assets/i18n |                                                              |
 
 
 
-​	The entry point of every project, you'll find **index.php** as well as the **packages** you will use
+The entry point of every project, you'll find **index.php** as well as the **packages** you will use
 
 
 
@@ -53,7 +53,7 @@ The root folder is also the place where to place a `composer.json` file and the 
 
 ## run.php
 
-​	Defines the DO, GET and SHOW behaviours for our queries, either by CLI, HTTP or PHP
+​	Defines the DO, GET and SHOW behaviors for our queries, either by CLI, HTTP or PHP
 
 
 
