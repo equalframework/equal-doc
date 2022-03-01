@@ -33,76 +33,6 @@ A **Widget** is responsible for displaying the value of an object's field (in 'v
 
 
 
-## Mapping between Model and View
-
-A `class` contains a series of fields definition that relate to a specific entity (ex.: name, address, user_id,  ...)  
-
-Each `field` definition may contain one or more of these properties: 
-
-* `type` (mandatory): The existing types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*.
-* `alias`: which represents another name that the field in known for. For example: field name is "name" so the alias would be "display_name".
-* `function`: Mandatory when type is '*computed*'. It tells which method to call for computing the value of the field.
-* `result_type`: Mandatory when type is '*computed*'. It specifies the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
-* `store`: Applies when type is '*computed*'. It tells if the resulting value has to be stored in the DB or computed each time it is requested.
-* ```default```: is the default value of the field.
-* `description` (optional): is a small brief about the field.
-* `onchange` (optional): calls a function to get it's value whenever a change exists.
-* ```ondelete```: has 2 values, either <em>cascade</em> or <em>null</em>. 
-    * <em>cascade</em> is used in the context of on delete action for the parent class, delete this field too. 
-    * <em>null</em> is used to identify that when deleting the parent class, the current field shouldn't be delete with it.
-* ```ondetach```: has one value which is <em>delete</em>, which is triggered when the update event for a field is happening. 
-* `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
-* `visible`: It specifies the conditions that must be met in order for the field to be relevant.
-* `foreign_object`: is the path to the parent class of a field in another one.
-* `foreign_field`: the name of the field that refers to the parent class.
-* `required`: Marks a field as mandatory (storing an object without giving a value for that field will raise an error).
-* ```domain```: is a condition set for a field which implies for example that a field is equal, or in the range of, or different than another one. It is written like so: ```'domain' => ['relationship', '=', 'customer']```. This means that the specific field that has this domain must have a relationship type equal to customer.
-* ```usage```: it specifies under which format the field is used. For example: 
-    * markup/html
-    * country/iso-3166:2 (for the country address)
-    * amount/money (for the price)
-    * phone, email, url
-    * uri/urn:iban (for the account iban)
-    * amount/percent (for the rate)
-    * date/year:4 (for the year)
-    * uri/urn:ean (for the ean code)
-    * language/iso-639:2 (for the language abbreviation like fr, en, du...)
-
-
-Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
-
-```php
-<?php 
-class Category extends Model {
-    
-    public static function getColumns() {
-      return [
-        'name' => [
-          'type'              => 'string',
-          'description'       => "Name of the category (for all variants).",
-          'required'          => true
-        ],
-
-        'description' => [
-          'type'              => 'string',
-          'description'       => "A few details about category purpose and usage."
-        ],
-        
-        'product_models_ids' => [ 
-          'type'              => 'many2many', 
-          'foreign_object'    => 'sale\catalog\ProductModel', 
-          'foreign_field'     => 'categories_ids', 
-          'rel_table'         => 'sale_product_rel_productmodel_category', 
-          'rel_foreign_key'   => 'productmodel_id',
-          'rel_local_key'     => 'category_id',
-          'description'       => 'List of product models assigned to the category.'
-        ]
-
-      ];
-    }
-}
-```
-
 
 
 
@@ -137,8 +67,13 @@ Example.form.default.json
                       {
                           "type": "field",
                           "value": "id",
-                          "width": "100%"
-                      }
+                          "width": "50%"
+                      },
+                      {
+                          "type": "field",
+                          "value": "name",
+                          "width": "50%"
+                      }                        
                     ]
                   }
                 ]
@@ -161,7 +96,7 @@ Example.form.default.json
 | ----------- | ------------------------------------------------------------ |
 | name        | The **name** property is mandatory and relates to the unique name assigned to the view. |
 | description | Array of sections objects. A group must always have at least 1 section. |
-|header_actions|This section allows to override the order of actions for buttons with multiple actions (split buttons) that are displayed in the header of the form.|
+|header|This section allows to override action buttons that are displayed in the header of the form.|
 |actions||
 
 

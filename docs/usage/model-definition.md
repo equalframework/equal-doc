@@ -1,19 +1,84 @@
-# Models definition
+# Model definition
 
 
 
-Each Model  is defined in a `.class.php` file , located in the `/packages/{package_name}/classes` file of the package it relates to (see [Directory Structure](directory-structure.md))
+Each Model is defined in a `.class.php` file , located in the `/packages/{package_name}/classes` file of the package it relates to (see [Directory Structure](directory-structure.md)), and inherits from a common ancestor: the `Model` class, declared in the `equal\orm` namespace and defined in file `/lib/equal/orm/Model.class.php`.
+
+A class is always referred to as an entity which holds the package it belongs to (packages are used as namespaces).
+
+The syntax is : `package_name\class_name` (ex. :`core\setting\SettingValue`).
 
 
 
-Every class inherits from a common ancestor: the  `Model` class declared in the `equal\orm` namespace and defined in `/lib/equal/orm/Model.class.php`
+A class consists of a series of fields definition, along with specific methods.
 
-Using eQual API, a class is always referred to with the package name to which it belongs (packages are used as namespaces).
 
-The syntax is : `package_name\class_name` (ex. :'school\Teacher').
 
-A class consists of several fields, each of them having a name and a type, and a list of methods.
-Some methods are system (their name is standard and used by the ORM), and others are specific to a class and defined by the user (see below).
+Each `field` definition may contain one or more of these properties: 
+
+* 
+* `alias`: which represents another name that the field in known for. For example: field name is "name" so the alias would be "display_name".
+* 
+* `result_type`: Mandatory when type is '*computed*'. It specifies the type of the result of this specific field, which can be any of the mentioned typed in the `type` property.
+* 
+* ```default```: is the default value of the field.
+* `description` (optional): is a small brief about the field.
+* `onchange` (optional): calls a function to get it's value whenever a change exists.
+* ```ondelete```: has 2 values, either <em>cascade</em> or <em>null</em>. 
+    * <em>cascade</em> is used in the context of on delete action for the parent class, delete this field too. 
+    * <em>null</em> is used to identify that when deleting the parent class, the current field shouldn't be delete with it.
+* ```ondetach```: has one value which is <em>delete</em>, which is triggered when the update event for a field is happening. 
+* `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
+* `visible`: It specifies the conditions that must be met in order for the field to be relevant.
+* `foreign_object`: is the path to the parent class of a field in another one.
+* `foreign_field`: the name of the field that refers to the parent class.
+* `required`: Marks a field as mandatory (storing an object without giving a value for that field will raise an error).
+* ```domain```: is a condition set for a field which implies for example that a field is equal, or in the range of, or different than another one. It is written like so: ```'domain' => ['relationship', '=', 'customer']```. This means that the specific field that has this domain must have a relationship type equal to customer.
+* ```usage```: it specifies under which format the field is used. For example: 
+    * markup/html
+    * country/iso-3166:2 (for the country address)
+    * amount/money (for the price)
+    * phone, email, url
+    * uri/urn:iban (for the account iban)
+    * amount/percent (for the rate)
+    * date/year:4 (for the year)
+    * uri/urn:ean (for the ean code)
+    * language/iso-639:2 (for the language abbreviation like fr, en, du...)
+
+
+Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
+
+```php
+<?php 
+class Category extends Model {
+    
+    public static function getColumns() {
+      return [
+        'name' => [
+          'type'              => 'string',
+          'description'       => "Name of the category (for all variants).",
+          'required'          => true
+        ],
+
+        'description' => [
+          'type'              => 'string',
+          'description'       => "A few details about category purpose and usage."
+        ],
+        
+        'product_models_ids' => [ 
+          'type'              => 'many2many', 
+          'foreign_object'    => 'sale\catalog\ProductModel', 
+          'foreign_field'     => 'categories_ids', 
+          'rel_table'         => 'sale_product_rel_productmodel_category', 
+          'rel_foreign_key'   => 'productmodel_id',
+          'rel_local_key'     => 'category_id',
+          'description'       => 'List of product models assigned to the category.'
+        ]
+
+      ];
+    }
+}
+```
 
 
 
@@ -71,7 +136,8 @@ Each of them correspond to a specific value :
 
 Numeric value of Boolean type (**true** or **false**)
 
-> We use the PHP built-in constant : true and false
+!!! Note
+	For booleans, we use the PHP built-in constant : true and false (when using '0', '1', 0 or 1, value is converted to a bool).
 
 #### integer
 
@@ -97,20 +163,16 @@ Text potentially long and including formatting
 
 Any binary value (ex : a picture, a document, …)
 
-> With SQL, the MEDIUMBLOB type is recommended
-
-
-
 #### date, time & datetime
 
-
-Internally, dates, times and datetimes are handled as timestamps.
-
-However, when stored to the DBMS, those types follow the standard SQL format:
+When stored to the DBMS, those types follow the standard SQL format:
 
 * date: YYYY-mm-dd
 * time: HH:mm:ss
 * datetime: YYYY-mm-dd HH:mm:ss
+
+!!! Tip 
+	Internally, when dealing with dates, times and datetimes we use timestamps. These are adapted to SQL format or JSON format when needed.
 
 #### many2one
 Relational field used for fields holding a N-1 relation, that is to say a numeric value that represents the identifier of the pointed object.
@@ -248,28 +310,30 @@ public static function getRightsTxt($om, $ids, $lang) {
 
 | Type         | Attribute   |Usage                    |
 | - | -|-|
-| ***Basic fields*** | type        | specify the field type |
-|              | [multilang] | boolean telling if current field can be translated (default value: false) [More info](i18n.md) |
-|              | [onchange] | string holding the name of the method to invoke when field is updated, with format : `package\Class::method` (note : this method will be called with PHP function `call_user_func()`) |
-|              | [selection] | Value selected from a pre-defined list   <a href="#anchor">Example</a> |
-| **many2one**    | foreign_object     | class toward which current field is pointing back |
-| **one2many**    | foreign_object     | class toward which current field is pointing back |
+| ***Basic fields*** |  | |
+|  | type        | Type of the field. Accepted types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*. |
+|              | multilang | (optional) boolean telling if current field can be translated (default value: false) [More info](i18n.md) |
+|              | onchange | (optional) string holding the name of the method to invoke when field is updated, with format : `package\Class::method` (method is in charge of updating fields that depends on current field)<br/>The signature of this method is: ```public static function onchangeName($orm, $oids, $lang) {}``` |
+|              | selection | (optional). Value selected from a pre-defined list   <a href="#anchor">Example</a> |
+| **many2one** |  |  |
+|     | foreign_object     | class toward which current field is pointing back |
+| **one2many** |  |  |
+|     | foreign_object     | class toward which current field is pointing back |
 |     | foreign_field     | name of the field of the pointed class that is pointing back toward the current class        |
-|     | [foreign_key]     | field that serves as identifier for objects pointed by the relation (default value: 'id')        |
-|     | [order]     | field on which pointed objects must be sorted        |
-|     | [sort]     | direction fort sorting (possible values: 'asc', 'desc') |
-| **many2many**    | foreign_object     | class toward which is pointing the current field        |
+|     | foreign_key     | (optional) field that serves as identifier for objects pointed by the relation (default value: 'id') |
+|     | order     | (optional) field on which pointed objects must be sorted |
+|     | sort     | (optional) direction fort sorting (possible values: 'asc', 'desc') |
+| **many2many** |  |  |
+|     | foreign_object     | class toward which is pointing the current field        |
 |     | foreign_field | name of the field of the pointed class that is pointing back toward the current class |
 |     | rel_table | name of the SQL table dedicated to the m2m relation (recommended syntax: `package_rel_class1_class2`) |
 |     | rel_local_key | name of the column in `rel_table` holding the identifier of the current object |
 |     | rel_foreign_key | name of the column in de `rel_table` holding the identifier of the pointed object |
-| **related**    | result_type  | type resulting from the indirect relation (i.e. type of the final pointed field) |
-|     | foreign_object | class of the target field |
-|     | path     | array holding the names of the cascade fields to consult in order to get to the final field (note : the first field must belong to the current class) |
-| **function**    | result_type     | type of the value resulting from the invoked function |
-|     | store     | boolean telling if the function result must be stored in database (in that case, the related table must contain a column for the field) |
-|     | function  | string holding the name of the method to invoke, with format : `package\Class::method` (note : this method will be called with PHP function `call_user_func`) |
-|              | [multilang] | boolean telling if field can be translated (default value: false). This applies only for stored fields.  |
+| **computed** |  |  |
+|  | result_type     | type of the value resulting from the invoked function |
+|     | store     | (optional) boolean telling if the result must be stored in database (in that case, the related table must contain a column for the field). By default, this attribute is set to **false**. |
+|     | function  | String holding the name of the method to invoke for computing the value of the field. Syntax: `method` (relative to current class) or `package\Class::method` (absolute notation) |
+|              | multilang | (optional) boolean telling if field can be translated (default value: false). This applies only for stored fields. |
 
 
 
@@ -282,11 +346,28 @@ public static function getRightsTxt($om, $ids, $lang) {
 ]
 ```
 
-### onchange method
+### onupdate method
 
-When updating a field, if `onchange` attribute is defined, related method is executed
-(method is in charge of updating fields that depends on current field)
+
+
+
+
+### ondelete method
+
+
 
 ### System fields
-### Common methods 
+
+Some fields are mandatory, and defined in the `Model` class.
+
+| Name     | type           | Usage                                                        |
+| -------- | -------------- | ------------------------------------------------------------ |
+| id       | integer        | Unique identifier of the object.                             |
+| name     | string         | Name to use when referring to the object (in views). By default, this field is an alias of  `id`. |
+| status   | string         | 'draft', 'instance', 'archive'                               |
+| created  | datetime       |                                                              |
+| creator  | foreign_object | `core\User`                                                  |
+| modified | datetime       |                                                              |
+| modifier | foreign_object | `core\User`                                                  |
+
 ### Custom methods
