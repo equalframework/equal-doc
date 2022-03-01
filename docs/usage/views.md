@@ -22,8 +22,8 @@ A **Layout** is the layout associated with a given view. It is always linked to 
 
 A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
 
-!!! note
-	<em>widget</em> can have multiple field options such as: 	
+!!! note "widgets"
+	<em>widget</em> has various field options: 	
 	* ```view```: than represents the view to which this value points to.
 	* ```header```: is a Boolean. When it's true, the field is considered as header and will have bigger font size than the other fields.
 	* ```readonly```: is a Boolean. When it's true, the field can't be changed even if the update event is triggered.
