@@ -28,7 +28,7 @@ A **Widget** is responsible for displaying the value of an object's field (in 'v
 	* ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
 	* ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
 	For one2many and many2many field, it is also possible: 	
-	* to specify the order and limit the loaded lines shown as autocomplete
+	* to specify the order and limit the loaded lines shown as autocomplete  
 	* to force using a non-default x2many widget
 
 
