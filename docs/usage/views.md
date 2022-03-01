@@ -26,8 +26,7 @@ A **Widget** is responsible for displaying the value of an object's field (in 'v
 	<em>widget</em> has various field options: 	
 	* ```view```: than represents the view to which this value points to.
 	* ```header```: is a Boolean. When it's true, the field is considered as header and will have bigger font size than the other fields.
-	* ```readonly```: is a Boolean. When it's true, the field can't be changed even if the update event is triggered.
-	
+	* ```readonly```: is a Boolean. When it's true, the field can't be changed even if the update event is triggered.	
 	When we have an x2many field the widgets: 	
 	* allows to see the selected object (form)
 	* allows to select one or more other objects (list)
