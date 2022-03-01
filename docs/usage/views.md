@@ -27,9 +27,9 @@ A **Widget** is responsible for displaying the value of an object's field (in 'v
 	* ```view```: to indicate which view template to use with the widget.  
 	* ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
 	* ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
-	When we have an x2many field the widgets: 	
-	* allows to see the selected object (form)
-	* allows to select one or more other objects (list)
+	For one2many and many2many field, it is also possible: 	
+	* to specify the order and limit the loaded lines shown as autocomplete
+	* to force using a non-default x2many widget
 
 
 
