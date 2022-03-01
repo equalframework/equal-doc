@@ -1,3 +1,5 @@
+# Views
+
 To define the layout of the forms, the list of the fields and the possible interactions between them, we use a system of views similar to templates.
 
 Each package has a folder named ‘views’ that contains, for each class, a series of views.  
@@ -20,16 +22,15 @@ A **Layout** is the layout associated with a given view. It is always linked to 
 
 A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
 
-<em>widget</em> can have multiple field options such as: 
-
-* ```view```: than represents the view to which this value points to.
-* ```header```: is a Boolean. When it's true, the field is considered as header and will have bigger font size than the other fields.
-* ```readonly```: is a Boolean. When it's true, the field can't be changed even if the update event is triggered.
-
-When we have an x2many field the widgets: 
-
-* allows to see the selected object (form)
-* allows to select one or more other objects (list)
+!!! note
+	<em>widget</em> can have multiple field options such as: 	
+	* ```view```: than represents the view to which this value points to.
+	* ```header```: is a Boolean. When it's true, the field is considered as header and will have bigger font size than the other fields.
+	* ```readonly```: is a Boolean. When it's true, the field can't be changed even if the update event is triggered.
+	
+	When we have an x2many field the widgets: 	
+	* allows to see the selected object (form)
+	* allows to select one or more other objects (list)
 
 
 
