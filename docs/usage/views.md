@@ -42,7 +42,7 @@ A **Widget** is responsible for displaying the value of an object's field (in 'v
 
 **Forms** allow to view and edit individual objects. It is possible to define as many views as desired, and a given entity should always have default form view (`{entity}.form.default.json`). 
 
-Forms views are JSON objects that describe the layout for viewing and editing a given entity, by grouping fields within rows and columns.
+Forms views are JSON objects that describe how to render a specific view related to a given entity.
 
 ### Minimal example
 
@@ -50,7 +50,7 @@ Example.form.default.json
 ```json
 {
   "name": "Example",
-  "description": "Simple form for displaying Example objects",
+  "description": "Simple form for displaying a basic objects",
   "actions": [],
   "layout": {
     "groups": [	
@@ -95,16 +95,16 @@ Example.form.default.json
 | property    | description                                                  |
 | ----------- | ------------------------------------------------------------ |
 | name        | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| description | Array of sections objects. A group must always have at least 1 section. |
+| description | A **description** property allows to give a short hint about the way the view is intended to be used. |
 |header|This section allows to override action buttons that are displayed in the header of the form.|
-|actions||
+|actions|(optional) A list of actions associated to a view. If set, visible actions (see below) will be shown in the right-part of the header.|
 
 
 
 #### header
-This section allows to override the order of actions for buttons with multiple actions (split buttons) that are displayed in the header of the form.
+The **header** section allows to override the order in which the actions are show for buttons having multiple actions ("split buttons") in the left part of the header of the form.
 
-Default order is as follow : 
+Default order is defined this way: 
 ```
     "header": {
         "actions_order": {
@@ -116,17 +116,18 @@ Default order is as follow :
 ```
 
 #### actions
-The `actions`  property  contains a list of objects defining the actions that this model can make, for example: set something as option, confirm booking, check in/out and so on all of them and the related model for each of these actions is a `.php` file and is placed in an actions folder in its corresponding package. These actions have "id", "label" and "description" that are present in the other properties and in addition, they have a "controller" which will let the action work and is written likeso, `"controller": "lodging_booking_option"`, and finally a visible property that specifies when this action is visible to the user, written as follows: `"visible": ["status", "=", "quote"]` and this example indicates that the action is visible if the status is equal to quote. 
+The **actions**  property  contains a list of objects defining the actions that are attached to the view.
 
-
+Each action item  relates to a button, show in the header that, when clicked, will relay a request to a given controller. Once the action has been performed, the view is automatically refreshed.
 
 | property    | description                                                  |
 | ----------- | ------------------------------------------------------------ |
 | id          | Identifier of the action for translation purpose (can be set in the i18n related file). |
 | description | The description that is displayed to the user when (s)he clicks on the related button. |
 | label       | Label assigned to the view.                                  |
-| controller  | Controller to invoke when the user confirms the action.      |
-| visible     | Domain (array) of conditions to meet in order to make the action button visible. |
+| controller  | Controller to invoke when the user confirms the action. The `id` of the current object is sent as a parameter. |
+| visible     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
+| confirm     | (optional) If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
 
 Example:
 
@@ -172,62 +173,8 @@ Example:
 
 #### layout
 
+The layout part holds a nested structure that describes the way the (form) view has to be rendered (which fields, using which widgets) and how to place its elements, by grouping fields within rows and columns.
 
-The name of form view is displayed like so: `packages/core/views/User.form.default.json`
-A form is defined according to the following structure:
-
-```json
-{
-  "name": "User",
-  "description": "Simple form for displaying User",
-  "layout": {
-    "groups": [				
-      {
-        "label": "",
-        "sections": [
-          {
-            "label": "",		// name of the section that will be displayed as tab
-            "visible": [],	// visibilty of the section
-            "rows": [		   // rows are stacked vertically
-              {
-                "columns": [
-                  {
-                    "width": "50%",			// the width is adapted according to a flex grid logic (1/12)
-                    "align": "left",
-                    "items": [			// within a column, items are stacked by default, or side-by-side if the specified width of the items allows
-                      {
-                          "type": "label",  // the labels can be either relative to a control, or independent
-                          "id": "identifier",
-                          "value": "identifier",
-                          "width": "50%",		// the width is relative to that of the column (100% by default)
-                          "align": "right"
-                      },
-                      {
-                        "type": "field",
-                        "id": "firstname",	// the identifier of a field is the name of the associated field
-                        "width": "50%",
-                        "widget": {
-                          "header": true,  // the field is a title (scaled 1.5)
-                          "view": "" ,     // in the case of a widget using a view: the view ID (the type of view is implicit in the widget, but can be forced e.g. `list.detailed`)
-                          "domain": []    // in the case of a widget using a domain
-                        },
-                        "visible": [ 
-                          ["object.field", "=", "value"]		// the visibility of a control can be conditioned (by default it is the rule of the diagram that applies, if it is defined) ...
-                          ["user.field", "=", "value"],		
-                        ]		// the names 'object' and 'user' are reserved and are associated with the context
-                      } 
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-}
-```
 
 #### layout.groups
 
@@ -283,14 +230,30 @@ Each item of there's a `type` which is usually a label, an `id`, `value` which i
 |widget|(optional) additional settings to apply on the widget that holds the fields|
 
 #### item.widget
+
+The widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
+
 |property|description|
 |--|--|
 |header|(optional) if set to true, the widget is emphasized|
-|readonly|(optional) if set to true, the value cannot be modified (mark as disabled in edit mode)|
-|action_select|(optional) force the display (true) of the 'select' button for M2M and O2M fields|
-|action_create|(optional) force the display (true) of the 'create' button for M2M and O2M fields|
-|view|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default". (ex.: "form.create")|
+|readonly|(optional) if set to true, the value cannot be modified (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overriden.|
 
+Detailed options by type of field
+
+|field type|property||
+|-|-|-|
+|many2many, one2many|||
+||action_select|(optional) when set to true, it forces the display (true) of the 'select' button for M2M and O2M fields|
+||action_create|(optional) force the display (true) of the 'create' button for M2M and O2M fields|
+||view|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default". (ex.: "form.create")|
+||domain||
+|many2one|||
+||order||
+||limit||
+||domain||
+
+!!! Note
+	When an `usage` property is set in the schema of the entity, the widget is adapted accordingly. For example, when a field has its **type** set as `float` and its **usage** set to `amount/percent`, in view mode, it is displayed as an integer value followed by a '%' sign (e.g: 0.01 is converted to "'1%'').
 
 
 ### Real life example
