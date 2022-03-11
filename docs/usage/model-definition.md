@@ -4,7 +4,7 @@
 
 Each Model is defined in a `.class.php` file , located in the `/packages/{package_name}/classes` file of the package it relates to (see [Directory Structure](directory-structure.md)), and inherits from a common ancestor: the `Model` class, declared in the `equal\orm` namespace and defined in file `/lib/equal/orm/Model.class.php`.
 
-A class is always referred to as an entity which holds the package it belongs to (packages are used as namespaces).
+A class is always referred to as an **entity** which holds the package it belongs to (packages are used as namespaces).
 
 The syntax is : `package_name\class_name` (ex. :`core\setting\SettingValue`).
 
@@ -109,15 +109,14 @@ class Student extends Model {
 
 ## Consistency with Database
 
-**We need Consistency between a .class.php definition and the database schema**
+Consistency between models (`*.class.php`files) and database schema must be maintained at all time, and types must be compatibles (ex.: a varchar(255) column in the database may represent a string, as well as a short_text or a text in the related class).
 
-In parallel, a table must be defined in the database that has a structure matching the related class definition. The main constraint being that the types must be compatibles (ex.: a varchar(255) column in the database may represent a string, as well as a short_text or a text in the related class).
+For each entity, a table is defined in the database that has a structure matching the related class definition. 
 
-Consistency between type definition and related table structure in DB must be permanently maintained. 
-This is left to the responsibility of the developer: no process neither checks nor fixes potential errors. However, some plugin might help you in this task (see Utility and stand-alone scripts).
+Each time a new class is created or the schema of a class is modified, the SQL schema must be adapted consequently.
+Action controller `core_init_package` and Data provider `utils_sql-schema` are made to help with this task.
 
-
-
+Also, Action controller `core_test_package-consistency` can help to spot any incompatibilily or inconsistancy in the definition the classes from a given package.
 
 
 ## Fields types
@@ -126,9 +125,7 @@ This is left to the responsibility of the developer: no process neither checks n
 
 These fields values are directly stored in the associated SQL table and don't need to be processed.
 
-Basic fields include **boolean**, **integer**, **float**, **string**, **text**, **array**, **date**, **time**, **datetime**, **file**, **binary**, **many2one**
-
-Each of them correspond to a specific value :
+Basic fields are: **boolean**, **integer**, **float**, **string**, **text**, **array**, **date**, **time**, **datetime**, **file**, **binary**, **many2one**
 
 
 
@@ -172,7 +169,7 @@ When stored to the DBMS, those types follow the standard SQL format:
 * datetime: YYYY-mm-dd HH:mm:ss
 
 !!! Tip 
-	Internally, when dealing with dates, times and datetimes we use timestamps. These are adapted to SQL format or JSON format when needed.
+	Internally, dates, times and datetimes are handled as timestamps. These are adapted to SQL format or JSON format when needed.
 
 #### many2one
 Relational field used for fields holding a N-1 relation, that is to say a numeric value that represents the identifier of the pointed object.

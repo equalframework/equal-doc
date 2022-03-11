@@ -1,15 +1,31 @@
 # Views
 
-To define the layout of the forms, the list of the fields and the possible interactions between them, we use a system of views similar to templates.
+Views are intended to describe how to present the objects to end-users under a given context.
+They are used as templates for the front-end, and are stored in JSON files within the `views` folder of the package they relate to.
 
-Each package has a folder named ‘views’ that contains, for each class, a series of views.  
-These files are intended to describe how to present lists of objects (list) or single objects (form) under a given context (i.e. which fields to display and how to position them), and are written in JSON format.
+Each of them represents a mode of visualization: form, list, kanban, chart, etc; and can be edited independently from the models they represent. 
+
+It is possible to define as many views (of different types, or variations with same type) as necessary. 
+Each view is referred to by an ID, which is composed of its type and its name.
+
+At minimum, default view for `list` and `form` types should be defined for each entity.
+
+| filename                          | entity    | view type | view name | view ID |
+| --------------------------------- | --------- | --------- | --------- | --------- |
+| `core\views\User.list.default.json` | core\User | list | default | list.default |
+| `core\views\User.form.default.json` | core\User | form | default | form.default |
+
+
 
 **Generic filename format** is: `{class_name}.{view_type}.{view_name}.json`
 
 * `class_name`: the class name of the entity the view relates to (e.g. default form view for  `core\User` is stored as `packages/core/views/User.form.default.json`)
 * `view_type`: Possible values are '*list*', '*form*' and '*card*'
 * `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
+
+
+
+## Front-end logic
 
 A **view** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
 Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications. 
@@ -22,18 +38,14 @@ A **Layout** is the layout associated with a given view. It is always linked to 
 
 A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
 
-!!! note "widgets"
-	<em>widget</em> has various field options: 	
+!!! note "About widget property"
+	The <em>widget</em> property has various field options: 	
 	* ```view```: to indicate which view template to use with the widget.  
 	* ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
 	* ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
 	For one2many and many2many field, it is also possible: 	
 	* to specify the order and limit the loaded lines shown as autocomplete  
 	* to force using a non-default x2many widget
-
-
-
-
 
 
 
@@ -104,6 +116,8 @@ Example.form.default.json
 #### header
 The **header** section allows to override the order in which the actions are show for buttons having multiple actions ("split buttons") in the left part of the header of the form.
 
+Available actions are : `ACTION.SAVE`, `ACTION.CREATE`, `ACTION.CANCEL`
+
 Default order is defined this way: 
 ```
     "header": {
@@ -112,7 +126,7 @@ Default order is defined this way:
 	        "ACTIONS.SAVE": ["SAVE_AND_CLOSE", "SAVE_AND_VIEW", "SAVE_AND_CONTINUE"],
         	"ACTIONS.CANCEL": ["CANCEL_AND_CLOSE", "CANCEL_AND_VIEW"]        
         }
-    },
+    }
 ```
 
 #### actions
@@ -196,7 +210,8 @@ When several sections are present, each section is displayed under a tabs.
 |property|description|
 |--|--|
 |label|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
-|id|(optional) the id is used to override the label in translation files|
+|id|(optional) identifier for mapping the section in translation files|
+|visible|(optional) a domain conditioning the visibility of the section and its tab (ex. `["status", "not in", ["quote", "option"]]`)|
 |rows|Array of rows objects. A section must always have at least 1 row.|
 
 #### section.rows
@@ -242,12 +257,12 @@ Detailed options by type of field
 
 |field type|property||
 |-|-|-|
-|many2many, one2many|||
-||action_select|(optional) when set to true, it forces the display (true) of the 'select' button for M2M and O2M fields|
-||action_create|(optional) force the display (true) of the 'create' button for M2M and O2M fields|
+|`many2many`, `one2many`|||
+||action_select|(optional) when set to true, forces the display (true) of the 'select' button for M2M and O2M fields|
+||action_create|(optional) when set to true, forces the display (true) of the 'create' button for M2M and O2M fields|
 ||view|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default". (ex.: "form.create")|
 ||domain||
-|many2one|||
+|`many2one`|||
 ||order||
 ||limit||
 ||domain||
@@ -459,6 +474,38 @@ Bear in mind that the default controller (core_mode_collect), has a `max` constr
 
 #### filters
 
+The **filter** property allows to provide a series of predefined search filters   
+
+```json
+  "filters": [
+    {
+
+      "id": "lang.french",
+      "label": "French",
+      "description": "French speaking people",
+      "clause": ["language", "=", "fr"] 
+    }
+  ],
+```
+
+#### header
+The **header** section allows to override the views assigned to each action.
+
+Available actions are : `ACTION.SELECT`, `ACTION.CREATE`
+
+Views are set this way: 
+```json
+    "header": {
+        "actions": {
+            "ACTION.CREATE" : [
+                {
+                    "view": "form.create",
+                    "description": "overload form to use for booking creation"
+                }
+            ]
+        }
+    },
+```
 
 #### actions
 
@@ -511,22 +558,45 @@ This property allows to apply a series of operations on one or more columns, for
 ```
 "operations": {
   "total" : {
-	"price": {
-		"type": "SUM",
-		"usage": "amount/money:2"
-	}
-  }
+    "operation": ["+", "object.price"],
+	"usage": "amount/money:2"
+  },
+  "average" : {
+    "operation": "AVG",
+    "field": "price"
+	"usage": "amount/money:2"
+  }  
 }
 ```
 
-Supported operations are : 'SUM', 'MIN', 'MAX', 'AVG', 'COUNT'
+Operation Syntax : 
+
+```
+[ OPERATOR, FIELD ]
+```
+OR
+```
+[ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
+```
+
+Supported shortcuts are : 'SUM', 'MIN', 'MAX', 'AVG', 'COUNT'
+
+
+
+|Shortcut|Operation syntax|
+|--|--|
+|SUM|['+', object.field]|
+|AVG|['/', ['+', object.field], ['#', object.field]]|
+|COUNT|['#', object.field]|
+|MIN|['min', object.field]|
+|MAX|['max', object.field]|
 
 
 ## Print views
 
 
 
-## Menus
+## Menu Views
 
 Menus are defined by App and are injected into the side bars (navigation drawer).
 
@@ -581,3 +651,8 @@ In the example shown below, one parent menu item is present named "New Booking" 
 }
 ```
 
+
+
+## Routes
+
+## Checks
