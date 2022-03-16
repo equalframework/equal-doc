@@ -72,15 +72,15 @@ The **actions**  property  contains a list of objects defining the actions that 
 
 Each action item  relates to a button, show in the header, which, when clicked, will relay a request to a given controller. Once the action has been performed, the view is automatically refreshed.
 
-| property    | description                                                  |
-| ----------- | ------------------------------------------------------------ |
-| id          | Identifier of the action for translation purpose (can be set in the i18n related file). |
-| description | The description that is displayed to the user when (s)he clicks on the related button. |
-| label       | Label assigned to the view.                                  |
-| controller  | Controller to invoke when the user confirms the action. By default, the `id` of the current object is sent as a parameter. |
-| visible     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
-| confirm     | (optional) If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
-| params      | (optional) Associative array mapping fields with their values. Values can be assigned by referencing a property of the current user (e.g. `user.login`) or current object (for form views). |
+| <u>Property</u> | <u>Description</u>                                           |
+| --------------- | ------------------------------------------------------------ |
+| **id**          | Identifier of the action for translation purpose (can be set in the i18n related file). |
+| **description** | The description that is displayed to the user when (s)he clicks on the related button. |
+| **label**       | Label assigned to the view.                                  |
+| **controller**  | Controller to invoke when the user confirms the action. By default, the `id` of the current object is sent as a parameter. |
+| **visible**     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
+| **confirm**     | (optional) If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
+| **params**      | (optional) Associative array mapping fields with their values. Values can be assigned by referencing a property of the current user (e.g. `user.login`) or current object (for form views). |
 
 Example:
 
@@ -193,7 +193,7 @@ Example.form.default.json
 
 
 
-| property    | description                                                  |
+| <u>Property</u> | <u>Description</u>                                           |
 | ----------- | ------------------------------------------------------------ |
 | name        | The **name** property is mandatory and relates to the unique name assigned to the view. |
 | description | A **description** property allows to give a short hint about the way the view is intended to be used. |
@@ -230,10 +230,10 @@ The layout part holds a nested structure that describes the way the (form) view 
 
 The groups are stacked vertically. A layout must always have at least 1 group.
 
-|property|description|
+|<u>Property</u>|<u>Description</u>|
 |--|--|
-|label|name of the group|
-|sections|Array of sections objects. A group must always have at least 1 section.|
+|**label**|name of the group|
+|**sections**|Array of sections objects. A group must always have at least 1 section.|
 
 
 
@@ -243,26 +243,26 @@ A group must always have at least 1 section.
 
 When several sections are present, each section is displayed under a tabs.
 
-|property|Description|
+|<u>Property</u>|<u>Description</u>|
 |--|--|
-|label|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
-|id|(optional) identifier for mapping the section in translation files|
-|visible|(optional) a domain conditioning the visibility of the section and its tab (ex. `["status", "not in", ["quote", "option"]]`)|
-|rows|Array of rows objects. A section must always have at least 1 row.|
+|**label**|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
+|**id**|(optional) identifier for mapping the section in translation files|
+|**visible**|(optional) a domain conditioning the visibility of the section and its tab (ex. `["status", "not in", ["quote", "option"]]`)|
+|**rows**|Array of rows objects. A section must always have at least 1 row.|
 
 #### section.rows
 
-|Property|Description|
+|<u>Property</u>|<u>Description</u>|
 |--|--|
-|columns|An array of columns objects that should be displayed within the row.|
+|**columns**|An array of columns objects that should be displayed within the row.|
 
 
 #### row.columns
 
-|Property|Description|
+|<u>Property</u>|<u>Description</u>|
 |--|--|
-|width|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
-|items|An array of items that should be displayer within the column.|
+|**width**|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
+|**items**|An array of items that should be displayer within the column.|
 
 
 
@@ -286,10 +286,10 @@ Each item is an object accepting the following properties :
 
 Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
 
-|property|description|
+|<u>Property</u>|<u>Description</u>|
 |--|--|
-|header|(optional) if set to true, the widget is emphasized|
-|readonly|(optional) if set to true, the value cannot be modified (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overriden.|
+|**header**|(optional) if set to true, the widget is emphasized|
+|**readonly**|(optional) if set to true, the value cannot be modified (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overriden.|
 
 Some additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
@@ -306,7 +306,7 @@ Some additional properties apply only to specific field types. Here is the full 
 ||**limit**||
 ||**domain**||
 
-Example:
+**Example:**
 
 ```
 "widget": {
