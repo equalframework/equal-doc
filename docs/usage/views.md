@@ -49,6 +49,95 @@ A **Widget** is responsible for displaying the value of an object's field (in 'v
 
 
 
+## Views commons
+Some attributes are common to all types of views. Below is a list of the common attributes and their role.
+
+
+### name
+
+### description
+
+### access
+
+groups: array (list of groups the view is restricted to)
+
+Example : 
+
+```
+    "access": ['root']
+```
+
+### actions <a id="view_commons_actions"></a>
+The **actions**  property  contains a list of objects defining the actions that are attached to the view.
+
+Each action item  relates to a button, show in the header, which, when clicked, will relay a request to a given controller. Once the action has been performed, the view is automatically refreshed.
+
+| property    | description                                                  |
+| ----------- | ------------------------------------------------------------ |
+| id          | Identifier of the action for translation purpose (can be set in the i18n related file). |
+| description | The description that is displayed to the user when (s)he clicks on the related button. |
+| label       | Label assigned to the view.                                  |
+| controller  | Controller to invoke when the user confirms the action. By default, the `id` of the current object is sent as a parameter. |
+| visible     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
+| confirm     | (optional) If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
+| params      | (optional) Associative array mapping fields with their values. Values can be assigned by referencing a property of the current user (e.g. `user.login`) or current object (for form views). |
+
+Example:
+
+```json
+"actions": [
+  {
+    "id": "action.option",
+    "label": "Set as Option",
+    "description": "Rental units will be blocked but no funding will be claimed yet.",
+    "controller": "lodging_booking_option",
+    "visible": ["status", "=", "quote"],
+    "confirm": true,
+    "params": {
+        "id": "object.id"
+    }
+  },
+  {
+    "id": "action.validate",
+    "label": "Confirm Booking",
+    "description": "Rental units will be blocked and the invoicing plan will be set up.",
+    "controller": "lodging_booking_confirm",
+    "visible": ["status", "in", ["quote", "option"]]
+  },
+  {
+    "id": "action.checkin",
+    "label": "Check In",
+    "description": "The host has arrived: the rental units will be marked as occupied.",
+    "controller": "lodging_booking_checkin",
+    "visible": ["status", "=", "validated"]
+  },
+  {
+    "id": "action.checkout",
+    "label": "Check Out",
+    "description": "The host is leaving: the rental units will be marked for cleaning.",
+    "controller": "lodging_booking_checkout",
+    "visible": ["status", "=", "checkedin"]
+  },
+  {
+    "id": "action.invoice",
+    "label": "Invoice",
+    "description": "The host has left and room has been reviewed: emit the invoice.",
+    "controller": "lodging_booking_invoice",
+    "visible": ["status", "=", "checkedout"]
+  }
+]
+```
+
+
+
+If target controller requires one or more parameter, the view will generate a dialog asking the user for the values to be assigned to each parameter.
+
+If no parameter is required but the `confirm` property is set to `true`, then a confirmation dialog is displayed before performing the action.
+
+Here below is a flow diagram that recaps the interactions between the controller and the `confirm` property.
+
+![](https://files.yesbabylon.org/document/2196871ef46f435e9e899287fe4c1256)
+
 
 ## Form views
 
@@ -130,60 +219,7 @@ Default order is defined this way:
 ```
 
 #### actions
-The **actions**  property  contains a list of objects defining the actions that are attached to the view.
-
-Each action item  relates to a button, show in the header that, when clicked, will relay a request to a given controller. Once the action has been performed, the view is automatically refreshed.
-
-| property    | description                                                  |
-| ----------- | ------------------------------------------------------------ |
-| id          | Identifier of the action for translation purpose (can be set in the i18n related file). |
-| description | The description that is displayed to the user when (s)he clicks on the related button. |
-| label       | Label assigned to the view.                                  |
-| controller  | Controller to invoke when the user confirms the action. The `id` of the current object is sent as a parameter. |
-| visible     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
-| confirm     | (optional) If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
-
-Example:
-
-```json
-"actions": [
-  {
-    "id": "action.option",
-    "label": "Set as Option",
-    "description": "Rental units will be blocked but no funding will be claimed yet.",
-    "controller": "lodging_booking_option",
-    "visible": ["status", "=", "quote"]
-  },
-  {
-    "id": "action.validate",
-    "label": "Confirm Booking",
-    "description": "Rental units will be blocked and the invoicing plan will be set up.",
-    "controller": "lodging_booking_confirm",
-    "visible": ["status", "in", ["quote", "option"]]
-  },
-  {
-    "id": "action.checkin",
-    "label": "Check In",
-    "description": "The host has arrived: the rental units will be marked as occupied.",
-    "controller": "lodging_booking_checkin",
-    "visible": ["status", "=", "validated"]
-  },
-  {
-    "id": "action.checkout",
-    "label": "Check Out",
-    "description": "The host is leaving: the rental units will be marked for cleaning.",
-    "controller": "lodging_booking_checkout",
-    "visible": ["status", "=", "checkedin"]
-  },
-  {
-    "id": "action.invoice",
-    "label": "Invoice",
-    "description": "The host has left and room has been reviewed: emit the invoice.",
-    "controller": "lodging_booking_invoice",
-    "visible": ["status", "=", "checkedout"]
-  }
-]
-```
+The action property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
 
 #### layout
 
@@ -225,35 +261,37 @@ When several sections are present, each section is displayed under a tabs.
 
 |property|description|
 |--|--|
-|width|Width of the column (in %). Ex.: "25%"|
+|width|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
 |items|An array of items that should be displayer within the column.|
 
 
 
 #### column.items
 
-Each item of there's a `type` which is usually a label, an `id`, `value` which is the name of the field present in the class, `label` to display what we want the name of the field to be, `width` which is how much the field is going to take from the page, and finally `widget` that can be set to true and shows the field in bigger font, which makes it the most important field of the view.
+Each column has a list of items, which are element describing which fields are to be rendered, how to render them (room within the column, widget override, ...), and under what conditions they must be displayed.
+
+Each item is an object accepting the following properties : 
 
 |property|description|
 |--|--|
-|label|(optional)|
+|label|(optional) Default label|
 |type||
 |value||
-|width|width relative to parent column, in %|
-|visible|(optional) either a boolean (true, false) or a domain (ex. ["is_complete", "=", true] )|
-|domain|["type", "<>", "I"]|
+|width|width, in percentage of the parent column width.|
+|visible|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
+|domain|(optional) (ex. `["type", "<>", "I"]`)|
 |widget|(optional) additional settings to apply on the widget that holds the fields|
 
 #### item.widget
 
-The widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
+Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
 
 |property|description|
 |--|--|
 |header|(optional) if set to true, the widget is emphasized|
 |readonly|(optional) if set to true, the value cannot be modified (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overriden.|
 
-Detailed options by type of field
+Some additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
 |field type|property||
 |-|-|-|
@@ -441,6 +479,8 @@ The list view is named *Category.list.default.json* and has the following struct
 
 #### name
 
+
+
 #### description
 
 #### order
@@ -477,15 +517,14 @@ Bear in mind that the default controller (core_mode_collect), has a `max` constr
 The **filter** property allows to provide a series of predefined search filters   
 
 ```json
-  "filters": [
+"filters": [
     {
-
-      "id": "lang.french",
-      "label": "French",
-      "description": "French speaking people",
-      "clause": ["language", "=", "fr"] 
+        "id": "lang.french",
+        "label": "French",
+        "description": "French speaking people",
+        "clause": ["language", "=", "fr"] 
     }
-  ],
+]
 ```
 
 #### header
@@ -495,31 +534,21 @@ Available actions are : `ACTION.SELECT`, `ACTION.CREATE`
 
 Views are set this way: 
 ```json
-    "header": {
-        "actions": {
-            "ACTION.CREATE" : [
-                {
-                    "view": "form.create",
-                    "description": "overload form to use for booking creation"
-                }
-            ]
-        }
-    },
+"header": {
+    "actions": {
+        "ACTION.CREATE" : [
+            {
+                "view": "form.create",
+                "description": "overload form to use for booking creation"
+            }
+        ]
+    }
+}
 ```
 
 #### actions
 
-```actions``` displayed in a list is an array of objects that contain 3 main fields which are: the action ```id```, the ```view``` form to which it relates to and the ```description``` of this action. It is displayed like so: 
-
-```json
-"actions": [
-        {
-            "id": "ACTIONS.CREATE",
-            "view": "form.create",
-            "description": "overload form to use for booking creation"
-        }
-    ]
-```
+The action property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
 
 #### exports
 
@@ -541,15 +570,26 @@ All these fields are added inside of the <em>exports</em> section of list view, 
     ]
 ```
 
-The view value "print.default" points to the view having the format of .html and is used to design the contract that will be printed. This html file will contain the information about the customer that is booking as well as the company that is hosting them. 
+The view property points to an HTML file that will be parsed and filled with selected object values before being converted to PDF.  
 
 #### layout
 
-
+The layout part holds an structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
 
 #### layout.items
 
+The list view consists of a table having a series of columns (items). Each column relates to a field, and is described by an item that specifies how the field is to be rendered, the behaviors attached to it (ordering, sorting, ...), and under what conditions it must be displayed.
 
+Each item is an object accepting the following properties : 
+
+| property | description                                                  |
+| -------- | ------------------------------------------------------------ |
+| label    | (optional) Default label                                     |
+| type     | always 'field'                                               |
+| value    | the name of the field                                        |
+| width    | column width, in percentage of the list width.               |
+| visible  | (optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` ) |
+| sortable | (optional) boolean to mark the column related to the field as sortable. |
 
 #### operations
 

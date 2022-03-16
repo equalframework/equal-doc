@@ -34,6 +34,16 @@ Properties
 
 ### access
 
+
+| property   | description                                                  |
+| ---------- | ------------------------------------------------------------ |
+| visibility | The level of "visibility" of the ('public' or 'private').    |
+| groups     | An array holding the list of groups the view is restricted to. |
+
+
+
+Example : 
+
 ```
 'access' => [
   'visibility'  => 'public',                 // 'public' (default) or 'private' (CLI only)
