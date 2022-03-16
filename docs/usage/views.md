@@ -243,7 +243,7 @@ A group must always have at least 1 section.
 
 When several sections are present, each section is displayed under a tabs.
 
-|property|description|
+|property|Description|
 |--|--|
 |label|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
 |id|(optional) identifier for mapping the section in translation files|
@@ -252,14 +252,14 @@ When several sections are present, each section is displayed under a tabs.
 
 #### section.rows
 
-|property|description|
+|Property|Description|
 |--|--|
 |columns|An array of columns objects that should be displayed within the row.|
 
 
 #### row.columns
 
-|property|description|
+|Property|Description|
 |--|--|
 |width|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
 |items|An array of items that should be displayer within the column.|
@@ -272,15 +272,15 @@ Each column has a list of items, which are element describing which fields are t
 
 Each item is an object accepting the following properties : 
 
-|property|description|
+|<u>Property</u>|<u>Description</u>|
 |--|--|
-|label|(optional) Default label|
-|type||
-|value||
-|width|width, in percentage of the parent column width.|
-|visible|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
-|domain|(optional) (ex. `["type", "<>", "I"]`)|
-|widget|(optional) additional settings to apply on the widget that holds the fields|
+|**label**|(optional) Default label|
+|**type**||
+|**value**||
+|**width**|width, in percentage of the parent column width.|
+|**visible**|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
+|**domain**|(optional) (ex. `["type", "<>", "I"]`)|
+|**widget**|(optional) additional settings to apply on the widget that holds the fields|
 
 #### item.widget
 
@@ -296,14 +296,32 @@ Some additional properties apply only to specific field types. Here is the full 
 |field type|property||
 |-|-|-|
 |`many2many`, `one2many`|||
-||action_select|(optional) when set to true, forces the display (true) of the 'select' button for M2M and O2M fields|
-||action_create|(optional) when set to true, forces the display (true) of the 'create' button for M2M and O2M fields|
-||view|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default". (ex.: "form.create")|
-||domain||
+||**show_actions**|(optional) when set to false, standard actions buttons are not displayed.|
+||header.actions<br />**ACTION.SELECT**|(optional) when set to true, forces the display (true) of the 'select' button for M2M and O2M fields|
+||header.actions<br />**ACTION.CREATE**|(optional) when set to true, forces the display (true) of the 'create' button for M2M and O2M fields|
+||**view**|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default". (ex.: "form.create")|
+||**domain**||
 |`many2one`|||
-||order||
-||limit||
-||domain||
+||**order**||
+||**limit**||
+||**domain**||
+
+Example:
+
+```
+"widget": {
+	"header": {
+		"actions": {
+			"ACTION.SELECT": true,
+			"ACTION.CREATE": false        
+		}
+	}
+}
+```
+
+
+
+
 
 !!! Note
 	When an `usage` property is set in the schema of the entity, the widget is adapted accordingly. For example, when a field has its **type** set as `float` and its **usage** set to `amount/percent`, in view mode, it is displayed as an integer value followed by a '%' sign (e.g: 0.01 is converted to "'1%'').
