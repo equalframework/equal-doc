@@ -1,0 +1,11 @@
+article table {
+	font-size: 0.95em;
+}
+
+article table th {
+	font-weight: 600;
+	text-transform: uppercase;
+	padding: 0.4rem 0.8rem;
+	background-color: #3f51b5;
+	white-space: nowrap;
+}

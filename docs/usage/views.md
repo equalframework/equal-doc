@@ -20,7 +20,7 @@ As a convention, a default view for `list` and `form` types should be defined fo
 
 Here is a recap for the `core\User` entity :
 
-| <u>FILENAME</u>           | <u>ENTITY</u> | <u>VIEW TYPE</u> | <u>VIEW NAME</u> | <u>VIEW ID</u> |
+| FILENAME           | ENTITY | VIEW TYPE | VIEW NAME | VIEW ID |
 | --------------------------------- | --------- | --------- | --------- | --------- |
 | `core\views\User.list.default.json` | core\User | list | default | list.default |
 | `core\views\User.form.default.json` | core\User | form | default | form.default |
@@ -76,7 +76,7 @@ The **actions**  property  contains a list of objects defining the actions that 
 
 Each action item  relates to a button, show in the header, which, when clicked, will relay a request to a given controller. Once the action has been performed, the view is automatically refreshed.
 
-| <u>PROPERTY</u> | <u>DESCRIPTION</u>                                           |
+| PROPERTY | DESCRIPTION                                           |
 | --------------- | ------------------------------------------------------------ |
 | **id**          | Identifier of the action for translation purpose (can be set in the i18n related file). |
 | **description** | The description that is displayed to the user when (s)he clicks on the related button. |
@@ -162,7 +162,7 @@ Items set to false mean that the action is not available for the View.
 
 
 
-| <u>ACTION</u> | <u>DESCRIPTION</u> | <u>ID(S)</u> |
+| ACTION | DESCRIPTION | ID(S) |
 | ---- | ---- |---- |
 | **ACTION.EDIT** | For forms in view mode, allows to edit the current object. ||
 | **ACTION.SAVE** | For forms in edit mode, allows to save the current object. |`SAVE_AND_CLOSE`, `SAVE_AND_VIEW`, `SAVE_AND_CONTINUE`|
@@ -246,7 +246,7 @@ Example.form.default.json
 
 ### Structure
 
-| <u>PROPERTY</u> | <u>DESCRIPTION</u>                                 |
+| PROPERTY | DESCRIPTION                                 |
 | ----------- | ------------------------------------------------------------ |
 | **name**    | The **name** property is mandatory and relates to the unique name assigned to the view. |
 | **description** | A **description** property allows to give a short hint about the way the view is intended to be used. |
@@ -277,7 +277,7 @@ The layout part holds a nested structure that describes the way the (form) view 
 
 The groups are stacked vertically. A layout must always have at least 1 group.
 
-|<u>PROPERTY</u>|<u>DESCRIPTION</u>|
+|PROPERTY|DESCRIPTION|
 |--|--|
 |**label**|name of the group|
 |**sections**|Array of sections objects. A group must always have at least 1 section.|
@@ -290,7 +290,7 @@ A group must always have at least 1 section.
 
 When several sections are present, each section is displayed under a tabs.
 
-|<u>PROPERTY</u>|<u>DESCRIPTION</u>|
+|PROPERTY|DESCRIPTION|
 |--|--|
 |**label**|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
 |**id**|(optional) identifier for mapping the section in translation files|
@@ -301,7 +301,7 @@ When several sections are present, each section is displayed under a tabs.
 
 #### section.rows
 
-|<u>PROPERTY</u>|<u>DESCRIPTION</u>|
+|PROPERTY|DESCRIPTION|
 |--|--|
 |**columns**|An array of columns objects that should be displayed within the row.|
 
@@ -309,7 +309,7 @@ When several sections are present, each section is displayed under a tabs.
 
 #### row.columns
 
-|<u>PROPERTY</u>|<u>DESCRIPTION</u>|
+|PROPERTY|DESCRIPTION|
 |--|--|
 |**width**|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
 |**items**|An array of items that should be displayer within the column.|
@@ -322,7 +322,7 @@ Each column has a list of items, which are element describing which fields are t
 
 Each item is an object accepting the following properties : 
 
-|<u>Property</u>|<u>Description</u>|
+|Property|Description|
 |--|--|
 |**label**|(optional) Default label|
 |**type**||
@@ -338,14 +338,14 @@ Each item is an object accepting the following properties :
 
 Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
 
-|<u>PROPERTY</u>|<u>DESCRIPTION</u>|
+|PROPERTY|DESCRIPTION|
 |--|--|
 |**heading**|(optional) if set to true, the widget is emphasized|
 |**readonly**|(optional) if set to true, the value cannot be modified (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overriden.|
 
 Some additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
-|<u>FIELD TYPE</u>|<u>PROPERTY</u>||
+|FIELD TYPE|PROPERTY||
 |-|-|-|
 |`many2many`, `one2many`|||
 ||**show_actions**|(optional) when set to false, header actions buttons are not displayed.|
@@ -656,7 +656,7 @@ The list view consists of a table having a series of columns (items). Each colum
 
 Each item is an object accepting the following properties : 
 
-| <u>PROPERTY</u> | <u>DESCRIPTION</u>                                           |
+| PROPERTY | DESCRIPTION                                           |
 | --------------- | ------------------------------------------------------------ |
 | label           | (optional) Default label                                     |
 | type            | always 'field'                                               |
@@ -699,7 +699,7 @@ Supported shortcuts are : 'SUM', 'MIN', 'MAX', 'AVG', 'COUNT'
 
 
 
-|<u>SHORTCUT</u>|<u>OPERATION SYNTAX</u>|
+|SHORTCUT|OPERATION SYNTAX|
 |--|--|
 |SUM|['+', object.field]|
 |AVG|['/', ['+', object.field], ['#', object.field]]|
