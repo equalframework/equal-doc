@@ -1,14 +1,24 @@
 # Views
 
 Views are intended to describe how to present the objects to end-users under a given context.
-They are used as templates for the front-end, and are stored in JSON files within the `views` folder of the package they relate to.
+They are used as templates for the front-end, and are stored as JSON files within the `views` folder of their respective package.
 
-Each of them represents a mode of visualization: form, list, kanban, chart, etc; and can be edited independently from the models they represent. 
+Each of them represents a mode of visualization: form, list, kanban, chart, etc; and can be edited independently from the models they relate to. 
 
 It is possible to define as many views (of different types, or variations with same type) as necessary. 
-Each view is referred to by an ID, which is composed of its type and its name.
+Each view is referenced by an ID, which is composed of its type and its name.
 
-At minimum, default view for `list` and `form` types should be defined for each entity.
+As a convention, a default view for `list` and `form` types should be defined for each entity.
+
+**The generic filename format** is: `{class_name}.{view_type}.{view_name}.json`
+
+* `class_name`: the class name of the entity the view relates to (e.g. default form view for  `core\User` is stored as `packages/core/views/User.form.default.json`)
+* `view_type`: Possible values are '*list*', '*form*' and '*card*'
+* `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
+
+
+
+Here is a recap for the `core\User` entity :
 
 | filename                          | entity    | view type | view name | view ID |
 | --------------------------------- | --------- | --------- | --------- | --------- |
@@ -16,12 +26,6 @@ At minimum, default view for `list` and `form` types should be defined for each 
 | `core\views\User.form.default.json` | core\User | form | default | form.default |
 
 
-
-**Generic filename format** is: `{class_name}.{view_type}.{view_name}.json`
-
-* `class_name`: the class name of the entity the view relates to (e.g. default form view for  `core\User` is stored as `packages/core/views/User.form.default.json`)
-* `view_type`: Possible values are '*list*', '*form*' and '*card*'
-* `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
 
 
 
@@ -136,7 +140,56 @@ If no parameter is required but the `confirm` property is set to `true`, then a 
 
 Here below is a flow diagram that recaps the interactions between the controller and the `confirm` property.
 
+
 ![](https://files.yesbabylon.org/document/2196871ef46f435e9e899287fe4c1256)
+
+
+
+
+### header <a id="view_commons_header"></a>
+
+The **header** section allows to override the actions buttons shown in the left part of the View header.
+
+It can be used to force action buttons visibility, to define the order of the actions for buttons having multiple actions ("split buttons"), and to override the configuration of the subsequent Views (for relational fields).
+
+* For **forms**, default actions are : `ACTION.EDIT`, `ACTION.SAVE`, `ACTION.CREATE`, `ACTION.CANCEL`
+* For **lists**, default actions are : `ACTION.SELECT`, `ACTION.CREATE`
+
+Action items are either booleans or arrays items describing the order of the buttons and parameters for subsequent views. 
+
+Items set to false mean that the action is not available for the View.
+
+
+
+| <u>Action</u>    | <u>Description</u>    | <u>IDs</u>|
+| ---- | ---- |---- |
+| **ACTION.EDIT** | For forms in view mode, allows to edit the current object. ||
+| **ACTION.SAVE** | For forms in edit mode, allows to save the current object. |`SAVE_AND_CLOSE`, `SAVE_AND_VIEW`, `SAVE_AND_CONTINUE`|
+| **ACTION.CREATE** | For all views, allows to create a new current object. |`CREATE`, `ADD`|
+| **ACTION.CANCEL** | For forms in edit mode, allows to cancel the changes made to the current object. |`CANCEL_AND_CLOSE`, `CANCEL_AND_VIEW`|
+| **ACTION.SELECT** | For lists, allows to relay current selection to parent View. ||
+
+
+
+**Usage example**: 
+
+```
+    "header": {
+        "actions": {
+    	    "ACTION.CREATE": [
+                {
+                    "view": "form.create",
+                    "description": "Overload form to use for objects creation.",
+                    "domain": ["parent_status", "=", "object.status"]
+                }
+            ],
+			"ACTION.SELECT": false,
+	        "ACTION.SAVE": [ {"id": "SAVE_AND_CONTINUE"}, {"id": "SAVE_AND_CLOSE"} ],
+        	"ACTION.CANCEL": [ {"id": CANCEL_AND_VIEW"}]
+        }
+    }
+```
+
 
 
 ## Form views
@@ -189,41 +242,34 @@ Example.form.default.json
 ```
 
 
+
 ### Structure
-
-
 
 | <u>Property</u> | <u>Description</u>                                           |
 | ----------- | ------------------------------------------------------------ |
-| name        | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| description | A **description** property allows to give a short hint about the way the view is intended to be used. |
-|header|This section allows to override action buttons that are displayed in the header of the form.|
-|actions|(optional) A list of actions associated to a view. If set, visible actions (see below) will be shown in the right-part of the header.|
+| **name**    | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| **description** | A **description** property allows to give a short hint about the way the view is intended to be used. |
+|**header**|This section allows to override action buttons that are displayed in the header of the form.|
+|**actions**|(optional) A list of actions associated to a view. If set, visible actions (see below) will be shown in the right-part of the header.|
 
 
 
 #### header
-The **header** section allows to override the order in which the actions are show for buttons having multiple actions ("split buttons") in the left part of the header of the form.
 
-Available actions are : `ACTION.SAVE`, `ACTION.CREATE`, `ACTION.CANCEL`
+The **header** property is common to all views. For details about its structure see <a href="#view_commons_header">views commons</a>.
 
-Default order is defined this way: 
-```
-    "header": {
-        "actions_order": {
-    	    "ACTIONS.CREATE": [],
-	        "ACTIONS.SAVE": ["SAVE_AND_CLOSE", "SAVE_AND_VIEW", "SAVE_AND_CONTINUE"],
-        	"ACTIONS.CANCEL": ["CANCEL_AND_CLOSE", "CANCEL_AND_VIEW"]        
-        }
-    }
-```
+
 
 #### actions
-The action property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
+
+The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
+
+
 
 #### layout
 
 The layout part holds a nested structure that describes the way the (form) view has to be rendered (which fields, using which widgets) and how to place its elements, by grouping fields within rows and columns.
+
 
 
 #### layout.groups
@@ -250,11 +296,14 @@ When several sections are present, each section is displayed under a tabs.
 |**visible**|(optional) a domain conditioning the visibility of the section and its tab (ex. `["status", "not in", ["quote", "option"]]`)|
 |**rows**|Array of rows objects. A section must always have at least 1 row.|
 
+
+
 #### section.rows
 
 |<u>Property</u>|<u>Description</u>|
 |--|--|
 |**columns**|An array of columns objects that should be displayed within the row.|
+
 
 
 #### row.columns
@@ -282,13 +331,15 @@ Each item is an object accepting the following properties :
 |**domain**|(optional) (ex. `["type", "<>", "I"]`)|
 |**widget**|(optional) additional settings to apply on the widget that holds the fields|
 
+
+
 #### item.widget
 
 Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
 
 |<u>Property</u>|<u>Description</u>|
 |--|--|
-|**header**|(optional) if set to true, the widget is emphasized|
+|**heading**|(optional) if set to true, the widget is emphasized|
 |**readonly**|(optional) if set to true, the value cannot be modified (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overriden.|
 
 Some additional properties apply only to specific field types. Here is the full list of the available options by type of field:
@@ -296,10 +347,9 @@ Some additional properties apply only to specific field types. Here is the full 
 |field type|property||
 |-|-|-|
 |`many2many`, `one2many`|||
-||**show_actions**|(optional) when set to false, standard actions buttons are not displayed.|
-||header.actions<br />**ACTION.SELECT**|(optional) when set to true, forces the display (true) of the 'select' button for M2M and O2M fields|
-||header.actions<br />**ACTION.CREATE**|(optional) when set to true, forces the display (true) of the 'create' button for M2M and O2M fields|
-||**view**|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default". (ex.: "form.create")|
+||**show_actions**|(optional) when set to false, header actions buttons are not displayed.|
+|| **header**       |(optional) The widget can override the configuration that will be relayed to the subsequent View for M2M and O2M fields. For details about **header** structure see <a href="#view_commons_header">views commons</a>.|
+||**view**|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default" (ex.: "form.create").|
 ||**domain**||
 |`many2one`|||
 ||**order**||
@@ -325,6 +375,7 @@ Some additional properties apply only to specific field types. Here is the full 
 
 !!! Note
 	When an `usage` property is set in the schema of the entity, the widget is adapted accordingly. For example, when a field has its **type** set as `float` and its **usage** set to `amount/percent`, in view mode, it is displayed as an integer value followed by a '%' sign (e.g: 0.01 is converted to "'1%'').
+
 
 
 ### Real life example
@@ -493,6 +544,8 @@ The list view is named *Category.list.default.json* and has the following struct
 }
 ```
 
+
+
 ### Structure
 
 #### name
@@ -501,13 +554,18 @@ The list view is named *Category.list.default.json* and has the following struct
 
 #### description
 
+
+
 #### order
+
 String holding the name(s) of the field to sort results on, separated with commas.
 Example : 
 
 ```
     "order": "sku,product_model_id"
 ```
+
+
 #### sort
 
 String litteral ('*desc*' or '*asc*')
@@ -517,7 +575,10 @@ Example:
     "sort": "asc"
 ```
 
+
+
 #### limit
+
 integer (max size of result set)
 
 Example : 
@@ -529,6 +590,8 @@ Example :
 Bear in mind that the default controller (core_mode_collect), has a `max` constraint of `500` for this parameter.
 
 #### domain
+
+
 
 #### filters
 
@@ -546,27 +609,15 @@ The **filter** property allows to provide a series of predefined search filters
 ```
 
 #### header
-The **header** section allows to override the views assigned to each action.
+The **header** property is common to all views. For details about its structure see <a href="#view_commons_header">views commons</a>.
 
-Available actions are : `ACTION.SELECT`, `ACTION.CREATE`
 
-Views are set this way: 
-```json
-"header": {
-    "actions": {
-        "ACTION.CREATE" : [
-            {
-                "view": "form.create",
-                "description": "overload form to use for booking creation"
-            }
-        ]
-    }
-}
-```
 
 #### actions
 
-The action property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
+The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
+
+
 
 #### exports
 
@@ -590,9 +641,13 @@ All these fields are added inside of the <em>exports</em> section of list view, 
 
 The view property points to an HTML file that will be parsed and filled with selected object values before being converted to PDF.  
 
+
+
 #### layout
 
 The layout part holds an structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
+
+
 
 #### layout.items
 
@@ -608,6 +663,8 @@ Each item is an object accepting the following properties :
 | width    | column width, in percentage of the list width.               |
 | visible  | (optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` ) |
 | sortable | (optional) boolean to mark the column related to the field as sortable. |
+
+
 
 #### operations
 
@@ -648,6 +705,7 @@ Supported shortcuts are : 'SUM', 'MIN', 'MAX', 'AVG', 'COUNT'
 |COUNT|['#', object.field]|
 |MIN|['min', object.field]|
 |MAX|['max', object.field]|
+
 
 
 ## Print views
@@ -712,5 +770,7 @@ In the example shown below, one parent menu item is present named "New Booking" 
 
 
 ## Routes
+
+
 
 ## Checks
