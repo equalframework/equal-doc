@@ -3,9 +3,12 @@ article table {
 }
 
 article table th {
-	font-weight: 600;
 	text-transform: uppercase;
 	padding: 0.4rem 0.8rem !important;
 	background-color: #3f51b5 !important;
 	white-space: nowrap;
+}
+
+article .admonition {
+	font-size: 0.95em !important;
 }
