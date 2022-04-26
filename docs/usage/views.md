@@ -48,7 +48,7 @@ A **Widget** is responsible for displaying the value of an object's field (in 'v
 	* ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
 	* ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
 	For one2many and many2many field, it is also possible: 	
-	* to specify the order and limit the loaded lines shown as autocomplete  
+	* to specify the order and limit the loaded lines shown as auto-complete  
 	* to force using a non-default x2many widget
 
 
@@ -158,7 +158,7 @@ It can be used to force action buttons visibility, to define the order of the ac
 
 Action items are either booleans or arrays items describing the order of the buttons and parameters for subsequent views. 
 
-Items set to false mean that the action is not available for the View.
+Items set to false mean that the action is not available for the View. If action is an array with multiple items, the related button will be displayed as a split-button (items order is maintained).
 
 
 
@@ -166,11 +166,19 @@ Items set to false mean that the action is not available for the View.
 | ---- | ---- |---- |
 | **ACTION.EDIT** | For forms in view mode, allows to edit the current object. ||
 | **ACTION.SAVE** | For forms in edit mode, allows to save the current object. |`SAVE_AND_CLOSE`, `SAVE_AND_VIEW`, `SAVE_AND_CONTINUE`|
-| **ACTION.CREATE** | For all views, allows to create a new current object. |`CREATE`, `ADD`|
+| **ACTION.CREATE** | For all views, allows to create a new current object. An empty list or false disables the "create" button. |`CREATE`, `ADD`|
 | **ACTION.CANCEL** | For forms in edit mode, allows to cancel the changes made to the current object. |`CANCEL_AND_CLOSE`, `CANCEL_AND_VIEW`|
-| **ACTION.SELECT** | For lists, allows to relay current selection to parent View. ||
+| **ACTION.SELECT** | For relational fields, allows to select or add one or many objects and relay selection to parent View. ||
+
+**Actions description**: 
 
 
+| ACTION | DESCRIPTION |
+| ---- | ---- |
+| SAVE_AND_CLOSE | The view is saved and close. The user is brought to the previous context. |
+| SAVE_AND_CONTINUE | The view is saved and left open allowing the user to perform further changes. A snackbar is given as feedback to the user. |
+| SAVE_AND_VIEW | The view is saved and closed. The user is brought to the 'view' version (SAVE action can only occur in 'edit' mode). In most cases, the 'view' version is the parent. If not, a new (similar) context is opened in 'view' mode. |
+| SAVE_AND_EDIT | The view is saved and closed. The user is brought to a cloned context (still in 'edit' mode). |
 
 **Usage example**: 
 
@@ -671,21 +679,53 @@ Each item is an object accepting the following properties :
 
 This property allows to apply a series of operations on one or more columns, for the displayed records set.
 
+Each entry of the `opearations` object associates a name (ID of an operation - which will allow to group the results), with an associative array mapping field names with operation descriptors.
+
+In turn, each descriptor accepts the following properties : 
+
+| PROPERTY  | DESCRIPTION                                                  |
+| --------- | ------------------------------------------------------------ |
+| operation | The operation to apply on the related field (see operation syntax below). |
+| usage     | The `usage` of the operation as hint for displaying the result. (see) Example : `amount/money:2`, `numeric/integer` |
+| suffix    | (optional) string to append to the result.                   |
+| prefix    | (optional) string to prepend to the result.                  |
+
+
+
+Examples: 
+
 ```
 "operations": {
-  "total" : {
-    "operation": ["+", "object.price"],
-	"usage": "amount/money:2"
-  },
-  "average" : {
-    "operation": "AVG",
-    "field": "price"
-	"usage": "amount/money:2"
-  }  
+	"total": {
+		"total_paid": {
+			"operation": "SUM",
+			"usage": "amount/money:2"
+		},
+		"total_due": {
+			"operation": "SUM",
+			"usage": "amount/money:2"
+		}
+	}
 }
 ```
 
-Operation Syntax : 
+
+
+```
+"operations": {
+    "total": {
+        "rental_unit_id": {
+           "operation": "COUNT",
+           "usage": "numeric/integer",
+           "suffix": "p."
+        }
+    }
+}
+```
+
+
+
+##### Operation Syntax
 
 ```
 [ OPERATOR, FIELD ]
