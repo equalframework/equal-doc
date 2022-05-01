@@ -497,10 +497,10 @@ A list view is defined according to the following structure:
   "domain": [],			// syntax can be either ["id", ">", "3"] or "['id', '>', '3']"
   "filters": [
     {
-      "id": "lang.french",
-      "label": "français",
-      "description": "Users that prefers french",
-      "clause": ["language", "=", "fr"] 
+      	"id": "lang.french",
+	    "label": "français",
+    	"description": "Users that prefers french",
+    	"clause": ["language", "=", "fr"] 
     }
   ],
   "layout": {
@@ -508,8 +508,8 @@ A list view is defined according to the following structure:
     "pager": "bool",
     "selection_actions": [
       {
-        "label": "export",
-        "action": "products_export"
+          "label": "export",
+          "action": "products_export"
       }
     ],
     "items": [
@@ -519,9 +519,9 @@ A list view is defined according to the following structure:
         "label": "First Name",
         "width": "10%",
         "widget": {
-          "type": "",
-          "view": "",
-          "domain": ""
+            "type": "",
+            "view": "",
+            "domain": ""
         }
       }
     ]
@@ -534,22 +534,22 @@ The list view is named *Category.list.default.json* and has the following struct
 
 ```json
 {
-  "name": "Categories",
-  "description": "This view is intended for displaying the list of categories.",
-  "layout": {
-    "items": [
-      {
-        "type": "field",
-        "value": "name",
-        "width": "15%"
-      },
-      {
-        "type": "field",
-        "value": "description",
-        "width": "25%"
-      }
-    ]
-  }
+	"name": "Categories",
+  	"description": "This view is intended for displaying the list of categories.",
+  	"layout": {
+        "items": [
+            {
+                "type": "field",
+                "value": "name",
+                "width": "15%"
+            },
+            {
+                "type": "field",
+                "value": "description",
+                "width": "25%"
+            }
+        ]
+  	}
 }
 ```
 
@@ -755,56 +755,147 @@ Supported shortcuts are : 'SUM', 'MIN', 'MAX', 'AVG', 'COUNT'
 
 ## Menu Views
 
-Menus are defined by App and are injected into the side bars (navigation drawer).
+Menus allow to define tree structures for creating buttons to access specific views.
 
-Below is an example of a Booking Menu drawer, as shown by the `name` property. The `layout` is how the items are going to be displayed. 
 
-Then we have the `items` property that contains all the fields with their additional properties like `id` which will also be used to translate this field, `description`, `icon` related to the field label, `type` is either parent or entry which will contain one or more children that you can view once clicked on this parent. 
 
-Then we have the `children` related too the parent containing all the fields already mentioned, as well as additional ones like the `context` that can itself hold multiple fields like `entity` with is the class name of the that this child belongs to, also a `view` field which represents the view type like "form.default" and "list.default", a `purpose` field which as its name show is the purpose of this child like "create" to create new data. `order` and `sort` fields can also be present, and are usually added for list views to respectively order the list by "id" for example and sort it either in "desc" (descending order) or "asc" (ascending order). 
+Menu items have the following structure : 
+
+| Property        | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| **id**          | Identifier of the item (used for translations).              |
+| **label**       | Title of the item to display within the menu.                |
+| **description** | (optional) Short string explaining the purpose of the item (the view it leads to). |
+| **icon**        | (optional) icon to show aside the item.                      |
+| **type**        | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
+
+
+
+Parent items have a **children** property, which is an array holding a list of items (which, in turn, can be either parents or entries).
+
+Entries items have a **context** property, which has the following structure : 
+
+
+
+
+| Property   | Description                                              |
+| ---------- | -------------------------------------------------------- |
+| **entity** | Entity to which relates the view to show.                |
+| **view**   | ID of the view to use for showing the targeted entities. |
+| **order**  | (optional)                                               |
+| **sort**   | (optional)                                               |
+| **domain** | (optional) Domain to apply to specified view.            |
+
+Example:
+
+```
+"id": "item.pos_sessions",
+"label": "Sessions",
+"description": "",
+"icon": "menu_book",
+"type": "parent",
+"children": [
+    {
+        "id": "item.pos_sessions.pending",
+        "type": "entry",
+        "label": "Pending sessions",
+        "description": "", 
+        "context": {
+            "entity": "lodging\\sale\\pos\\CashdeskSession",
+            "view": "list.default",
+            "order": "created",
+            "sort": "desc",
+            "domain": [ ["status", "=", "pending"], ["center_id", "in", "user.centers_ids"] ]
+	    }
+    }
+]
+```
+
+
+
+As other views, a menu has a `name` property and a `layout` property, that describes how the items are going to be displayed. 
 
 In the example shown below, one parent menu item is present named "New Booking" and it contains two children, "New Booking" to create a new booking and "All Bookings" that displays the list of all the bookings ordered by id and sorted in descending order.
 
 ```json
 {
-  "name": "Booking menu",
-  "layout": {
-    "items": [
-      {
-        "id": "item.bookings",
-        "label": "Bookings",
-        "description": "",
-        "icon": "menu_book",
-        "type": "parent",
-        "children": [
-          {
-            "id": "item.new_booking",
-            "type": "entry",
-            "label": "New booking",
-            "description": "",
-            "icon": "add",
-            "context": {
-              "entity": "lodging\\sale\\booking\\Booking",
-              "view": "form.default",
-              "purpose": "create"
+    "name": "Booking menu",
+    "layout": {
+        "items": [
+            {
+                "id": "item.bookings",
+                "label": "Bookings",
+                "description": "",
+                "icon": "menu_book",
+                "type": "parent",
+                "children": [
+                    {
+                        "id": "item.new_booking",
+                        "type": "entry",
+                        "label": "New booking",
+                        "description": "",
+                        "icon": "add",
+                        "context": {
+                            "entity": "lodging\\sale\\booking\\Booking",
+                            "view": "form.default",
+                            "purpose": "create"
+                        }
+                    },
+                    {
+                        "id": "item.all_booking",
+                        "type": "entry",
+                        "label": "All bookings",
+                        "description": "",
+                        "context": {
+                            "entity": "lodging\\sale\\booking\\Booking",
+                            "view": "list.default",
+                            "order": "id",
+                            "sort": "desc"
+                        }
+                    }
+                ]
             }
-          },
-          {
-            "id": "item.all_booking",
-            "type": "entry",
-            "label": "All bookings",
-            "description": "",
-            "context": {
-              "entity": "lodging\\sale\\booking\\Booking",
-              "view": "list.default",
-              "order": "id",
-              "sort": "desc"
-            }
-          }
         ]
-      }
-    ]
-  }
+    }
 }
 ```
 
+## Dashboard Views
+
+```json
+{
+    "name": "Main dashboard",
+    "layout": {
+        "groups": [
+			{
+                "label": "",
+                "height": "100%",
+                "sections": [
+                    {                
+                        "rows": [
+                            {
+                                "height": "50%",
+                                "columns": [
+                                    {
+                                        "width": "50%",
+                                        "items": [
+                                            {
+                                                "id": "item.bookings",
+                                                "label": "Bookings",
+                                                "description": "",
+                                                "width": "50%",
+                                                "entity": "",
+                                                "view": ""
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }            
+        ]
+    }
+}
+```
