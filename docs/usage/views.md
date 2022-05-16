@@ -594,3 +594,47 @@ Some of the additional properties that can be added to a menu are:
 * **sort**: string (name of the field to sort results on)
 * **order**: string ('*desc*' or '*asc*')
 * **limit**: integer (max size of result set)
+
+
+## Charts
+
+Charts enable us to visually compare multiple sets of data. It can be very helpfull to display statistics.
+
+Below is an example of a chart view, the proprerties are very similar to the ones we can find in menus (check the section above this one). 
+
+### The properties
+The access property is allowing the people that belong to the group to see this chart. The layout describes how the items are going to be displayed. 
+
+The range_interval property allows us to choose which period of time will delimit the data that we want to see, the possibilities are : "day, week, semester, year".
+
+The range_to & range_from properties allow us to choose, when the range starts and when it stops (linked with the range_interval property). 
+Possibilites : date.[this|prev|next].[day|week|month|quarter|semester|year].[first|last].
+
+The dataset property is about the data that will be shown in the graph, we have the label property that will allow us to the name the element displayed.
+The operation property that will use the operations talked about in the above sections, will allow us to display a certain type of data. 
+At last, the domain property allows us to filter the data even more. 
+
+
+```json
+{
+    "name": "Booking total",
+    "description": "This view displays the amount of bookings in the DB",
+    "access": {
+        "groups": ["booking.default.user"]
+    },
+    "layout": {
+        "entity": "lodging\\sale\\booking\\Booking",
+        "group_by": "range",
+        "range_interval": "year",
+        "range_from": "date.this.year.first",
+        "range_to": "date.this.year.last",
+        "datasets": [
+            {
+                "label": "Nombre de réservations",
+                "operation": ["COUNT", "object.id"],
+                "domain": ["id", ">", 5]
+            }
+        ]
+    }
+}
+```
