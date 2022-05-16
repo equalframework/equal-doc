@@ -43,13 +43,13 @@ A **Layout** is the layout associated with a given view. It is always linked to 
 A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
 
 !!! note "About widget property"
-	The <em>widget</em> property has various field options: 	
-	* ```view```: to indicate which view template to use with the widget.  
-	* ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
-	* ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
-	For one2many and many2many field, it is also possible: 	
-	* to specify the order and limit the loaded lines shown as auto-complete  
-	* to force using a non-default x2many widget
+    The <em>widget</em> property has various field options:     
+    * ```view```: to indicate which view template to use with the widget.  
+    * ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
+    * ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
+    For one2many and many2many field, it is also possible:     
+    * to specify the order and limit the loaded lines shown as auto-complete  
+    * to force using a non-default x2many widget
 
 
 
@@ -185,16 +185,16 @@ Items set to false mean that the action is not available for the View. If action
 ```
     "header": {
         "actions": {
-    	    "ACTION.CREATE": [
+            "ACTION.CREATE": [
                 {
                     "view": "form.create",
                     "description": "Overload form to use for objects creation.",
                     "domain": ["parent_status", "=", "object.status"]
                 }
             ],
-			"ACTION.SELECT": false,
-	        "ACTION.SAVE": [ {"id": "SAVE_AND_CONTINUE"}, {"id": "SAVE_AND_CLOSE"} ],
-        	"ACTION.CANCEL": [ {"id": CANCEL_AND_VIEW"}]
+            "ACTION.SELECT": false,
+            "ACTION.SAVE": [ {"id": "SAVE_AND_CONTINUE"}, {"id": "SAVE_AND_CLOSE"} ],
+            "ACTION.CANCEL": [ {"id": CANCEL_AND_VIEW"}]
         }
     }
 ```
@@ -216,7 +216,7 @@ Example.form.default.json
   "description": "Simple form for displaying a basic objects",
   "actions": [],
   "layout": {
-    "groups": [	
+    "groups": [    
       {
         "label": "",
         "sections": [
@@ -236,7 +236,7 @@ Example.form.default.json
                           "type": "field",
                           "value": "name",
                           "width": "50%"
-                      }                        
+                      }
                     ]
                   }
                 ]
@@ -369,12 +369,12 @@ Some additional properties apply only to specific field types. Here is the full 
 
 ```
 "widget": {
-	"header": {
-		"actions": {
-			"ACTION.SELECT": true,
-			"ACTION.CREATE": false        
-		}
-	}
+    "header": {
+        "actions": {
+            "ACTION.SELECT": true,
+            "ACTION.CREATE": false        
+        }
+    }
 }
 ```
 
@@ -383,7 +383,7 @@ Some additional properties apply only to specific field types. Here is the full 
 
 
 !!! Note
-	When an `usage` property is set in the schema of the entity, the widget is adapted accordingly. For example, when a field has its **type** set as `float` and its **usage** set to `amount/percent`, in view mode, it is displayed as an integer value followed by a '%' sign (e.g: 0.01 is converted to "'1%'').
+    When an `usage` property is set in the schema of the entity, the widget is adapted accordingly. For example, when a field has its **type** set as `float` and its **usage** set to `amount/percent`, in view mode, it is displayed as an integer value followed by a '%' sign (e.g: 0.01 is converted to "'1%'').
 
 
 
@@ -494,13 +494,13 @@ A list view is defined according to the following structure:
 {
   "name": "",
   "description": "",
-  "domain": [],			// syntax can be either ["id", ">", "3"] or "['id', '>', '3']"
+  "domain": [],            // syntax can be either ["id", ">", "3"] or "['id', '>', '3']"
   "filters": [
     {
-      	"id": "lang.french",
-	    "label": "français",
-    	"description": "Users that prefers french",
-    	"clause": ["language", "=", "fr"] 
+          "id": "lang.french",
+        "label": "français",
+        "description": "Users that prefers french",
+        "clause": ["language", "=", "fr"] 
     }
   ],
   "layout": {
@@ -534,9 +534,9 @@ The list view is named *Category.list.default.json* and has the following struct
 
 ```json
 {
-	"name": "Categories",
-  	"description": "This view is intended for displaying the list of categories.",
-  	"layout": {
+    "name": "Categories",
+      "description": "This view is intended for displaying the list of categories.",
+      "layout": {
         "items": [
             {
                 "type": "field",
@@ -549,7 +549,7 @@ The list view is named *Category.list.default.json* and has the following struct
                 "width": "25%"
             }
         ]
-  	}
+      }
 }
 ```
 
@@ -696,16 +696,18 @@ Examples:
 
 ```
 "operations": {
-	"total": {
-		"total_paid": {
-			"operation": "SUM",
-			"usage": "amount/money:2"
-		},
-		"total_due": {
-			"operation": "SUM",
-			"usage": "amount/money:2"
-		}
-	}
+    "total": {
+        "total_paid": {
+            "id": "operations.total.total_paid",
+            "label": "Total received",
+            "operation": "SUM",
+            "usage": "amount/money:2"
+        },
+        "total_due": {
+            "operation": "SUM",
+            "usage": "amount/money:2"
+        }
+    }
 }
 ```
 
@@ -728,24 +730,32 @@ Examples:
 ##### Operation Syntax
 
 ```
-[ OPERATOR, FIELD ]
+Unary operators : [ OPERATOR, {FIELD | OPERATION} ]
 ```
 OR
 ```
-[ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
+Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 ```
 
-Supported shortcuts are : 'SUM', 'MIN', 'MAX', 'AVG', 'COUNT'
+##### Binary operators
+|OPERATOR|RESULT|SYNTAX|
+|--|--|--|
+|+|Sum of `a` and `b`.|`['+', a, b]`|
+|-|Difference between `a` and `b`.|`['-', a, b]`|
+|*|Product of `a` by `b`.|`['*', a, b]`|
+|/|Division of `a` by `b`.|`['/', a, b]`|
+|%|Modulo `b` of `a`.|`['%', a, b]`|
+|^|`a` at power  `b`.|`['^', a, b]`|
 
+##### Unary operators
 
-
-|SHORTCUT|OPERATION SYNTAX|
+|OPERATOR|SYNTAX|
 |--|--|
-|SUM|['+', object.field]|
-|AVG|['/', ['+', object.field], ['#', object.field]]|
-|COUNT|['#', object.field]|
-|MIN|['min', object.field]|
-|MAX|['max', object.field]|
+|SUM|`['SUM', object.field]`|
+|AVG|`['AVG', object.field]` (which is a shortcut for `['/', ['SUM', object.field], ['COUNT', object.field]]`)|
+|COUNT|`['COUNT', object.field]`|
+|MIN|`['MIN', object.field]`|
+|MAX|`['MAX', object.field]`|
 
 
 
@@ -806,7 +816,7 @@ Example:
             "order": "created",
             "sort": "desc",
             "domain": [ ["status", "=", "pending"], ["center_id", "in", "user.centers_ids"] ]
-	    }
+        }
     }
 ]
 ```
@@ -867,7 +877,7 @@ In the example shown below, one parent menu item is present named "New Booking" 
     "name": "Main dashboard",
     "layout": {
         "groups": [
-			{
+            {
                 "label": "",
                 "height": "100%",
                 "sections": [
