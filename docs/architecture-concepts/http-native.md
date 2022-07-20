@@ -1,4 +1,4 @@
-eQual complies with HTTP standard (so it is ready to be used in a RESTful API context) and analyzes HTTP messages to route client requests to the appropriate controller.
+eQual complies with HTTP standard (so it is ready to be used in a ReSTful API context) and analyzes HTTP messages to route client requests to the appropriate controller.
 
 
 
@@ -15,13 +15,15 @@ Here is an example of a minimalist controller:
 <?php
 echo "Hello World";
 ```
-When invoked, this controller will produce following HTTP response :
+When invoked, this controller produces the following HTTP response :
 ```
 HTTP/1.1 200 OK
 Server: Apache/2.2.14
-Content-Length: 11
 Content-Type: text/html
 Connection: Closed
+Content-Length: 11
+
+Hello World
 ```
 
 
@@ -43,7 +45,7 @@ GET http://equal.local/?get=demo_simple
 CLI command
 
 ```bash
-$> ./equal.run --get=demo_simple
+$ ./equal.run --get=demo_simple
 ```
 
 PHP script
