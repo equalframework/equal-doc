@@ -1,4 +1,8 @@
-eQual complies with HTTP standard (so it is ready to be used in a ReSTful API context) and analyzes HTTP messages to route client requests to the appropriate controller.
+# HTTP native
+
+eQual complies with HTTP standards : it natively analyzes HTTP messages to route client requests to the appropriate controller and outputs resulting data as an HTTP response.
+
+It can be seamlessly used in both CLI or ReSTful API context.
 
 
 
@@ -63,7 +67,7 @@ A controller invocation consists of two parts:
     * `key` must be one of the following : 
         * **GET** some data (`/?get=...`)
         * **DO** something (`/?do=...`)
-        * **SHOW** an App (`/?show=...`)
+        * **SHOW** some formatted content (`/?show=...`)
     * `value` specifies the name of the **package** to be invoked (must be the name of a subfolder of the `packages` directory), as well as the **script** to be called(a package may have several scripts - stored in the subfolders `action`, `data`, or `apps`)
 * The second part is either the body or a series of parameters
 

@@ -3,21 +3,26 @@
 The 'Permission' class is dedicated to the rights management: for each object class (including the 'Permission' class itself), rights can be assigned to each existing group.
 
 ## Users 
-The structure is defined inside the core\User class (library/classes/objects/core/User.class.php).
+The structure is defined inside the `core\User` class (`packages/core/classes/User.class.php`).
 
-Every User object holds a list of groups to which it belongs.
+Each User object holds a list of groups to which it belongs.
 
-> Note: a user belongs at least to one group (see //DEFAULT_GROUP_ID// in `/eq.lib.php`), where you will find out that the DEFAULT_GROUP_ID is 2.
+> Note: a user belongs at least to one group (see `DEFAULT_GROUP_ID` in `/eq.lib.php`).
 
 ```php
 <?php
 public static function getColumns() {
 	return array(
 		'firstname'		=> ['type' => 'string'],
+        
 		'lastname'		=> ['type' => 'string'],
+        
 		'login'			=> ['type' => 'string', 'label' => 'Username'],
+        
 		'password'		=> ['type' => 'string', 'label' => 'Password'],
+        
 		'language'		=> ['type' => 'string'],
+        
 		'groups_ids'	=> ['type' => 'many2many', 
 						  'foreign_object'	=> 'core\Group', 
 						  'foreign_field'	=> 'users_ids', 
@@ -32,21 +37,23 @@ public static function getColumns() {
 
 ## Groups
 
-The structure is defined inside the core\Group class (library/classes/objects/core/Group.class.php).
+The structure is defined inside the `core\Group` class (`packages/core/classes/Group.class.php`).
 
-There, you will find informations about the users inside the group, and also the rights attached to these groups. *//next section*
+There, you will find informations about the users inside the group, and also the rights attached to these groups. 
 
 ```php
 <?php
 public static function getColumns() {
 	return array(
 		'name'			=> ['type' => 'string'],
+        
 		'users_ids'		=> ['type' => 'many2many', 
 						  'foreign_object'	=> 'core\User', 
 						  'foreign_field'	=> 'groups_ids', 
 						  'rel_table'		=> 'core_rel_group_user', 
 						  'rel_foreign_key'	=> 'user_id', 
 						  'rel_local_key'	=> 'group_id'),
+                            
 		'permissions_ids'	=> array('type' => 'one2many', 
 						'foreign_object'	=> 'core\Permission', 
 						'foreign_field'		=> 'group_id']
@@ -58,7 +65,7 @@ public static function getColumns() {
 
 ## ACL 
 
-The structure is defined inside the core\Permission (library/classes/objects/core/Permission.class.php).
+The structure is defined inside the `core\Permission` (`packages/core/classes/Permission.class.php`).
 
 In resume of the previous sections, Users are inside groups, and those groups have different rights (property **group_id**).
 
@@ -142,7 +149,7 @@ The default AccesController service is defined in  `/lib/equal/access/AccessCont
 
 In **/lib**, create a folder by the name of your project, you want a directory similar to this: **/lib/myapp/access/AccessController.class.php**
 
-Then, in the **config.inc.php** file of your package (located at /public/packages/myapp/config.inc.php), add this line:
+Then, in the **config.inc.php** file of your package (located at`/packages/myapp/config.inc.php`), add this line:
 
 ```php
 <?php
@@ -150,7 +157,7 @@ namespace config;
 register('access', 'myapp\access\AccessController');
 ```
 
-Finally, open your newly created AccessController.class.php and copy paste this :
+Finally, open your newly created `AccessController.class.php` and copy paste this :
 
 ```php
 <?php
@@ -162,7 +169,7 @@ class AccessController extends \equal\access\AccessController {
     
   // rewrite functions here to override their default behavior
     
-  // here is a non-exhaustive example with filter:
+  // non-exhaustive example with filter:
   filter($operation, $object_class='*', $object_fields=[], $object_ids=[]){
     $user_id = $this->container->get('auth')->userId();
     // grant READ rights over 'User' class when an user is authenticated (0 = guest_user)

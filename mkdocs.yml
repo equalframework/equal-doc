@@ -51,6 +51,8 @@ nav:
       - 'Services': 'architecture-concepts/services.md'
       - 'Dependency injection': 'architecture-concepts/dependency-injection.md'
       - 'ORM': 'architecture-concepts/orm.md'
+      - 'Domains': 'architecture-concepts/domains.md'
+      - 'Operations': 'architecture-concepts/operations.md'
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
      - 'Directory Structure': 'usage/directory-structure.md'

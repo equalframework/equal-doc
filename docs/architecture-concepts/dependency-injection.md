@@ -31,6 +31,4 @@ For instance, here is how the Access controller and Authentication manager can b
 
 
 
-
-
 Access control is handled inside the `equal\orm\Collection` class
