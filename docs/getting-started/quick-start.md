@@ -9,9 +9,11 @@ First, let's configure it according to your environment.
 A default configuration file is already present and can be modified, but it is a good practice to leave it untouched, especially if you're using git or any other versioning system, so that the configuration details of your environment remain confidential (not part of the repository).
 
 ```bash
-cp config/default.inc.php config/config.inc.php
+$ cp config/default.inc.php config/config.inc.php
 ```
-Update the values of the DBMS access (from line 109). Usage of config constants is quite obvious : 
+Then edit `config.inc.php` and update the values of the DBMS access. 
+
+Constants role is unambiguous : 
 
 ```php
 define('DB_HOST',       '127.0.0.1');
@@ -20,24 +22,24 @@ define('DB_USER',       'root');
 define('DB_PASSWORD',   'test');
 define('DB_NAME',       'equal');
 ```
-Notes : 
-* You can choose any name for the database : if it does not exist, you'll be able to create it using the command line
-* Of course, make sure the MySQL / MariaDB server is running on the specified host and port.
+!!! note "About DB creation"
+    * You can choose any name for the database: if it does not exist yet, you'll be able to create it using the command line;
+    * In case creation fails, make sure the DBMS server is actually running on the specified host and port.
 
 You can now test your installation by calling the `test_db-connectivity` test tool :
 ```bash
-./equal.run --do=test_db-connectivity
+$ ./equal.run --do=test_db-connectivity
 ```
 
 If no error message is returned (the command ends with a `0` exit code), you can create your database by calling the `init_db` tool :
 
 ```bash
-./equal.run --do=init_db
+$ ./equal.run --do=init_db
 ```
 eQual holds a native `core` package that holds a few classes and operations. All packages depends on the ORM layer, which is responsible of storing the objects  into the database. So, in order to start using a package that defines object classes, you have to initialize it. This can be done using the `init_package` tool :
 
 ```bash
-./equal.run --do=init_package --package=core
+$ ./equal.run --do=init_package --package=core
 ```
 
 
@@ -121,13 +123,13 @@ First we **initiate the core component**; this is required every time we want to
 Open your CLI at the root of eQual's folder and use this :
 
 ```bash
-./equal.run --do=init_package --package=core
+$ ./equal.run --do=init_package --package=core
 ```
 
 Then we do the same for our package. It will automatically create **one table per associated class**
 
 ```bash
-./equal.run --do=init_package --package=mypackage
+$ ./equal.run --do=init_package --package=mypackage
 ```
 
 Now the database should have the following tables:  
@@ -146,7 +148,7 @@ Now the database should have the following tables:
 If none of the above is working. Try this :
 
 ```bash
-./equal.run --do=test_package-consistency --package=core
+$ ./equal.run --do=test_package-consistency --package=core
 ```
 
 It will tell you if something is wrong or missing. You can ignore any error related to view or translation (they are optional but will display a warning nonetheless)
@@ -154,7 +156,7 @@ It will tell you if something is wrong or missing. You can ignore any error rela
 You can run the same command with your package's name instead of "core", see if the problem lies in here
 
 ```bash
-./equal.run --do=test_package-consistency --package=mypackage
+$ ./equal.run --do=test_package-consistency --package=mypackage
 ```
 
 
@@ -178,15 +180,12 @@ The rights available are **create**, **read**, **update**, **delete**, **manage*
 For instance, we'll continue with our todolist example and grant the permission to **read** for the group of objects **Task** :
 
 ```bash
-./equal.run --do=group_grant --group=default --right=read --entity=mypackage\Task
+$ ./equal.run --do=group_grant --group=default --right=read --entity=mypackage\Task
 ```
 
-**You can only grant one right at a time**, it means we'll need to repeat this command for every permission we want to give
+**You can only grant one right at a time**, it means we'll need to repeat this command for every permission we want to give (i.e. create, read, write, delete, manage).
 
 If you want to target **all the classes** of a package, you can specify with ``` --entity=mypackage\* ```
-
-
-The good thing is you only have to do it once, unless you initiated the core package again in the DB (it wipes its data, including core_permissions)
 
 ### Debug mode
 

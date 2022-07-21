@@ -1,73 +1,61 @@
 # Searching
 
-Searching can be performed either through a Collection or using the ORM service. 
+Searching is handled by the ORM, which offers a `search()` method, and can be performed either through a Collection or using the ObjectManager service. 
 
-Both methods use a `domain` argument to search amongst existing objects.
+The `search` method returns a list of objects identifiers of the targeted class.
 
+* that list of identifiers can then be used for reading values of the filtered objects;
+* additional parameters (order, sort, start, limit) allow to refine the search behavior.
 
-## Domains
-
-A Domain is a descriptor of a series of conditions to use for filtering the objects.
-
-Domains are widely used in controllers and views. In both cases the logic is the same.
+In order to search amongst existing objects, the `search` method  uses a  `domain` argument describing the search criteria.
 
 
 
-That method uses a `domain` argument for filtering the objects.
+!!! note "About domains"
+    To understand or learn more about domains, please refer to the  [`domain`](../architecture-concepts/domains.md)  section.
 
 
+
+![](https://files.yesbabylon.org/document/b63c4af32f9f0cbd7739ff8fea9c7b71)
+
+### ORM search
+
+In classes, searching can be invoked by calling the ObjectManager service. 
+
+#### signature
+
+```
+public function search($class, $domain=NULL, $sort=['id' => 'asc'], $start='0', $limit='0', $lang=DEFAULT_LANG)
+```
+
+
+
+#### usage
 
 Example:
 
 ```php
-use core\User;
-
-User::search( [
-				['login', 'like', '%john%'],
-				['validated', '=', 'true']				
-			] );
 ```
-
-### Domain syntax
-
-The domain syntax is : 
-
-``` 
-[ [ [operand, operator, value], {...} ], {...} ]
-```
-
-
-
-A domain is a list of one or more clauses, each clause consisting of one or more conditions.
-
-In other words, a domain is a list of disjunctions (OR) of conjunctions (AND). 
-
-The minimal domain is a single clause with a single condition.
-
-* accepted operators are : '=', '<', '>',' <=', '>=', '<>', 'like' (case-sensitive), 'ilike' (case-insensitive), 'in', 'contains'
-
-* example : array( array( array('title', 'like', '%foo%'), array('id', 'in', array(1,2,18)) ) )
-
-* Other example : http://equal.local/?get=model_search&entity=core\User&domain=[[[id,=,1],[firstname,=,Thomas]]]
-
-  
-
-There are a few other parameters : order, sort, start & limit. 
-
-
-
-### ORM search
-
-In classes and controllers, searching is handled by the ORM (ObjectManager class) and can be invoked by calling the `ObjectManager::search()` method either directly or through a collection. 
-
 
 
 
 ### Collection search
 
+In controllers, searching can be invoked either by calling the ObjectManager service or through a collection. 
+
+#### signature
+
+```
+public function search(array $domain=[], array $params=[], $lang=DEFAULT_LANG)
+```
+
+
+
+#### usage
 Example:
 
 ```php
+<?php
 use core\User;
 
 User::search( [

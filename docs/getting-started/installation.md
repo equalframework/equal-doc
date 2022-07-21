@@ -12,11 +12,11 @@ eQual requires the following dependencies:
 
 
 
-## Environment installation
+## Environment setup
 
 ### Windows
 
-Under Windows, you can use any of the following tools for a ready-to-use MySQL and Apache services:
+Under Windows, you can use any of the following tools for a ready-to-use WAMP environment :
 
 * [XAMPP 7.3](https://www.apachefriends.org/download.html)
 * [WAMP Server 3.2+](https://www.wampserver.com/en/) 
@@ -35,9 +35,11 @@ SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
 
 ### Ubuntu
 
+Here are the commands to setup a LAMP stack under Ubuntu
+
 ```bash
 sudo apt update
-sudo apt install php libapache2-mod-php
+sudo apt install apache2 mysql-server php libapache2-mod-php
 ```
 
 Make sure that the mod-rewrite module is enabled: 
@@ -94,7 +96,7 @@ cp equal /var/www/html/
 
 
 
-## Setting up virtual host
+## Virtual host configuration
 
 Within the documentation pages, we refer to the installation that runs on a local web server using `equal.local`as servername  (accessible through http://equal.local).
 
@@ -128,7 +130,7 @@ You should get this output : "hello universe".
 If not, please review carefully the previous steps of the installation.
 
 
-## Configuration file
+## Config file
 
 eQual expects at least one config file in the `/config` directory (if no `config.inc.php` file is found , then `default.inc.php` is used).
 
@@ -138,9 +140,7 @@ To create and customize your config file, start with copying `default.inc.php`
 cp config/default.inc.php config/config.inc.php
 ```
 
-
-
-Open `config.inc.php` and update the following constant to the values related to your environment:
+Edit `config.inc.php` to adapt the values according to your environment:
 
 ```php
 define('DB_DBMS',     'MYSQL'); 
@@ -160,11 +160,11 @@ define('DB_CHARSET',  'UTF8');
 You should now have a properly configured environment and be able to perform some operations calls.
 
 To make sure the DBMS can be access, you can use the following controller : 
-```
-./equal.run --do=test_db-connectivity
+```bash
+$ ./equal.run --do=test_db-connectivity
 ```
 Upon success this controller exits with no message (exit 0), and the database is created. If an error occurs, a JSON message is returned with a short description about the issue. Example:
-```
+```json
 {
     "errors": {
         "INVALID_CONFIG": "Unable to establish connection to DBMS host (wrong hostname or port)"
@@ -180,7 +180,7 @@ Either using your browser : [http://equal.local/?do=init_db](http://equal.local/
 or with the command line interface:
 
 ```bash
-./equal.run --do=init_db
+$ ./equal.run --do=init_db
 ```
 
 
@@ -200,21 +200,25 @@ or with the command line interface:
 In order to be able to manipulate entities, the related package needs to be initialized (each package contains the class definition of its own entities).
 This can be done by using the `core_init_package` controller.
 
-```
-./equal.run --do=init_package --package=core
+```bash
+$ ./equal.run --do=init_package --package=core
 ```
 This controller should populate the database with the tables related to the specified package.
 
-Now, you should be able to fetch data by using the default (core) controllers.
-For instance : 
+Now, you should be able to fetch data by using the controllers from the `core` package.
+
+Example: 
+
+```
 http://equal.local/?get=model_collect&entity=core\User
+```
 
 
 
 ## API requests
 
 A list of routes related to default API is defined in `/config/routing/api_default.json`
-Here below are some examples of HTTP calls and their responses (in JSON):
+Here below are some examples of HTTP calls and their responses (in JSON) that should work under your environment if set up properly:
 
 
 

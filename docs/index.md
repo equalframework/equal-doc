@@ -48,7 +48,7 @@ So, use it your way.
 ## Sneak peek ?
 
 ### Using PHP controllers
-`/public/packages/demo/data/simple.php`:
+`/packages/demo/data/simple.php`:
 
 ```php
 <?php
@@ -60,7 +60,7 @@ echo 'This is a valid HTTP controller';
 ```
 
 When needed, use existing components, or not. (using the ones you already know is encouraged!)
-`/public/packages/demo/data/reuse.php`:
+`/packages/demo/data/reuse.php`:
 
 ```php
 <?php
@@ -86,8 +86,7 @@ echo run('get', 'demo_simple');
 
 ### Using CLI
 ```bash
-#!/bin/bash
-./equal.run --get=demo_simple
+$ ./equal.run --get=demo_simple
 ```
 
 > This is a valid controller!
@@ -95,8 +94,7 @@ echo run('get', 'demo_simple');
 
 ## Real life action
 ```bash
-#!/bin/bash
-./equal.run --get=demo_image
+$ ./equal.run --get=demo_image
 ```
 
 `/packages/demo/data/image.php`:
@@ -141,7 +139,7 @@ $providers['context']
 
 ## In short
 
-eQual uses **3** kinds of **controllers** (Action handlers, Data providers, App providers), **5 methods** (Create, Read, Update, Delete, Search) and has **powerful native features** : 
+eQual uses **3** kinds of **controllers** (Action handlers, Data providers, App providers), **5 methods** (Create, Read, Update, Delete, Search) and has a basic set of **native features** : 
 
 * I/O as HTTP messages 
 * Cascading Configuration 

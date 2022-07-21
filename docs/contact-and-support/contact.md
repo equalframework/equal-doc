@@ -2,7 +2,7 @@
 
 
 
-eQual has been developed and maintained on a volunteer basis since 2010.
+eQual has been developed and maintained with passion since 2010.
 
 
 

@@ -6,7 +6,7 @@ Support is provided on a volunteer basis. If you have any specific question rega
 
 
 
-Also, eQual is the engine behind [Symbiose](https://github.com/yesbabylon/symbiose), a set of business application components intended for agile companies, maintained and supported by the [Yesbabylon SRL company](https://yesbabylon.com).
+Also, eQual is the engine behind [Symbiose](https://github.com/yesbabylon/symbiose), a set of Business application components intended for Agile companies, maintained and supported by [Yesbabylon company](https://yesbabylon.com).
 
 If you would like to consider using it for your business, feel free to contact Cedric at cedric@yesbabylon.com
 
