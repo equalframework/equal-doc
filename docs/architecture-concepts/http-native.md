@@ -6,7 +6,7 @@ It can be seamlessly used in both CLI or ReSTful API context.
 
 
 
-![](https://files.yesbabylon.org/document/436b78f104ffd4c0146a642967d6c3ef)
+![](https://files.yesbabylon.org/document/19fc42c8a32b0a1428dfc6cdbb33019c)
 
 
 

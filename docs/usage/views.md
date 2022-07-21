@@ -3,9 +3,9 @@
 Views are intended to describe how to present the objects to end-users under a given context.
 They are used as templates for the front-end, and are stored as JSON files within the `views` folder of their respective package.
 
-Each of them represents a mode of visualization: form, list, kanban, chart, etc; and can be edited independently from the models they relate to. 
+Each of them represents a mode of visualization: form, list, chart, dashboard, etc; and can be edited independently from the models they relate to. 
 
-It is possible to define as many views (of different types, or variations with same type) as necessary. 
+It is possible to define as many views (of different types, or variations of same type) as necessary. 
 Each view is referenced by an ID, which is composed of its type and its name.
 
 As a convention, a default view for `list` and `form` types should be defined for each entity.
@@ -45,11 +45,11 @@ A **Widget** is responsible for displaying the value of an object's field (in 'v
 !!! note "About widget property"
     The <em>widget</em> property has various field options:     
     * ```view```: to indicate which view template to use with the widget.  
-        * ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
-        * ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
-        For one2many and many2many field, it is also possible:     
-        * to specify the order and limit the loaded lines shown in auto-complete  
-        * to force using a specific widget
+    * ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
+    * ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
+    For one2many and many2many field, it is also possible:     
+    * to specify the order and limit the loaded lines shown in auto-complete  
+    * to force using a specific widget
 
 
 
@@ -211,7 +211,7 @@ Empty arrays or items set to false mean that the action is not available for the
 
 **Usage example**: 
 
-```
+```json
     "header": {
         "actions": {
             "ACTION.CREATE": [
@@ -530,12 +530,12 @@ A list view is defined according to the following structure:
 {
   "name": "",
   "description": "",
-  "domain": [],            // syntax can be either ["id", ">", "3"] or "['id', '>', '3']"
+  "domain": [],
   "filters": [
     {
-          "id": "lang.french",
+        "id": "lang.french",
         "label": "français",
-        "description": "Users that prefers french",
+        "description": "Users with locale set to french",
         "clause": ["language", "=", "fr"] 
     }
   ],
@@ -549,17 +549,52 @@ A list view is defined according to the following structure:
       }
     ],
     "items": [
-      {
-        "id": "firstname",
-        "type": "field",
-        "label": "First Name",
-        "width": "10%",
-        "widget": {
-            "type": "",
-            "view": "",
-            "domain": ""
-        }
-      }
+        {
+            "type": "field",
+            "value": "id",
+            "width": "10%",
+            "sortable": true,
+            "readonly": true
+        },
+        {
+            "type": "field",
+            "value": "created",
+            "width": "25%",
+            "sortable": true
+        },
+        {
+            "type": "field",
+            "value": "validated",
+            "width": "10%"
+        },
+        {
+            "type": "field",
+            "value": "login",
+            "widget": {
+                "link": true
+            },
+            "width": "30%",
+            "sortable": true
+        },
+        {
+            "type": "field",
+            "value": "language",
+            "width": "10%",
+            "widget": {
+                "type": "select",
+                "values": ["fr", "en", "nl"]
+            }
+        },
+        {
+            "type": "field",
+            "value": "groups_ids",
+            "label": "Groups",
+            "width": "0%",
+            "visible": false,
+            "widget": {
+                "type": "one2many"
+            }
+        }    
     ]
   }
 }
@@ -571,21 +606,21 @@ The list view is named *Category.list.default.json* and has the following struct
 ```json
 {
     "name": "Categories",
-      "description": "This view is intended for displaying the list of categories.",
-      "layout": {
-        "items": [
+     "description": "This view is intended for displaying the list of categories.",
+     "layout": {
+         "items": [
             {
-                "type": "field",
-                "value": "name",
-                "width": "15%"
+                 "type": "field",
+                 "value": "name",
+                 "width": "15%"
             },
             {
-                "type": "field",
-                "value": "description",
-                "width": "25%"
+                 "type": "field",
+                 "value": "description",
+                 "width": "25%"
             }
         ]
-      }
+    }
 }
 ```
 
@@ -606,7 +641,7 @@ Each item in the array is either a field name or the descriptor of an operation 
 
 Example : 
 
-```
+```json
     "group_by": ["date"]
 ```
 
@@ -614,7 +649,7 @@ Example :
 
 The operations items have the following structure : 
 
-```
+```json
 { 
     "field": "product_id", 
     "operation": ["SUM", "object.qty"]
@@ -623,7 +658,7 @@ The operations items have the following structure :
 
 Another example : 
 
-```
+```json
     "group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
 ```
 
@@ -634,7 +669,7 @@ Another example :
 String holding the name(s) of the field to sort results on, separated with commas.
 Example : 
 
-```
+```json
     "order": "sku,product_model_id"
 ```
 
@@ -644,7 +679,7 @@ Example :
 String litteral ('*desc*' or '*asc*')
 
 Example:
-```
+```json
     "sort": "asc"
 ```
 
@@ -656,7 +691,7 @@ integer (max size of result set)
 
 Example : 
 
-```
+```json
     "limit": 100
 ```
 
@@ -758,7 +793,7 @@ In turn, each descriptor accepts the following properties :
 
 Examples: 
 
-```
+```json
 "operations": {
     "total": {
         "total_paid": {
@@ -777,7 +812,7 @@ Examples:
 
 
 
-```
+```json
 "operations": {
     "total": {
         "rental_unit_id": {
@@ -860,7 +895,7 @@ Entries items have a **context** property, which has the following structure :
 
 Example:
 
-```
+```json
 "id": "item.pos_sessions",
 "label": "Sessions",
 "description": "",

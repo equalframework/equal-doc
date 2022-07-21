@@ -10,6 +10,7 @@ To understand the framework, here is what you need to know about its folders
 /
 ├── bin
 ├── lib
+├── packages
 ├── public
 │   ├── .htaccess
 │   └── index.php
@@ -27,7 +28,8 @@ To understand the framework, here is what you need to know about its folders
 | index.php	        | This script is also referred to as the dispatcher : its task is to include required libraries and to set the context. This is the main entry point.|
 | run.php	| Server script for client-server mode|
 | lib	        | Folder containing eQual library  (mostly classes and services definitions) |
-| public   | Folder containing installed packages (classes definition, translations, views, actions, …)|
+| packages   | Folder containing installed packages (classes definition, translations, views, actions, …)|
+| public   | Root public folder for the web server |
 | bin   | Folder containing values of binary fields see BINARY_STORAGE_DIR |
 | spool   | Dedicated to email sending |
 
@@ -98,6 +100,8 @@ package_name
 ├── apps
 │   └── */*.php
 ├── data
+│   └── */*.php
+├── tests
 │   └── */*.php
 ├── init
 │   └── *.json
