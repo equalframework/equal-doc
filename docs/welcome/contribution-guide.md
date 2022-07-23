@@ -2,7 +2,7 @@
 
 New contributions to eQual are welcome, but we ask that you please follow these guidelines:
 
-* Before opening a PR for additions or changes, please discuss those by filing an issue (https://github.com/cedricfrancoys/equal/issues) or asking about it on our Discord [#general ](https://discord.gg/BNCPYxD9kk) channel. This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
+* Before opening a PR for additions or changes, please discuss those by filing an issue on [GitHub](https://github.com/cedricfrancoys/equal/issues) or asking about it on our Discord [#general](https://discord.gg/BNCPYxD9kk) channel. This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
 
 * Check that your package will pass the consistency tests (`./equal.run --do=test_package-consistency`).
 
@@ -26,5 +26,5 @@ Guidelines for reporting bugs:
 
 * Check the issue search to see if it has already been reported
 * Isolate the problem to a simple test case
-* Please include a code snippet that demonstrates the bug. If filing a bug against master, you may reference the latest code via https://github.com/cedricfrancoys/equal/blob/master/eq.lib.php (changing the filename to point at the file you need as appropriate). 
+* Please include a code snippet that demonstrates the bug. If filing a bug against master, you may reference the latest code using the URL of the repository of the branch (e.g. `https://github.com/cedricfrancoys/equal/blob/master/eq.lib.php` : changing the filename to point at the file you need as appropriate). 
 * Please provide any additional details associated with the bug, if it's generic or only happens with a certain configuration or data.
