@@ -2,8 +2,8 @@ site_name: eQual framework documentation
 site_url: https://doc.equal.run/
 docs_dir: docs
 # dev_addr: 127.0.0.1:8000
-repo_name: equal-framework
-repo_url: https://github.com/cedricfrancoys/equal-framework
+repo_name: equal
+repo_url: https://github.com/cedricfrancoys/equal
 edit_uri: ""
 theme:
   name: material
@@ -40,20 +40,20 @@ markdown_extensions:
 nav:
   - 'Welcome':
       - 'Prologue': 'index.md'
-      - 'Release notes': 'welcome/release-notes.md'
+      # - 'Release notes': 'welcome/release-notes.md'
       - 'Contribution Guide': 'welcome/contribution-guide.md'
   - 'Getting Started':
       - 'Installation': 'getting-started/installation.md'
       - 'Quick Start': 'getting-started/quick-start.md'
       - 'Configuration': 'getting-started/configuration.md'
-      - 'Deployment': 'getting-started/deployment.md'
+      # - 'Deployment': 'getting-started/deployment.md'
   - 'Architecture Concepts':
       - 'HTTP native': 'architecture-concepts/http-native.md'
       - 'Services': 'architecture-concepts/services.md'
-      - 'Dependency injection': 'architecture-concepts/dependency-injection.md'
       - 'ORM': 'architecture-concepts/orm.md'
+      - 'Dependency injection': 'architecture-concepts/dependency-injection.md'      
       - 'Domains': 'architecture-concepts/domains.md'
-      - 'Operations': 'architecture-concepts/operations.md'
+      - 'Operations': 'architecture-concepts/operations.md'      
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
      - 'Directory Structure': 'usage/directory-structure.md'

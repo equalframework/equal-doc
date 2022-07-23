@@ -2,13 +2,20 @@
 
 New contributions to eQual are welcome, but we ask that you please follow these guidelines:
 
-* Before opening a PR for additions or changes, please discuss those by filing an issue (https://github.com/cedricfrancoys/equal/issues) or asking about it on by email (cedric@equal.run). This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
+* Before opening a PR for additions or changes, please discuss those by filing an issue (https://github.com/cedricfrancoys/equal/issues) or asking about it on our Discord [#general ](https://discord.gg/BNCPYxD9kk) channel. This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
+
 * Check that your package will pass the consistency tests (`./equal.run --do=test_package-consistency`).
+
 * Add unit tests (in the `packages/{your_package}/tests/`) and descriptions to the new classes and controllers .
+
 * Avoid breaking changes unless there is an upcoming major release, which is infrequent. We encourage people to write distinct libraries and/or packages for most new advanced features, and care a lot about backwards compatibility.
 
+  
+
 ## Joining the project
-Active committers and contributors are invited to introduce themselves and request commit access to the project. If you think you can help, we'd love to have you!
+Active committers and contributors are invited to introduce themselves and request commit access to the project on the Discord [#join](https://discord.gg/65WcBQFVg6) channel. If you think you can help, we'd love to have you!
+
+
 
 ## Bugs and Issues
 Please report these on our [GitHub page](https://github.com/cedricfrancoys/equal/issues) . Please do not use issues for support requests. For help using eQual, please consider Stack Overflow.
