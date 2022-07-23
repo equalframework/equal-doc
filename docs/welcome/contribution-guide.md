@@ -2,7 +2,7 @@
 
 New contributions to eQual are welcome, but we ask that you please follow these guidelines:
 
-* Before opening a PR for additions or changes, please discuss those by filing an issue on [GitHub](https://github.com/cedricfrancoys/equal/issues) or asking about it on our Discord [#general](https://discord.gg/BNCPYxD9kk) channel. This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
+* Before opening a PR for additions or changes, please discuss those by filing an issue on [GitHub](https://github.com/cedricfrancoys/equal/issues) or asking about it on [Discord](https://discord.gg/BNCPYxD9kk) (#general channel). This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
 
 * Check that your package will pass the consistency tests (`./equal.run --do=test_package-consistency`).
 
