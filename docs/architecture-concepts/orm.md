@@ -1,94 +1,32 @@
 # ORM
 
-A simple set of system-related operations allows to handle most common tasks
-- retrieve a single entity
-- retrieve a collection of entities matching some criteria
-- create, update, delete a given entity
+An ObjectManager service is dedicated to Object-Relational Mapping. It handles all tasks that relate to Objects manipulations and offers an abstract layer for DBMS queries.
+
+The ORM can be used in order to : 
+
+- create, update, delete one or more objects (based on the ID field)
+- retrieve a single entity or a list of entities (both based on the ID field)
+- retrieve a list of IDs of entities that match some criteria
 
 
 
-### user_id 
-Indicates the identifier of the current user.
+ObjectManager methods are for low-level manipulations (no data conversion nor validation, and no user permission check at this level).
 
-#### Description
-```php
-int user_id( [ string $session_id=SESSION_ID ] )
-```
+They are mostly used in methods of classes definition.
 
-#### Parameters
-  * **session_id** : the identifier of the session we are looking for (by default, the current session)
+Controllers mostly require high-level manipulations (including data conversion, validation and permission checks) and therefore use Collections return by class autoloader. 
 
-#### Returned value
-Returns the identifier of the user associated with the specified session_id.
 
-### login
-Tries to log a user in with the given credentials.
 
-#### Description
-```php
-bool login( string $login, string $password [, string $session_id=SESSION_ID ] )
-```
+## ObjectManager methods
 
-Note : even when not using https, we guarantee maximum privacy
-  * Only MD5 values of the password are sent from client to server. So user's password stays unknown from the admin/app developper.
-  * The value that is sent is always different (i.e. : MD5 value is only valid for current session). So, one cannot grab the user's password by capturing the http packet.
-
-#### Parameters
-  * **login** : login/username under which we want to identify
-  * **password** : locked value of the password related to the specified login 
-  * **session_id** : identifier of the session holding user data (by default, the current session)
-
-#### Returned value
-Returns TRUE if login process was successful.\\ 
-Returns FALSE if something wrong occured (unknown username or wrong password).
-
-## Object methods
-
-### validate 
-Checks whether the values of given object fields are valid or not.
-
-#### Description
-```php
-<?php
-bool validate( string $object_class, array $values )
-```
-
-#### Parameters
-  * **object_class** : class of the object we want to validate
-  * **values** : associative array containing fields and their values
-
-#### Returned value
-Returns an associative array containing invalid fields with their associated error_message_id (thus an empty array means no invalid fields).\\ 
-Returns an integer (error code) if an error occured. 
-
-### get
-Retrieve the specified object.
-
-#### Description 
-```php
-<?php
-object &get( string $object_class, int $object_id [, $session_id=SESSION_ID ] )
-```
-Returns an instance of the specified class holding data associated with the specified identifier.\\ 
-Because handling the object instance required the class to be declared this method only works in PHP
-(In order to use it in other languages, it would be necessary to declare the classes in each programming language and overload the setters and getters).
-
-#### Parameters
-  * **object_class** : class of the object we want to retrieve
-  * **object_id** : identifier of the object we want to retrieve
-  * **session_id** : identifier of the session holding user data (by default, the current session)
-
-#### Returned value
-Returns the instance of the specified object(if user has right on it).\\ 
-Returns an integer (error code) if an error occured.
-
-### browse
+### read
 Fetches specified field values for the selected objects.
 
 #### Description
 ```php
 <?php
-mixed &browse( string $object_class [, array $ids=null, array $fields=null, string $lang=DEFAULT_LANG, string $session_id=SESSION_ID ] )
+mixed read( string $object_class [, int[] $ids=null, string[] $fields=null, string $lang=DEFAULT_LANG] )
 ```
 
 #### Parameters
@@ -98,46 +36,25 @@ mixed &browse( string $object_class [, array $ids=null, array $fields=null, stri
   * **lang** : language under which return fields values (only relevant for multilang fields)
   * **session_id** : identifier of the session holding user data (by default, the current session)
 
-###Returned value ==
-Returns an associative array containing, for every object id, a sub array maping each field to its value.\\ 
-Returns an integer (error code) if an error occured.
-
-### search
-Search for objects matching the domain criteria.
-
-#### Description
-```php
-<?php
-mixed search( string $object_class [, array $domain=null, string $order='id', string $sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG, string $session_id=SESSION_ID ] )
-```
-
-#### Parameters
-  * **object_class** : class of the objects we want to look for
-  * **domain** : search criteria that objects have to match
-  * **order** : field on which the resulting list must be sorted
-  * **sort** : sorting order
-  * **start** : position in the global resulting list from which we want the ids
-  * **limit** : amount of ids to return
-  * **lang** : language under which search applies (only relevant for multilang fields) 
-  * **session_id** : identifier of the session holding user data (by default, the current session)
-
 #### Returned value
-Returns an array of objects ids.\\ 
-Returns an integer (error code) if an error occured.
-
-
+Returns an associative array containing, for every object id, a sub array mapping each field to its value.\\ 
+Returns an integer (error code) if an error occurred.
 
 
 
 ### update 
-Sets the values of one or more instance(s) or creates new object(s) (if specified $object_id is 0).
-Note: while saving in a specific language, no test is done to check that specified fields are defined as multilang 
-(it means that saving non-multilang fields in a non-default language will result in a loss of data)
+Sets new values for one or more Object instances .
+
+!!! note "multilang fields"
+
+while saving in a specific language, no test is done to check that specified fields are defined as multilang 
+(it means that saving non-multilang fields in a non-default language will result in a loss of data).
 
 #### Description
 
 ```php
-mixed update( string $object_class, $ids [, array $values=null, string $lang=DEFAULT_LANG, string $session_id=SESSION_ID ] )
+<?php
+mixed update( string $object_class, int[] $ids [, array[] $values=null, string $lang=DEFAULT_LANG, boolean $create=false] )
 ```
 
 #### Parameters
@@ -149,16 +66,16 @@ mixed update( string $object_class, $ids [, array $values=null, string $lang=DEF
   * **session_id** : identifier of the session holding user data (by default, the current session)
 
 #### Returned value
-Returns an array containing ids of newly created objects (if any).\\ 
-Returns an integer (error code) if an error occured.
+Returns an array containing ids of newly created objects (if any).  
+Returns an integer (error code) if an error occurred.
 
-### remove 
-Deletes an object permanently or puts it in the "trash bin" (ie setting the 'deleted' flag to 1).
+### delete
+Deletes an object permanently or puts it in the "trash bin" (i.e. setting the 'deleted' flag to 1).
 
 #### description
 ```php
 <?php
-mixed remove( string $object_class, array $ids [, boolean $permanent=false, $session_id=SESSION_ID ] )
+mixed remove( string $object_class, array $ids [, boolean $permanent=false] )
 ```
 
 #### Parameters
@@ -169,5 +86,61 @@ mixed remove( string $object_class, array $ids [, boolean $permanent=false, $ses
   * **session_id** : identifier of the session holding user data (by default, the current session)
 
 #### Returned value 
-Returns an associative array containing ids of the objects actually deleted.\\ 
-Returns an integer (error code) if an error occured.
+Returns an associative array containing ids of the objects actually deleted.  
+Returns an integer (error code) if an error occurred.
+
+
+
+### search
+
+Search for objects matching the domain criteria.
+
+#### Description
+
+```php
+<?php
+mixed search( string $object_class [, array $domain=null, string $order='id', string $sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG] )
+```
+
+#### Parameters
+
+  * **object_class** : class of the objects we want to look for
+  * **domain** : search criteria that objects have to match
+  * **order** : field on which the resulting list must be sorted
+  * **sort** : sorting order
+  * **start** : position in the global resulting list from which we want the ids
+  * **limit** : amount of ids to return
+  * **lang** : language under which search applies (only relevant for multilang fields) 
+  * **session_id** : identifier of the session holding user data (by default, the current session)
+
+#### Returned value
+
+Returns an array of objects ids.  
+Returns an integer (error code) if an error occurred.
+
+
+
+### validate 
+
+Checks whether the values of given object fields are valid or not.
+
+#### Description
+
+```php
+<?php
+array validate(string $class, int[] $ids, array[] $values, boolean $check_unique=false, boolean $check_required=false)
+```
+
+#### Parameters
+
+  * **object_class** : class of the object we want to validate
+  * **values** : associative array containing fields and their values
+
+#### Returned value
+
+Returns an associative array containing invalid fields with their associated error_message_id (thus an empty array means no invalid fields).  
+Returns an integer (error code) if an error occurred. 
+
+
+
+### 

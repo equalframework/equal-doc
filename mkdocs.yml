@@ -51,6 +51,7 @@ nav:
       - 'HTTP native': 'architecture-concepts/http-native.md'
       - 'Services': 'architecture-concepts/services.md'
       - 'ORM': 'architecture-concepts/orm.md'
+      - 'Collections': 'architecture-concepts/collections.md'      
       - 'Dependency injection': 'architecture-concepts/dependency-injection.md'      
       - 'Domains': 'architecture-concepts/domains.md'
       - 'Operations': 'architecture-concepts/operations.md'      
@@ -69,9 +70,9 @@ nav:
      - 'Debugging': 'usage/debugging.md'
      - 'Testing': 'usage/testing.md'
   - 'How-Tos & Examples':
-      - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'
-      - 'Basic Controller' : 'howtos-and-examples/basic-controller.md'
-      - 'ReST API': 'howtos-and-examples/rest-api.md'
+     - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'
+     - 'Basic Controller' : 'howtos-and-examples/basic-controller.md'
+     - 'ReST API': 'howtos-and-examples/rest-api.md'
   - 'Advanced':
      - 'Security': 'advanced/security.md'
      - 'Logging': 'advanced/logging.md'

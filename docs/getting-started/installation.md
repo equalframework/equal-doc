@@ -2,7 +2,74 @@
 
 
 
-## Requirements
+## Using Docker
+
+
+### Install Docker
+#### Windows 
+
+* install Windows HyperV
+
+* install WSL
+``` 
+$ wsl --install
+```
+* install WSL2 core update
+https://docs.microsoft.com/fr-fr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package
+
+* install Docker Ddesktop for windows
+https://docs.docker.com/desktop/install/windows-install/
+
+
+#### Linux
+https://docs.docker.com/engine/install/
+
+Ubuntu
+```
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+
+
+### Run the container
+
+Download the Docker compose file that uses the official equal Docker image : https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml
+
+And instantiate the stack by using the following command : 
+Under Windows:
+```
+$ docker compose up -d
+```
+Under Linux:
+```
+$ docker-compose up -d
+```
+
+Remember to map the domain name with an IP address in your local hosts file:
+
+* Windows :  `C:\Windows\System32\drivers\etc\hosts`
+* Linux : `/etc/hosts`
+
+Example:
+```
+127.0.0.1 equal.local
+```
+
+You can now either browse to the welcome screen : http://equal.local
+
+or start a shell on the container : 
+
+```bash
+$ docker exec -ti equal.local /bin/bash
+```
+
+
+
+
+
+## Manual installation
+
+### Requirements
 
 eQual requires the following dependencies:
 
@@ -11,10 +78,11 @@ eQual requires the following dependencies:
 - **MySQL 5+** compatible DBMS (MySQL or MariaDB)
 
 
+### Environment setup
 
-## Environment setup
+#### OS configuration
 
-### Windows
+##### Windows
 
 Under Windows, you can use any of the following tools for a ready-to-use WAMP environment :
 
@@ -33,7 +101,7 @@ Add the PHP binary to the PATH environment variable:
 SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
 ```
 
-### Ubuntu
+##### Ubuntu
 
 Here are the commands to setup a LAMP stack under Ubuntu
 
@@ -62,7 +130,7 @@ Add the PHP binary to the PATH environment variable:
 export PATH=$PATH:/usr/bin/php
 ```
 
-### RHEL / Fedora / Centos 
+##### RedHat / Fedora / Centos 
 
 Install Mysql server, PHP and Apache:
 ```bash
@@ -70,9 +138,7 @@ yum update
 yum install httpd php mysql-server php-mysql
 ```
 
-
-
-## Getting eQual
+#### Getting eQual
 
 - Download code as ZIP: 
 
@@ -85,7 +151,6 @@ yum install httpd php mysql-server php-mysql
   `git clone https://github.com/cedricfrancoys/equal.git`
 
 
-
 Copy the files to your webserver HTML directory.
 
 Example : 
@@ -96,7 +161,7 @@ cp equal /var/www/html/
 
 
 
-## Virtual host configuration
+#### Virtual host configuration
 
 Within the documentation pages, we refer to the installation that runs on a local web server using `equal.local`as servername  (accessible through http://equal.local).
 
@@ -118,19 +183,23 @@ Example for Apache2:
 </VirtualHost>
 ```
 
-Remember that the related domain name must be set in your local hosts file:
+Remember to map the domain name with an IP address in your local hosts file:
 
 * Windows :  `C:\Windows\System32\drivers\etc\hosts`
 * Linux : `/etc/hosts`
 
 
+Example:
+```
+127.0.0.1 equal.local
+```
+
 To make sure everything is setup properly, try to request the hello controller by browsing to http://equal.local/index.php?get=demo_hello
 
-You should get this output : "hello universe".
-If not, please review carefully the previous steps of the installation.
+You should get the simple output "hello universe". If not, review carefully the previous steps of the installation.
 
 
-## Config file
+#### Config file
 
 eQual expects at least one config file in the `/config` directory (if no `config.inc.php` file is found , then `default.inc.php` is used).
 
@@ -146,12 +215,11 @@ Edit `config.inc.php` to adapt the values according to your environment:
 define('DB_DBMS',     'MYSQL'); 
 define('DB_HOST',     '127.0.0.1'); 
 define('DB_PORT',     '3306'); 
-define('DB_USER',     'equaldb'); 	   	// adapt this
-define('DB_PASSWORD', 'mypass');  		// this (with your own password)
-define('DB_NAME',     'mydb');   		// and this
+define('DB_USER',     'root'); 	    	// adapt this
+define('DB_PASSWORD', 'test');  		// this (with your own password)
+define('DB_NAME',     'equal');   		// and this
 define('DB_CHARSET',  'UTF8'); 
 ```
-
 
 
 
@@ -175,7 +243,7 @@ Upon success this controller exits with no message (exit 0), and the database is
 
 The database can be created by using the `core_init_db controller` 
 
-Either using your browser : [http://equal.local/?do=init_db](http://equal.local/?do=init_db)
+Either using a browser : [/?do=init_db](/?do=init_db)
 
 or with the command line interface:
 
@@ -210,7 +278,7 @@ Now, you should be able to fetch data by using the controllers from the `core` p
 Example: 
 
 ```
-http://equal.local/?get=model_collect&entity=core\User
+/?get=model_collect&entity=core\User
 ```
 
 
@@ -218,13 +286,13 @@ http://equal.local/?get=model_collect&entity=core\User
 ## API requests
 
 A list of routes related to default API is defined in `/config/routing/api_default.json`
-Here below are some examples of HTTP calls and their responses (in JSON) that should work under your environment if set up properly:
+Here below are some examples of HTTP calls and their responses (in JSON) that you can us to test your installation:
 
 
 
 **Fetch the details of user[1] (admin).**
 
-GET http://equal.local/user/1
+GET /user/1
 ```
 [
     {
@@ -240,7 +308,7 @@ GET http://equal.local/user/1
 
 **Fetch the full list of existing groups.**
 
-GET http://equal.local/users
+GET /users
 
 ```
 [
@@ -263,7 +331,7 @@ GET http://equal.local/users
 
 **Fetch the full list of existing groups.**
 
-GET http://equal.local/groups
+GET l/groups
 
 ```
 [
@@ -286,7 +354,7 @@ GET http://equal.local/groups
 
 **Create a new group.**
 
-POST http://equal.local/group
+POST /group
 
 ```
 {
@@ -299,7 +367,7 @@ POST http://equal.local/group
 
 **Update the 'name' property of the group[3].**
 
-PUT [http://equal.local/group/3?fields[name]=test](http://equal.local/group/3?fields[name]=test)
+PUT [group/3?fields[name]=test](/group/3?fields[name]=test)
 
 ```
 []
@@ -309,7 +377,7 @@ PUT [http://equal.local/group/3?fields[name]=test](http://equal.local/group/3?fi
 
 **Fetch the full list of existing groups.**
 
-GET http://equal.local/groups
+GET /groups
 
 ```
 [
