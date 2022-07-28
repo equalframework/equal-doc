@@ -46,9 +46,7 @@ Returns an integer (error code) if an error occurred.
 Sets new values for one or more Object instances .
 
 !!! note "multilang fields"
-
-while saving in a specific language, no test is done to check that specified fields are defined as multilang 
-(it means that saving non-multilang fields in a non-default language will result in a loss of data).
+	while saving in a specific language, no test is done to check that specified fields are defined as multilang (it means that saving non-multilang fields in a non-default language will result in a loss of data).
 
 #### Description
 
