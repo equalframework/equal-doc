@@ -189,19 +189,21 @@ If you want to target **all the classes** of a package, you can specify with ```
 
 ### Debug mode
 
-Alternatively, you can grant all access through all the project. This should only be used for testing purpose
+Alternatively, you can grant all access through all the project. This should only be used for testing purpose.
 
-In the `/config` folder, open the `config.inc.php` file. If you don't have one, create one by copying it from `default.inc.php`.
+In the `/config` folder, open the **`config.inc.php`** file. If you don't have one, create one by copying it from `default.inc.php`.
 
 There is a parameter called "DEFAULT_RIGHTS" you can customize :
 
 ```php
-// config.inc.php
 <?php
 // [...]
 
-    // define('DEFAULT_RIGHTS', QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE);
+	// replace this
     define('DEFAULT_RIGHTS', 0);
+
+	// by this
+    define('DEFAULT_RIGHTS', QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE);
 
 // [...]
 ```

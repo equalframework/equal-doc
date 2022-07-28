@@ -5,13 +5,13 @@
 eQual is a versatile, language-agnostic, and web-oriented framework, aiming to elegantly manage interactions between front-end Apps and Business Logic involved in modern Web Applications.
 
 **Natively Secure**  
-Benefit from native HTTP Auth support (JWT, CORS) to secure every endpoint with User Management, Role-Based Access Controls, or custom Access management.
+eQual offers native HTTP Auth support (JWT, CORS) to secure every endpoint with User Management, Role-Based Access Controls, or custom Access management.
 
 **Server-Side Scripting**  
-Implement custom logic on any route endpoint to quickly build micro-services and  APIs of your own.
+eQual allows to implement custom logic on any route endpoint, and to quickly build controllers and micro-services.
 
 **Instant APIs Without Code**  
-Automatically generate a complete set of REST API routes with live documentation, for any kind of service.
+eQual provides tools for automatic generation of fully-featured ReST APIs with live documentation, for any kind of service.
 
 
 ```php
@@ -26,13 +26,9 @@ echo "This is a valid Contoller!"
 
 Most frameworks require a long time to master and, while learning them, you might find yourself struggling to achieve simple things.
 
+eQual has been designed to oppose as little constraints as possible to developers. While being a solid framework that has all you need to do almost anything, taking advantage of the native features or not is entirely up to you.
 
-
-eQual has been designed to oppose as little constraints as possible to developers. While being a fully featured framework that has all you need to do almost anything, taking advantage of the native features or not is entirely up to you.
-
-
-
-Actually, since you're reading this, you already know everything to start using it.
+Actually, since you're reading this, you probably already know everything needed to start using it.
 
 So, use it your way.
 
@@ -146,6 +142,7 @@ eQual uses **3** kinds of **controllers** (Action handlers, Data providers, App 
 * Dependency injection
 * Services overload
 * ORM & Collections support
+* Model definition + inheritance support
 * Data Adaptation
 * Authentication Management
 * Access Control Management
