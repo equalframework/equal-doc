@@ -9,7 +9,7 @@ routing to scripts
 
 	simple scripts 
 	
-	Main contraint : routing and FS tree
+	Main constraint : routing and FS tree
 
 Turns a script into a micro-service
 
@@ -28,7 +28,7 @@ Turns a script into a micro-service
 
 ## Creating Routes
 
-Inside the **config/routing directory**, you have the possibility to build your own routes.
+Inside the `config/routing` directory, you have the possibility to build your own routes.
 
 There are already a few default routes built, to get the users and groups.
 

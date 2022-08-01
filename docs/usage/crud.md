@@ -1,4 +1,8 @@
-# CRUD syntax
+# CRUD manipulations
+
+eQual implements Collections with special `Collection` objects that are instanciated based on a given model.
+
+Collections give the ability to apply an action on multiple objects at a time while checking the permission of the current user (returned by the `Authentication` service).
 
 To get an overview on CREATE, READ, UPDATE, DELETE commands, see [*Building a REST API*](../howtos-and-examples/rest-api.md)
 
@@ -44,6 +48,7 @@ MyObject::search($search_domain);
 ```php
 MyObject::search(['firstname', 'ilike', '%ro%'])
 		->from($params['offset'])
-		->limit($params['limit']);
+		->limit($params['limit'])
+    	->get();
 ```
 
