@@ -1,16 +1,18 @@
-# Utilities and stand-alone scripts
+# Built-in utilities and stand-alone scripts
 
-Some tools are included in the core to ease management and development of new packages.
-
-
-Utility scripts allow to achieve some tasks that are not handled by the core, for instance checking the consistency of a new package.
-
-Those act like some sort of plugins, written in PHP and located in the folder: `data/utils/`
+Some tools are included in the core package to ease management and development of new packages.
 
 
-Here is a complete list of the scripts that come out-of-the-box.
+Utility scripts allow to achieve some tasks that are not handled by the ORM, for instance checking the consistency of a new package.
+
+These act like some sort of plugins, written in PHP and located in the folder: `data/utils/`
+
+This page lists an inventory of available scripts, grouped by category.
 
 
+
+!!! note "Calling the scripts"
+    Calls show in examples must be made at the root of eQual (where script *run.php* is located).
 
 ## Installation & Config utilities
 
@@ -18,50 +20,44 @@ Here is a complete list of the scripts that come out-of-the-box.
 
 ## Package utilities
 
-
-
 ### Test package consistency
 
-Consistency checks between DB and class as well as syntax validation for
-classes (PHP), views (HTML) and translation files (json)
+Consistency checks between DB and class as well as syntax validation for classes (PHP), views (HTML) and translation files (json)
 
 
 ```bash
-./equal.run --do=test_package-consistency --package=core
+$ ./equal.run --do=test_package-consistency --package=core
 ```
 
-#### Run package test cases
+### Run package test cases
 
 ```bash
-./equal.run --do=test_package --package=core
+$ ./equal.run --do=test_package --package=core
 ```
 
 
 ### Init a Package
-Creates a compatible database based on a SQL schema.
+Creates the tables matching the classes of the package in the database (based on generated SQL schema).
 
 ```bash
-./equal.run --do=init_package --package=core
+$ ./equal.run --do=init_package --package=core
 ```
-
-
 
 
 
 ## Rights management utilities
 
->  Note: Calls must be made at the root of eQual (where *run.php* is located).
+
 
 ### Grant DB rights
 
 Available rights: "create", "read", "update", "delete", "manage"
 
-You can grant only one right for one entity at a time
+Only one right at a time can be granted to one group over one entity.
 
 ```bash
-./equal.run --do=group_grant --group=default --right=read --entity="core\User"
+$ ./equal.run --do=group_grant --group=default --right=read --entity="core\User"
 ```
-
 
 
 

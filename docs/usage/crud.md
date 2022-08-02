@@ -6,49 +6,47 @@ Collections give the ability to apply an action on multiple objects at a time wh
 
 To get an overview on CREATE, READ, UPDATE, DELETE commands, see [*Building a REST API*](../howtos-and-examples/rest-api.md)
 
-The following examples show the **minimal** syntax required to operate CRUD commands in a database
+The following examples show the minimal syntax required to operate CRUD manipulations:
 
-> Note: an additional "language" parameter is used for fields with multilang enabled. See [i18n](i18n.md) for more information
+!!! note "Multilang fields"
+For fields whose value varies from one language to another (multilang), an additional `$lang` parameter is used. See [i18n](i18n.md) for more information
 
 CREATE :
-
 ```php
-MyObject::create($values_map);
+User::create($values_map);
 ```
 
 READ :
-
 ```php
-MyObject::read($fields_array);
+User::read($fields_array);
 ```
 
 UPDATE :
-
 ```php
-MyObject::ids($ids_array)
-    	->update($values_map);
+User::ids($ids_array)
+    ->update($values_map);
 ```
 
 DELETE :
-
 ```php
-MyObject::ids($ids)
-    	->delete(true);
+User::ids($ids)
+    ->delete(true);
 ```
 
 SEARCH:
-
 ```php
-MyObject::search($search_domain);
+User::search($search_domain);
 ```
 
 **Example** :
 
 
 ```php
-MyObject::search(['firstname', 'ilike', '%ro%'])
-		->from($params['offset'])
-		->limit($params['limit'])
-    	->get();
+<?php
+use core\User;
+MyObject::search(['firstname', 'ilike', '%ced%'])
+        ->from($params['offset'])
+        ->limit($params['limit'])
+        ->get();
 ```
 

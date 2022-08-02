@@ -1,36 +1,15 @@
 # Model definition
 
+Each Model is defined in a `.class.php` file , located in the `/packages/{package_name}/classes` file of the package it relates to (see [Directory Structure](directory-structure.md)). All classes inherit from a common ancestor: the `Model` class, declared in the `equal\orm` namespace and defined in  `/lib/equal/orm/Model.class.php`.
 
+A class is always referred to as an **entity** and belongs to a package. Packages and their subdirectories are used as namespaces.
 
-Each Model is defined in a `.class.php` file , located in the `/packages/{package_name}/classes` file of the package it relates to (see [Directory Structure](directory-structure.md)), and inherits from a common ancestor: the `Model` class, declared in the `equal\orm` namespace and defined in file `/lib/equal/orm/Model.class.php`.
-
-A class is always referred to as an **entity** which holds the package it belongs to (packages are used as namespaces).
-
-The syntax is : `package_name\class_name` (ex. :`core\setting\SettingValue`).
-
-
+The syntax is : `{{package_name}}\{{class_name}}` (ex. :`core\setting\SettingValue`).
 
 A class consists of a series of fields definition, along with specific methods.
 
 
-
-Each `field` definition may contain one or more of these properties: 
-
-* `onchange` (optional): calls a function to get it's value whenever a change exists.
-* ```ondelete```: has 2 values, either <em>cascade</em> or <em>null</em>. 
-    * <em>cascade</em> is used in the context of on delete action for the parent class, delete this field too. 
-    * <em>null</em> is used to identify that when deleting the parent class, the current field shouldn't be delete with it.
-* ```ondetach```: has one value which is <em>delete</em>, which is triggered when the update event for a field is happening. 
-* `selection`: represents all the options in a field of a class. It's like the list of possible options in a dropdown menu.
-* `visible`: It specifies the conditions that must be met in order for the field to be relevant.
-* `foreign_object`: is the path to the parent class of a field in another one.
-* `foreign_field`: the name of the field that refers to the parent class.
-* `required`: Marks a field as mandatory (storing an object without giving a value for that field will raise an error).
-* ```domain```: is a condition set for a field which implies for example that a field is equal, or in the range of, or different than another one. It is written like so: ```'domain' => ['relationship', '=', 'customer']```. This means that the specific field that has this domain must have a relationship type equal to customer.
-* 
-
-
-Below is an example of a class called Category having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
+Here is an example of a `Category ` class having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
 
 ```php
 <?php 
@@ -99,7 +78,7 @@ Consistency between models (`*.class.php` files) and database schema must be mai
 
 When a new class is created or the schema of a class is modified, the SQL schema must be adapted consequently. Controllers `core_init_package` and `utils_sql-schema` are made to help with this task.
 
-Also, Action controller `core_test_package-consistency` can help to spot any incompatibilily or inconsistancy in the definition the classes from a given package.
+Also, Action controller `core_test_package-consistency` can help to spot any incompatibility or inconsistency in the definition the classes from a given package.
 
 
 ## Fields categories
@@ -167,7 +146,7 @@ Strings can potentially be long and include formatting, and some behavior requir
 
 For instance:
 ```php
-    [
+[
     'type'	=> 'string',
     'usage'	=> 'text/plain'
 ]
@@ -206,15 +185,13 @@ When stored to the DBMS, those types follow the standard SQL format:
 	Internally, dates, times and datetimes are handled as timestamps. These are adapted to SQL format or JSON format when needed.
 
 #### many2one
-Relational field used for fields holding a N-1 relation, that is to say a numeric value that represents the identifier of the pointed object.
+Relational field used for fields holding a N-1 relation. The stored value is an integer that holds the identifier of the pointed object.
 
-N-1 relation, generating an integer to identify the related one2many object
+Example:
 
-
-	foreign_object -> select amongst other classes
-		+ ability to create symetrical one (one2many)
 ```php
-// todolist\Class
+<?php
+// from todolist\Task
 // Each task has only 1 user assigned at a time
 'user_id' => [
     'type'           => 'many2one',
@@ -226,7 +203,7 @@ N-1 relation, generating an integer to identify the related one2many object
 
 1-N relation, related to a many2one object
 
-		foreign_object -> select amongst other classes
+		foreign_object -> 
 		foreign_field -> select amongst fields of other class
 				+ ability to create a new one (many2many) : temporary creation in one of both ways !
 		rel_table -> check amongst existing rel tables ({package}_rel_local_foreign or rel_foreign_local)
@@ -269,7 +246,7 @@ M-N relation
 	'function': any
 	result_type : select ('boolean', 'integer', 'float', 'string', 'text', 'html' )
 	store : boolean
-The 'computed' type doesn't exist directly inside the DB. 
+Computed fields are not stored in the DB, unless the `store` attribute is set to true.
 
 To get it,  we use the 'function' key, that will point at any function.
 
@@ -300,7 +277,7 @@ When trying to load a computed field,
 // ...
 
 
-public static function onupdateRights($om, $ids, $lang) {
+public static function onupdateRights($om, $ids, $values, $lang) {
     $om->update(__CLASS__, $oids, ['rights_txt' => null, $lang);
 }
 
@@ -334,12 +311,13 @@ public static function calcRightsTxt($om, $ids, $lang) {
 | **type**        | The type of field:  one of the value listed as <a href="#definition_field_types">fields types</a>. |
 | **usage**       | (string) Specifies additional information about the format of the field. |
 | **description** | (string) Brief about the field (max 65 chars).              |
-| **visible**     | (boolean \| array)                                           |
+| **visible**     | (optional, boolean \| array) [Domain](../architecture-concepts/domains.md) holding the conditions that must be met in order for the field to be relevant (and shown in UI). |
 | **default**     | (optional) (mixed) Tells how to get the default value of the field. Can be either a value (of the same type than the one target by `type`) or a callable (string). |
-| **readonly**    | (boolean)                                                    |
-| **required**    | (boolean)                                                    |
-| **multilang**   | (boolean) mark the field as translateable (default = false). |
-| **onupdate**        | (optional) string holding the name of the method to invoke when field is updated, with format : `package\Class::method` (method is in charge of updating fields that depends on current field)<br/>The signature of this method is: ```public static function onupdateName($orm, $oids, $lang) {}``` |
+| **readonly**    | (boolean) Marks the field as non-editable. (default = false) |
+| **required**    | (boolean) Marks the field as mandatory (trying to store an object without a value for that field raises error). (default = false) |
+| **multilang**   | (boolean) Marks the field as translatable (default = false). |
+| **onupdate**        | (optional, string) Name of the method to invoke when field is updated.<br />Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
+| **domain**  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation. |
 
 
 
@@ -351,30 +329,30 @@ public static function calcRightsTxt($om, $ids, $lang) {
 | - | -|-|
 | **string** |  | |
 |  | type        | Type of the field. Accepted types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*. |
-|              | multilang | (optional) boolean telling if current field can be translated (default value: false) [More info](i18n.md) |
-|              | selection | (optional). Value selected from a pre-defined list   <a href="#anchor">Example</a> |
+|              | multilang | (optional, boolean) Tells if field is [translatable](i18n.md) (default = false) |
+|              | selection | (optional, array) Pre-defined list or associative array holding the possible values for the field.   <a href="#anchor">Example</a> |
 | **alias** |  |  |
-|        | alias |(string) targets another field whose value must be returned when fetching the field value. By default, the `name`field is an alias for the `id` field|
+|        | alias |(string) Targets another field whose value must be returned when fetching the field value. By default, the `name`field is an alias for the `id` field.|
 | **many2one** |  |  |
-|     | foreign_object     | class toward which current field is pointing back |
-|     | ondelete | (default = null) |
+|     | foreign_object     | Full name of the class toward which field is pointing back. |
+|     | ondelete | Tells how to behave when the parent object is deleted.<br /><em>cascade</em>: delete the children  too.<br /><em>null</em> : void the pointer and keep the children. |
 | **one2many** |  |  |
-|     | foreign_object     | class toward which current field is pointing back |
-|     | foreign_field     | name of the field of the pointed class that is pointing back toward the current class        |
-|     | foreign_key     | (optional) field that serves as identifier for objects pointed by the relation (default value: 'id') |
-|     | order     | (optional) field on which pointed objects must be sorted |
-|     | sort     | (optional) direction fort sorting (possible values: 'asc', 'desc') |
-|     | ondetach |  |
+|     | foreign_object     | (string) Class toward which current field is pointing back. |
+|     | foreign_field     | (string) Name of the field of the pointed class that is pointing back toward the current class. |
+|     | foreign_key     | (optional, string) Name of the field that serves as identifier for objects pointed by the relation (default = 'id') |
+|     | order     | (optional) Name of the field pointed objects must be sorted on. |
+|     | sort     | (optional, string) direction fort sorting (possible values: 'asc', 'desc') |
+|     | ondetach | (string [null, delete]) Tells how to handle the children objects when the relation is removed: either set the pointer to `null` or `delete` the children objects. (default = null) |
 | **many2many** |  |  |
-|     | foreign_object     | class toward which is pointing the current field        |
-|     | foreign_field | name of the field of the pointed class that is pointing back toward the current class |
-|     | rel_table | name of the SQL table dedicated to the m2m relation (recommended syntax: `package_rel_class1_class2`) |
-|     | rel_local_key | name of the column in `rel_table` holding the identifier of the current object |
-|     | rel_foreign_key | name of the column in de `rel_table` holding the identifier of the pointed object |
+|     | foreign_object     | Full name of the class the relation points to. |
+|     | foreign_field | Name of the field of the pointed class that is pointing back toward the current class. |
+|     | rel_table | Name of the SQL table dedicated to the m2m relation (recommended syntax: `package_rel_class1_class2`) |
+|     | rel_local_key | Name of the column in `rel_table` holding the identifier of the current object. |
+|     | rel_foreign_key | Name of the column in de `rel_table` holding the identifier of the pointed object. |
 | **computed** |  |  |
 |  | result_type     | Specifies the type of the result returned by the field function, which can be any of the allowed types. |
 |     | store     | (optional) boolean telling if the result must be stored in database (in that case, the related table must contain a column for the field). By default, this attribute is set to **false**. |
-|     | function  | String holding the name of the method to invoke for computing the value of the field. Syntax: `method` (relative to current class) or `package\Class::method` (absolute notation) |
+|     | function  | String holding the name of the method to invoke for computing the value of the field.<br /> Syntax: `method` (relative to current class) or `package\Class::method` (absolute notation) |
 |              | multilang | (optional) boolean telling if field can be translated (default value: false). This applies only for stored fields. |
 
 
@@ -394,8 +372,6 @@ public static function calcRightsTxt($om, $ids, $lang) {
 
 
 
-
-
 ## System fields
 
 Some fields are mandatory, and defined in the `Model` class.
@@ -403,12 +379,13 @@ Some fields are mandatory, and defined in the `Model` class.
 | NAME     | TYPE           | ROLE                                                         |
 | -------- | -------------- | ------------------------------------------------------------ |
 | id       | integer        | Unique identifier of the object.                             |
-| name     | string         | Name to use when referring to the object (in views). By default, this field is an alias of  `id`. |
+| name     | string         | Name to use when referring to the object (in views). By default, this field is an alias of `id`. |
 | status   | string         | 'draft', 'instance', 'archive'                               |
 | created  | datetime       |                                                              |
 | creator  | foreign_object | `core\User`                                                  |
 | modified | datetime       |                                                              |
 | modifier | foreign_object | `core\User`                                                  |
+| deleted | boolean | Marks the object as soft-deleted.               |
 
 ## Overridable methods
 
