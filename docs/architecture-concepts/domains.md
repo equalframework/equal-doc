@@ -82,7 +82,7 @@ The complete domain syntax is :
 
 
 !!! note "Shortcut notations"
-    eQual accepts shortcut notations : `[operand, operator, value]` and `[[operand, operator, value]]` will both be interpreted as a domain with a single clause and a single condition.
+    eQual accepts shortcut notations : `[operand, operator, value]` and `[[operand, operator, value]]` (two pairs of square brackets) will both be interpreted as a domain with a single clause and a single condition.
 
 
 
@@ -113,7 +113,7 @@ $domain = [                                        // domain
 
 
 
-One advantage of using the array notation is that the syntax is (most of the time) the same in PHP controllers and in JSON views.
+One advantage of using the array notation is that the syntax is very similar in PHP controllers and in JSON views.
 
 ```php
 <?php
@@ -134,14 +134,18 @@ $domain = [
 
 
 
-Besides, domains can also be used in URL. In that situation, the syntax slightly varies.
+Domains can be used in URL (must be URL encoded).
 
 Example:
 ```http
 http://equal.local/?get=model_search&entity=core\User&domain=[[id,in,[1,2,3]]
 ```
 
+## References
 
+`object.`  
+`user.`  
+`date.`  
 
 
 

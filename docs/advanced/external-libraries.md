@@ -1,11 +1,9 @@
-## Use eQual with external libs
-
-### How to integrate external libraries ?
+## Using external libraries with eQual 
 
 
-eQual natively support the [PSR-4 standard](https://www.php-fig.org/psr/psr-4/)
+eQual supports the [PSR-4 standard](https://www.php-fig.org/psr/psr-4/) for autoloading.
 
-You can use composer to add to the `/vendor` folder located in the root folder of eQual installation.
+[Composer](https://getcomposer.org/) can be used to add dependencies inside the `/vendor` folder located in the root folder of eQual installation.
 
 Libraries that follow the PSR-4 standard can be loaded with a simple `use` statement. 
 For libraries that do not provide such support, simply use 'require' or 'include' as stated in the documentation of the library.
@@ -13,7 +11,7 @@ For libraries that do not provide such support, simply use 'require' or 'include
 
 ### Examples
 
-Here are a few examples : 
+Here below are a few examples showing how to embed various popular libraries.
 
 #### Twig - template engine
 
@@ -52,7 +50,7 @@ use Dompdf\Options;
 ```
 
 
-For libraries that do not support autoloading, it is still a good practive to store them in the `/vendor` folder, and then including them manually by using `include` or `require`:
+For libraries that do not support autoloading, it is still a good practice to store them in the `/vendor` folder, and then including them manually by using `include` or `require`:
 ```php
 <?php
 require_once '../vendor/swiftmailer/swiftmailer/lib/swift_required.php';

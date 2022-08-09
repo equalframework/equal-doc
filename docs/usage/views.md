@@ -180,7 +180,7 @@ The **header** section allows to override the default behavior of the view.
 
 ##### actions
 
-The actions property can be used : to force action buttons visibility; to define the order of the actions for buttons having multiple actions ("split buttons"); and to override the configuration of the subsequent Views (for relational fields).
+The actions property can be used for 3 purposes: to force action buttons visibility; to define the order of the actions for buttons having multiple actions ("split buttons"); and to override the configuration of the subsequent Views (for relational fields).
 
 * For **forms**, default actions are : `ACTION.EDIT`, `ACTION.SAVE`, `ACTION.CREATE`, `ACTION.CANCEL`
 * For **lists**, default actions are : `ACTION.SELECT`, `ACTION.CREATE`
@@ -218,7 +218,8 @@ Empty arrays or items set to false mean that the action is not available for the
                 {
                     "view": "form.create",
                     "description": "Overload form to use for objects creation.",
-                    "domain": ["parent_status", "=", "object.status"]
+                    "domain": ["parent_status", "=", "object.status"],
+                    "visible": ["admin", "in", "user.groups"]
                 }
             ],
             "ACTION.SELECT": false,

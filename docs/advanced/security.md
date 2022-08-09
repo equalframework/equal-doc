@@ -135,7 +135,7 @@ This file is the built-in "control tower" of eQual, and is located in **/lib/equ
 
 #### Custom security rules
 
-If you need custom security rules, you can also **overwrite AccessController** (at your own risks). This is particularly useful to establish future-proof settings, aswell as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
+If you need custom security rules, you can also **overwrite AccessController** (at your own risks). This is particularly useful to establish future-proof settings, as well as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
 
 
 

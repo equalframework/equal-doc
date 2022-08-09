@@ -44,9 +44,10 @@ User::search($search_domain);
 ```php
 <?php
 use core\User;
-MyObject::search(['firstname', 'ilike', '%ced%'])
-        ->from($params['offset'])
-        ->limit($params['limit'])
+
+User::search(['firstname', 'ilike', '%sam%'])
+        ->from(0)
+        ->limit(5)
         ->get();
 ```
 

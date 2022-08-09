@@ -177,7 +177,6 @@ Last line launches the following bash script within the container "localhost"
 ```bash
 php run.php --do=init_db
 php run.php --do=init_package --package=core
-php run.php --do=init_package --package=todolist
 ```
 
 > Note: if it returns a "wrong host" error, try to increase the sleep time to 20 or 30 sec. If it still doesn't work it means some config for apache is either missing or incorrect
@@ -188,7 +187,7 @@ php run.php --do=init_package --package=todolist
 
 [Travis CI](https://docs.travis-ci.com/) is a testing environment offering many options and compatibilities
 
-Configuration example (in YAML) for a **.travis.yml** file, running tests for a todo-list app running on eQual :
+Configuration example (in YAML) for a **.travis.yml** file, running basic tests for checking eQual installation integrity:
 
 ```yaml
 dist: xenial
@@ -217,18 +216,17 @@ script:
   - php run.php --do=init_db  
   # initialise database & demo data
   - php run.php --do=init_package --package=core
-  - php run.php --do=init_package --package=todolist
   # run test units
-  - php run.php --do=test_package --package=todolist
+  - php run.php --do=test_package --package=core
 ```
 
 
 
 ## BitBucket Pipelines
 
-[BitBucket](https://bitbucket.org/) has a built-in testing environment called Pipelines that relies on [Docker](https://www.docker.com/)
+[BitBucket](https://bitbucket.org/) has a built-in testing environment called Pipelines that relies on [Docker](https://www.docker.com/). 
 
-They have an amazing [tutorial to get started](https://support.atlassian.com/bitbucket-cloud/docs/get-started-with-bitbucket-pipelines/), as well as a [YAML validator](https://bitbucket-pipelines.prod.public.atl-paas.net/validator) with all the information you need
+They have an amazing [tutorial to get started](https://support.atlassian.com/bitbucket-cloud/docs/get-started-with-bitbucket-pipelines/), as well as a very handful [YAML validator](https://bitbucket-pipelines.prod.public.atl-paas.net/validator).
 
 Here is a minimal syntax example taken from their page about [build artifacts](https://support.atlassian.com/bitbucket-cloud/docs/publish-and-link-your-build-artifacts/) :
 
@@ -248,9 +246,8 @@ pipelines:
           - php run.php --do=init_db
           # initialise database with demo data
           - php run.php --do=init_package --package=core
-
           # run test units
-          - php run.php --do=test_package --package=equal --logs=true
+          - php run.php --do=test_package --package=core --logs=true
         services: 
           - mysql
 definitions: 
@@ -260,5 +257,53 @@ definitions:
       environment: 
         MYSQL_DATABASE: 'qinoa'
         MYSQL_ROOT_PASSWORD: 'test'
+```
+
+## CircleCI
+
+Configuration example (in YAML) for a **.config.yml** file, running basic tests for for checking eQual installation integrity:
+
+```yaml
+version: 2.1
+
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+    - image: php:7.3-apache
+    
+    - image: mysql:5.7
+      environment:
+        MYSQL_ROOT_PASSWORD: test
+        MYSQL_DATABASE: equal
+    
+    working_directory: ~/repo
+  
+    steps:
+      # install dependencies
+      - run: apt-get update && apt-get -y install git      
+      - run: docker-php-ext-install pdo pdo_mysql mysqli
+      - run: docker-php-ext-enable mysqli
+    
+      - checkout:
+          path: ~/repo
+      
+      # check that mandatory directories are present and have correct access rights set
+      - run: php run.php --do=test_fs-consistency
+      # check ability to connect to the dbms service
+      - run: php run.php --do=test_db-connectivity
+      # create an empty database 
+      - run: php run.php --do=init_db  
+      # initialise database with demo data
+      - run: php run.php --do=init_package --package=core --import=true
+      # run test units
+      - run: php run.php --do=test_package --package=core	  
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build
+
 ```
 

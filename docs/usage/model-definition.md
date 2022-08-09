@@ -243,7 +243,7 @@ M-N relation
 #### computed
 
 	type: 'computed'
-	'function': any
+	function: string holding name of a callable method
 	result_type : select ('boolean', 'integer', 'float', 'string', 'text', 'html' )
 	store : boolean
 Computed fields are not stored in the DB, unless the `store` attribute is set to true.
@@ -387,14 +387,21 @@ Some fields are mandatory, and defined in the `Model` class.
 | modifier | foreign_object | `core\User`                                                  |
 | deleted | boolean | Marks the object as soft-deleted.               |
 
+## Getters methods
+getName()
+getDescription()
+getType()
+getLink()
+getColumns()
+getConstraints()
+getUnique()
+
+
 ## Overridable methods
 
-onupdate
-
-ondelete
-
-canupdate
-
-candelete
+onupdate()
+ondelete()
+canupdate()
+candelete()
 
 ## Custom methods

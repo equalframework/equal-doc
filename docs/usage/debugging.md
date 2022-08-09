@@ -2,7 +2,7 @@
 
 
 
-## console
+## Console
 To help you with human-readable data, eQual comes with its own  UI debug console (which simply reads the `qn_error.log` located  in the `/log` directory)
 
 > Note: qn_error.log gets loads of information for each occuring event, so don't forget to delete that file from time to time if you don't want to end up with a few unused Mo of old logs. Especially if you're running a lot of tests
