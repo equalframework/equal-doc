@@ -43,7 +43,7 @@ So, use it your way.
 
 ## Sneak peek ?
 
-### Using PHP controllers
+### Controller
 `/packages/demo/data/simple.php`:
 
 ```php
@@ -68,7 +68,7 @@ echo run('get', 'demo_simple');
 ```
 
 
-### Using HTTP request
+### HTTP request
 
 `wget http://localhost/index.php?get=demo_simple`
 
@@ -80,7 +80,7 @@ echo run('get', 'demo_simple');
 > Body:  
 > This is a valid controller!
 
-### Using CLI
+### CLI
 ```bash
 $ ./equal.run --get=demo_simple
 ```

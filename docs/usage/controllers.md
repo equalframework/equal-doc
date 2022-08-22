@@ -1,12 +1,8 @@
 ## Introduction
 
-Controllers are everywhere and refer to every action involving data manipulation.
+Controllers allow to attach an URI to any action  involving data manipulation or to a data providers.
 
-They can acts as data funnels and dispatchers.
-
-But they're also involved in rights management: making sure the user performing a request has the required permissions
-
-
+They can also acts as data funnels and dispatchers.
 
 Controllers are re-usable and can be interdependent.
 
@@ -20,13 +16,16 @@ They are separated because they can achieve different kinds of operation/action'
 
 
 
+
+
+
+
 ## Announcement
 
 1) description
-
- * what it does
- * expected parameters and related characteristics
- * constraints, default value, optional or mandatory; type; name; description
+    * what it does
+    * expected parameters and related characteristics
+    * constraints, default value, optional or mandatory; type; name; description
 
 2) dependency injection services required by the script
 3) response format : content-type and content-disposition (charset)
@@ -45,26 +44,45 @@ They are separated because they can achieve different kinds of operation/action'
 
 ### access
 
+The access property allows to quickly define rights management: making sure the user performing a request has the required permissions
+
 
 | property   | description                                                  |
 | ---------- | ------------------------------------------------------------ |
-| visibility | The level of "visibility" of the ('public' or 'private').    |
+| visibility | The level of "visibility" of the ('public', 'protected' or 'private'). |
 | groups     | An array holding the list of groups the view is restricted to. |
 
 
 
-Example : 
+Examples : 
+
 
 ```
 'access' => [
-  'visibility'  => 'public',                 // 'public' (default) or 'private' (CLI only)
-  'users'       => [ROOT_USER_ID],           // list of users ids granted 
-  'groups'      => ['sales.bookings.users'], // list of groups ids or names granted 
+  'visibility'  => 'public'					// anyone can access the controller (anonymous users)
 ]
 ```
 
+```
+'access' => [
+  'visibility'  => 'protected',
+  'users'       => [ROOT_USER_ID],           // list of granted users ids  
+]
+```
+
+```
+'access' => [
+  'visibility'  => 'protected',
+  'groups'      => ['sales.bookings.users'], // list of granted groups names
+]
+```
 
 ### response
+
+The response property provides info about the format of the returned data (if any).
+
+It also allows to restrict the accepted origins of the requests (using CORS).
+
 ```
 'response' => [
   'content-type'    => 'application/json',

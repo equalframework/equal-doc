@@ -33,10 +33,11 @@ $ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plug
 
 ### Run the container
 
-Download the Docker compose file that uses the official equal Docker image : https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml
+Download the [Docker Compose file from github](https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml)
 
-And instantiate the stack by using the following command : 
+And instantiate the stack by using the following command :  
 Under Windows:
+
 ```
 $ docker compose up -d
 ```
@@ -62,8 +63,6 @@ or start a shell on the container :
 ```bash
 $ docker exec -ti equal.local /bin/bash
 ```
-
-
 
 
 
@@ -199,7 +198,9 @@ To make sure everything is setup properly, try to request the hello controller b
 You should get the simple output "hello universe". If not, review carefully the previous steps of the installation.
 
 
-#### Config file
+## Configuration
+
+### Config file
 
 eQual expects at least one config file in the `/config` directory (if no `config.inc.php` file is found , then `default.inc.php` is used).
 
@@ -223,7 +224,7 @@ define('DB_CHARSET',  'UTF8');
 
 
 
-## Database initialization
+### Database initialization
 
 You should now have a properly configured environment and be able to perform some operations calls.
 
@@ -263,7 +264,7 @@ $ ./equal.run --do=init_db
 
   	
 
-## Package  initialization
+### Package  initialization
 
 In order to be able to manipulate entities, the related package needs to be initialized (each package contains the class definition of its own entities).
 This can be done by using the `core_init_package` controller.
