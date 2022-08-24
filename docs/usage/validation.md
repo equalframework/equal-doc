@@ -26,13 +26,13 @@ The first property checked by the function is the **required** property.
 ```php
 <?php
 foreach($schema as $field => $def) {
-                // required fields must be provided and cannot be left/set to null
-                if( isset($def['required']) && $def['required'] && (!isset($values[$field]) || is_null($values[$field])) ) {
-                    $error_code = QN_ERROR_INVALID_PARAM;
-                    $res[$field]['missing_mandatory'] = 'Missing mandatory value.'; 
-                    trigger_error("QN_DEBUG_ORM::mandatory field {$field} is missing for instance of {$class}", QN_REPORT_WARNING); // Error Message
-                }
-            }
+    // required fields must be provided and cannot be left/set to null
+    if( isset($def['required']) && $def['required'] && (!isset($values[$field]) || is_null($values[$field])) ) {
+        $error_code = QN_ERROR_INVALID_PARAM;
+        $res[$field]['missing_mandatory'] = 'Missing mandatory value.'; 
+        trigger_error("QN_DEBUG_ORM::mandatory field {$field} is missing for instance of {$class}", QN_REPORT_WARNING);
+    }
+}
 ```
 
 The function checks if the field is required (can't be *null*) and if it is, it must have a value, otherwise, an error is sent to the User.
@@ -104,7 +104,7 @@ case 'string':
 
 #### getUnique()
 
-Provide the list of unique rules (array of combinations of fields).
+Provides the list of unique rules (array of combinations of fields).
 
 If the rules aren't followed, an error is sent.
 

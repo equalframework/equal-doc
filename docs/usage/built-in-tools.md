@@ -18,17 +18,43 @@ This page lists an inventory of available scripts, grouped by category.
 
 ## Installation & Config utilities
 
-- **?do=test_db-connectivity** (Tests connectivity to the DBMS server.)
-- **?do=test_db-access** (Tests access to the database.)
 
-- **?do=test_fs-consistency** (Checks current installation directories integrity)
+#### `db-connectivity`
 
-### Init a database
-Creates a database using the details provided in config file (**CLI**).
+| **PATH**        | `core\actions\test\db-connectivity.php`                      |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=test_db-connectivity`                                   |
+| **CLI**         | `$ ./equal.run --do=test_db-connectivity`                    |
+| **DESCRIPTION** | Tests connectivity to the DBMS server (check if we're able to establish a TCP/IP connection). |
 
-```bash
-$ ./equal.run --do=init_db
-```
+
+
+#### `db-access`
+
+| **PATH**        | `core\actions\test\db-access.php`                            |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=init_db`                                                |
+| **CLI**         | `$ ./equal.run --do=init_db`                                 |
+| **DESCRIPTION** | Tests access to the database specified in the config file. This controller uses db-connectivity before trying to access the database. |
+
+
+
+#### `fs-consistency`
+
+| PATH            | `core\actions\test\fs-consistency.php`                       |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=test_fs-consistency`                                    |
+| **CLI**         | `$ ./equal.run --do=test_fs-consistency`                     |
+| **DESCRIPTION** | Checks current installation directories integrity. The controller checks if all mandatory directories are present, and if their permissions allow the apache process to read/write as required. |
+
+
+
+#### `init_db`
+|**PATH**|`core\actions\init\db.php`|
+|-|-|
+|**URL**|`?do=init_db`|
+|**CLI**|`$ ./equal.run --do=init_db`|
+|**DESCRIPTION**|Creates a database using the details provided in config file. This controllers calls db-connectivity and if connection can be established with the host, it requests the creation of the database, if it does not exist yet.|
 
 
 
@@ -92,19 +118,9 @@ Inside the`"packages/core/data/model"`folder :
 
 ## Rights management utilities
 
-Available rights: 
+Available rights are : create, read, update, delete, manage
 
-- create 
-
-- read
-
-- update
-
-- delete
-
-- manage
-
-Inside the `eq.lib.php`file :
+Definitions can be found inside  `eq.lib.php` :
 
 ```php
 <?php
