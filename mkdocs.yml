@@ -2,8 +2,8 @@ site_name: eQual framework documentation
 site_url: https://doc.equal.run/
 docs_dir: docs
 # dev_addr: 127.0.0.1:8000
-repo_name: equal-framework
-repo_url: https://github.com/cedricfrancoys/equal-framework
+repo_name: equal
+repo_url: https://github.com/cedricfrancoys/equal
 edit_uri: ""
 theme:
   name: material
@@ -31,6 +31,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.mark
+  - pymdownx.details
   - pymdownx.smartsymbols
   - pymdownx.superfences
   - pymdownx.tasklist:
@@ -39,18 +40,21 @@ markdown_extensions:
 nav:
   - 'Welcome':
       - 'Prologue': 'index.md'
-      - 'Release notes': 'welcome/release-notes.md'
+      # - 'Release notes': 'welcome/release-notes.md'
       - 'Contribution Guide': 'welcome/contribution-guide.md'
   - 'Getting Started':
       - 'Installation': 'getting-started/installation.md'
       - 'Quick Start': 'getting-started/quick-start.md'
       - 'Configuration': 'getting-started/configuration.md'
-      - 'Deployment': 'getting-started/deployment.md'
+      # - 'Deployment': 'getting-started/deployment.md'
   - 'Architecture Concepts':
       - 'HTTP native': 'architecture-concepts/http-native.md'
       - 'Services': 'architecture-concepts/services.md'
-      - 'Dependency injection': 'architecture-concepts/dependency-injection.md'
       - 'ORM': 'architecture-concepts/orm.md'
+      - 'Collections': 'architecture-concepts/collections.md'      
+      - 'Dependency injection': 'architecture-concepts/dependency-injection.md'      
+      - 'Domains': 'architecture-concepts/domains.md'
+      - 'Operations': 'architecture-concepts/operations.md'      
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
      - 'Directory Structure': 'usage/directory-structure.md'
@@ -66,9 +70,9 @@ nav:
      - 'Debugging': 'usage/debugging.md'
      - 'Testing': 'usage/testing.md'
   - 'How-Tos & Examples':
-      - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'
-      - 'Basic Controller' : 'howtos-and-examples/basic-controller.md'
-      - 'ReST API': 'howtos-and-examples/rest-api.md'
+     - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'
+     - 'Basic Controller' : 'howtos-and-examples/basic-controller.md'
+     - 'ReST API': 'howtos-and-examples/rest-api.md'
   - 'Advanced':
      - 'Security': 'advanced/security.md'
      - 'Logging': 'advanced/logging.md'

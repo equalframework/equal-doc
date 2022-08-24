@@ -1,3 +1,5 @@
+# Dependency injection
+
 Located in the folder: `data/utils/` ->
 
 ```php
@@ -23,13 +25,12 @@ list($params, $providers) = announce([
 For instance, here is how the Access controller and Authentication manager can be overridden:
 
 ```php
+<?php
   'providers' => [
 	'auth'   => custom\AuthenticationManager,
 	'access'  => custom\AccessController
   ]
 ```
-
-
 
 
 

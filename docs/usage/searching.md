@@ -1,23 +1,66 @@
 # Searching
 
-### Domains
-**About domain syntax**
+Searching is handled by the ORM, which offers a `search()` method, and can be performed either through a Collection or using the ObjectManager service. 
 
-Domain syntax is : array( array( array(operand, operator, operand)[, array(operand, operator, operand) [, ...]]) [, array( array(operand, operator, operand)[, array(operand, operator, operand) [, ...]])])
+The `search` method returns a list of objects identifiers of the targeted class.
 
-It is an array of several series of clauses joined by logical AND clauses themselves joined by logical OR clauses (disjunctions of conjunctions).
+* that list of identifiers can then be used for reading values of the filtered objects;
+* additional parameters (order, sort, start, limit) allow to refine the search behavior.
 
- i.e.: (clause[, AND clause [, AND ...]]) [ OR (clause[, AND clause [, AND ...]]) [ OR ...]]
+In order to search amongst existing objects, the `search` method  uses a  `domain` argument describing the search criteria.
 
-* accepted operators are : '=', '<', '>',' <=', '>=', '<>', 'like' (case-sensitive), 'ilike' (case-insensitive), 'in', 'contains'
+###### 
 
-* example : array( array( array('title', 'like', '%foo%'), array('id', 'in', array(1,2,18)) ) )
+!!! note "About domains"
+    To understand or learn more about domains, please refer to the  [`domain`](../architecture-concepts/domains.md)  section.
 
-* Other example : http://equal.local/?get=model_search&entity=core\User&domain=[[[id,=,1],[firstname,=,Thomas]]]
-
-  
-
-There are a few other parameters : order, sort, start & limit. All the info can be found inside the file : "search.php".
+![searching.drawio](C:\Users\Jean\Documents\searching.drawio.png)
 
 
 
+### ORM search
+
+In classes, searching can be invoked by calling the ObjectManager service. 
+
+#### signature
+
+```
+public function search($class, $domain=NULL, $sort=['id' => 'asc'], $start='0', $limit='0', $lang=DEFAULT_LANG)
+```
+
+
+
+#### usage
+
+Example:
+
+```php
+$orm->search('core\User', ['login', '=', $login])
+```
+
+
+
+### Collection search
+
+In controllers, searching can be invoked either by calling the ObjectManager service or through a collection. 
+
+#### signature
+
+```
+public function search(array $domain=[], array $params=[], $lang=DEFAULT_LANG)
+```
+
+
+
+#### usage
+Example:
+
+```php
+<?php
+use core\User;
+
+User::search( [
+				['login', 'like', '%john%'],
+				['validated', '=', 'true']				
+			] );
+```

@@ -1,8 +1,8 @@
-# Create your REST API
+# Creating a ReST API
 
-This section covers how to make a REST API from scratch and consume it in any App (Web or Mobile).
+This section covers how to make a ReST API from scratch and consume it in any App (Web or Mobile).
 
-If you're not familiar with REST concepts, see [this great explanation](https://www.infoq.com/articles/rest-introduction/).
+If you're not familiar with ReST concepts, see [this great explanation](https://www.infoq.com/articles/rest-introduction/).
 
 
 
@@ -15,9 +15,7 @@ If you look at the **Directory structure**, you'll get a good idea of what comes
 Each of those folders correspond to a specific role :
 
 > /actions	=	method DO (post, put/patch, delete, ...)
->
 > /data		= 	method GET (fetching data from server)
->
 > /classes	=	class definition & DB architecture
 
 Go ahead and create them in your package directory (ex: */public/packages/todolist/*)
@@ -26,7 +24,7 @@ Go ahead and create them in your package directory (ex: */public/packages/todoli
 
 ## Defining classes
 
-Inside foler `/classes` create a new PHP file for each class you want to declare.
+Inside folder `/classes` create a new PHP file for each class you want to declare.
 
 To continue with our previous todolist-app example, we'll create two classes: Task and User.
 
@@ -191,7 +189,7 @@ As easy as that. You now have a REST response that you can use in any frontend p
 
 ## Defining DO
 
-Open **/actions**, and create a new folder for each class you defined previously. Here is an example :
+in **/actions** folder, create a sub-folder for each previously defined class, as follow :
 ```
 /public
 	/packages
@@ -278,7 +276,7 @@ DO : CREATE
 http://equal.local/index.php?do=todolist_task_create&title=my+task&content=lorem+ipsum&user_id=1
 ```
 
-Equal-framework does the work of reading ```?do=todolist_task_create``` as ```/todolist/actions/task/create.php```
+eQual resolves the operation `?do=todolist_task_create` to the script `/todolist/actions/task/create.php`
 
 
 
@@ -352,7 +350,7 @@ http://equal.local/index.php?do=todolist_task_update&id=1
 ```
 
 * id refers to the task we update
-* Additionnal parameters can be used, like title, content, dealine and user_id
+* Additional parameters can be used, like title, content, dealine and user_id
 
 
 
@@ -398,7 +396,7 @@ id= refers to the task we delete
 
 
 
-## Finalizing the REST API
+## Mapping the ReST API routes
 
 Back to the root folder of equal installation, create a file: **/config/routing/20-api_todolist.json**
 

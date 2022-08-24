@@ -142,7 +142,10 @@ $tests = [
         'expected'      =>  [],	// expected result of 'test'
         'test'          =>  function(){
             					// testing goes here
-                            }
+                            },
+        'assert'		=> function($assertion){
+            					// Checks if assertion is false
+        }
     ],
     // working example
     '0002' => [
@@ -152,7 +155,10 @@ $tests = [
         'test'          =>  function(){
             					$test_value = "test"
             					return $test_value;
-                            }
+                            },
+        'assert'		=> function($assertion){
+            					// Checks if assertion is false
+        }
     ],
 	// [...] add as many as you want!
 ]
@@ -220,7 +226,7 @@ Store the 'test' function results in $result, and tell $status = 'ok' by default
 
 Cascading logic :
 
-- **(1)** If $result and 'return' value are respectively inside an array (if 'return' isn't, do so automatically)
+- ###### **(1)** If $result and 'return' value are respectively inside an array (if 'return' isn't, do so automatically)
 - **(2)** If the 'expected' field has been set. If not, **(3)** Check if there is an 'assert' field available
 - **(4)** If the type of $result is the same as 'return'
 - **(5)** If $result is of type "array", **(6)** Call the array_equals() method to verify if $result and 'expected' are identical. If not, **(7)** Use a simpler logic to do the verification

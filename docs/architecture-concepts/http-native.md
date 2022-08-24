@@ -1,7 +1,16 @@
-eQual complies with HTTP standard (so it is ready to be used in a RESTful API context) and analyzes HTTP messages to route client requests to the appropriate controller.
+# HTTP native
+
+eQual complies with HTTP standards : it natively analyzes HTTP messages to route client requests to the appropriate controller and outputs resulting data as an HTTP response.
+
+It can be seamlessly used in both CLI or ReSTful API context.
 
 
 
+The following schema uses number lists, representing the order in which the elements happen.
+
+
+
+![http-request.drawio](C:\Users\Jean\Documents\http-request.drawio.png)
 
 ## Controllers
 
@@ -11,17 +20,19 @@ Controllers are nothing more than regular PHP scripts.
 
 Here is an example of a minimalist controller:
 
-```
+```php
 <?php
 echo "Hello World";
 ```
-When invoked, this controller will produce following HTTP response :
+When invoked, this controller produces the following HTTP response :
 ```
 HTTP/1.1 200 OK
 Server: Apache/2.2.14
-Content-Length: 11
 Content-Type: text/html
 Connection: Closed
+Content-Length: 11
+
+Hello World
 ```
 
 
@@ -43,7 +54,7 @@ GET http://equal.local/?get=demo_simple
 CLI command
 
 ```bash
-$> ./equal.run --get=demo_simple
+$ ./equal.run --get=demo_simple
 ```
 
 PHP script
@@ -61,7 +72,7 @@ A controller invocation consists of two parts:
     * `key` must be one of the following : 
         * **GET** some data (`/?get=...`)
         * **DO** something (`/?do=...`)
-        * **SHOW** an App (`/?show=...`)
+        * **SHOW** some formatted content (`/?show=...`)
     * `value` specifies the name of the **package** to be invoked (must be the name of a subfolder of the `packages` directory), as well as the **script** to be called(a package may have several scripts - stored in the subfolders `action`, `data`, or `apps`)
 * The second part is either the body or a series of parameters
 
@@ -81,7 +92,7 @@ If no controller matches the received request, a response with a 404 status is r
 Example:
 
 http://equal.local/?do=foo
-```
+```JSON
 {
     "errors": {
         "UNKNOWN_OBJECT": "Unknown ACTION_HANDLER (do) public:foo"

@@ -1,49 +1,59 @@
-# CRUD syntax
+# CRUD manipulations
 
-To get an overview on CREATE, READ, UPDATE, DELETE commands, see [*Building a REST API*](../howtos-and-examples/rest-api.md)
+eQual implements Collections with special `Collection` objects that are instanciated based on a given model.
 
-The following examples show the **minimal** syntax required to operate CRUD commands in a database
+Collections give the ability to apply an action on multiple objects at a time while checking the permission of the current user (returned by the `Authentication` service).
 
-> Note: an additional "language" parameter is used for fields with multilang enabled. See [i18n](i18n.md) for more information
+To get an overview on CREATE, READ, UPDATE, DELETE commands, see [*Building a REST API*](../howtos-and-examples/rest-api.md).
+
+The following examples show the minimal syntax required to operate CRUD manipulations:
+
+!!! note "multilang fields"
+	For fields whose value varies from one language to another (multilang), an additional `$lang` parameter is used. See [i18n](i18n.md) for more information.
 
 CREATE :
 
 ```php
-MyObject::create($values_map);
+<?php
+User::create($values_map);
 ```
 
 READ :
-
 ```php
-MyObject::read($fields_array);
+<?php
+User::read($fields_array);
 ```
 
 UPDATE :
-
 ```php
-MyObject::ids($ids_array)
-    	->update($values_map);
+<?php
+User::ids($ids_array)
+    ->update($values_map);
 ```
 
 DELETE :
-
 ```php
-MyObject::ids($ids)
-    	->delete(true);
+<?php
+User::ids($ids)
+    ->delete(true);
 ```
 
 SEARCH:
-
 ```php
-MyObject::search($search_domain);
+<?php
+User::search($search_domain);
 ```
 
 **Example** :
 
 
 ```php
-MyObject::search(['firstname', 'ilike', '%ro%'])
-		->from($params['offset'])
-		->limit($params['limit']);
+<?php
+use core\User;
+
+User::search(['firstname', 'ilike', '%sam%'])
+        ->from(0)
+        ->limit(5)
+        ->get();
 ```
 
