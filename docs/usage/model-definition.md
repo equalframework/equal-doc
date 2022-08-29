@@ -49,7 +49,7 @@ class Category extends Model {
 
 Objects are grouped into classes that define the structure and methods of those objects. 
 
-Classes definitions from a same package are placed into the folder //packages/[package_name]/classes//.
+Classes definitions from a same package are placed into the folder `//packages/[package_name]/classes//.`
 
 Here is an example of the class definition syntax :
 ```php
@@ -112,7 +112,7 @@ The following types are supported by the ObjectManager :
 * `alias`
 
 !!! note "usage property"
-	The `usage` property is complementary to the `type` property and allows to refine the way the field should be handled by the ORM and the DBBMS, and how it should be rendered in the UI. 
+	The `usage` property is complementary to the `type` property and allows to refine the way the field should be handled by the ORM and the DBMS, and how it should be rendered in the UI. 
 	
 
 
@@ -171,7 +171,7 @@ will be stored as `VARCHAR(20)`.
 
 #### text
 
-By default, texts are stored in DMBS using `text`.
+By default, texts are stored in DMBS as `text`.
 
 The TEXT data type has a size of string characters upto 65,535 bytes to manage classic long-form contents of the text.
 
@@ -186,7 +186,7 @@ This behavior can be set using the `FILE_STORAGE_MODE` and `FILE_STORAGE_DIR` co
 
 #### file
 
-A file value is stored in the DB (like binaries) as a `longblob`.
+A file value is stored in the DB (like binaries) as a `LONGBLOB`.
 
 
 #### date, time & datetime
@@ -334,7 +334,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 | **readonly**    | (boolean) Marks the field as non-editable (default = false). |
 | **required**    | (boolean) Marks the field as mandatory (trying to store an object without a value for that field raises error) (default = false). |
 | **multilang**   | (boolean) Marks the field as translatable (default = false). |
-| **onupdate**        | (optional, string) Name of the method to invoke when field is updated.<br />Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
+| **onupdate**        | (optional, string) Name of the method to invoke when field is updated.<br/>Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
 | **domain**  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation. |
 
 
@@ -376,6 +376,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 <a name="anchor">Example of a basic field using the `selection` attribute:</a> 
 
 ```php 
+<?php
 'fieldname' => [
     'type'      => 'string',
     'selection' => [
@@ -413,7 +414,7 @@ Some fields are mandatory, and defined in the `Model` class.
 - `getUnique()` (Provide the list of unique rules (array of combinations of fields))
 - `getFields()` (Returns all fields names) 
 - `getValues()` (Returns values of static instance)
-- `getDefaults()` 
+- `getDefaults()` (Return default values)
 - `getTable()` (Return the name of the DB table to be used for storing objects of current class)
 
 

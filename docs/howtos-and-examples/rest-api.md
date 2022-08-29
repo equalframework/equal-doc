@@ -154,6 +154,7 @@ Then **$list** is where we receive the data from our query :
 Finally, **$context** is used to accomplish REST's purpose, displaying the data on our browser as JSON
 
 ```php
+<?php
 $context
     ->httpResponse()// get the HTTP response being built
     ->body($list)	// populate the body with resulting list
@@ -398,7 +399,7 @@ id= refers to the task we delete
 
 ## Mapping the ReST API routes
 
-Back to the root folder of equal installation, create a file: **/config/routing/20-api_todolist.json**
+Back to the root folder of equal installation, create a file: **`/config/routing/20-api_todolist.json`**
 
 Replace everything with this :
 
@@ -431,4 +432,4 @@ Replace everything with this :
 
 What it does is pretty self-explanatory. The **/:id** is a way for us to target and retrieve a single task when needed.
 
-From now on, route  `http://equal.local/tasks` is equivalent to calling ` http://equal.local/?get=todolist_tasks`
+From now on, route  `http://equal.local/tasks` is equivalent to calling ` http://equal.local/?get=todolist_tasks`.

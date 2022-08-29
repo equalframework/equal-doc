@@ -40,7 +40,7 @@ Array containing values used by the controller, which may be required.
 
 ### access
 
-The access property allows to quickly define rights management: making sure the user performing a request has the required permissions
+The access property allows to quickly define rights management: making sure the user performing a request has the required permissions.
 
 
 | property   | description                                                  |
@@ -53,20 +53,23 @@ The access property allows to quickly define rights management: making sure the 
 Examples : 
 
 
-```
+```php
+<?php
 'access' => [
   'visibility'  => 'public'					// anyone can access the controller (anonymous users)
 ]
 ```
 
-```
+```php
+<?php
 'access' => [
   'visibility'  => 'protected',
   'users'       => [ROOT_USER_ID],           // list of granted users ids  
 ]
 ```
 
-```
+```php
+<?php
 'access' => [
   'visibility'  => 'protected',
   'groups'      => ['sales.bookings.users'], // list of granted groups names
@@ -79,7 +82,8 @@ The response property provides info about the format of the returned data (if an
 
 It also allows to restrict the accepted origins of the requests (using CORS).
 
-```
+```php
+<?php
 'response' => [
   'content-type'    => 'application/json',
   'charset'         => 'utf-8',
@@ -94,5 +98,6 @@ List of the different providers/services needed by the controller.
 Example: 
 
 ```php
- 'providers'   => ['context', 'orm' , 'auth']     //'orm'= ObjectManager & 'auth'=AuthentificationManager
+<?php 
+'providers'   => ['context', 'orm' , 'auth']     //'orm'= ObjectManager & 'auth'=AuthentificationManager
 ```

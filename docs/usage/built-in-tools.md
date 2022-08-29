@@ -40,10 +40,18 @@ Consistency checks between DB and class as well as syntax validation for classes
 
 
 ```bash
-$ ./equal.run --do=test_package-consistency --package=core
+$ ./equal.run --do=test_package-consistency --package=core --level=warn
 ```
 
+> The level property has 3 options : 
+>
+> - **'error'** (ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`)
+> - **'warn'** (ex: `WARN  - I18 - Unknown field 'object_class' referenced in file "packages\/core\/i18n\/en\/alert\MessageModel.json"`
+> - ***** (error & warn).
+
 ### Run package test cases
+
+The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](./testing.md))
 
 ```bash
 $ ./equal.run --do=test_package --package=core
@@ -104,7 +112,7 @@ Available rights:
 
 - manage
 
-Inside the `eq.lib.php`file :
+They are also defined inside the `eq.lib.php`file with a value attached :
 
 ```php
 <?php
@@ -119,9 +127,9 @@ Inside the `eq.lib.php`file :
     define('QN_R_MANAGE',   16);
 ```
 
-Example :
+**Use** :
 
-Those values are used inside `Permission.class.php`on the `rights`field.
+Those values are used, for example, inside `Permission.class.php`on the `rights`field.
 
 ```php
 <?php

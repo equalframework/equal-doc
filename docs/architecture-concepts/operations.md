@@ -7,6 +7,7 @@ In eQual, there exists two types of operators:
 #### 1) unary operators
 
 ```php
+<?php
 /**
      * Unary Operators a single operand (either a single value, or a field reference [array of values])
      * @var array
@@ -17,6 +18,7 @@ In eQual, there exists two types of operators:
 #### 2) binary operators 
 
 ```php
+<?php
 /**
      * Operators that take two operands (each operand can be an Operation, a single value, or a field reference [array of values])
      * @var array
@@ -37,7 +39,7 @@ In eQual, there exists two types of operators:
 
 In the charts views, if we want to display the **`SUM`**(unary operator) of a specific field : 
 
-```php
+```json
 "layout": {
         "entity": "lodging\\sale\\booking\\BookingLine",
         "group_by": "range",

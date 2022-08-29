@@ -9,7 +9,7 @@ The `search` method returns a list of objects identifiers of the targeted class.
 
 In order to search amongst existing objects, the `search` method  uses a  `domain` argument describing the search criteria.
 
-###### 
+
 
 !!! note "About domains"
     To understand or learn more about domains, please refer to the  [`domain`](../architecture-concepts/domains.md)  section.
@@ -24,7 +24,8 @@ In classes, searching can be invoked by calling the ObjectManager service.
 
 #### signature
 
-```
+```php
+<?php
 public function search($class, $domain=NULL, $sort=['id' => 'asc'], $start='0', $limit='0', $lang=DEFAULT_LANG)
 ```
 
@@ -35,6 +36,7 @@ public function search($class, $domain=NULL, $sort=['id' => 'asc'], $start='0', 
 Example:
 
 ```php
+<?php
 $orm->search('core\User', ['login', '=', $login])
 ```
 
@@ -46,7 +48,8 @@ In controllers, searching can be invoked either by calling the ObjectManager ser
 
 #### signature
 
-```
+```php
+<?php
 public function search(array $domain=[], array $params=[], $lang=DEFAULT_LANG)
 ```
 

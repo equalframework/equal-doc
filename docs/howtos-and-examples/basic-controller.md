@@ -4,19 +4,19 @@ The controllers are usually seperated in three different directories: **"Data, A
 
 - In the folder Data, we will be **Fetching**  the data, **method GET**.
 
-> Example :  /core/data/model/search.php**.
+> Example :  `/core/data/model/search.php`.
 >
 > The controller "Search" => "Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order."
 
 - In the folder Actions, we will be modifying the data, **method DO (Post, Put, Delete)**. 
 
-> Example : **/core/actions/model/create.php**.
+> Example : **`/core/actions/model/create.php`**.
 >
 > The controller "Create" => "Create a new object using given fields values."
 
 - In Apps, we will be **showing an APP/UI**, with different types of content.
 
-> Example : **/core/apps/model/controllers.php**.
+> Example : **`/core/apps/model/controllers.php`**.
 >
 >  The controller "Controllers" => "UI for browsing controllers and their definition amongst packages."  
 
@@ -32,7 +32,7 @@ Let's go a bit more into details...
 
 We will use the above example, to make it easier.
 
-Let's open  **/core/data/model/search.php**.
+Let's open  **`/core/data/model/search.php`**.
 
 ```php
 <?php
@@ -193,7 +193,7 @@ As easy as that. You now have a REST response that you can use in any frontend p
 
 ## Actions Controllers
 
-Let's open  **/core/actions/model/create.php**.
+Let's open  **`/core/actions/model/create.php`**.
 
 **Controller**: 
 
@@ -280,7 +280,7 @@ If we type in the browser :
 ?do=model_create&entity=core\User&fields[login]=vygern8@gmail.com&fields[password]=test3333
 ```
 
-> The login and the password are **required** from the User class ('core/classes/User.class.php')
+> The login and the password are **required** from the User class (`'core/classes/User.class.php'`)
 >
 > Equal-framework does the work of reading ```?do=model_create``` as ```/core/actions/model/create.php```
 

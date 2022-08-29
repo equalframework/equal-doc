@@ -1,14 +1,22 @@
 # Router 
 
-Structure  :	URI -> operation
+The Router `equal/route/Router.class.php` class handles routes located inside the `config/routing`folder.
+
+Structure of a route  :	URI -> operation
 
 Reserved parameters :
 
 - get
+
 - do
+
 - show
+
 - route
+
 - announce
+
+  
 
 routing to scripts
 
@@ -20,9 +28,23 @@ routing to scripts
 
 ## Creating Routes
 
-Inside the `config/routing` directory, you have the possibility to build your own routes.
+Inside the `config/routing` directory, you have the possibility to build your own routes. 
 
-There are already a few default routes built, to get the users and groups.
+The expected route structure :
+
+```json
+	{
+ *      method:         string      HTTP method, example: "GET", "POST", "PUT", "DELETE"
+ *      path:           string      full path of the requested URI
+ *      parts:          array       array of parts composing the path
+ *      operation:      string      the operation the URI resolves to 
+ *      params:         array       map of parameters names as keys, related to their values
+ *  }
+```
+
+
+
+There are a few default routes built in eQual, to get the users and groups.
 
 **Example**  : 
 

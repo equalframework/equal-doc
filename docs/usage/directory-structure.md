@@ -1,3 +1,7 @@
+
+
+
+
 # Directory structure
 
 To understand the framework, here is what you need to know about its folders
@@ -56,9 +60,9 @@ The entry point of every project, you'll find **index.php** as well as the **pac
 
 ## config
 
-​	**default.inc.php**, to configure your database and other parameters
+​	**`default.inc.php`**, to configure your database and other parameters
 
-​	**config-example.inc.php**, rename it as `config.inc.php` to use custom configuration
+​	**`config-example.inc.php`**, rename it as `config.inc.php` to use custom configuration
 
 ## lib
 
@@ -70,26 +74,12 @@ The entry point of every project, you'll find **index.php** as well as the **pac
 
 
 
-
-
 ## Packages
 
 An application is divided in several parts, stored in a package folder located under the `/packages` directory.
 Each package might contain the following folders (underlined folders are mandatory).
 
-| Folder| Role | URI key   |  Examples           |
-|-|-|-|-|
-| **__classes__**    | model          |                  | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
-| **__apps__**       | user interface (view) | show       | core_manage, core_utils |
-| **actions**    | action handler (controller) | do       | core_manage, core_utils |
-| **data**    | data provider | get       | core_objects_browse, core_user_lang |
-| **__views__**    | templates |        |  |
-| **i18n**    | translations |        |  |
-| **assets** | static html |        | static content, javascripts, stylesheets, images |
-
-
-
-​	Each **package** is defined as follows :
+Each **package** is defined as follows :
 
 ```
 package_name
@@ -114,4 +104,20 @@ package_name
 ├── config.inc.php
 └── readme.md
 ```
+
+
+
+| Folder| Role | URI key   |  Examples           |
+|-|-|-|---|
+| **__classes__**    | model          |                  | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
+| **actions**    | action handler (controller) | do       | core_manage, core_utils |
+| **__apps__**       | user interface (view) | show       | core_manage, core_utils |
+| **data**    | data provider | get       | core_objects_browse, core_user_lang |
+| **test**    | test units | do | `default.php` |
+| **init**    | initialize the package with data (**requires**:`import=true`) or routes | do | `core_Group.json` |
+| **__views__**    | templates |        | `User.form.default.json`, `User.list.default.json` |
+| **i18n**    | translations |        | `User.json` |
+| **assets** | static html |        | static content, javascripts, stylesheets, images |
+
+
 

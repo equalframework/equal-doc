@@ -3,9 +3,9 @@
 
 
 ## Console
-To help you with human-readable data, eQual comes with its own  UI debug console (which simply reads the `qn_error.log` located  in the `/log` directory)
+To help you with human-readable data, eQual comes with its own  UI debug console (which simply reads the `qn_error.log` located  in the `/log` directory).
 
-> Note: qn_error.log gets loads of information for each occuring event, so don't forget to delete that file from time to time if you don't want to end up with a few unused Mo of old logs. Especially if you're running a lot of tests
+> Note: qn_error.log gets loads of information for each occuring event, so don't forget to delete that file from time to time if you don't want to end up with a few unused Mo of old logs. Especially if you're running a lot of tests.
 
 To access it from the browser:
 
@@ -28,9 +28,9 @@ An other **example**, if I did the request :
 http://[localhost]/?get=model_collect
 ```
 
-The built-in responses, usually arleady give some informations about the error :
+The built-in responses, usually already give some informations about the error :
 
-```
+```json
 "errors": {
         "MISSING_PARAM": "entity"
     }

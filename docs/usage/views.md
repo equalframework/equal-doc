@@ -513,7 +513,7 @@ Each item is an object accepting the following properties :
 |--|--|
 |**label**|(optional) Default label|
 |**type**||
-|**value**||
+|**value**|value of the field|
 |**width**|width, in percentage of the parent column width.|
 |**visible**|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
 |**domain**|(optional) (ex. `["type", "<>", "I"]`)|
@@ -547,7 +547,7 @@ Some additional properties apply only to specific field types. Here is the full 
 
 **Example:**
 
-```
+```json
 "widget": {
     "header": {
         "actions": {
@@ -1022,6 +1022,18 @@ Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 
 
 
+### access
+
+Groups and users with the permission to see the content of the view.
+
+Example :
+
+```json
+"access": {
+        "groups": ["booking.default.user"]
+     },
+```
+
 ## Print views
 
 
@@ -1131,14 +1143,131 @@ In the example shown below, one parent menu item is present named "New Booking" 
 }
 ```
 
+
+
 ## Dashboard Views
 
-<<<<<<< HEAD
+Dashboard views are control panels, opening the possibility to show multiple views on the same page.
 
-* **domain**: array (definition of the filter to apply)
-* **sort**: string (name of the field to sort results on)
-* **order**: string ('*desc*' or '*asc*')
-* **limit**: integer (max size of result set)
+The following example displays 4 different views to simplify the management of informations.
+
+| Property        | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| **id**          | Identifier of the item (used for translations).              |
+| **label**       | Title of the item to display within the menu.                |
+| **description** | (optional) Short string explaining the purpose of the item (the view it leads to). |
+| **width**       | Width of the field.                                          |
+| **type**        | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
+| **entity**      | Entity to which relates the view to show.                    |
+| **view**        | ID of the view to use for showing the targeted entities.     |
+| **domain**      | (optional) Domain to apply to specified view.                |
+
+
+```json
+{
+    "name": "Main dashboard",
+    "description": "",
+    "layout": {
+        "groups": [
+			{
+                "label": "test",
+                "height": "100%",
+                "sections": [
+                    {                
+                        "rows": [
+                            {
+                                "height": "50%", 
+                                "columns": [
+                                    {
+                                        "width": "100%",
+                                        "items": [ 
+                                            {
+                                                "id": "item.bookings",
+                                                "label": "Alertes",
+                                                "description": "",
+                                                "width": "50%",
+                                                "entity": "core\\alert\\Message",
+                                                "view": "list.dashboard",
+                                                "domain":  ["object_class", "=", "lodging\\sale\\booking\\Booking"]
+                                            },
+                                            {
+                                                "id": "item.bookings2",
+                                                "label": "Mes Réservations",
+                                                "description": "",
+                                                "width": "50%",
+                                                "entity": "lodging\\sale\\booking\\Booking",         * // Following section
+                                                "view": "list.dashboard",
+                                                "domain": ["creator", "=", "user.id"]                **
+                                            }
+
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "height": "50%",
+                                "columns": [
+                                    {
+                                        "width": "100%",
+                                        "items": [
+                                            {
+                                                "id": "item.bookings3",
+                                                "label": "CA Prévisionnel des réservations",
+                                                "description": "",
+                                                "width": "50%",
+                                                "entity": "lodging\\sale\\booking\\Booking",
+                                                "view": "chart.default"
+                                            },
+                                            {
+                                                "id": "item.bookings4",
+                                                "label": "Nombre de checkin",
+                                                "description": "",
+                                                "width": "50%",
+                                                "entity": "lodging\\sale\\booking\\Booking",
+                                                "view": "chart.checkin"
+                                            }
+
+                                        ]
+                                    }
+                                ]
+                            }                            
+                        ]
+                    }
+                ]
+            }            
+        ]
+    }
+}
+```
+
+
+
+#### list.dashboard *
+
+This example demonstrates the possibility to name views the way we want.
+
+Here we use a new `list view`, that could, for example, have a different domain** (`"domain": ["creator", "=", "user.id"]`) than the `Booking.list.default.json` view.
+
+```json
+{
+    "name": "Booking list",
+    "description": "This view displays the list of bookings: the most recent on top.",
+    "access": {
+        "groups": ["booking.default.user"]
+     },
+    "order": "created",
+    "sort": "desc",
+    "domain": ["center_office_id", "in", "user.center_offices_ids"],
+    "layout": {
+        "items": [
+            {   
+            }
+        ]
+    }
+}
+```
+
+
 
 
 ## Charts
@@ -1179,7 +1308,6 @@ At last, the domain property allows us to filter the data even more.
                 "operation": ["COUNT", "object.id"],
                 "domain": ["id", ">", 5]
             }
-```json
 {
     "name": "Main dashboard",
     "layout": {

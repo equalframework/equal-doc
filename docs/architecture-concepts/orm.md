@@ -27,6 +27,7 @@ The 3 methods that should be present in all object classes are presented below (
 Model fields are defined using the `getColumns ()` method, which returns an associative array that maps the fields names with their definitions.
 
 ```php
+<?php
 public static function getColumns() {
 	return [];
 }

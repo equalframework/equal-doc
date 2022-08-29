@@ -80,7 +80,7 @@ To avoid this, we use a data set that we initiate everytime we want to run tests
 - Create a folder named **/init**
 - Move **data.sql** into this folder
 
-4) Open**data.sql**. We're going to update it to make it compatible with eQual :
+4) Open **data.sql**. We're going to update it to make it compatible with eQual :
 
 - Remove anything that doesn't start with "**INSERT INTO**"
 - Manually adapt each insertion :
@@ -226,7 +226,7 @@ Store the 'test' function results in $result, and tell $status = 'ok' by default
 
 Cascading logic :
 
-- ###### **(1)** If $result and 'return' value are respectively inside an array (if 'return' isn't, do so automatically)
+- **(1)** If $result and 'return' value are respectively inside an array (if 'return' isn't, do so automatically)
 - **(2)** If the 'expected' field has been set. If not, **(3)** Check if there is an 'assert' field available
 - **(4)** If the type of $result is the same as 'return'
 - **(5)** If $result is of type "array", **(6)** Call the array_equals() method to verify if $result and 'expected' are identical. If not, **(7)** Use a simpler logic to do the verification

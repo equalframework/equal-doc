@@ -1,6 +1,6 @@
 # Rights management
 
-The 'Permission' class is dedicated to the rights management: for each object class (including the 'Permission' class itself), rights can be assigned to each existing group.
+The 'Permission' (`packages/core/classes/Permission.class.php`) class is dedicated to the rights management: for each object class (including the 'Permission' class itself), rights can be assigned to each existing group.
 
 ## Users 
 The structure is defined inside the `core\User` class (`packages/core/classes/User.class.php`).
@@ -111,7 +111,7 @@ In any case, all users receive the default permissions, defined in the configura
 
 This file is the built-in "control tower" of eQual, and is located in **/lib/equal/access/**. What it does is granting the permission (or not) to perform CRUD actions depending on a few set criteria. This service is called by default and you usually don't have to think about it.
 
-#### Examples
+#### Examples :
 
 * The controller tells us that the root_user has access to every rights.
 
@@ -137,8 +137,6 @@ This file is the built-in "control tower" of eQual, and is located in **/lib/equ
 
 If you need custom security rules, you can also **overwrite AccessController** (at your own risks). This is particularly useful to establish future-proof settings, as well as an alternative to core_permission (see [Cheat Sheet > Grant DB rights](../howtos-and-examples/generic-cheat-sheet.md)).
 
-
-
 In the following section we'll see how to proceed:
 
 ### Overriding AccessController
@@ -147,7 +145,7 @@ The default AccesController service is defined in  `/lib/equal/access/AccessCont
 
 
 
-In **/lib**, create a folder by the name of your project, you want a directory similar to this: **/lib/myapp/access/AccessController.class.php**
+In **/lib**, create a folder by the name of your project, you want a directory similar to this: **`/lib/myapp/access/AccessController.class.php`**
 
 Then, in the **config.inc.php** file of your package (located at`/packages/myapp/config.inc.php`), add this line:
 

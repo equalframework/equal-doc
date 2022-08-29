@@ -24,7 +24,7 @@ Well structured, detailed bug reports are hugely valuable for the project.
 
 Guidelines for reporting bugs:
 
-* Check the issue search to see if it has already been reported
-* Isolate the problem to a simple test case
+* Check the issue search to see if it has already been reported.
+* Isolate the problem to a simple test case.
 * Please include a code snippet that demonstrates the bug. If filing a bug against master, you may reference the latest code using the URL of the repository of the branch (e.g. `https://github.com/cedricfrancoys/equal/blob/master/eq.lib.php` - changing the filename to point at the file you need as appropriate). 
 * Please provide any additional details associated with the bug, if it's generic or only happens with a certain configuration or data set.

@@ -61,6 +61,7 @@ The special field //creator// gives us the id of the user (//core\User//) who cr
 
 In order to do so, we add an //author// field, defined like this:
 ```php
+<?php
 'author'     => array(
                       'type'        => 'function', 
                       'result_type' => 'string', 
@@ -71,6 +72,7 @@ In order to do so, we add an //author// field, defined like this:
 
 As well as the method allowing to retrieve the name of the given user id:
 ```php
+<?php
 public static function getAuthor($om, $uid, $oid, $lang) {
     $author = '';
     $res = $om->browse($uid, 'blog\Post', array($oid), array('creator'), $lang);
@@ -232,7 +234,7 @@ http://localhost/easyobject/index.php?show=core_manage''
   * In //packages/blog/html// we put the adapted template below.
  Note that we added two //var// tags in order to display the template dynamically (based on the //post_id// parameter from the URL):
     <var id="content"></var>
-and 
+    and 
     <var id="recent_posts"></var>
     
     
@@ -298,6 +300,7 @@ Finally, let's create a folder //packages/blog/apps// inside wich we put a file 
 
 
 ```php
+<?php
 // the dispatcher (index.php) is in charge of setting the context and should include the easyObject library
 defined('__EASYOBJECT_LIB') or die(__FILE__.' cannot be executed directly.');
 
@@ -379,7 +382,7 @@ if(!is_null($params['post_id']) && file_exists('packages/blog/html/template.html
 ```
 
 
-Tree structure is now:
+Tree structure is now :
 ```
   /
   /packages

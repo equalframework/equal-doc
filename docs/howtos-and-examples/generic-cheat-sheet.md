@@ -26,7 +26,13 @@ Should be located at the root of eQual (folder containing file `run.php`)
 
 #### Grant DB rights
 
-Available rights: "create", "read", "update", "delete", "manage"
+Available rights: 
+
+- "create"
+- "read"
+- "update"
+- "delete"
+- "manage"
 
 You can grant one right for one entity at a time:
 
@@ -95,7 +101,6 @@ Related path :  `/packages/mypackage/actions/subdir/my-action.php`
 **HTTP :**
 
 [http://equal.local?do=mypackage_subdir_my-action](http://equal.local?do=mypackage_subdir_my-action)
-
 
 **PHP :**
 
@@ -183,8 +188,6 @@ foreach($order as $ofield) {
 	});
 }
 ```
-
-
 
 
 ### How to request fields from all sub-objects at once?

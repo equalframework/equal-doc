@@ -14,9 +14,9 @@ We'll immediately see if something goes wrong, and easily locate where the probl
 
 > Note: if you're looking for a guide that is not specific to eQual, please read [getting started with docker](https://docs.docker.com/get-started/)
 
-In this section we'll focus on the main role of docker: setting up a **replicable environment** for your project
+In this section we'll focus on the main role of docker: setting up a **replicable environment** for your project.
 
-Below is a specific example to use eQual with Docker using an official php image
+Below is a specific example to use eQual with Docker using an official php image.
 
 
 
@@ -24,7 +24,7 @@ Below is a specific example to use eQual with Docker using an official php image
 
 Go ahead and [install Docker](https://docs.docker.com/get-docker/)
 
-On windows it comes with **Docker Compose**, which aims to automate the deployment process
+On windows it comes with **Docker Compose**, which aims to automate the deployment process.
 
 In its simplest form, all you need to use Docker is a few command lines plus those 2 files in your project :
 
@@ -45,7 +45,7 @@ project@root/
 
 ### Dockerfile
 
-Dockerfile is used to build an image with additional requirements
+Dockerfile is used to build an image with additional requirements.
 
 The syntax :
 
@@ -86,7 +86,7 @@ docker build --file .docker/Dockerfile -t todolist .
 
 ### docker-compose.yml
 
-docker-compose.yml is used to deploy container(s) from one or multiple image(s)
+`docker-compose.yml` is used to deploy container(s) from one or multiple image(s).
 
 For example, here is what we used to deploy an apache server along with its mysql service :
 
@@ -131,7 +131,7 @@ To launch the associated Docker command :
 docker-compose up -d
 ```
 
-With this, you have what you need to develop and test your application using docker
+With this, you have what you need to develop and test your application using docker.
 
 If you want to see the running containers :
 
@@ -151,15 +151,15 @@ To run a bash script within a container (instead of opening it as CLI) :
 docker exec -ti CONTAINER_ID /bin/bash /full/directory/path/script.sh
 ```
 
-The following section will cover how that command can be used
+The following section will cover how that command can be used.
 
 
 
 ### Automating the process & database init
 
-Unfortunately if you want to setup a database once a container has been created, you still need to run a few commands manually. We'll work this around and use it as an opportunity to automate the whole process, from image creation to deployment
+Unfortunately if you want to setup a database once a container has been created, you still need to run a few commands manually. We'll work this around and use it as an opportunity to automate the whole process, from image creation to deployment.
 
-What we'll do is create a .cmd script (for windows) that we'll launch from the root of the project, using a few of the commands listed above plus the ones needed for the DB setup of a project called "todolist"
+What we'll do is create a .cmd script (for windows) that we'll launch from the root of the project, using a few of the commands listed above plus the ones needed for the DB setup of a project called "todolist".
 
 ```bash
 docker build --file .docker/Dockerfile -t todolist .
@@ -168,26 +168,26 @@ sleep 10
 docker exec -ti localhost /bin/bash .docker/init.sh
 ```
 
-You've already seen the 2 first lines, they refer to Dockerfile and docker-compose.yml
+You've already seen the 2 first lines, they refer to Dockerfile and `docker-compose.yml`.
 
-Sleep 10 is important, granting time for the containers to establish a bridge before we connect the database
+Sleep 10 is important, granting time for the containers to establish a bridge before we connect the database.
 
-Last line launches the following bash script within the container "localhost"
+Last line launches the following bash script within the container "localhost".
 
 ```bash
 php run.php --do=init_db
 php run.php --do=init_package --package=core
 ```
 
-> Note: if it returns a "wrong host" error, try to increase the sleep time to 20 or 30 sec. If it still doesn't work it means some config for apache is either missing or incorrect
+> Note: if it returns a "wrong host" error, try to increase the sleep time to 20 or 30 sec. If it still doesn't work it means some config for apache is either missing or incorrect.
 
 
 
 ## Travis CI
 
-[Travis CI](https://docs.travis-ci.com/) is a testing environment offering many options and compatibilities
+[Travis CI](https://docs.travis-ci.com/) is a testing environment offering many options and compatibilities.
 
-Configuration example (in YAML) for a **.travis.yml** file, running basic tests for checking eQual installation integrity:
+Configuration example (in YAML) for a **`.travis.yml`** file, running basic tests for checking eQual installation integrity:
 
 ```yaml
 dist: xenial
@@ -261,7 +261,7 @@ definitions:
 
 ## CircleCI
 
-Configuration example (in YAML) for a **.config.yml** file, running basic tests for for checking eQual installation integrity:
+Configuration example (in YAML) for a **`.config.yml`** file, running basic tests for checking eQual installation integrity:
 
 ```yaml
 version: 2.1
