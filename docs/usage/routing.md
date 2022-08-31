@@ -71,3 +71,14 @@ The **operation** will be about the "Query" part of the URI/URL.
 
 And the description is simply a field to indicate what the operation does.
 
+##### routes hierarchy
+
+The routes are read in alphabetical order (also counts for numbers). Which means, that if two different files contain the same route, the first one, in alphabetical order, found by the system, will be read.
+
+Only the routes inside the global `config/routing` folder matter. 
+
+In conclusion, if you need a route to be read before an other, you need to place the route in earlier files.
+
+##### i18n
+
+Inside the `config/routing` folder, you can have sub-folders for different languages, with the possibility to translate the routes in the chosen language.

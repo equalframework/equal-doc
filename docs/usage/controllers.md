@@ -38,6 +38,22 @@ Array containing values used by the controller, which may be required.
 
 ### constants
 
+List of strings, representing constant names, used by the system.
+
+They are present globally inside the `config/config.inc.php` file, but also can be overwritten (with the **namespace config**) inside packages with a `config.inc.php` file.
+
+Every overwritten constant is limited to the package it belongs to.
+
+If they are used by a controller, they must be listed by it. If there is an error, displays `Error 500`.
+
+Example :
+
+``` php
+'constants'     => ['AUTH_ACCESS_TOKEN_VALIDITY', 'AUTH_REFRESH_TOKEN_VALIDITY', 'AUTH_TOKEN_HTTPS']    
+```
+
+The constants are checked by the `announce()` function inside `eq.lib.php`.
+
 ### access
 
 The access property allows to quickly define rights management: making sure the user performing a request has the required permissions.
@@ -80,7 +96,7 @@ Examples :
 
 The response property provides info about the format of the returned data (if any).
 
-It also allows to restrict the accepted origins of the requests (using CORS).
+It also allows to restrict the accepted origins of the requests (using CORS). At the moment the origin is unlimited, it is possible to create an array with the URL allowed to access the API.
 
 ```php
 <?php

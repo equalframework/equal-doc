@@ -5,9 +5,7 @@
 ## Built-in services
 
 
-Here is the full list of eQual built-in services and their purpose:
-
-
+Here is the full list of eQual built-in services and their purpose :
 
 |ID|class|description|
 |--|--|--|
@@ -17,21 +15,83 @@ Here is the full list of eQual built-in services and their purpose:
 |context|`equal\php\Context`| |
 |validate|`equal\data\DataValidator`| Checks the fields consistency of entities & controllers. |
 |adapt|`equal\data\DataAdapter`| |
-|orm|`equal\orm\ObjectManager`| |
+|orm|`equal\orm\ObjectManager`| Manages the objects (classes) |
 |route|`equal\route\Router`| Returns an existing route. |
 |spool|`equal\email\EmailSpooler`| |
 
 
 
+The 'orm' service may be accessed without DB, which is not the case for the 'auth' service which needs User objects.
+
 ## How services are instantiated
 
+The services are listed at `eq.lib.php` in a container responsible to instantiate them.
 
+```php
+<?php
+$container->register([
+                'report'    => 'equal\error\Reporter',						
+                'auth'      => 'equal\auth\AuthenticationManager',
+                'access'    => 'equal\access\AccessController',
+                'context'   => 'equal\php\Context',
+                'validate'  => 'equal\data\DataValidator',
+                'adapt'     => 'equal\data\DataAdapter',
+                'orm'       => 'equal\orm\ObjectManager',
+                'route'     => 'equal\route\Router',
+                'log'       => 'equal\log\Logger',
+                'spool'     => 'equal\email\EmailSpooler',
+                'cron'      => 'equal\cron\Scheduler',
+                'dispatch'  => 'equal\dispatch\Dispatcher'
+            ]);
+```
+
+If a controller requires the use of a service, it needs to invoke it :
+
+```php
+<?php
+list($params, $providers) = announce([
+    'description'	=>	"Attempts to log a user in.",
+    'params' 		=>	[
+        'login'		=>	[
+            'description'   => "user name",
+            'type'          => 'string',
+            'required'      => true
+        ],
+        'password' =>  [
+            'description'   => "user password",
+            'type'          => 'string',
+            'required'      => true
+        ]
+    ],
+    'response'      => [
+        'content-type'      => 'application/json',
+        'charset'           => 'utf-8',
+        'accept-origin'     => '*'
+    ],    
+    'providers'     => ['context', 'auth', 'orm'],     // Services are invoked                                   
+    
+    'constants'     => ['AUTH_ACCESS_TOKEN_VALIDITY', 'AUTH_REFRESH_TOKEN_VALIDITY', 'AUTH_TOKEN_HTTPS']    
+]);
+
+list($context, $om, $auth) = [ $providers['context'], $providers['orm'], $providers['auth']]; 
+// Services are assigned to variables to be used in the script
+```
+
+Every service is given an arbitrary name that can be overwritten (limited to the use of the controller), for example inside a controller.
+
+The syntax could be : 
+
+```php
+'providers'     => ['contextDefiner' => 'equal\php\Context'] // instead of context
+```
+
+If the service is present in the global`config.inc.php`, it can also be overwritten inside the `config.inc.php` files of the packages.
+
+
+
+If a controller calls an other controller, the called controller won't access the services the calling controller has access to. There is no inheritance for services between controllers.
 
 ## Defining a custom Service
-
-
-
-## Overloading a built-in service
 
 
 
