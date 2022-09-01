@@ -41,7 +41,7 @@ This page lists an inventory of available scripts, grouped by category.
 
 #### `fs-consistency`
 
-| PATH            | `core\actions\test\fs-consistency.php`                       |
+| **PATH**        | `core\actions\test\fs-consistency.php`                       |
 | --------------- | ------------------------------------------------------------ |
 | **URL**         | `?do=test_fs-consistency`                                    |
 | **CLI**         | `$ ./equal.run --do=test_fs-consistency`                     |
@@ -100,7 +100,7 @@ $ ./equal.run --do=init_package --package=core
 Inside the`"packages/core/data/model"`folder :
 
 - **?get=model_schema** (Returns the schema of given class (model) in JSON)
-- **?get=model_view** (Returns the JSON view related to an entity (class model), given a view ID (<type.name>))
+- **?get=model_view** (Returns the JSON view related to an entity (class model), given a view ID)
 
 ### Manipulate data
 
