@@ -3,7 +3,7 @@ article table {
 }
 
 article table th {
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	padding: 0.4rem 0.8rem !important;
 	background-color: #3f51b5 !important;
 	white-space: nowrap;
