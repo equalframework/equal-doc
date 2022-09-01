@@ -168,9 +168,9 @@ Here below is a flow diagram that recaps the interactions between the controller
 
 ### controller <a id="view_commons_controller"></a>
 
-The optional **controller**  property specifies the controller to use for requesting the Model to use for populating the View (either a single object or a collection of objects).
+The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
 
-The default values is (core_)model_collect
+The default values is `model_collect` (which is an alias for `core_model_collect`)
 
 !!! Note
     Controller are considered as entities. When a controller is specified for a list View, a related `search.default` view is expected , which describes the layout of the form for values relating to fields returned by the `::announce` method of the view controller. In turn, those values are sent to the controller along with default values (`entity`, `fields`, `domain`, `order`, `sort`, `start`, `limit`, `lang`) for feeding the View. Example: for controller `sale_booking_collect`, a `packages/sale/views/booking/collect.search.default.json` file is expected.
