@@ -42,14 +42,7 @@ A **Layout** is the layout associated with a given view. It is always linked to 
 
 A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
 
-!!! note "About widget property"
-    The <em>widget</em> property has various field options:     
-    * ```view```: to indicate which view template to use with the widget.  
-    * ```header```: (boolean) to emphasise the widget. When set to true, the field is considered as header and is shown with a bigger font-size.  
-    * ```readonly```: (boolean). When set to true, the field is displayed as read-only (can't be changed).  
-    For one2many and many2many field, it is also possible:     
-    * to specify the order and limit the loaded lines shown in auto-complete  
-    * to force using a specific widget
+
 
 
 
@@ -511,7 +504,7 @@ Each column has a list of items, which are element describing which fields are t
 
 Each item is an object accepting the following properties : 
 
-|Property|Description|
+|PROPERTY|DESCRIPTION|
 |--|--|
 |**label**|(optional) Default label|
 |**type**||
@@ -529,10 +522,10 @@ Within item`objects`, the widget property allows to refine the configuration of 
 
 |PROPERTY|DESCRIPTION|
 |--|--|
-|**heading**|(optional) if set to true, the widget is emphasized|
-|**readonly**|(optional) if set to true, the value cannot be modified (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overriden.|
+|**heading**|(optional) if set to true, the widget is emphasized.|
+|**readonly**|(optional) if set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
 
-Some additional properties apply only to specific field types. Here is the full list of the available options by type of field:
+Additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
 |FIELD TYPE|PROPERTY||
 |-|-|-|
@@ -540,12 +533,17 @@ Some additional properties apply only to specific field types. Here is the full 
 || **header**       |(optional) The widget can override the configuration that will be relayed to the subsequent View for M2M and O2M fields. For details about **header** structure see <a href="#view_commons_header">views commons</a>.|
 ||**header.actions**|(optional) works the same way as View **actions** property. For details about **header** structure see <a href="#view_commons_header">views commons</a>.|
 ||**view**|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default" (ex.: "form.create").|
-||**domain**||
+||**domain**|Apply an additional domain to the view's collection. In case the view has a domain of its own, both domains are merged.|
 |`many2one`|||
 ||**order**|Name of the field which the collection must be sorted on.|
 ||**sort**|Direction for sorting 'asc' (ascending order) or 'desc' (descending order).|
-||**limit**||
-||**domain**||
+||**limit**|Override the maximum items that the list must display.|
+||**domain**|Apply an additional domain to the view's collection. In case the view has a domain of its own, both domains are merged.|
+
+!!! Note "About widget property"
+    For one2many and many2many field, it is also possible to force using a specific widget (non-default).
+
+
 
 **Example:**
 
@@ -562,16 +560,14 @@ Some additional properties apply only to specific field types. Here is the full 
 
 
 
-
-
 !!! Note
-    When an `usage` property is set in the schema of the entity, the widget is adapted accordingly. For example, when a field has its **type** set as `float` and its **usage** set to `amount/percent`, in view mode, it is displayed as an integer value between 0 an 100, and followed by a '%' sign. For instance "0.12" is converted to "'12%'').
+    When an `usage` property is set in the schema of the entity, the widget is adapted accordingly. For example, when a field has its **type** set as `float` and its **usage** set to `amount/percent`, in view mode, it is displayed as an integer value between 0 an 100, and followed by a '%' sign (e.g.: "0.12" is converted to "'12%'').
 
 
 
 ### Real life example
 
-A real example of a form view is shown below, which is the Category form of a package having multiple `sections` (tabs) each having a label(Categories, Product Models and Booking Types) and an id(`section.categories_id`, `section.product_models`, `section.booking_types`) to be able to be translated in using the "i18n". The field called `name` has a `widget` property with an attribute `header` set to true which makes it have a bigger font as mentioned earlier and the most important field of this view.
+A real example of a form view is shown below, which is the Category form of a package having multiple `sections` (tabs) each having a label(Categories, Product Models and Booking Types) and an id(`section.categories_id`, `section.product_models`, `section.booking_types`) to be able to be translated in using the "i18n". The field called `name` has a `widget` property with an attribute `heading` set to true which emphasizes it by displaying it a little bigger.
 
 The view's name is `Category.form.default.json` and is as follows:
 
@@ -597,7 +593,7 @@ The view's name is `Category.form.default.json` and is as follows:
                         "value": "name",
                         "width": "100%",
                         "widget": {
-                            "header": true
+                            "heading": true
                         }
                       },
                       {
@@ -884,9 +880,36 @@ The **filter** property allows to provide a series of predefined search filters.
 
 ### header
 
-The **header** property is common to all views. For details about its structure see <a href="#view_commons_header">views commons</a>.
+In addition to the attributes common to all views (see <a href="#view_commons_header">views commons</a>), the **header** property for lists uses an additional features for the `actions` attribute.
 
 
+##### selection
+
+| PROPERTY    | DESCRIPTION                                                  |
+| ----------- | ------------------------------------------------------------ |
+| **default** | (optional) Boolean telling if the default actions have to be present in the available action to apply on current selection. (default = false) |
+| **actions** | (optional) An array of action items that can be applied on current selection. |
+
+Example : 
+
+```json
+"header": {
+    "actions": {
+        "ACTION.CREATE" : false
+    },
+    "selection": {
+        "default" : false,
+        "actions" : [
+            {
+                "id": "header.selection.actions.mark_ignored",
+                "label": "Mark as ignored",
+                "icon": "",
+                "controller": "lodging_sale_booking_bankstatementline_bulk-ignore"
+            }
+        ]
+    }
+}
+```
 
 ### actions
 
@@ -1047,7 +1070,7 @@ Menus allow to define custom tree structures of action-buttons for accessing spe
 
 Menu items have the following structure : 
 
-| Property        | Description                                                  |
+| PROPERTY        | DESCRIPTION                                                  |
 | --------------- | ------------------------------------------------------------ |
 | **id**          | Identifier of the item (used for translations).              |
 | **label**       | Title of the item to display within the menu.                |
@@ -1064,7 +1087,7 @@ Entries items have a **context** property, which has the following structure :
 
 
 
-| Property   | Description                                              |
+| PROPERTY   | DESCRIPTION                                              |
 | ---------- | -------------------------------------------------------- |
 | **entity** | Entity to which relates the view to show.                |
 | **view**   | ID of the view to use for showing the targeted entities. |
@@ -1154,7 +1177,7 @@ Dashboard views are control panels, opening the possibility to show multiple vie
 
 The following example displays 4 different views to simplify the management of informations.
 
-| Property        | Description                                                  |
+| PROPERTY        | DESCRIPTION                                                  |
 | --------------- | ------------------------------------------------------------ |
 | **id**          | Identifier of the item (used for translations).              |
 | **label**       | Title of the item to display within the menu.                |
@@ -1245,7 +1268,7 @@ The following example displays 4 different views to simplify the management of i
 
 
 
-#### list.dashboard *
+#### list.dashboard
 
 This example demonstrates the possibility to name views the way we want.
 
