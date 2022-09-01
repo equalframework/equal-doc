@@ -8,9 +8,7 @@ It can be seamlessly used in both CLI or ReSTful API context.
 
 The following schema uses number lists, representing the order in which the elements happen.
 
-
-
-![http-request.drawio](C:\Users\Jean\Documents\http-request.drawio.png)
+![http-request](../assets/img/http-request.drawio.png)
 
 ## Controllers
 

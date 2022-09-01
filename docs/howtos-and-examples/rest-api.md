@@ -433,3 +433,4 @@ Replace everything with this :
 What it does is pretty self-explanatory. The **/:id** is a way for us to target and retrieve a single task when needed.
 
 From now on, route  `http://equal.local/tasks` is equivalent to calling ` http://equal.local/?get=todolist_tasks`.
+

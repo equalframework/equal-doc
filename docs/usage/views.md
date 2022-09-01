@@ -249,6 +249,7 @@ Classes may be used in different packages (extending parent classes with the pos
 Here is an example of an extended class.
 
 ```php
+<?php
 namespace lodging\sale\booking;
     
     class Contact extends \sale\booking\Contact {
@@ -303,6 +304,7 @@ To decide which view will be used, eQual uses a system of **class inheritance**,
 To understand how it works, here is the code :
 
 ```php
+<?php
 list($params, $providers) = announce([
     'description'   => "Returns the JSON view related to an entity (class model), given a view ID (<type.name>).",
     'params'        => [
@@ -792,7 +794,7 @@ Each item in the array is either a field name or the descriptor of an operation 
 Example : 
 
 ```json
-    "group_by": ["date"]
+"group_by": ["date"]
 ```
 
 
@@ -809,7 +811,7 @@ The operations items have the following structure :
 Another example : 
 
 ```json
-    "group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
+"group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
 ```
 
 
@@ -820,7 +822,7 @@ String holding the name(s) of the field to sort results on, separated with comma
 Example : 
 
 ```json
-    "order": "sku,product_model_id"
+"order": "sku,product_model_id"
 ```
 
 
@@ -830,8 +832,9 @@ Example :
 String litteral ('*desc*' or '*asc*')
 
 Example:
+
 ```json
-    "sort": "asc"
+"sort": "asc"
 ```
 
 
@@ -843,7 +846,7 @@ integer (max size of result set)
 Example : 
 
 ```json
-    "limit": 100
+"limit": 100
 ```
 
 Bear in mind that the default controller (core_mode_collect), has a `max` constraint of `500` for this parameter.

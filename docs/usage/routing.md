@@ -34,7 +34,7 @@ The expected route structure :
 
 ```json
 	{
- *      method:         string      HTTP method, example: "GET", "POST", "PUT", "DELETE"
+ *      method:         string      HTTP method, example: "GET", "POST", "PUT", "DELETE", "PATCH"
  *      path:           string      full path of the requested URI
  *      parts:          array       array of parts composing the path
  *      operation:      string      the operation the URI resolves to 
