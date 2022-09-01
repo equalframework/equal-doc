@@ -13,6 +13,34 @@ Those logs are system object, no permissions must be applied.
 
 The logs allow users to keep an overview of object changes (action log).
 
+The actions are CRUDS by default, but custom actions could also be created, **example** : SENT, when a message is sent.
+
+As of now, the logs don't keep track of the content of changes or reason behind it.
+
+
+
+The logs can be enabled or disabled in the global config file :
+
+```php
+ define('LOGGING_ENABLED', true);
+```
+
+
+
+##### version.class.php
+
+An other way to keep track of the object changes is the use of the version (`core/version.class.php`) class.
+
+In which you could have an evolving tracking of an object, going through changes over times, with the value changes (`serialized_value`).
+
+
+
+The versioning can be enabled or disabled in the global config file :
+
+```php
+define('VERSIONING_ENABLED', true);
+```
+
 
 
 ### Reporting
@@ -28,3 +56,5 @@ The logs are kept inside the `log`(CSV) folder (and appear in http://equal.local
 The logs content is written following the `core/Log.class.php` structure. They are just like any other object and may use any of their functions.
 
 For example, an other class could point at the log object ("log_id"), every time that object is subject to debug, warnings, errors and fatal errors.
+
+> In the future, a timestamps journal could be enabled in the global `config.inc.php`, to keep track of the length of use of any eQual ressources.

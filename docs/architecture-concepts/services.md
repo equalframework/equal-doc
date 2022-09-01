@@ -1,7 +1,5 @@
 # Services
 
-
-
 ## Built-in services
 
 
@@ -12,14 +10,12 @@ Here is the full list of eQual built-in services and their purpose :
 |report|`equal\error\Reporter`|Intercept, handle and filter error and exceptions messages and store them into log file. |
 |auth|`equal\auth\AuthenticationManager`| Manages the credentials & authentication tokens. |
 |access|`equal\access\AccessController`| Manages the access/permissions of User & Groups to entities & controllers. |
-|context|`equal\php\Context`| |
+|context|`equal\php\Context`| Manages the HTTP requests & responses |
 |validate|`equal\data\DataValidator`| Checks the fields consistency of entities & controllers. |
 |adapt|`equal\data\DataAdapter`| |
 |orm|`equal\orm\ObjectManager`| Manages the objects (classes) |
 |route|`equal\route\Router`| Returns an existing route. |
 |spool|`equal\email\EmailSpooler`| |
-
-
 
 The 'orm' service may be accessed without DB, which is not the case for the 'auth' service which needs User objects.
 

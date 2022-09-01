@@ -45,8 +45,10 @@ You can grant one right for one entity at a time:
 This controller runs some consistency checks and works with any package:
 
 ```bash
-./equal.run --do=test_package-consistency --package=core
+./equal.run --do=test_package-consistency --package=core 
 ```
+
+>  NB : Use of the level property to limit the results, example : --level=error
 
 #### Initiate eQual core in DB
 
@@ -60,6 +62,12 @@ This controller runs some consistency checks and works with any package:
 
 ```bash
 ./equal.run --do=init_package --package=mypackage
+```
+
+#### Initiate your package with initial data in DB
+
+```bash
+./equal.run --do=init_package --package=mypackage --import=true
 ```
 
 #### Run package test unit
