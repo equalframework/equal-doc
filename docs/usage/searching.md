@@ -62,8 +62,8 @@ Example:
 <?php
 use core\User;
 
-User::search( [
-				['login', 'like', '%john%'],
-				['validated', '=', 'true']				
-			] );
+User::search([
+        ['login', 'like', '%john%'],
+        ['validated', '=', 'true']				
+    ]);
 ```
