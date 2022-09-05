@@ -2,9 +2,11 @@
 
 Before anything, please check your package consistency :
 
-```bash
-php run.php --do=test_package-consistency --package=mypackage
-```
+|**PATH**|`core\actions\test\package-consistency.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=test_package-consistency&package=myPackage`|
+|**CLI**|`$ ./equal.run --do=test_package-consistency --package=myPackage`|
+|**DESCRIPTION**|Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
 
 It will tell you if you have available tests. If it's not the case, see [**Writing the tests**](#writing-the-tests)
 
@@ -32,9 +34,11 @@ If you want to put your database in a certain state before running the tests, th
 
 If you already have one, you can enter this before the test command :
 
-```bash
-php run.php --do=init_package --package=mypackage
-```
+|**PATH**|`core\actions\init\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=init_package&package=myPackage`|
+|**CLI**|`$ ./equal.run --do=init_package --package=myPackage`|
+|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
 
 
 

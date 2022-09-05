@@ -6,14 +6,13 @@ The validate function of the **ObjectManager provider** checks if the values giv
 
 This function is used at different times :
 
-- "CREATE" & "UPDATE" CRUDS
+- "CREATE" & "UPDATE" Methods
 - Controller Calls
 
-!!! note "eQual Objects"
+!!! note "Calling the scripts"
+    In addition to the usual objects, Controllers are in eQual, also objects.                                                                                                                                                   	And as such, their `params` or`getColumns() fields` for usual objects **must** be validated by the validate function ;
 
-​	In addition to the usual objects, Controllers are in eQual, also objects.                                                                                                                                                   	And as such, their `params` or`getColumns() fields` for usual objects **must** be validated by the validate function ;
-
-
+​	
 
 ### Validate function 
 
@@ -41,17 +40,15 @@ The function checks if the field is required (can't be *null*) and if it is, it 
 
 #### Type & Usage properties
 
-**type**
+##### type
 
 The function checks if the `type` property matches the value, this property gives information about the way the field is stored in the DB.
 
-**usage**
+##### usage
 
 The `usage` property is complementary to the `type` property and allows to refine the way the field should be handled by the ORM and the DBBMS, and how it should be rendered in the UI. 
 
-
-
-**Example**:
+**Example** :
 
 ```php
 <?php

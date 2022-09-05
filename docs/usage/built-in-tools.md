@@ -33,8 +33,8 @@ This page lists an inventory of available scripts, grouped by category.
 
 | **PATH**        | `core\actions\test\db-access.php`                            |
 | --------------- | ------------------------------------------------------------ |
-| **URL**         | `?do=init_db`                                                |
-| **CLI**         | `$ ./equal.run --do=init_db`                                 |
+| **URL**         | `?do=test_db-access`                                         |
+| **CLI**         | `$ ./equal.run --do=test_db-access`                          |
 | **DESCRIPTION** | Tests access to the database specified in the config file. This controller uses db-connectivity before trying to access the database. |
 
 
@@ -45,11 +45,12 @@ This page lists an inventory of available scripts, grouped by category.
 | --------------- | ------------------------------------------------------------ |
 | **URL**         | `?do=test_fs-consistency`                                    |
 | **CLI**         | `$ ./equal.run --do=test_fs-consistency`                     |
-| **DESCRIPTION** | Checks current installation directories integrity. The controller checks if all mandatory directories are present, and if their permissions allow the apache process to read/write as required. |
+| **DESCRIPTION** | Checks current installation directories integrity. The controller checks if all mandatory directories are present, and if their permissions allow the apache process to read/write as required.|
 
 
 
 #### `init_db`
+
 |**PATH**|`core\actions\init\db.php`|
 |-|-|
 |**URL**|`?do=init_db`|
@@ -60,36 +61,41 @@ This page lists an inventory of available scripts, grouped by category.
 
 ## Package utilities
 
+### Init a Package
+
+|**PATH**|`core\actions\init\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=init_package&package=core`|
+|**CLI**|`$ ./equal.run --do=init_package --package=core`|
+|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
+
+
+
+
 ### Test package consistency
 
-Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).
-
-
-```bash
-$ ./equal.run --do=test_package-consistency --package=core --level=warn
-```
-
+|**PATH**|`core\actions\test\package-consistency.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=test_package-consistency&package=core`|
+|**CLI**|`$ ./equal.run --do=test_package-consistency --package=core --level=warn`|
+|**DESCRIPTION**|Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
 > The level property has 3 options : 
 >
 > - **'error'** (ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`)
 > - **'warn'** (ex: `WARN  - I18 - Unknown field 'object_class' referenced in file "packages\/core\/i18n\/en\/alert\MessageModel.json"`
 > - ***** (error & warn).
 
+
+
+
 ### Run package test cases
 
-The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](./testing.md))
+|**PATH**|`core\actions\test\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=test_package&package=core`|
+|**CLI**|`$ ./equal.run --do=test_package --package=core`|
+|**DESCRIPTION**|The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](./testing.md)).|
 
-```bash
-$ ./equal.run --do=test_package --package=core
-```
-
-
-### Init a Package
-Creates the tables matching the classes of the package in the database (based on generated SQL schema).
-
-```bash
-$ ./equal.run --do=init_package --package=core
-```
 
 
 
@@ -97,38 +103,97 @@ $ ./equal.run --do=init_package --package=core
 
 ### Models meta data
 
-Inside the`"packages/core/data/model"`folder :
+#### Model Schema
 
-- **?get=model_schema** (Returns the schema of given class (model) in JSON)
-- **?get=model_view** (Returns the JSON view related to an entity (class model), given a view ID)
+|**PATH**|`core\data\model\schema.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?get=model_schema&entity=core\User`|
+|**CLI**|`$ ./equal.run --get=model_schema --entity=core\\User`|
+|**DESCRIPTION**|Returns the schema of given class (model) in JSON.|
+
+
+
+
+#### Model View
+
+|**PATH**|`core\data\model\view.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?get=model_view&entity=core\User&view_id=list.default`|
+|**CLI**|`$ ./equal.run --get=model_view --entity=core\\User --view_id=list.default`|
+|**DESCRIPTION**|Returns the JSON view related to an entity (class model), given a view ID.|
+
+
+
 
 ### Manipulate data
 
-Inside the`"packages/core/actions/model"`folder :
+#### Create Object
 
-- **?do=model_create** (Create a new object using given fields values)
+|**PATH**|`core\actions\model\create.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=model_create&entity=core\Group&fields[name]=Admin`|
+|**CLI**|`$ ./equal.run --do=model_create --entity=core\\Group --fields[name]=Admin`|
+|**DESCRIPTION**|Create a new object using given fields values.|
 
-- **?do=model_update** (Update (fully or partially) the given object)
 
-- **?do=model_delete** (Deletes the given object(s))
+
+
+#### Update Object
+
+|**PATH**|`core\actions\model\update.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=model_update&entity=core\Group&id=45&fields[name]=Worker`|
+|**CLI**|`$ ./equal.run --get=model_view --entity=core\\User --id=45 --fields[name]=Worker`|
+|**DESCRIPTION**|Update (fully or partially) the given object.|
+
+
+
+
+#### Delete Object
+
+|**PATH**|`core\actions\model\delete.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=model_delete&entity=core\Group&id=48`|
+|**CLI**|`$ ./equal.run --get=model_delete --entity=core\\Group --id=48`|
+|**DESCRIPTION**|Deletes the given object(s).|
+
+
+
+#### Search Object
+
+|**PATH**|`core\data\model\search.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?get=model_search&entity=core\Group&domain=[name,=,Admin]`|
+|**CLI**|`$ ./equal.run --get=model_search --entity=core\\Group --domain=[name,=,Admin]`|
+|**DESCRIPTION**|Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order.|
 
   
 
-Inside the`"packages/core/data/model"`folder :
+#### Read Object
 
-- **?get=model_search** (Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order)
+|**PATH**|`core\data\model\read.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?get=model_read&entity=core\Group&fields=[created,description]&ids=[1,2]`|
+|**CLI**|`$ ./equal.run --get=model_read --entity=core\\Group --fields=[created,description] --ids=[1,2]`|
+|**DESCRIPTION**|Returns values map of the specified fields for object matching given class and identifier.|
 
-- **?get=model_read** (Returns values map of the specified fields for object matching given class and identifier)
 
-- **?get=model_collect** (Returns a list of entities according to given domain (filter), start offset, limit and order)
 
-  
+#### Collect Model
+
+|**PATH**|`core\data\model\collect.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?get=model_collect&entity=core\Group&fields=[created,description]&domain=[id,=,1]`|
+|**CLI**|`$ ./equal.run --get=model_collect --entity=core\\Group --fields=[created,description] --domain=[id,=,1]`|
+|**DESCRIPTION**|Returns a list of entites according to given domain (filter), start offset, limit and order.|
+
+
+
 
 ## Rights management utilities
 
-Available rights are : create, read, update, delete, manage
+To determine what the rights of Groups and Users are, we use a list of rights : 
 
-<<<<<<< HEAD
 - create 
 
 - read
@@ -156,7 +221,7 @@ They are also defined inside the `eq.lib.php`file with a value attached :
 
 **Use** :
 
-Those values are used, for example, inside `Permission.class.php`on the `rights`field.
+Those values are used, for example, inside `Permission.class.php` on the `rights` field, to determine which rights from the list are selected. 
 
 ```php
 <?php
@@ -167,47 +232,60 @@ Those values are used, for example, inside `Permission.class.php`on the `rights`
             ],
 ```
 
-
+Those permissions are used as properties by `User.class.php` & `Group.class.php` to determine the rights available.
 
 ## Users
 
-Inside the `"packages/core/actions/user"` folder :
+### Grant Rights
 
-- **?do=user_grant** (Grant additional privilege to given user)
+| **PATH**        | `core\actions\user\grant.php`                                |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=user_grant&right=create&user=15` |
+| **CLI**         | `$ ./equal.run --do=user_grant --right=create --user=15 --entity=core\\Task` |
+| **DESCRIPTION** | Grant additional privilege to given user. |
 
-Only one right can be granted at a time to one user over one entity.
-
-```bash
-$ ./equal.run --do=user_grant --group=default --right=read --entity="core\Task"
-```
+> Only one right can be granted at a time to one user over one entity.
 
 
 
-- **?do=group_revoke** (Revoke privilege from a given user)
 
-Only one right can be revoked at a time to one user over one entity.
+### Revoke Rights
+
+| **PATH**        | `core\actions\user\revoke.php`                                |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=user_revoke&right=create&user=15&entity=core\Task` |
+| **CLI**         | `$ ./equal.run --do=user_revoke --right=create --user=15 --entity=core\\Task` |
+| **DESCRIPTION** | Revoke privilege from a given user. |
+
+> Only one right can be revoked at a time to one user over one entity.
+
 
 
 
 ### Groups
 
-The controllers are similar
+### Grant Rights
 
-Inside the `"packages/core/actions/group"` folder :
+| **PATH**        | `core\actions\group\grant.php`                                |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=group_grant&right=create&group=15&entity=core\Task` |
+| **CLI**         | `$ ./equal.run --do=group_grant --right=create --group=15 --entity=core\\Task` |
+| **DESCRIPTION** | Grant additional privilege to given group. |
 
-- **?do=group_grant** (Grant additional privilege to given group)
-
-Only one right can be granted at a time to one group over one entity.
-
-```bash
-$ ./equal.run --do=group_grant --group=default --right=read --entity="core\Task"
-```
+> Only one right can be granted at a time to one group over one entity.
 
 
 
-- **?do=group_revoke** (Revoke privilege from a given group)
 
-Only one right can be revoked at a time to one group over one entity.
+### Revoke Rights
+
+| **PATH**        | `core\actions\group\revoke.php`                                |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=group_revoke&right=create&group=15&entity=core\Task` |
+| **CLI**         | `$ ./equal.run --do=group_revoke --right=create --group=15 --entity=core\\Task` |
+| **DESCRIPTION** | Revoke privilege from a given group. |
+
+> Only one right can be revoked at a time to one group over one entity.
 
 
 

@@ -14,7 +14,7 @@
 * install Windows HyperV
 
 * install WSL
-``` 
+``` bash
 $ wsl --install
 ```
 * install WSL2 core update
@@ -28,7 +28,7 @@ https://docs.docker.com/desktop/install/windows-install/
 https://docs.docker.com/engine/install/
 
 Ubuntu
-```
+```bash
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
 
@@ -41,11 +41,11 @@ Download the [Docker Compose file from github](https://raw.githubusercontent.com
 And instantiate the stack by using the following command :  
 Under Windows:
 
-```
+```bash
 $ docker compose up -d
 ```
 Under Linux:
-```
+```bash
 $ docker-compose up -d
 ```
 
@@ -163,7 +163,7 @@ Copy the files to your webserver HTML directory.
 
 Example : 
 
-```
+```bash
 cp equal /var/www/html/
 ```
 
@@ -253,18 +253,13 @@ Upon success this controller exits with no message (exit 0), and the database is
 }
 ```
 
-
 The database can be created by using the `core_init_db controller`.
 
-Either using a browser : [/?do=init_db](/?do=init_db).
-
-or with the command line interface:
-
-```bash
-$ ./equal.run --do=init_db
-```
-
-
+| **PATH**        | `core\actions\init\db.php`                                   |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=init_db`                                                |
+| **CLI**         | `$ ./equal.run --do=init_db`                                 |
+| **DESCRIPTION** | Creates a database using the details provided in config file. This controllers calls db-connectivity and if connection can be established with the host, it requests the creation of the database, if it does not exist yet. |
 
 >  Alternatively, you can create the database manually : 
 >
@@ -281,18 +276,23 @@ $ ./equal.run --do=init_db
 In order to be able to manipulate entities, the related package needs to be initialized (each package contains the class definition of its own entities).
 This can be done by using the `core_init_package` controller.
 
-```bash
-$ ./equal.run --do=init_package --package=core
-```
+|**PATH**|`core\actions\init\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=init_package&package=core`|
+|**CLI**|`$ ./equal.run --do=init_package --package=core`|
+|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
 This controller should populate the database with the tables related to the specified package.
 
 Now, you should be able to fetch data by using the controllers from the `core` package.
 
 Example: 
 
-```
-/?get=model_collect&entity=core\User
-```
+|**PATH**|`core\data\model\collect.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?get=model_collect&entity=core\User`|
+|**CLI**|`$ ./equal.run --get=model_collect --entity=core\\User`|
+|**DESCRIPTION**|Returns a list of entites according to given domain (filter), start offset, limit and order.|
+
 
 
 
@@ -306,7 +306,7 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 **Fetch the details of user[1] (admin).**
 
 GET /user/1
-```
+```json
 [
     {
         "id": 1,
@@ -323,7 +323,7 @@ GET /user/1
 
 GET /users
 
-```
+```json
 [
     {
         "id": 1,
@@ -346,7 +346,7 @@ GET /users
 
 GET l/groups
 
-```
+```json
 [
     {
         "id": 1,
@@ -369,7 +369,7 @@ GET l/groups
 
 POST /group
 
-```
+```json
 {
     "entity": "core\\Group",
     "id": 3
@@ -382,7 +382,7 @@ POST /group
 
 PUT [group/3?fields[name]=test](/group/3?fields[name]=test)
 
-```
+```json
 []
 ```
 
@@ -392,7 +392,7 @@ PUT [group/3?fields[name]=test](/group/3?fields[name]=test)
 
 GET /groups
 
-```
+```json
 [
     {
         "id": 1,

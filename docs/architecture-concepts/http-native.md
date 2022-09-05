@@ -41,28 +41,13 @@ Controllers are considered as **operations** that run specific sets of instructi
 
 For convenience, controllers can also be invoked in a CLI context, or directly within a PHP script.
 
-**Examples :** 
+###### **Examples :** 
 
-HTTP request
-
-```
-GET http://equal.local/?get=demo_simple
-```
-
-CLI command
-
-```bash
-$ ./equal.run --get=demo_simple
-```
-
-PHP script
-
-```php
-<?php
-echo eQual::run('get', 'demo_simple');
-```
-
-
+| **Path** | `demo\simple.php`                                        |
+| ---------------- | ------------------------------------------------------- |
+| **HTTP Request** | ?get=demo_simple                                        |
+| **CLI**          | $ ./equal.run --get=demo_simple                         |
+| **PHP Script**   | ``` <?php<br/>echo eQual::run('get', 'demo_simple');``` |
 
 A controller invocation consists of two parts: 
 

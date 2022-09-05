@@ -28,20 +28,30 @@ define('DB_NAME',       'equal');
         * In case creation fails, make sure the DBMS server is actually running on the specified host and port.
 
 You can now test your installation by calling the `test_db-connectivity` test tool :
-```bash
-$ ./equal.run --do=test_db-connectivity
-```
+
+| **PATH**        | `core\actions\test\db-connectivity.php`                      |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=test_db-connectivity`                                   |
+| **CLI**         | `$ ./equal.run --do=test_db-connectivity`                    |
+| **DESCRIPTION** | Tests connectivity to the DBMS server (check if we're able to establish a TCP/IP connection). |
 
 If no error message is returned (the command ends with a `0` exit code), you can create your database by calling the `init_db` tool :
 
-```bash
-$ ./equal.run --do=init_db
-```
-eQual holds a native `core` package that holds a few classes and operations. All packages depends on the ORM layer, which is responsible of storing the objects  into the database. So, in order to start using a package that defines object classes, you have to initialize it. This can be done using the `init_package` tool :
+|**PATH**|`core\actions\init\db.php`|
+|-|-|
+|**URL**|`?do=init_db`|
+|**CLI**|`$ ./equal.run --do=init_db`|
+|**DESCRIPTION**|Creates a database using the details provided in config file. This controllers calls db-connectivity and if connection can be established with the host, it requests the creation of the database, if it does not exist yet.|
 
-```bash
-$ ./equal.run --do=init_package --package=core
-```
+eQual holds a native `core` package that holds a few classes and operations. All packages depends on the ORM layer, which is responsible of storing the objects  into the database. So, in order to start using a package that defines object classes, you have to initialize it. 
+
+This can be done using the `init_package` tool :
+
+|**PATH**|`core\actions\init\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=init_package&package=core`|
+|**CLI**|`$ ./equal.run --do=init_package --package=core`|
+|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
 
 
 
@@ -150,17 +160,21 @@ Now the database should have the following tables:
 
 If none of the above is working. Try this :
 
-```bash
-$ ./equal.run --do=test_package-consistency --package=core
-```
+|**PATH**|`core\actions\test\package-consistency.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=test_package-consistency&package=core`|
+|**CLI**|`$ ./equal.run --do=test_package-consistency --package=core`|
+|**DESCRIPTION**|Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
 
 It will tell you if something is wrong or missing. You can ignore any error related to view or translation (they are optional but will display a warning nonetheless).
 
 You can run the same command with your package's name instead of "core", see if the problem lies in here.
 
-```bash
-$ ./equal.run --do=test_package-consistency --package=mypackage
-```
+|**PATH**|`core\actions\test\package-consistency.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=test_package-consistency&package=myPackage`|
+|**CLI**|`$ ./equal.run --do=test_package-consistency --package=myPackage`|
+|**DESCRIPTION**|Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
 
 
 

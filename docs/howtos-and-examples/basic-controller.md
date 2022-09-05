@@ -163,11 +163,11 @@ Open your browser, and in the localhost page you defined for eQual, add this :
 
 > "core"  (the name of the package) is not necessary here.
 >
->  We simplified it, inside the **eq.lib.php** script, because we use this package quite a lot. 
+> We simplified it, inside the **eq.lib.php** script, because we use this package quite a lot. 
 >
 > **Summary** : *?get=model_search* would also work.
 
-The query result : 
+The query result is: 
 
 ```JSON
 "errors": {
@@ -177,11 +177,13 @@ The query result :
 
 > Remember that the entity is required.
 
-If we type: 
+We will add an entity to the search: 
 
-```
-?get=model_search&entity=core\User 
-```
+|**PATH**|`core\data\model\search.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?get=model_search&entity=core\User`|
+|**CLI**|`$ ./equal.run --get=model_search --entity=core\\User`|
+|**DESCRIPTION**|Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order.|
 
 Equal-framework does the work of reading ```?get=model_search```  as ```/core/classes/User.class.php ```.
 
@@ -325,7 +327,7 @@ If we type in the browser :
 ?show=model_controllers&package=core
 ```
 
-
+###### 
 
 **The Response** :
 

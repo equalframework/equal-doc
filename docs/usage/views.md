@@ -31,7 +31,7 @@ Here is a recap for the `core\User` entity :
 
 ## Front-end logic
 
-A **view** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
+A **iew** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
 Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications. 
 
 Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
@@ -60,19 +60,21 @@ Some attributes are common to all types of views. Below is a list of the common 
 | **controller**      | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
 | **header**      | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
 
-### name
+
+
+#### name
 
 The **name** property is mandatory and relates to the unique name assigned to the view.
 
 
 
-### description
+#### description
 
 A **description** property allows to give a short hint about the view's context or the way it is intended to be used.
 
 
 
-### access
+#### access
 
 groups: array (list of groups the view is restricted to)
 
@@ -84,7 +86,7 @@ Example :
 
 
 
-### actions <a id="view_commons_actions"></a>
+#### actions <a id="view_commons_actions"></a>
 
 The optional **actions**  property  contains a list of objects defining a custom list of possible actions attached to the view.
 
@@ -159,7 +161,7 @@ Here below is a flow diagram that recaps the interactions between the controller
 </center>
 
 
-### controller <a id="view_commons_controller"></a>
+#### controller <a id="view_commons_controller"></a>
 
 The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
 
@@ -170,11 +172,11 @@ The default values is `model_collect` (which is an alias for `core_model_collect
 
 
 
-### header <a id="view_commons_header"></a>
+#### header <a id="view_commons_header"></a>
 
 The **header** section allows to override the default behavior of the view.
 
-#### Structure summary
+##### **Structure summary**
 
 | PROPERTY    | DESCRIPTION                                                  |
 | ----------- | ------------------------------------------------------------ |

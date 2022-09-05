@@ -28,11 +28,11 @@ Should be located at the root of eQual (folder containing file `run.php`)
 
 Available rights: 
 
-- "create"
-- "read"
-- "update"
-- "delete"
-- "manage"
+- create
+- read
+- update
+- delete
+- manage
 
 You can grant one right for one entity at a time:
 
@@ -44,83 +44,77 @@ You can grant one right for one entity at a time:
 
 This controller runs some consistency checks and works with any package:
 
-```bash
-./equal.run --do=test_package-consistency --package=core 
-```
+| **PATH**        | `core\actions\test\package-consistency.php`                  |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=test_package-consistency&package=core`                  |
+| **CLI**         | `$ ./equal.run --do=test_package-consistency --package=core --level=warn` |
+| **DESCRIPTION** | Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON). |
 
->  NB : Use of the level property to limit the results, example : --level=error
+> The level property has 3 options : 
+>
+> - **'error'** (ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`)
+> - **'warn'** (ex: `WARN  - I18 - Unknown field 'object_class' referenced in file "packages\/core\/i18n\/en\/alert\MessageModel.json"`
+> - ***** (error & warn).
+
 
 #### Initiate eQual core in DB
 
-(this step is mandatory for every new installation)
+|**PATH**|`core\actions\init\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=init_package&package=core`|
+|**CLI**|`$ ./equal.run --do=init_package --package=core`|
+|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
 
-```bash
-./equal.run --do=init_package --package=core
-```
+> (this step is mandatory for every new installation)
+
 
 #### Initiate your package in DB
 
-```bash
-./equal.run --do=init_package --package=mypackage
-```
+|**PATH**|`core\actions\init\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=init_package&package=myPackage`|
+|**CLI**|`$ ./equal.run --do=init_package --package=myPackage`|
+|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
+
 
 #### Initiate your package with initial data in DB
 
-```bash
-./equal.run --do=init_package --package=mypackage --import=true
-```
+|**PATH**|`core\actions\init\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=init_package&package=myPackage&import=true`|
+|**CLI**|`$ ./equal.run --do=init_package --package=myPackage --import=true`|
+|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
 
 #### Run package test unit
 
-```bash
-./equal.run --do=test_package --package=mypackage
-```
+|**PATH**|`core\actions\test\package.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=test_package&package=core`|
+|**CLI**|`$ ./equal.run --do=test_package --package=core`|
+|**DESCRIPTION**|The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](./testing.md)).|
 
 
 
 ## Invoking Controllers
 
-### GET :
+### Get
 
-Related Path :  `/packages/mypackage/data/my-controller.php`
-
-**HTTP :**
-
-[http://equal.local?get=mypackage_my-controller](http://equal.local?get=mypackage_my-controller)
-
-**PHP :**
-
-```php
-run('get', 'mypackage_MyClass')
-```
-
-**CLI :**
-
-```bash
-./equal.run --get=model_collect --entity="mypackage\MyClass"
-```
+|**PATH**|`/packages/mypackage/data/my-controller.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?get=mypackage_my-controller`|
+|**CLI**|`$ ./equal.run --get=model_collect --entity="mypackage\MyClass"`|
+|**PHP**|```run('get', 'mypackage_MyClass')```|
 
 *Collect is the name of the controller, and model the directory to which it belongs.*
 
 ### DO :
 
+|**PATH**|`/packages/mypackage/actions/subdir/my-action.php`|
+| --------------- | ------------------------------------------------------------ |
+|**URL**|`?do=mypackage_subdir_my-action](http://equal.local?do=mypackage_subdir_my-action`|
+|**CLI**|`$ ./equal.run --do=model_update --entity=mypackage\MyObject --fields=[ids]=1 --fields=[name]=example`|
+|**PHP**|```run('do', 'mypackage_myobject_action', [/* parameters */])```|
 Related path :  `/packages/mypackage/actions/subdir/my-action.php`
-
-**HTTP :**
-
-[http://equal.local?do=mypackage_subdir_my-action](http://equal.local?do=mypackage_subdir_my-action)
-
-**PHP :**
-
-```php
-run('do', 'mypackage_myobject_action', [/* parameters */])
-```
-
-**CLI :**
-
-```bash
-./equal.run --do=model_update --entity=mypackage\MyObject --fields=[ids]=1 --fields=[name]=example
-```
 
 
 
@@ -146,14 +140,12 @@ User::create()->update(['firstname'=>'Bart']);
 if(count(search($object_class, array(array(array('id', '=', $object_id)))))) {...}
 ```
 
-
 ### How to browse all objects of a given class?
 ```php
 <?php
 // note: ensure the specified class does actually exist
 $res = browse($object_class, search($object_class));
 ```
-
 
 ### How to add a clause to every condition?
 ```php
@@ -162,7 +154,6 @@ $res = browse($object_class, search($object_class));
 for($i = 0, $j = count($domain); $i < $j; ++$i)
 	$domain[$i] = array_merge($domain[$i], array(array('deleted', '=', '1')));
 ```
-
 
 ### How to obtain output (json/html) from another script ?
 ```php
@@ -196,7 +187,6 @@ foreach($order as $ofield) {
 	});
 }
 ```
-
 
 ### How to request fields from all sub-objects at once?
 ```php

@@ -15,9 +15,9 @@ Here is the full list of eQual built-in services and their purpose :
 |adapt|`equal\data\DataAdapter`| |
 |orm|`equal\orm\ObjectManager`| Manages the objects (classes) |
 |route|`equal\route\Router`| Returns an existing route. |
-|spool|`equal\email\EmailSpooler`| |
+|spool|`equal\email\EmailSpooler`| Manages the emails. |
 
-The 'orm' service may be accessed without DB, which is not the case for the 'auth' service which needs User objects.
+The **'orm'** service may be accessed without DB, which is not the case for the **'auth'** service which needs User objects.
 
 ## How services are instantiated
 
@@ -78,6 +78,7 @@ Every service is given an arbitrary name that can be overwritten (limited to the
 The syntax could be : 
 
 ```php
+<?php
 'providers'     => ['contextDefiner' => 'equal\php\Context'] // instead of context
 ```
 

@@ -176,7 +176,7 @@ Open your browser, and in the localhost page you defined for eQual
 
 To the address bar, add this :
 
-```
+```markdown
 ?get=todolist_tasks
 ```
 
