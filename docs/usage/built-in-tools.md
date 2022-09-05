@@ -79,6 +79,10 @@ This page lists an inventory of available scripts, grouped by category.
 |**URL**|`?do=test_package-consistency&package=core`|
 |**CLI**|`$ ./equal.run --do=test_package-consistency --package=core --level=warn`|
 |**DESCRIPTION**|Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
+
+ 
+
+
 > The level property has 3 options : 
 >
 > - **'error'** (ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`)

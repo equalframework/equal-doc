@@ -439,25 +439,25 @@ Forms views are JSON objects that describe how to render a specific view related
 
 
 
-### header
+#### header
 
 The **header** property is common to all views. For details about its structure see <a href="#view_commons_header">views commons</a>.
 
 
 
-### actions
+#### actions
 
 The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
 
 
 
-### layout
+#### layout
 
 The layout part holds a nested structure that describes the way the (form) view has to be rendered (which fields, using which widgets) and how to place its elements, by grouping fields within rows and columns.
 
 
 
-#### layout.groups
+##### layout.groups
 
 The groups are stacked vertically. A layout must always have at least 1 group.
 
@@ -468,7 +468,7 @@ The groups are stacked vertically. A layout must always have at least 1 group.
 
 
 
-#### group.sections
+##### group.sections
 
 A group must always have at least 1 section.
 
@@ -483,7 +483,7 @@ When several sections are present, each section is displayed under a tabs.
 
 
 
-#### section.rows
+##### section.rows
 
 |PROPERTY|DESCRIPTION|
 |--|--|
@@ -491,7 +491,7 @@ When several sections are present, each section is displayed under a tabs.
 
 
 
-#### row.columns
+##### row.columns
 
 |PROPERTY|DESCRIPTION|
 |--|--|
@@ -500,7 +500,7 @@ When several sections are present, each section is displayed under a tabs.
 
 
 
-#### column.items
+##### column.items
 
 Each column has a list of items, which are element describing which fields are to be rendered, how to render them (room within the column, widget override, ...), and under what conditions they must be displayed.
 
@@ -518,7 +518,7 @@ Each item is an object accepting the following properties :
 
 
 
-#### item.widget
+##### item.widget
 
 Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
 
@@ -567,7 +567,7 @@ Additional properties apply only to specific field types. Here is the full list 
 
 
 
-### Real life example
+#### Real life example
 
 A real example of a form view is shown below, which is the Category form of a package having multiple `sections` (tabs) each having a label(Categories, Product Models and Booking Types) and an id(`section.categories_id`, `section.product_models`, `section.booking_types`) to be able to be translated in using the "i18n". The field called `name` has a `widget` property with an attribute `heading` set to true which emphasizes it by displaying it a little bigger.
 
@@ -772,19 +772,19 @@ The list view is named *Category.list.default.json* and has the following struct
 
 ### Structure summary
 
-### name
+#### name
 
 The **name** property is mandatory and relates to the unique name assigned to the view.
 
 
 
-### description
+#### description
 
 A **description** property allows to give a short hint about the view's context or the way it is intended to be used.
 
 
 
-### group_by
+#### group_by
 
 A `group_by` array can be set to describe the way the objects have to be grouped.
 Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
@@ -814,7 +814,7 @@ Another example :
 
 
 
-### order
+#### order
 
 String holding the name(s) of the field to sort results on, separated with commas.
 Example : 
@@ -825,7 +825,7 @@ Example :
 
 
 
-### sort
+#### sort
 
 String litteral ('*desc*' or '*asc*')
 
@@ -837,7 +837,7 @@ Example:
 
 
 
-### limit
+#### limit
 
 integer (max size of result set)
 
@@ -851,13 +851,14 @@ Bear in mind that the default controller (core_mode_collect), has a `max` constr
 
 
 
-### domain
+#### domain
 
 The **domain** property allows to conditionally display the data  (More Info: [domain](../architecture-concepts/domains.md)).
 
  Example:
 
  ```php
+ <?php
   "domain": "["type", "<>", "I"]"
  ```
 
@@ -875,12 +876,12 @@ The **filter** property allows to provide a series of predefined search filters.
         "description": "French speaking people",
         "clause": ["language", "=", "fr"] 
     }
-]
+]```
 ```
 
 
 
-### header
+#### header
 
 In addition to the attributes common to all views (see <a href="#view_commons_header">views commons</a>), the **header** property for lists uses an additional features for the `actions` attribute.
 
@@ -913,13 +914,13 @@ Example :
 }
 ```
 
-### actions
+#### actions
 
 The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
 
 
 
-### exports
+#### exports
 
 Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well. 
 
@@ -943,13 +944,13 @@ The view property points to an HTML file that will be parsed and filled with sel
 
 
 
-### layout
+#### layout
 
 The layout part holds an structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
 
 
 
-#### layout.items
+##### layout.items
 
 The list view consists of a table having a series of columns (items). Each column relates to a field, and is described by an item that specifies how the field is to be rendered, the behaviors attached to it (ordering, sorting, ...), and under what conditions it must be displayed.
 
@@ -966,7 +967,7 @@ Each item is an object accepting the following properties :
 
 
 
-### operations
+#### operations
 
 This property allows to apply a series of operations on one or more columns, for the displayed records set.
 
@@ -1050,7 +1051,7 @@ Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 
 
 
-### access
+#### access
 
 Groups and users with the permission to see the content of the view.
 
@@ -1300,7 +1301,7 @@ Here we use a new `list view`, that could, for example, have a different domain*
 
 ## Charts
 
-Charts enable us to visually compare multiple sets of data. It can be very helpfull to display statistics.
+Charts enable us to visually compare multiple sets of data. It can be very helpful to display statistics.
 
 Below is an example of a chart view, the proprerties are very similar to the ones we can find in menus (check the section above this one). 
 
@@ -1310,10 +1311,12 @@ The access property is allowing the people that belong to the group to see this 
 The range_interval property allows us to choose which period of time will delimit the data that we want to see, the possibilities are : "day, week, semester, year".
 
 The range_to & range_from properties allow us to choose, when the range starts and when it stops (linked with the range_interval property). 
-Possibilites : date.[this|prev|next].[day|week|month|quarter|semester|year].[first|last].
+Possibilities : date.[this|prev|next].[day|week|month|quarter|semester|year].[first|last].
 
 The dataset property is about the data that will be shown in the graph, we have the label property that will allow us to the name the element displayed.
-The operation property that will use the operations talked about in the above sections, will allow us to display a certain type of data. 
+
+###### The operation property that will use the operations talked about in the above sections, will allow us to display a certain type of data. 
+
 At last, the domain property allows us to filter the data even more. 
 
 
