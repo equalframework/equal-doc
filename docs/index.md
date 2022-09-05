@@ -8,10 +8,10 @@ eQual is a versatile, language-agnostic, and web-oriented framework, aiming to e
 eQual offers native HTTP Auth support (JWT, CORS) to secure every endpoint with User Management, Role-Based Access Controls, or custom Access management.
 
 **Server-Side Scripting**  
-eQual allows to implement custom logic on any route endpoint, and to quickly build controllers and micro-services.
+eQual allows to implement custom logic on any route endpoint, for quick creation of controllers and micro-services.
 
 **Instant APIs Without Code**  
-eQual provides tools for automatic generation of fully-featured ReST APIs with live documentation, for any kind of service.
+eQual provides tools for automatic generation of fully-featured ReST APIs with live documentation, accessible for any kind of service.
 
 
 ```php
@@ -24,9 +24,9 @@ echo "This is a valid Contoller!"
 
 ## Why eQual
 
-Most frameworks require a long time to master and, while learning them, you might find yourself struggling to achieve simple things.
+While being a solid framework that has everything you need to do almost anything, eQual has been designed to oppose as little constraints as possible to developers.
 
-eQual has been designed to oppose as little constraints as possible to developers. While being a solid framework that has all you need to do almost anything, taking advantage of the native features or not is entirely up to you.
+Most frameworks require a long time to master and, while learning them, you might find yourself struggling to achieve simple things. But with eQual, taking advantage of the native features is entirely up to you.
 
 Actually, since you're reading this, you probably already know everything needed to start using it.
 
@@ -122,8 +122,8 @@ list($params, $providers) = eQual::announce([
 $request = new HttpRequest("GET https://api.imgur.com/3/image/{$params['id']}");
 
 $response = $request
-            ->header('Authorization', "Client-ID 34030ab1f5ef12d")
-            ->send();
+    ->header('Authorization', "Client-ID 34030ab1f5ef12d")
+    ->send();
             
 $providers['context']
     ->httpResponse()
@@ -135,7 +135,7 @@ $providers['context']
 
 ## In short
 
-eQual uses **3** kinds of **controllers** (Action handlers, Data providers, App providers), **5 methods** (Create, Read, Update, Delete, Search) and has a basic set of **native features** : 
+eQual uses **3** kinds of **controllers** (Action handlers, Data providers, App providers), **5 methods** (Create, Read, Update, Delete, Search) and has a robust set of **native features** : 
 
 * I/O as HTTP messages 
 * Cascading Configuration 
@@ -155,9 +155,9 @@ eQual uses **3** kinds of **controllers** (Action handlers, Data providers, App 
 ## More
 
 
-This framework has been designed for those who don't want to always re-invent the wheel (but might occasionally enjoy it); dislike learning entire frameworks at once; and loathe dealing with dozens of files to achieve simple things.
+This framework has been designed for those who : don't want to always re-invent the wheel (but might occasionally enjoy it); dislike learning entire frameworks at once; and loathe dealing with dozens of files to achieve simple things.
 
-In most situations you don't need everything a framework offers. For that reason, eQual does not require you to comply with a specific logic or structure, and allow you to use it the way you want.
+In most situations you don't need everything a framework offers. For that reason, eQual does not require you to comply with a specific logic or structure, and allows you to use it the way you want.
 
 
 eQual learning curve is actually more like learning stairs : one can use it without having to start from scratch or even without knowing it.
