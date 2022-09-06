@@ -147,7 +147,7 @@ The default AccesController service is defined in  `/lib/equal/access/AccessCont
 
 In **/lib**, create a folder by the name of your project, you want a directory similar to this: **`/lib/myapp/access/AccessController.class.php`**
 
-Then, in the **config.inc.php** file of your package (located at`/packages/myapp/config.inc.php`), add this line:
+Then, in the **config.inc.php** file of your package (located at`/packages/myapp/config.inc.php`), add this line :
 
 ```php
 <?php
@@ -170,7 +170,8 @@ class AccessController extends \equal\access\AccessController {
   // non-exhaustive example with filter:
   filter($operation, $object_class='*', $object_fields=[], $object_ids=[]){
     $user_id = $this->container->get('auth')->userId();
-    // grant READ rights over 'User' class when an user is authenticated (0 = guest_user)
+    // grant READ rights over 'User' class when an user is 
+    // authenticated (0 = guest_user)
     if($object_class == 'myapp\User') {
       if($operation == QN_R_READ) {
         if($user_id > 0) {

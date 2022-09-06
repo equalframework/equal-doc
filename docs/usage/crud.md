@@ -11,21 +11,21 @@ The following examples show the minimal syntax required to operate CRUD manipula
 !!! note "multilang fields"
 	For fields whose value varies from one language to another (multilang), an additional `$lang` parameter is used. See [i18n](i18n.md) for more information.
 
-**CREATE** :
+### CREATE
 
 ```php
 <?php
 User::create($values_map);
 ```
 
-**READ** :
+### READ
 
 ```php
 <?php
 User::read($fields_array);
 ```
 
-**UPDATE** :
+### UPDATE
 
 ```php
 <?php
@@ -33,7 +33,7 @@ User::ids($ids_array)
     ->update($values_map);
 ```
 
-**DELETE**:
+### DELETE
 
 ```php
 <?php
@@ -41,7 +41,7 @@ User::ids($ids)
     ->delete(true);
 ```
 
-**SEARCH** :
+### SEARCH
 
 ```php
 <?php

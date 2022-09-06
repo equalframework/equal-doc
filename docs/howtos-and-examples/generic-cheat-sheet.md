@@ -162,13 +162,18 @@ for($i = 0, $j = count($domain); $i < $j; ++$i)
 
 // either use a HTTP request
 load_class('utils/HttpRequest');
-$request = new HttpRequest(FClib::get_url(true, false).'?get=core_objects_list&object_class=School%5CTeacher&rp=20&page=1&sortname=id&sortorder=asc&domain%5B0%5D%5B0%5D%5B%5D=courses_ids&domain%5B0%5D%5B0%5D%5B%5D=contains&domain%5B0%5D%5B0%5D%5B2%5D%5B%5D=1&fields%5B%5D=id&fields%5B%5D=firstname&fields%5B%5D=lastname');
+$request = new HttpRequest(FClib::get_url(true, false).'?get=core_objects_list&object_class=School%5CTeacher&rp=20&page=1&sortname
+=id&sortorder=asc&domain%5B0%5D%5B0%5D%5B%5D=courses_ids&domain%5B0%5D%5B
+0%5D%5B%5D=contains&domain%5B0%5D%5B0%5D%5B2%5D%5B%5D=1&fields%5B%5D=id&
+fields%5B%5D=firstname&fields%5B%5D=lastname');
 $json_data = $request->get();
 
-// or use PHP output buffering (to prevent scope collision, remember to emebed such code into a function)
+// or use PHP output buffering (to prevent scope collision, remember to 
+// embed such code into a function)
 function get_include_contents($filename) {
 	ob_start();	
-	include($filename); // assuming  parameters required by the script being called are present in the current URL 
+	include($filename); // assuming  parameters required by the script 
+    // being called are present in the current URL 
 	return ob_get_clean();
 }
 $result = get_include_contents('packages/core/data/objects/list.php');
@@ -191,7 +196,8 @@ foreach($order as $ofield) {
 ### How to request fields from all sub-objects at once?
 ```php
 <?php
-$pages_values = $orm->read('icway\Page', $pages_ids, array('url_resolver_id'), $lang);			
+$pages_values = $orm->read('icway\Page', $pages_ids, array('url_resolver_id'), 
+$lang);			
 $url_ids = array_map(function($a){return $a['url_resolver_id'];}, $pages_values);
 $url_values = $orm->read('core\UrlResolver', $url_ids, ['human_readable_url']);
 ```

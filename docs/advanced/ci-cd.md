@@ -62,18 +62,27 @@ The syntax :
 Here is an example using eQual with a php-apache image : 
 
 ```dockerfile
-FROM php:7.3-apache   # official image taken from docker hub
-COPY . /var/www/html	# copy all the project into apache html folder (must be at project's root)
+FROM php:7.3-apache   
+# official image taken from docker hub
+COPY . /var/www/html	
+# copy all the project into apache html folder (must be at project's root)
 
-RUN docker-php-ext-install pdo_mysql mysqli \	# installing required mysql service
-    && chown -R www-data:www-data /var/www \ 	# granting permissions in apache folder
-    && cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/	# apache config
+RUN docker-php-ext-install pdo_mysql mysqli \	
+	# installing required mysql service
+    && chown -R www-data:www-data /var/www \ 	
+    # granting permissions in apache folder
+    && cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/	
+    # apache config
     
-WORKDIR /var/www/html	# changing current location in directory
+WORKDIR /var/www/html	
+# changing current location in directory
 
-COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf	# custom apache vhost
-COPY .docker/config.inc.php /config/config.inc.php	  # changing DB host to "mysql"
-COPY .docker/apache2.conf /etc/apache2/apache2.conf	  # apache config
+COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf	
+# custom apache vhost
+COPY .docker/config.inc.php /config/config.inc.php	  
+# changing DB host to "mysql"
+COPY .docker/apache2.conf /etc/apache2/apache2.conf	  
+# apache config
 ```
 
 To build an image out of this file, use the following command :
@@ -238,7 +247,8 @@ pipelines:
         script:
           - apt-get update && apt-get install -y default-mysql-client
           - docker-php-ext-install mysqli
-          # check that mandatory directories are present and have correct access rights set
+          # check that mandatory directories are present and have correct access 
+          # rights set
           - php run.php --do=test_fs-consistency
           # check ability to connect to the dbms service
           - php run.php --do=test_db-connectivity
@@ -288,7 +298,8 @@ jobs:
       - checkout:
           path: ~/repo
       
-      # check that mandatory directories are present and have correct access rights set
+      # check that mandatory directories are present and have correct access 
+      # rights set
       - run: php run.php --do=test_fs-consistency
       # check ability to connect to the dbms service
       - run: php run.php --do=test_db-connectivity

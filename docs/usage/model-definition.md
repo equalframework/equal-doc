@@ -427,13 +427,15 @@ Some fields are mandatory, and defined in the `Model` class.
 
 | NAME              | DESCRIPTION                                                  |
 | ----------------- | ------------------------------------------------------------ |
-| **onupdate()**    | Hook invoked before object update for performing object-specific additional operations. |
-| **ondelete()**    | Hook invoked before object deletion for performing object-specific additional operations. |
+| **cancreate()**    | Check wether an object can be created. |
+| **oncreate()**    | Hook invoked after object creation for performing object-specific additional operations. |
 | **canupdate()**   | Check wether an object can be updated.                       |
+| **onupdate()**    | Hook invoked before object update for performing object-specific additional operations. |
 | **candelete()**   | Check wether an object can be deleted.                       |
+| **ondelete()**    | Hook invoked before object deletion for performing object-specific additional operations. |
 | **canclone()**    | Check wether an object can be cloned.                        |
 | **onclone()**     | Hook invoked after object cloning for performing object-specific additional operations. |
 | **onchange()**    | Handler for virtual static methods: use classname to invoke a Collection method, if available. |
 
 
-## Custom methods
+# Custom methods

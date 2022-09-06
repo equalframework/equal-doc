@@ -9,13 +9,15 @@ $body = [
 ];
 
 // Send query to Mapbox geocoding API
-$request = new HttpRequest('/geocoding/v5/mapbox.places/'.urlencode($params['address']).'.json', ['Host' => 'api.mapbox.com:443']);
+$request = new HttpRequest('/geocoding/v5/mapbox.places/'.urlencode
+($params['address']).'.json', ['Host' => 'api.mapbox.com:443']);
 
 $response = $request
             ->setBody($body)
             ->send();
 
-/* expected response match a JSON array of geo+json Features (https://tools.ietf.org/html/rfc7946) */
+/* expected response match a JSON array of geo+json Features 
+(https://tools.ietf.org/html/rfc7946) */
 $response->getBody();
 ```
 
@@ -66,7 +68,8 @@ $providers['context']
   Example :
 
   ```php
-  $request = new HttpRequest('/geocoding/v5/mapbox.places/'.urlencode($params['address']).'.json', ['Host' => 'api.mapbox.com:443']);
+  $request = new HttpRequest('/geocoding/v5/mapbox.places/'.urlencode
+  ($params['address']).'.json', ['Host' => 'api.mapbox.com:443']);
   ```
 
   In this example, eQual sends 'address information' and expects to get 'gps informations' from an API.
@@ -92,7 +95,8 @@ The controller expects two parameters :
 ```php
 'params' 		=>	[
         'network_name'  =>  [
-            'description'   => 'name of the social network to address oauth request.',
+            'description'   => 'name of the social network to address 
+            oauth request.',
             'type'          => 'string', 
             'required'      => true
         ],

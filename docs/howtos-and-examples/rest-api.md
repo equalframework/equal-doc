@@ -158,7 +158,8 @@ Finally, **$context** is used to accomplish REST's purpose, displaying the data 
 $context
     ->httpResponse()// get the HTTP response being built
     ->body($list)	// populate the body with resulting list
-    ->send();		// output the response (i.e. some plain text @see https://www.w3.org/Protocols/rfc2616)
+    ->send();		// output the response (i.e. some plain 
+					// text @see https://www.w3.org/Protocols/rfc2616)
 ```
 
 
@@ -274,7 +275,8 @@ Finally, we use **$context** to send it and get a REST response
 
 ```markdown
 DO : CREATE
-http://equal.local/index.php?do=todolist_task_create&title=my+task&content=lorem+ipsum&user_id=1
+http://equal.local/index.php?do=todolist_task_create&title=my+task
+&content=lorem+ipsum&user_id=1
 ```
 
 eQual resolves the operation `?do=todolist_task_create` to the script `/todolist/actions/task/create.php`

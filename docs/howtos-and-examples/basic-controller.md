@@ -37,7 +37,8 @@ Let's open  **`/core/data/model/search.php`**.
 ```php
 <?php
 list($params, $providers) = announce([
-    'description'   => 'Returns a list of identifiers of a given entity, according to given domain (filter), start offset, limit and order.',
+    'description'   => 'Returns a list of identifiers of a given entity, according 
+    to given domain (filter), start offset, limit and order.',
     'response'      => [   // defines the format of the server response
         'content-type'      => 'application/json', 
         'charset'           => 'UTF-8',
@@ -46,12 +47,16 @@ list($params, $providers) = announce([
     ],    
     'params'        => [ // gives additional requirements and conditions
         'entity' =>  [
-            'description'   => 'Full name (including namespace) of the class to look into (e.g. \'core\\User\').',
+            'description'   => 'Full name (including namespace) of the class 
+            to look into (e.g. \'core\\User\').',
             'type'          => 'string', 
-            'required'      => true // Means that the entity Condition/Requirement is necessary for the request to go through
+            'required'      => true 
+            // Means that the entity Condition/Requirement is necessary for 
+            // the request to go through
         ],
         'domain' => [
-            'description'   => 'Criterias that results have to match (serie of conjunctions)',
+            'description'   => 'Criterias that results have to match 
+            (serie of conjunctions)',
             'type'          => 'array',
             'default'       => []
         ],
@@ -81,7 +86,8 @@ list($params, $providers) = announce([
         'charset'       => 'utf-8',
         'accept-origin' => '*'
     ],
-    'providers'     => [ 'context' ] // helps us to access useful services such as context, orm, auth
+    'providers'     => [ 'context' ] 
+    // helps us to access useful services such as context, orm, auth
 ]);
 
 list($context) = [ $providers['context'] ];
@@ -90,7 +96,8 @@ if(!class_exists($params['entity'])) {
     throw new Exception("unknown_entity", QN_ERROR_UNKNOWN_OBJECT);
 }
 
-$collection = $params['entity']::search($params['domain'], [ 'sort' => [ $params['order'] => $params['sort']] ]);
+$collection = $params['entity']::search($params['domain'],
+[ 'sort' => [ $params['order'] => $params['sort']] ]);
 
 $total = count($collection->ids());
 
@@ -138,7 +145,8 @@ Finally, **$context** is used to accomplish REST's purpose, displaying the data 
 $context
     ->httpResponse()// get the HTTP response being built
     ->body($result)	// populate the body with resulting result
-    ->send();		// output the response (i.e. some plain text @see https://www.w3.org/Protocols/rfc2616)
+    ->send();		// output the response
+					// (i.e. some plain text @see https://www.w3.org/Protocols/rfc2616)
 ```
 
 
@@ -149,10 +157,12 @@ We'll assume we already have an existing database containing a data sample of ta
 
 ```bash
 $> php run.php --do=test_package-consistency --package=todolist 
-// The test_package_consistency controller checks if the package has the right values, if there are errors, ...
+// The test_package_consistency controller checks if the package has the 
+right values, if there are errors, ...
 
 $> php run.php --do=init_package --package=todolist 
-// The init_package controller should populate the database with the tables related to the specified package.
+// The init_package controller should populate the database with the tables 
+related to the specified package.
 ```
 
 Open your browser, and in the localhost page you defined for eQual, add this :
@@ -210,12 +220,14 @@ list($params, $providers) = announce([
     ],
     'params'        => [
         'entity' =>  [
-            'description'   => 'Full name (including namespace) of the class to return (e.g. \'core\\User\').',
+            'description'   => 'Full name (including namespace) of the class 
+            to return (e.g. \'core\\User\').',
             'type'          => 'string', 
             'required'      => true
         ],
         'fields' =>  [
-            'description'   => 'Associative array mapping fields to their related values.',
+            'description'   => 'Associative array mapping fields to 
+            their related values.',
             'type'          => 'array', 
             'default'       => []
         ],
@@ -228,9 +240,11 @@ list($params, $providers) = announce([
     'providers'     => ['context', 'orm', 'adapt']
 ]);
 
-list($context, $orm, $adapter) = [$providers['context'], $providers['orm'], $providers['adapt']];
+list($context, $orm, $adapter) = [$providers['context'], $providers['orm'], 
+                               	  $providers['adapt']];
 
-// fields and values have been received as a raw array : adapt received values according to schema
+// fields and values have been received as a raw array : 
+// adapt received values according to schema
 $entity = $orm->getModel($params['entity']);
 if(!$entity) {
     throw new Exception("unknown_entity", QN_ERROR_INVALID_PARAM);
@@ -279,7 +293,8 @@ $context->httpResponse()
 If we type in the browser :
 
 ```markdown
-?do=model_create&entity=core\User&fields[login]=vygern8@gmail.com&fields[password]=test3333
+?do=model_create&entity=core\User&fields[login]=vygern8@gmail.com
+&fields[password]=test3333
 ```
 
 > The login and the password are **required** from the User class (`'core/classes/User.class.php'`)

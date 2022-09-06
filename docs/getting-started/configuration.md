@@ -4,7 +4,6 @@
 
 eQual config file allows to customize a wide range of pre-defined constants that are used across the different services.
 
-
 The default config file is located at: `./config/default.inc.php`.  
 That file holds comprehensive description of role and usage for each constant.
 
@@ -45,8 +44,8 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
-|DB_REPLICATION|MS||
-|DB_DBMS|MYSQL||
+|DB_REPLICATION|MS|Database replication : \* - 'NO': no replication \*  - 'MS' ('master-slave'): 2 servers; write operations are performed on both servers, read operations are performed on the master only \* - 'MM' ('multi-master'): any number of servers; write operations are performed on all servers, read operations can be performed on any server.|
+|DB_DBMS|MYSQL|Database management system.|
 |DB_CHARSET|UTF8||
 |DB_HOST|getenv('EQ_DB_HOST')?getenv('EQ_DB_HOST'):'127.0.0.1')|DB host.|
 |DB_PORT|getenv('EQ_DB_PORT')?getenv('EQ_DB_PORT'):'3306')|DB port.|
