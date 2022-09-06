@@ -74,7 +74,7 @@ class Student extends Model {
 
 For each entity, a table is defined in the database that has a structure matching the related class definition. 
 
-Consistency between models (`*.class.php` files) and database schema must be maintained at all time, and columns types must be compatibles.
+Consistency between models (`*.class.php` files) and database schema must be maintained at all time, and columns types must be compatible.
 
 When a new class is created or the schema of a class is modified, the SQL schema must be adapted consequently. Controllers `core_init_package` and `utils_sql-schema` are made to help with this task.
 
@@ -405,27 +405,33 @@ Some fields are mandatory, and defined in the `Model` class.
 | deleted | boolean | Marks the object as soft-deleted.               |
 
 ## Getters methods
-- `getName()` (Get Model readable name)
-- `getDescription()` (Get Model description)
-- `getType()` (Provide the list of unique rules (array of combinations of fields))
-- `getLink()` (Get the URL associated with the class)
-- `getColumns()` (Returns the user-defined part of the schema (i.e. fields list with types and other attributes))
-- `getConstraints()` (Returns a map of constraint items associating fields with validation functions)
-- `getUnique()` (Provide the list of unique rules (array of combinations of fields))
-- `getFields()` (Returns all fields names) 
-- `getValues()` (Returns values of static instance)
-- `getDefaults()` (Return default values)
-- `getTable()` (Return the name of the DB table to be used for storing objects of current class)
+
+| NAME                 | DESCRIPTION                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| **getName()**        | Get Model readable name.                                     |
+| **getDescription()** | Get Model description.                                       |
+| **getType()**        | Provide the list of unique rules (array of combinations of fields). |
+| **getLink()**        | Get the URL associated with the class.                       |
+| **getColumns()**     | Returns the user-defined part of the schema (i.e. fields list with types and other attributes). |
+| **getConstraints()** | Returns a map of constraint items associating fields with validation functions. |
+| **getUnique()**      | Provide the list of unique rules (array of combinations of fields). |
+| **getFields()**      | Returns all fields names.                                    |
+| **getValues()**      | Returns values of static instance.                           |
+| **getDefaults()**    | Return default values.                                       |
+| **getTable()**       | Return the name of the DB table to be used for storing objects of current class. |
 
 
 ## Overridable methods
 
-- `onupdate()` (Hook invoked before object update for performing object-specific additional operations)
-- `ondelete()` (Hook invoked before object deletion for performing object-specific additional operations)
-- `canupdate()` (Check wether an object can be updated)
-- `candelete()` (Check wether an object can be deleted)
-- `canclone()` (Check wether an object can be cloned)
-- `onclone()` (Hook invoked after object cloning for performing object-specific additional operations)
-- `onchange()` (Handler for virtual static methods: use classname to invoke a Collection method, if available)
+| NAME              | DESCRIPTION                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| **onupdate()**    | Hook invoked before object update for performing object-specific additional operations. |
+| **ondelete()**    | Hook invoked before object deletion for performing object-specific additional operations. |
+| **canupdate()**   | Check wether an object can be updated.                       |
+| **candelete()**   | Check wether an object can be deleted.                       |
+| **canclone()**    | Check wether an object can be cloned.                        |
+| **onclone()**     | Hook invoked after object cloning for performing object-specific additional operations. |
+| **onchange()**    | Handler for virtual static methods: use classname to invoke a Collection method, if available. |
+
 
 ## Custom methods
