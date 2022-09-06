@@ -255,7 +255,8 @@ In `/packages/mypackage`, create a *config.inc.php* file and add these lines :
 <?php
 namespace config;
 
-define('DEFAULT_APP', 'landing');	// it refers to packages/mypackage/apps/landing.php
+define('DEFAULT_APP', 'landing');	
+// it refers to packages/mypackage/apps/landing.php
 ```
 
 And we're done, eQual will now use the landing controller when requesting mypackage.

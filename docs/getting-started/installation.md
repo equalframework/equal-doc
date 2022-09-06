@@ -248,7 +248,8 @@ Upon success this controller exits with no message (exit 0), and the database is
 ```json
 {
     "errors": {
-        "INVALID_CONFIG": "Unable to establish connection to DBMS host (wrong hostname or port)"
+        "INVALID_CONFIG": "Unable to establish connection to DBMS host 
+        (wrong hostname or port)"
     }
 }
 ```

@@ -67,10 +67,12 @@ list($params, $providers) = announce([
     ],    
     'providers'     => ['context', 'auth', 'orm'],     // Services are invoked                                   
     
-    'constants'     => ['AUTH_ACCESS_TOKEN_VALIDITY', 'AUTH_REFRESH_TOKEN_VALIDITY', 'AUTH_TOKEN_HTTPS']    
+    'constants'     => ['AUTH_ACCESS_TOKEN_VALIDITY', 'AUTH_REFRESH_TOKEN_VALIDITY',
+                        'AUTH_TOKEN_HTTPS']    
 ]);
 
-list($context, $om, $auth) = [ $providers['context'], $providers['orm'], $providers['auth']]; 
+list($context, $om, $auth) = [ $providers['context'], $providers['orm']
+, $providers['auth']]; 
 // Services are assigned to variables to be used in the script
 ```
 
@@ -80,20 +82,18 @@ Example :
 
 ```php
 <?php
-'providers'     => ['contextDefiner' => 'equal\php\Context'] // contextDefiner instead of context
+'providers'     => ['contextDefiner' => 'equal\php\Context'] 
+ // contextDefiner instead of context
 ```
 
 If the service is present in the global`config.inc.php`, it can also be overwritten inside the `config.inc.php` files of the packages.
 
 If a controller calls an other controller, the called controller won't access the services the calling controller has access to. There is no inheritance for services between controllers.
 
-## Defining a custom Service
 
-@See [*Dependency injection*](dependency-injection.md)
 
-## Services invocation
+For more info (custom services & service invocation), go to [*Dependency injection*](dependency-injection.md).
 
-@See [*Dependency injection*](dependency-injection.md)
 
 
 
