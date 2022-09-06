@@ -25,7 +25,8 @@ define('DB_NAME',       'equal');
 ```
 !!! note "About DB creation"
     * You can choose any name for the database: if it does not exist yet, you'll be able to create it using the command line;
-        * In case creation fails, make sure the DBMS server is actually running on the specified host and port.
+
+######         * In case creation fails, make sure the DBMS server is actually running on the specified host and port.
 
 You can now test your installation by calling the `test_db-connectivity` test tool :
 
@@ -43,7 +44,7 @@ If no error message is returned (the command ends with a `0` exit code), you can
 |**CLI**|`$ ./equal.run --do=init_db`|
 |**DESCRIPTION**|Creates a database using the details provided in config file. This controllers calls db-connectivity and if connection can be established with the host, it requests the creation of the database, if it does not exist yet.|
 
-eQual holds a native `core` package that holds a few classes and operations. All packages depends on the ORM layer, which is responsible of storing the objects  into the database. So, in order to start using a package that defines object classes, you have to initialize it. 
+eQual holds a native `core` package that holds a few classes and operations. All packages depend on the ORM layer, which is responsible of storing the objects into the database. So, in order to start using a package that defines object classes, you have to initialize it. 
 
 This can be done using the `init_package` tool :
 
@@ -99,7 +100,7 @@ class Task extends Model {
 
 *Note: ID key generation is handled by eQual*
 
-But, what if we want to establish a relation between two classes, like nesting the **User** of *User.class.php* as a parameter?
+But, what if we want to establish a relation between two classes, like nesting the **User** of `User.class.php` as a parameter?
 
 That's where the types **many2many**, **one2many**, and **many2one** come in handy (*see [Understanding DBMS relationships](https://afteracademy.com/blog/what-are-the-different-types-of-relationships-in-dbms)*).
 
@@ -139,7 +140,7 @@ Open your CLI at the root of eQual's folder and use this :
 $ ./equal.run --do=init_package --package=core
 ```
 
-Then we do the same for our package. It will automatically create **one table per associated class**
+Then we do the same for our package. It will automatically create **one table per associated class**.
 
 ```bash
 $ ./equal.run --do=init_package --package=mypackage

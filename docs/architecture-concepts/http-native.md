@@ -41,7 +41,7 @@ Controllers are considered as **operations** that run specific sets of instructi
 
 For convenience, controllers can also be invoked in a CLI context, or directly within a PHP script.
 
-###### **Examples :** 
+Example : 
 
 | **Path** | `demo\simple.php`                                        |
 | ---------------- | ------------------------------------------------------- |
@@ -66,11 +66,11 @@ Here is an example of a controller invocation :
 http://equal.local/?get=model_collect&entity=core\Group
 ```
 
-In this example, the main entry point (`index.php`) will try to execute the following script : `packages/core/data/model/collect.php` 
+In this example, the main entry point (`index.php`) will try to execute the following script : `packages/core/data/model/collect.php`.
 
 
 
-If no controller matches the received request, a response with a 404 status is returned.
+If no controller matches the received request, a response with a `404 status` is returned.
 
 Example:
 
@@ -102,5 +102,5 @@ namespace config;
 define('DEFAULT_APP', 'workbench');
 ```
 
-This allows to make the root entry point  redirect to a webapp (in this example:  `http://equal.local/index.php?show=core_workbench'`)
+This allows to make the root entry point redirect to a webapp (in this example:  `http://equal.local/index.php?show=core_workbench'`).
 

@@ -7,17 +7,17 @@ Here is the full list of eQual built-in services and their purpose :
 
 |ID|class|description|
 |--|--|--|
-|report|`equal\error\Reporter`|Intercept, handle and filter error and exceptions messages and store them into log file. |
+|report|`equal\error\Reporter`|Intercepts, handles and filters error and exceptions messages and stores them into a log file. |
 |auth|`equal\auth\AuthenticationManager`| Manages the credentials & authentication tokens. |
 |access|`equal\access\AccessController`| Manages the access/permissions of User & Groups to entities & controllers. |
-|context|`equal\php\Context`| Manages the HTTP requests & responses |
+|context|`equal\php\Context`| Manages the HTTP requests & responses. |
 |validate|`equal\data\DataValidator`| Checks the fields consistency of entities & controllers. |
 |adapt|`equal\data\DataAdapter`| |
-|orm|`equal\orm\ObjectManager`| Manages the objects (classes) |
+|orm|`equal\orm\ObjectManager`| Manages the objects (classes). |
 |route|`equal\route\Router`| Returns an existing route. |
 |spool|`equal\email\EmailSpooler`| Manages the emails. |
 
-The **'orm'** service may be accessed without DB, which is not the case for the **'auth'** service which needs User objects.
+>  The **'orm'** service may be accessed without DB, which is not the case, for example, of the **'auth'** service which needs User objects.
 
 ## How services are instantiated
 
@@ -73,24 +73,22 @@ list($context, $om, $auth) = [ $providers['context'], $providers['orm'], $provid
 // Services are assigned to variables to be used in the script
 ```
 
-Every service is given an arbitrary name that can be overwritten (limited to the use of the controller), for example inside a controller.
+Every service is given an arbitrary name that can be overwritten (*limited to the use of the controller*).
 
-The syntax could be : 
+Example : 
 
 ```php
 <?php
-'providers'     => ['contextDefiner' => 'equal\php\Context'] // instead of context
+'providers'     => ['contextDefiner' => 'equal\php\Context'] // contextDefiner instead of context
 ```
 
 If the service is present in the global`config.inc.php`, it can also be overwritten inside the `config.inc.php` files of the packages.
-
-
 
 If a controller calls an other controller, the called controller won't access the services the calling controller has access to. There is no inheritance for services between controllers.
 
 ## Defining a custom Service
 
-
+@See [*Dependency injection*](dependency-injection.md)
 
 ## Services invocation
 

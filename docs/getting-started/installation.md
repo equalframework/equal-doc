@@ -5,7 +5,7 @@
 ## Using Docker
 
 !!! note "Docker"
-    Using Docker sets up the environment/configuration and ables you to install & use eQual on any computer.
+    Docker sets up the environment & ables you to use eQual on any computer.
 
 ### Install Docker
 
@@ -67,7 +67,7 @@ or start a shell on the container :
 $ docker exec -ti equal.local /bin/bash
 ```
 
-To edit the code, some editors use extensions that able you to use a [Docker container](https://docker.com/) as a full-featured development environment. 
+Some editors use extensions that able you to use a [Docker container](https://docker.com/) as a full-featured development environment. 
 
 Example:
 
@@ -99,13 +99,13 @@ Under Windows, you can use any of the following tools for a ready-to-use WAMP en
 * [DevServer 17.x](https://www.easyphp.org/easyphp-devserver.php)
 
 Retrieve the path of the PHP executable:
-```
+```bash
 where php
 ```
 This will output something like `C:\wamp64\bin\php\php7.2.18\php.exe` 
 
 Add the PHP binary to the PATH environment variable:
-```
+```bash
 SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
 ```
 
@@ -134,7 +134,7 @@ which php
 This will output something like `/usr/bin/php`.
 
 Add the PHP binary to the PATH environment variable:
-```  
+``` bash 
 export PATH=$PATH:/usr/bin/php
 ```
 
@@ -217,7 +217,7 @@ eQual expects at least one config file in the `/config` directory (if no `config
 
 To create and customize your config file, start with copying `default.inc.php`:
 
-```
+```bash
 cp config/default.inc.php config/config.inc.php
 ```
 
@@ -281,9 +281,10 @@ This can be done by using the `core_init_package` controller.
 |**URL**|`?do=init_package&package=core`|
 |**CLI**|`$ ./equal.run --do=init_package --package=core`|
 |**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
-This controller should populate the database with the tables related to the specified package.
 
 Now, you should be able to fetch data by using the controllers from the `core` package.
+
+
 
 Example: 
 
@@ -305,7 +306,8 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 **Fetch the details of user[1] (admin).**
 
-GET /user/1
+`GET /user/1`
+
 ```json
 [
     {
@@ -321,7 +323,7 @@ GET /user/1
 
 **Fetch the full list of existing groups.**
 
-GET /users
+`GET /users`
 
 ```json
 [
@@ -344,7 +346,7 @@ GET /users
 
 **Fetch the full list of existing groups.**
 
-GET l/groups
+`GET l/groups`
 
 ```json
 [
@@ -367,7 +369,7 @@ GET l/groups
 
 **Create a new group.**
 
-POST /group
+`POST /group`
 
 ```json
 {
@@ -380,7 +382,7 @@ POST /group
 
 **Update the 'name' property of the group[3].**
 
-PUT [group/3?fields[name]=test](/group/3?fields[name]=test)
+`PUT group/3?fields[name]=test`
 
 ```json
 []
@@ -390,7 +392,7 @@ PUT [group/3?fields[name]=test](/group/3?fields[name]=test)
 
 **Fetch the full list of existing groups.**
 
-GET /groups
+`GET /groups`
 
 ```json
 [

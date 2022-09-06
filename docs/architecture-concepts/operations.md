@@ -61,4 +61,7 @@ In the charts views, if we want to display the **`SUM`**(unary operator) of a sp
     }
 ```
 
-In this example, we would have the **`SUM`**of the total field of all the `BookingLine objects`, that also respects the domain  `["is_meal", "=", 1]`.
+In this example, we would have the **"SUM" **of the **total field** of all the `BookingLine objects`.
+
+> NB: It also needs to match the domain : `["is_meal", "=", 1]`.
+

@@ -5,14 +5,14 @@ eQual comes with an object-relational mapper (ORM) that greatly eases the intera
 The ObjectManager service is dedicated to Object-Relational Mapping. It handles all tasks that relate to objects search and manipulations and offers an abstract layer for DBMS queries.
 
 The ORM can be used in order to :   
-- create, update or delete one or more objects (based on the ID field)
-- retrieve a single entity or a list of entities (both based on the ID field)
-- retrieve a list of IDs of entities that match some criteria
+- **create**, **update** or **delete** one or more objects (based on the ID field)
+- **retrieve** a single entity or a list of entities (both based on the ID field)
+- **retrieve** a list of IDs of entities that match some criteria
 
 
 ObjectManager methods are for low-level manipulations (no data conversion nor validation, and no user permission check at this level). These are mostly used in methods of classes definition.
 
-Controllers mostly require high-level manipulations (including data conversion, validation and permission checks) and therefore use Collections return by class autoloader. 
+Controllers mostly require high-level manipulations (including data conversion, validation and permission checks) and therefore use Collections returned by class autoloader. 
 
 ## Object Definition
 
@@ -39,7 +39,7 @@ Objects manipulations are made on selections of objects, described as an array o
 
 All methods can either return an array (in case of success), or an integer (in case of error, the integer is an error code).
 
-### read
+### <ins>read</ins>
 
 Fetches specified field values for the selected objects.
 
@@ -59,7 +59,9 @@ mixed read( string $class [, int[] $ids=null, string[] $fields=null, string $lan
 Returns an associative array containing, for every object id, a sub array mapping each field to its value.  
 Returns an integer (error code) if an error occurred.
 
-### update 
+
+
+### <ins>update</ins> 
 Sets new values for one or more object instances.
 
 !!! note "multilang fields"
@@ -84,7 +86,9 @@ mixed update( string $object_class, int[] $ids [, array[] $values=null, string $
 Returns an array containing ids of newly created objects (if any).  
 Returns an integer (error code) if an error occurred.
 
-### delete
+
+
+### <ins>delete</ins>
 Deletes an object permanently or puts it in the "trash bin" (i.e. setting the 'deleted' flag to 1).
 
 #### description
@@ -105,7 +109,7 @@ Returns an integer (error code) if an error occurred.
 
 
 
-### search
+### <ins>search</ins>
 
 Search for objects matching the domain criteria.
 
@@ -133,7 +137,7 @@ Returns an integer (error code) if an error occurred.
 
 
 
-### validate 
+### <ins>validate </ins>
 
 Checks whether the values of a given object fields are consistent with the related model definition.
 
