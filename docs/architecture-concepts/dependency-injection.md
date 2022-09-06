@@ -9,7 +9,7 @@ eQual offers a series of services that can be used to ease the writing of contro
 
 
 !!! "About controllers"
-	Under the hood, controllers are always included by the the eQual::run() method. That means that they have an access to global vars, but all the variables declared within a controller remains separate from the global scope.
+    Under the hood, controllers are always included by the the eQual::run() method. That means that they have an access to global vars, but all the variables declared within a controller remains separate from the global scope.
 
 
 
