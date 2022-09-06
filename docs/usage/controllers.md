@@ -65,10 +65,10 @@ The constants are checked by the `announce()` function inside `eq.lib.php`.
 The access property allows to quickly define rights management: making sure the user performing a request has the required permissions.
 
 
-| property   | description                                                  |
-| ---------- | ------------------------------------------------------------ |
-| visibility | The level of "visibility" of the ('public', 'protected' or 'private'). |
-| groups     | An array holding the list of groups the view is restricted to. |
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| visibility   | The level of "visibility" of the ('public', 'protected' or 'private'). |
+| groups       | An array holding the list of groups the view is restricted to. |
 
 
 

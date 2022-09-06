@@ -65,7 +65,7 @@ define('DEBUG_MODE', QN_DEBUG_PHP | QN_DEBUG_ORM | QN_DEBUG_SQL | QN_DEBUG_APP);
 
 The DEBUG_MODE constant expects a binary mask with the following values : 
 
-|Value|Meaning|
+|**VALUE**|**MEANING**|
 |-|-|
 |QN_DEBUG_PHP||
 |QN_DEBUG_ORM||

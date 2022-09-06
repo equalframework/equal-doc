@@ -25,7 +25,7 @@ To understand the framework, here is what you need to know about its folders
 
 
 
-| File|  Description |
+| **FILE** | **DESCRIPTION** |
 |-|-|
 | .htaccess	        | Apache configuration file  used to prevent directory listing and handling url rewriting |
 | eq.lib.php	| Boostrap library. Defines constants and global utilities |
@@ -43,7 +43,7 @@ The root folder is also the place where to place a `composer.json` file and the 
 
 ## public
 
-| File        | Description                                                  |
+| **FILE**    | **DESCRIPTION**                                              |
 | ----------- | ------------------------------------------------------------ |
 | .htaccess   | Apache configuration file  used to prevent directory listing and handling url rewriting |
 | index.php   | This script is also referred to as the dispatcher : its task is to include required libraries and to set the context. This is the main entry point. |
@@ -107,7 +107,7 @@ package_name
 
 
 
-| Folder| Role | URI key   |  Examples           |
+| **FOLDER** | **ROLE** | **URI KEY** |  **EXAMPLES**  |
 |-|-|-|---|
 | **__classes__**    | model          |                  | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
 | **actions**    | action handler (controller) | do       | core_manage, core_utils |

@@ -6,7 +6,7 @@ In eQual, a collection is a series of partial objects (the ORM loads only reques
 
 When a collection is given as an array, it consists of a associative array mapping objects ids with their related (partial) value (which is also an array).
 
-###### Example:
+Example:
 
 ```php
 <?php
@@ -65,7 +65,7 @@ Using Collections allows method chaining which makes code in controllers shorter
 Methods all have a similar return signature 
 
 
-||instance|return value|error/exception|
+||**INSTANCE**|**RETURN VALUE**|**ERROR/EXCEPTION**|
 |--|--|--|--|
 |ObjectManager|dependency injection|Array|In case of error, an error is returned (and a message is sent to the Reporter). ObjectManager methods don't raise Exceptions.|
 |Collections|magic method|Collection|Methods raises exceptions: the process is interrupted and the exception is converted to an HTTP error.|

@@ -43,7 +43,7 @@ A condition is represented as an array holding 3 elements:
 [ operand, operator, value ]
 ```
 
-| PART      | ROLE                                |
+| **PART**  | **ROLE**                            |
 | --------- | ----------------------------------- |
 | operand   | Indicates the field on which the condition must be applied and matches one of the properties returned by `Model::getColumns()` |
 | operator  | Provides the operator of the condition. Accepted operators are : `=`, `<`, `>`,` <=`, `>=`, `<>`, `like`, `ilike` (case-insensitive), `in`, `contains` |

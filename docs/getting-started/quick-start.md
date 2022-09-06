@@ -90,10 +90,10 @@ use equal\orm\Model; // this is a built-in object handler
     
 class Task extends Model {
     public static function getColumns() {
-        return array(
+        return [
             'title'     => ['type' => 'string'],
             'content'   => ['type' => 'text']
-        );
+       		];
     }
 }
 ```
@@ -147,7 +147,9 @@ $ ./equal.run --do=init_package --package=mypackage
 ```
 
 Now the database should have the following tables:  
-* `core_user`  
+
+- `core_user`  
+
 * `core_group`  
 * `core_rel_group_user`  
 * `core_log`  

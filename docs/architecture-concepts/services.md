@@ -5,7 +5,7 @@
 
 Here is the full list of eQual built-in services and their purpose :
 
-|ID|class|description|
+|**ID**|**CLASS**|DESCRIPTION|
 |--|--|--|
 |report|`equal\error\Reporter`|Intercepts, handles and filters error and exceptions messages and stores them into a log file. |
 |auth|`equal\auth\AuthenticationManager`| Manages the credentials & authentication tokens. |
@@ -17,7 +17,8 @@ Here is the full list of eQual built-in services and their purpose :
 |route|`equal\route\Router`| Returns an existing route. |
 |spool|`equal\email\EmailSpooler`| Manages the emails. |
 
->  The **'orm'** service may be accessed without DB, which is not the case, for example, of the **'auth'** service which needs User objects.
+!!! note "Orm service"
+    The **'orm'** service may be accessed without DB, which is not the case, for example, of the **'auth'** service which needs User objects.
 
 ## How services are instantiated
 
