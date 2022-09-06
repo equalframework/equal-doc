@@ -61,24 +61,25 @@ This page lists an inventory of available scripts, grouped by category.
 
 ## Package utilities
 
-### Init a Package
+
+#### `init_package`
 
 |**PATH**|`core\actions\init\package.php`|
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?do=init_package&package=core`|
 |**CLI**|`$ ./equal.run --do=init_package --package=core`|
-|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
+|**DESCRIPTION**|Initialize database for given package. If no package is given, initialize core package.|
 
 
 
 
-### Test package consistency
+#### `package-consistency`
 
 |**PATH**|`core\actions\test\package-consistency.php`|
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?do=test_package-consistency&package=core`|
 |**CLI**|`$ ./equal.run --do=test_package-consistency --package=core --level=warn`|
-|**DESCRIPTION**|Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
+|**DESCRIPTION**|Performs consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
 
  
 
@@ -92,13 +93,13 @@ This page lists an inventory of available scripts, grouped by category.
 
 
 
-### Run package test cases
+#### `test_package`
 
 |**PATH**|`core\actions\test\package.php`|
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?do=test_package&package=core`|
 |**CLI**|`$ ./equal.run --do=test_package --package=core`|
-|**DESCRIPTION**|The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](./testing.md)).|
+|**DESCRIPTION**|This controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](./testing.md)).|
 
 
 
@@ -107,7 +108,7 @@ This page lists an inventory of available scripts, grouped by category.
 
 ### Models meta data
 
-#### Model Schema
+#### `model_schema`
 
 |**PATH**|`core\data\model\schema.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -118,7 +119,7 @@ This page lists an inventory of available scripts, grouped by category.
 
 
 
-#### Model View
+#### `model_view`
 
 |**PATH**|`core\data\model\view.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -131,7 +132,7 @@ This page lists an inventory of available scripts, grouped by category.
 
 ### Manipulate data
 
-#### Create Object
+#### `model_create`
 
 |**PATH**|`core\actions\model\create.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -142,7 +143,7 @@ This page lists an inventory of available scripts, grouped by category.
 
 
 
-#### Update Object
+#### `model_update`
 
 |**PATH**|`core\actions\model\update.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -153,7 +154,7 @@ This page lists an inventory of available scripts, grouped by category.
 
 
 
-#### Delete Object
+#### `model_delete`
 
 |**PATH**|`core\actions\model\delete.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -163,7 +164,7 @@ This page lists an inventory of available scripts, grouped by category.
 
 
 
-#### Search Object
+#### `model_search`
 
 |**PATH**|`core\data\model\search.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -173,7 +174,7 @@ This page lists an inventory of available scripts, grouped by category.
 
   
 
-#### Read Object
+#### `model_read`
 
 |**PATH**|`core\data\model\read.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -183,7 +184,7 @@ This page lists an inventory of available scripts, grouped by category.
 
 
 
-#### Collect Model
+#### `model_collect`
 
 |**PATH**|`core\data\model\collect.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -196,26 +197,16 @@ This page lists an inventory of available scripts, grouped by category.
 
 ## Rights management utilities
 
-To determine what the rights of Groups and Users are, we use a list of rights : 
-
-- create 
-
-- read
-
-- update
-
-- delete
-
-- manage
+To determine Groups and Users permissions, we use a list of rights : `create`, `read`, `update`, `delete`, `manage`
 
 They are also defined inside the `eq.lib.php`file with a value attached :
 
 ```php
 <?php
 /**
-     * Users & Groups permissions masks (value attached to the mask) 
-     NB Permission mask: The addition of numbers never leads to a similar result
-     */
+ * Users & Groups permissions masks (value attached to the mask) 
+ * #memo - we use powers of 2 for permission mask so that the addition of numbers never leads to a colliding values
+ */
     define('QN_R_CREATE',    1);
     define('QN_R_READ',      2);
     define('QN_R_WRITE',     4);
@@ -230,36 +221,36 @@ Those values are used, for example, inside `Permission.class.php` on the `rights
 ```php
 <?php
 'rights' => [
-                'type' 	            => 'integer',
-                'onupdate'          => 'onupdateRights',
-                'description'       => "Rights binary mask (1: CREATE, 2: READ, 4: WRITE, 8 DELETE, 16: MANAGE)"
-            ],
+    'type' 	            => 'integer',
+    'onupdate'          => 'onupdateRights',
+    'description'       => "Rights binary mask (1: CREATE, 2: READ, 4: WRITE, 8 DELETE, 16: MANAGE)"
+],
 ```
 
 Those permissions are used as properties by `User.class.php` & `Group.class.php` to determine the rights available.
 
 ## Users
 
-### Grant Rights
+#### `user_grant`
 
 | **PATH**        | `core\actions\user\grant.php`                                |
 | --------------- | ------------------------------------------------------------ |
-| **URL**         | `?do=user_grant&right=create&user=15` |
-| **CLI**         | `$ ./equal.run --do=user_grant --right=create --user=15 --entity=core\\Task` |
-| **DESCRIPTION** | Grant additional privilege to given user. |
+| **URL**         | `?do=user_grant&right=create&user=cedric@equal.run`          |
+| **CLI**         | `$ ./equal.run --do=user_grant --right=create --user=cedric@equal.run --entity=core\\Task` |
+| **DESCRIPTION** | Grant additional privilege to given user.                    |
 
 > Only one right can be granted at a time to one user over one entity.
 
 
 
 
-### Revoke Rights
+#### `user_revoke`
 
-| **PATH**        | `core\actions\user\revoke.php`                                |
+| **PATH**        | `core\actions\user\revoke.php`                               |
 | --------------- | ------------------------------------------------------------ |
-| **URL**         | `?do=user_revoke&right=create&user=15&entity=core\Task` |
-| **CLI**         | `$ ./equal.run --do=user_revoke --right=create --user=15 --entity=core\\Task` |
-| **DESCRIPTION** | Revoke privilege from a given user. |
+| **URL**         | `?do=user_revoke&right=create&user=cedric@equal.run&entity=core\Task` |
+| **CLI**         | `$ ./equal.run --do=user_revoke --right=create --user=cedric@equal.run --entity=core\\Task` |
+| **DESCRIPTION** | Revoke privilege from a given user.                          |
 
 > Only one right can be revoked at a time to one user over one entity.
 
@@ -268,26 +259,26 @@ Those permissions are used as properties by `User.class.php` & `Group.class.php`
 
 ### Groups
 
-### Grant Rights
+#### `group_grant`
 
-| **PATH**        | `core\actions\group\grant.php`                                |
+| **PATH**        | `core\actions\group\grant.php`                               |
 | --------------- | ------------------------------------------------------------ |
-| **URL**         | `?do=group_grant&right=create&group=15&entity=core\Task` |
-| **CLI**         | `$ ./equal.run --do=group_grant --right=create --group=15 --entity=core\\Task` |
-| **DESCRIPTION** | Grant additional privilege to given group. |
+| **URL**         | `?do=group_grant&right=create&group=users&entity=core\Task`  |
+| **CLI**         | `$ ./equal.run --do=group_grant --right=create --group=users --entity=core\\Task` |
+| **DESCRIPTION** | Grant additional privilege to given group.                   |
 
 > Only one right can be granted at a time to one group over one entity.
 
 
 
 
-### Revoke Rights
+#### `group_revoke`
 
-| **PATH**        | `core\actions\group\revoke.php`                                |
+| **PATH**        | `core\actions\group\revoke.php`                              |
 | --------------- | ------------------------------------------------------------ |
-| **URL**         | `?do=group_revoke&right=create&group=15&entity=core\Task` |
-| **CLI**         | `$ ./equal.run --do=group_revoke --right=create --group=15 --entity=core\\Task` |
-| **DESCRIPTION** | Revoke privilege from a given group. |
+| **URL**         | `?do=group_revoke&right=create&group=users&entity=core\Task` |
+| **CLI**         | `$ ./equal.run --do=group_revoke --right=create --group=users --entity=core\\Task` |
+| **DESCRIPTION** | Revoke privilege from a given group.                         |
 
 > Only one right can be revoked at a time to one group over one entity.
 

@@ -6,8 +6,15 @@ On the other hand, services are instantiated using a Container that is defined i
 
 eQual offers a series of services that can be used to ease the writing of controllers (for instance, the 'context' service can provide the HTTP request the current thread is responding to).
 
+<<<<<<< HEAD
 !!! note "About controllers"
 	Under the hood, controllers are always included by the the eQual::run() method. That means that they have an access to global vars, but all the variables declared within a controller remains separate from the global scope.
+=======
+
+
+!!! "About controllers"
+    Under the hood, controllers are always included by the the eQual::run() method. That means that they have an access to global vars, but all the variables declared within a controller remains separate from the global scope.
+>>>>>>> efe323ab55942de9a84284c68497992dab14a6b1
 
 This can be done by using the `eQual::announce` method, which allows dependency injection.
 

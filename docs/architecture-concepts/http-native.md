@@ -1,8 +1,8 @@
 # HTTP native
 
-eQual complies with HTTP standards : it natively analyzes HTTP messages to route client requests to the appropriate controller and outputs resulting data as an HTTP response.
+eQual complies with HTTP standards by natively analyzing HTTP messages to route client requests to the appropriate controller and outputting data as an HTTP response.
 
-It can be seamlessly used in both CLI or ReSTful API context.
+A controller can announce which content-type it uses for the output. And in all situations, the output is sent to the STDOUT stream. For that reason, eQual can can seamlessly be used in both CLI or ReSTful API context.
 
 
 
@@ -43,11 +43,11 @@ For convenience, controllers can also be invoked in a CLI context, or directly w
 
 Example : 
 
-| **Path** | `demo\simple.php`                                        |
+| **PATH** | `demo\simple.php`                                        |
 | ---------------- | ------------------------------------------------------- |
 | **HTTP Request** | ?get=demo_simple                                        |
-| **CLI**          | $ ./equal.run --get=demo_simple                         |
-| **PHP Script**   | ``` <?php<br/>echo eQual::run('get', 'demo_simple');``` |
+| **CLI**          | `$ ./equal.run --get=demo_simple`                       |
+| **PHP Script**   | `eQual::run('get', 'demo_simple');` |
 
 A controller invocation consists of two parts: 
 
