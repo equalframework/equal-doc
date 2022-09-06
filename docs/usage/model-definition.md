@@ -221,8 +221,10 @@ Example:
 
 		foreign_object -> 
 		foreign_field -> select amongst fields of other class
-				+ ability to create a new one (many2many) : temporary creation in one of both ways !
-		rel_table -> check amongst existing rel tables ({package}_rel_local_foreign or rel_foreign_local)
+				+ ability to create a new one (many2many) : 
+				temporary creation in one of both ways !
+		rel_table -> check amongst existing rel tables 
+		({package}_rel_local_foreign or rel_foreign_local)
 				if no table yet -> create
 		rel_local_key -> {local_class}_id
 		rel_foreign_key -> {foreign_class}_id

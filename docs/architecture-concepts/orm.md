@@ -46,7 +46,8 @@ Fetches specified field values for the selected objects.
 #### Description
 ```php
 <?php
-mixed read( string $class [, int[] $ids=null, string[] $fields=null, string $lang=DEFAULT_LANG] )
+mixed read( string $class [, int[] $ids=null, string[] $fields=null, 
+string $lang=DEFAULT_LANG] )
 ```
 
 #### Parameters
@@ -71,7 +72,8 @@ Sets new values for one or more object instances.
 
 ```php
 <?php
-mixed update( string $object_class, int[] $ids [, array[] $values=null, string $lang=DEFAULT_LANG, boolean $create=false] )
+mixed update( string $object_class, int[] $ids [, array[] $values=null, 
+string $lang=DEFAULT_LANG, boolean $create=false] )
 ```
 
 #### Parameters
@@ -117,7 +119,8 @@ Search for objects matching the domain criteria.
 
 ```php
 <?php
-mixed search( string $class [, array $domain=null, string $order='id', string $sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG] )
+mixed search( string $class [, array $domain=null, string $order='id', string 
+$sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG] )
 ```
 
 #### Parameters
@@ -145,7 +148,8 @@ Checks whether the values of a given object fields are consistent with the relat
 
 ```php
 <?php
-mixed validate(string $class, int[] $ids, array[] $values, boolean $check_unique=false, boolean $check_required=false)
+mixed validate(string $class, int[] $ids, array[] $values, 
+boolean $check_unique=false, boolean $check_required=false)
 ```
 
 #### Parameters

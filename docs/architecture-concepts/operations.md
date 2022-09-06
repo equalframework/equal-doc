@@ -9,7 +9,8 @@ In eQual, there exists two types of operators:
 ```php
 <?php
 /**
-     * Unary Operators a single operand (either a single value, or a field reference [array of values])
+     * Unary Operators a single operand (either a single value, or 
+     a field reference [array of values])
      * @var array
      */
     private static $unary_operators = ['ABS', 'AVG', 'COUNT', 'DIFF', 'MAX', 'MIN', 'SUM'];
@@ -20,7 +21,8 @@ In eQual, there exists two types of operators:
 ```php
 <?php
 /**
-     * Operators that take two operands (each operand can be an Operation, a single value, or a field reference [array of values])
+     * Operators that take two operands (each operand can be an Operation, a 
+     single value, or a field reference [array of values])
      * @var array
      */
     private static $binary_operators = [

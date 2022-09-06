@@ -207,7 +207,8 @@ They are also defined inside the `eq.lib.php`file with a value attached :
 <?php
 /**
  * Users & Groups permissions masks (value attached to the mask) 
- * #memo - we use powers of 2 for permission mask so that the addition of numbers never leads to a colliding values
+ * #memo - we use powers of 2 for permission mask so that the addition of 
+ numbers never leads to a colliding values
  */
     define('QN_R_CREATE',    1);
     define('QN_R_READ',      2);
@@ -225,7 +226,8 @@ Those values are used, for example, inside `Permission.class.php` on the `rights
 'rights' => [
     'type' 	            => 'integer',
     'onupdate'          => 'onupdateRights',
-    'description'       => "Rights binary mask (1: CREATE, 2: READ, 4: WRITE, 8 DELETE, 16: MANAGE)"
+    'description'       => "Rights binary mask (1: CREATE, 2: READ, 4: WRITE,
+    8 DELETE, 16: MANAGE)"
 ],
 ```
 

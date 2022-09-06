@@ -26,7 +26,8 @@ In classes, searching can be invoked by calling the ObjectManager service.
 
 ```php
 <?php
-public function search($class, $domain=NULL, $sort=['id' => 'asc'], $start='0', $limit='0', $lang=DEFAULT_LANG)
+public function search($class, $domain=NULL, $sort=['id' => 'asc'], $start='0',
+$limit='0', $lang=DEFAULT_LANG)
 ```
 
 

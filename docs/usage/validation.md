@@ -26,10 +26,12 @@ The first property checked by the function is the **required** property.
 <?php
 foreach($schema as $field => $def) {
     // required fields must be provided and cannot be left/set to null
-    if( isset($def['required']) && $def['required'] && (!isset($values[$field]) || is_null($values[$field])) ) {
+    if( isset($def['required']) && $def['required'] && (!isset($values[$field]) 
+    || is_null($values[$field])) ) {
         $error_code = QN_ERROR_INVALID_PARAM;
         $res[$field]['missing_mandatory'] = 'Missing mandatory value.'; 
-        trigger_error("QN_DEBUG_ORM::mandatory field {$field} is missing for instance of {$class}", QN_REPORT_WARNING);
+        trigger_error("QN_DEBUG_ORM::mandatory field {$field} is missing for 
+        instance of {$class}", QN_REPORT_WARNING);
     }
 }
 ```
@@ -71,7 +73,8 @@ The validate function will then call the **`getConstraintFromUsage()`** method f
 case 'email':
         return [
             'kind'  => 'function',
-            'rule'  => function($a, $o) {return (bool) (preg_match('/^([_a-z0-9-]+)(\.[_a-z0-9+-]+)*@([a-z0-9-]+)(\.[a-z0-9-]+)*(\.[a-z]{2,13})$/', $a));}
+            'rule'  => function($a, $o) {return (bool) (preg_match('/^([_a-z0-9-]+)
+            (\.[_a-z0-9+-]+)*@([a-z0-9-]+)(\.[a-z0-9-]+)*(\.[a-z]{2,13})$/', $a));}
         ];
 ```
 
@@ -107,7 +110,8 @@ If the rules aren't followed, an error is sent.
 
 ```php
 <?php
- trigger_error("QN_DEBUG_ORM::field {$field} violates unique constraint with object {$oid}", QN_REPORT_WARNING);
+ trigger_error("QN_DEBUG_ORM::field {$field} violates unique constraint with 
+ object {$oid}", QN_REPORT_WARNING);
 ```
 
 

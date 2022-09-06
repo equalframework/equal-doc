@@ -55,7 +55,8 @@ If they are used by a controller, they must be listed by it. If there is an erro
 Example :
 
 ``` php
-'constants'     => ['AUTH_ACCESS_TOKEN_VALIDITY', 'AUTH_REFRESH_TOKEN_VALIDITY', 'AUTH_TOKEN_HTTPS']    
+'constants'     => ['AUTH_ACCESS_TOKEN_VALIDITY', 'AUTH_REFRESH_TOKEN_VALIDITY',
+               		'AUTH_TOKEN_HTTPS']    
 ```
 
 The constants are checked by the `announce()` function inside `eq.lib.php`.
@@ -78,7 +79,8 @@ Examples :
 ```php
 <?php
 'access' => [
-  'visibility'  => 'public'					// anyone can access the controller (anonymous users)
+  'visibility'  => 'public'					
+   // anyone can access the controller (anonymous users)
 ]
 ```
 
@@ -121,5 +123,6 @@ Example:
 
 ```php
 <?php 
-'providers'   => ['context', 'orm' , 'auth']     //'orm'= ObjectManager & 'auth'=AuthentificationManager
+'providers'   => ['context', 'orm' , 'auth']     
+ //'orm'= ObjectManager & 'auth'=AuthentificationManager
 ```
