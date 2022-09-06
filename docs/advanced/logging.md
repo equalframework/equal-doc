@@ -2,7 +2,7 @@
 
 ### Logging
 
-The Logger `equal/log/Logger.class.php` class adds logs to the database using 4 different parameters :
+The Logger (`equal/log/Logger.class.php`) class adds logs to the database using 4 different parameters :
 
 - **user_id** (identifier of the user responsible for the action)
 - **action** (action of the user)
@@ -15,7 +15,7 @@ The logs allow users to keep an overview of object changes (action log).
 
 The actions are CRUDS by default, but custom actions could also be created, **example** : SENT, when a message is sent.
 
-As of now, the logs don't keep track of the content of changes or reason behind it.
+As of now, the logs don't keep track of the content of the changes or reason behind it.
 
 
 
@@ -45,9 +45,14 @@ define('VERSIONING_ENABLED', true);
 
 ### Reporting
 
-The Reporter `lib/equal/error/Reporter.class.php` class will keep track of debug (can be used in any script, to check variables values), warning (the action is done, but incomplete), error (the action can't be done) and fatal errors (the system stops) messages.
+The Reporter `lib/equal/error/Reporter.class.php` class will keep track of 
 
-The logs are kept inside the `log`(CSV) folder (and appear in http://equal.local/console), they are written in a human readable way, to keep track easily.
+- debug (can be used in any script, to check variables values);
+-  warning (the action is done, but incomplete);
+- error (the action can't be done);
+- and fatal errors (the system stops) messages.
+
+The logs are kept inside the `log`(CSV files) folder (and appear in http://equal.local/console), they are written in a human readable way, to keep track easily.
 
 > The logs are brief, and could, in the future, be written in JSON, to add info's.
 

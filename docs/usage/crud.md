@@ -33,7 +33,7 @@ User::ids($ids_array)
     ->update($values_map);
 ```
 
-**DELETE **:
+**DELETE**:
 
 ```php
 <?php

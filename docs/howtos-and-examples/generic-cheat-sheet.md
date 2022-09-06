@@ -114,7 +114,7 @@ This controller runs some consistency checks and works with any package:
 |**URL**|`?do=mypackage_subdir_my-action](http://equal.local?do=mypackage_subdir_my-action`|
 |**CLI**|`$ ./equal.run --do=model_update --entity=mypackage\MyObject --fields=[ids]=1 --fields=[name]=example`|
 |**PHP**|```run('do', 'mypackage_myobject_action', [/* parameters */])```|
-Related path :  `/packages/mypackage/actions/subdir/my-action.php`
+
 
 
 

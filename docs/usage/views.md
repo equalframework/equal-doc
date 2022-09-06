@@ -62,18 +62,6 @@ Some attributes are common to all types of views. Below is a list of the common 
 
 
 
-#### name
-
-The **name** property is mandatory and relates to the unique name assigned to the view.
-
-
-
-#### description
-
-A **description** property allows to give a short hint about the view's context or the way it is intended to be used.
-
-
-
 #### access
 
 groups: array (list of groups the view is restricted to)
@@ -864,7 +852,7 @@ The **domain** property allows to conditionally display the data  (More Info: [d
 
 
 
-### filters
+#### filters
 
 The **filter** property allows to provide a series of predefined search filters.
 
@@ -1062,8 +1050,6 @@ Example :
         "groups": ["booking.default.user"]
      },
 ```
-
-## Print views
 
 
 

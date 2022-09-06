@@ -6,8 +6,8 @@ The validate function of the **ObjectManager provider** checks if the values giv
 
 This function is used at different times :
 
-- "CREATE" & "UPDATE" Methods
-- Controller Calls
+- with "CREATE" & "UPDATE" Methods
+- with Controller Calls
 
 !!! note "Calling the scripts"
     In addition to the usual objects, Controllers are in eQual, also objects.                                                                                                                                                   	And as such, their `params` or`getColumns() fields` for usual objects **must** be validated by the validate function ;

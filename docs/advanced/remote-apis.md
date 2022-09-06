@@ -59,9 +59,7 @@ $providers['context']
     ->send();
 ```
 
-
-
-##### Use cases of remote-API'S in eQual
+**Use cases of remote-API'S in eQual** :
 
 - eQual is used to relay indirectly (use of a remote-API) informations to the User.
 
@@ -81,7 +79,7 @@ $providers['context']
 
   Example :
 
-  if an API-response is in XML, an eQual controller could transform(ex: JSON)/read the file to the expected value, needed for the frontend.  
+  if an API-response is in XML, an eQual controller could transform(ex: to JSON)/read the file to the expected value, needed for the frontend.  
 
 
 

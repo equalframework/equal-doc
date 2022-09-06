@@ -105,7 +105,7 @@ $context->httpResponse()
         ->send();
 ```
 
-###### What it does :
+What it does :
 
 **announce()** will handle the values of our query :
 
@@ -157,7 +157,7 @@ $> php run.php --do=init_package --package=todolist
 
 Open your browser, and in the localhost page you defined for eQual, add this :
 
-```
+```bash
 ?get=core_model_search 
 ```
 
@@ -326,8 +326,6 @@ If we type in the browser :
 ```markdown
 ?show=model_controllers&package=core
 ```
-
-###### 
 
 **The Response** :
 

@@ -129,7 +129,7 @@ This file is the built-in "control tower" of eQual, and is located in **/lib/equ
 
    *for example*:
 
-   The search method checks if you have the rights to perform the **read** operation, with a sub-condition : if you have the right to perform the **create** operation, you as a consequence, also have the right to perform the **create** operation.  
+   The search method checks if you have the rights to perform the **read** operation, with a sub-condition : if you have the right to perform the **create** operation, you as a consequence, also have the right to perform the **read** operation.  
 
   
 
