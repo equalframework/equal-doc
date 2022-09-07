@@ -62,6 +62,8 @@ Returns an integer (error code) if an error occurred.
 
 
 
+
+
 ### update
 
 Sets new values for one or more object instances.
@@ -91,6 +93,8 @@ Returns an integer (error code) if an error occurred.
 
 
 
+
+
 ### delete
 Deletes an object permanently or puts it in the "trash bin" (i.e. setting the 'deleted' flag to 1).
 
@@ -109,6 +113,8 @@ mixed remove( string $class, array $ids [, boolean $permanent=false] )
 #### Returned value 
 Returns an associative array containing ids of the objects actually deleted.  
 Returns an integer (error code) if an error occurred.
+
+
 
 
 
@@ -138,6 +144,8 @@ $sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG] )
 
 Returns an array of objects ids.  
 Returns an integer (error code) if an error occurred.
+
+
 
 
 

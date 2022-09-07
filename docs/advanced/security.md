@@ -13,7 +13,7 @@ Each User object holds a list of groups to which it belongs.
 ```php
 <?php
 public static function getColumns() {
-	return array(
+	return [
 		'firstname'		=> ['type' => 'string'],
         
 		'lastname'		=> ['type' => 'string'],
@@ -30,7 +30,7 @@ public static function getColumns() {
 						  'rel_table'		=> 'core_rel_group_user', 
 						  'rel_foreign_key'	=> 'group_id', 
 						  'rel_local_key'	=> 'user_id')]
-	);
+	];
 }
 ```
 
@@ -45,7 +45,7 @@ There, you will find informations about the users inside the group, and also the
 ```php
 <?php
 public static function getColumns() {
-	return array(
+	return [
 		'name'			=> ['type' => 'string'],
         
 		'users_ids'		=> ['type' => 'many2many', 
@@ -58,7 +58,7 @@ public static function getColumns() {
 		'permissions_ids'	=> array('type' => 'one2many', 
 						'foreign_object'	=> 'core\Permission', 
 						'foreign_field'		=> 'group_id']
-	);
+	];
 }
 ```
 
@@ -75,7 +75,7 @@ They are similar to the **classical roles** (admin,...) to which you can assign 
 ```php
 <?php
 public static function getColumns() {
-	return array(
+	return [
 		'class_name'	=> ['type' => 'string'],
 		'group_id'		=> [
 						'type'				=> 'many2one', 
@@ -83,7 +83,7 @@ public static function getColumns() {
 						'foreign_field'		=> 'permissions_ids'
 					],
 		'rights'		=> ['type' => 'integer']
-	);
+	];
 }
 ```
 

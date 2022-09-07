@@ -82,7 +82,7 @@ Also, Action controller `core_test_package-consistency` can help to spot any inc
 
 
 ## Fields categories
-| CATEGORY       | DESCRIPTION                                                  |
+| **CATEGORY**   | **DESCRIPTION**                                              |
 | -------------- | ------------------------------------------------------------ |
 | **simple**    | Direct field that holds a value of a given type. Such fields are stored as is in database and are automatically converted (SQL/PHP). |
 | **relational** | Field whose value targets one or more objects. Supported relations are : `one2many`, `many2many`, and `many2one` (which behaves like a simple field) |
@@ -326,7 +326,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 
 #### Common properties
 
-| PROPERTY        | DESCRIPTION                                                  |
+| **PROPERTY**    | **DESCRIPTION**                                              |
 | --------------- | ------------------------------------------------------------ |
 | **type**        | The type of field:  one of the value listed as <a href="#definition_field_types">fields types</a>. |
 | **usage**       | (string) Specifies additional information about the format of the field. |
@@ -343,7 +343,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 
 #### Type-related properties
 
-| Type         | Attribute   |Usage                    |
+| **TYPE** | **ATTRIBUTE** |**USAGE**                    |
 | - | -|-|
 | **string** |  | |
 |  | type        | Type of the field. Accepted types are: *alias*, *computed*, *many2one*, *many2many*, *one2many*, *integer*, *string*, *float*, *boolean*, *text*, *date* and *datetime*. |
@@ -395,7 +395,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 
 Some fields are mandatory, and defined in the `Model` class.
 
-| NAME     | TYPE           | ROLE                                                         |
+| **NAME** | **TYPE**       | **ROLE**                                                     |
 | -------- | -------------- | ------------------------------------------------------------ |
 | id       | integer        | Unique identifier of the object.                             |
 | name     | string         | Name to use when referring to the object (in views). By default, this field is an alias of `id`. |
@@ -408,7 +408,7 @@ Some fields are mandatory, and defined in the `Model` class.
 
 ## Getters methods
 
-| NAME                 | DESCRIPTION                                                  |
+| **NAME**             | **DESCRIPTION**                                              |
 | -------------------- | ------------------------------------------------------------ |
 | **getName()**        | Get Model readable name.                                     |
 | **getDescription()** | Get Model description.                                       |
@@ -425,7 +425,7 @@ Some fields are mandatory, and defined in the `Model` class.
 
 ## Overridable methods
 
-| NAME              | DESCRIPTION                                                  |
+| **NAME**          | **DESCRIPTION**                                              |
 | ----------------- | ------------------------------------------------------------ |
 | **cancreate()**    | Check wether an object can be created. |
 | **oncreate()**    | Hook invoked after object creation for performing object-specific additional operations. |

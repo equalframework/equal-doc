@@ -32,7 +32,7 @@ Inside the `config/routing` directory, you have the possibility to build your ow
 
 The expected route structure :
 
-| **STRUCTURE** | **TYPE**                                                     | Description                    |
+| **STRUCTURE** | **TYPE**                                                     | **DESCRIPTION** |
 | --------------- | -----------------------------------------|------------------ |
 | method | string         | HTTP method, example: "GET", "POST", "PUT", "DELETE", "PATCH". |
 | path | string | full path of the requested URI. |
