@@ -7,7 +7,8 @@ The structure is defined inside the `core\User` class (`packages/core/classes/Us
 
 Each User object holds a list of groups to which it belongs.
 
-> Note: a user belongs at least to one group (see `DEFAULT_GROUP_ID` in `/eq.lib.php`).
+!!! Note
+    All users belong to the group "users", which is the default group (see `DEFAULT_GROUP_ID` in `/eq.lib.php`).
 
 ```php
 <?php
