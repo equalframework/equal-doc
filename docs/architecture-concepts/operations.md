@@ -13,7 +13,8 @@ In eQual, there exists two types of operators:
      a field reference [array of values])
      * @var array
      */
-    private static $unary_operators = ['ABS', 'AVG', 'COUNT', 'DIFF', 'MAX', 'MIN', 'SUM'];
+    private static $unary_operators = ['ABS', 'AVG', 'COUNT', 'DIFF', 'MAX',
+                                       'MIN', 'SUM'];
 ```
 
 #### 2) binary operators 
@@ -39,7 +40,7 @@ In eQual, there exists two types of operators:
 
 **Example**
 
-In the charts views, if we want to display the **`SUM`**(unary operator) of a specific field : 
+In the charts views, if we want to display the **`SUM`** (unary operator) of a specific field : 
 
 ```json
 "layout": {
@@ -63,7 +64,7 @@ In the charts views, if we want to display the **`SUM`**(unary operator) of a sp
     }
 ```
 
-In this example, we would have the **"SUM"**of the total field of all the `BookingLine objects`.
+In this example, we would have the **`SUM`**of the total field of all the `BookingLine objects`.
 
 > NB: It also needs to match the domain : `["is_meal", "=", 1]`.
 

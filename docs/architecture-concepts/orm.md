@@ -51,10 +51,13 @@ string $lang=DEFAULT_LANG] )
 ```
 
 #### Parameters
-  * **class** : class of the objects we want to retrieve
-  * **ids** : list of identifiers of the objects we want to retrieve
-  * **fields** : array holding the names of the fields we want to retrieve 
-  * **lang** : language under which return fields values (only relevant for multilang fields)
+
+| **PARAMETER** | **DESCRIPTION**                                              |
+| ------------- | ------------------------------------------------------------ |
+| class         | Class of the objects we want to retrieve.                    |
+| ids           | List of identifiers of the objects we want to retrieve.      |
+| fields        | Array holding the names of the fields we want to retrieve .  |
+| lang          | Language under which return fields values (only relevant for multilang fields). |
 
 #### Returned value
 Returns an associative array containing, for every object id, a sub array mapping each field to its value.  
@@ -81,11 +84,13 @@ string $lang=DEFAULT_LANG, boolean $create=false] )
 
 #### Parameters
 
-  * **object_class** : class of the objects we want to update
-  * **ids** : ids of the objects to update
-  * **values** : array maping fields names with their new values
-  * **lang** : language to wich apply the changes (affects only multilang fields)
-  * **session_id** : identifier of the session holding user data (by default, the current session)
+| **PARAMETER** | **DESCRIPTION**                                              |
+| ------------- | ------------------------------------------------------------ |
+| object_class  | Class of the objects we want to update.                      |
+| ids           | Ids of the objects to update.                                |
+| fields        | Array mapping fields names with their new values .           |
+| lang          | Language to wich apply the changes (affects only multilang fields). |
+| session_id          | Identifier of the session holding user data (by default, the current session). |
 
 #### Returned value
 Returns an array containing ids of newly created objects (if any).  
@@ -132,13 +137,15 @@ $sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG] )
 
 #### Parameters
 
-  * **class** : class of the objects we want to look for
-  * **domain** : search criteria that objects have to match
-  * **order** : field on which the resulting list must be sorted
-  * **sort** : sorting order
-  * **start** : position in the global resulting list from which we want the ids
-  * **limit** : amount of ids to return
-  * **lang** : language under which search applies (only relevant for multilang fields) 
+| **PARAMETER** | **DESCRIPTION**                                              |
+| ------------- | ------------------------------------------------------------ |
+| class         | Class of the objects we want to look for.                    |
+| domain        | Search criteria that objects have to match.                  |
+| order         | Field on which the resulting list must be sorted .           |
+| sort          | Sorting order.                                               |
+| start         | Position in the global resulting list from which we want the ids. |
+| limit         | Amount of ids to return.                                     |
+| lang          | Language under which search applies (only relevant for multilang fields). |
 
 #### Returned value
 
@@ -163,8 +170,10 @@ boolean $check_unique=false, boolean $check_required=false)
 
 #### Parameters
 
-  * **class** : class of the object we want to validate
-  * **values** : associative array containing fields and their values
+| **PARAMETER** | **DESCRIPTION**                                       |
+| ------------- | ----------------------------------------------------- |
+| class         | Class of the object we want to validate.              |
+| values        | Associative array containing fields and their values. |
 
 #### Returned value
 

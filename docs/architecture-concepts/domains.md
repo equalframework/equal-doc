@@ -45,8 +45,8 @@ A condition is represented as an array holding 3 elements:
 
 | **PART**  | **ROLE**                            |
 | --------- | ----------------------------------- |
-| operand   | Indicates the field on which the condition must be applied and matches one of the properties returned by `Model::getColumns()` |
-| operator  | Provides the operator of the condition. Accepted operators are : `=`, `<`, `>`,` <=`, `>=`, `<>`, `like`, `ilike` (case-insensitive), `in`, `contains` |
+| operand   | Indicates the field on which the condition must be applied and matches one of the properties returned by `Model::getColumns()`. |
+| operator  | Provides the operator of the condition. Accepted operators are : `=`, `<`, `>`,` <=`, `>=`, `<>`, `like`, `ilike` (case-insensitive), `in`, `contains`. |
 | value  | Provides the value against which the operator must be applied on the operand. |
 
 !!! note "About value type"
@@ -145,11 +145,11 @@ http://equal.local/?get=model_search&entity=core\User&domain=[[id,in,[1,2,3]]
 
 A few references can be used in the domain to improve the search.
 
-| **REFERENCE** | **DESCRIPTION**    | **EXAMPLE**                                  |
-| ------------- | ------------------ | -------------------------------------------- |
-| object.       | The current object | `["object_id", "=", "object.id"]`            |
-| user.         | The current user   | `["creator", "=", "user.id"]`                |
-| date.         | The current date   | `["date_from", "=", "date.this.year.first"]` |
+| **REFERENCE** | **DESCRIPTION**     | **EXAMPLE**                                  |
+| ------------- | ------------------- | -------------------------------------------- |
+| object.       | The current object. | `["object_id", "=", "object.id"]`            |
+| user.         | The current user.   | `["creator", "=", "user.id"]`                |
+| date.         | The current date.   | `["date_from", "=", "date.this.year.first"]` |
 
 
 

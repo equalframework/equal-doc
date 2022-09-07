@@ -30,7 +30,7 @@ The logs can be enabled or disabled in the global config file :
 
 
 
-##### version.class.php
+### Versioning
 
 An other way to keep track of the object changes is the use of the version (`core/version.class.php`) class.
 
