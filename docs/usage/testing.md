@@ -30,7 +30,7 @@ It should log an overview of each test you wrote, resulting as "ok" or "ko" depe
 
 If you want to put your database in a certain state before running the tests, then you need a data set.
 
->  Refer to section **Building the data set** below to know how to proceed
+> Refer to section [Building the data set](#building_the_data_set) below to know how to proceed
 
 If you already have one, you can enter this before the test command :
 
@@ -63,7 +63,7 @@ Assuming you have a data set ready for your tests, add this in the **script** se
 
 
 
-## Building the data set
+## Building the data set <a name="building_the_data_set"></a>
 
 At some point in your testing you're very likely to operate changes in your database, which may aswell make a few of your previous tests obsolete
 

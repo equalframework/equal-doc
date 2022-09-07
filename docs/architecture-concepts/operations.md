@@ -40,7 +40,7 @@ In eQual, there exists two types of operators:
 
 **Example**
 
-In the charts views, if we want to display the **`SUM`** (unary operator) of a specific field : 
+In the charts views, if we want to display the `SUM` (unary operator) of a specific field : 
 
 ```json
 "layout": {
@@ -64,7 +64,7 @@ In the charts views, if we want to display the **`SUM`** (unary operator) of a s
     }
 ```
 
-In this example, we would have the **`SUM`**of the total field of all the `BookingLine objects`.
+In this example, we would have the `SUM`of the total field of all the `BookingLine objects`.
 
 > NB: It also needs to match the domain : `["is_meal", "=", 1]`.
 

@@ -29,7 +29,7 @@ public static function getColumns() {
 						  'foreign_field'	=> 'users_ids', 
 						  'rel_table'		=> 'core_rel_group_user', 
 						  'rel_foreign_key'	=> 'group_id', 
-						  'rel_local_key'	=> 'user_id')]
+						  'rel_local_key'	=> 'user_id']
 	];
 }
 ```
@@ -53,9 +53,9 @@ public static function getColumns() {
 						  'foreign_field'	=> 'groups_ids', 
 						  'rel_table'		=> 'core_rel_group_user', 
 						  'rel_foreign_key'	=> 'user_id', 
-						  'rel_local_key'	=> 'group_id'),
+						  'rel_local_key'	=> 'group_id'],
                             
-		'permissions_ids'	=> array('type' => 'one2many', 
+		'permissions_ids'	=> ['type' => 'one2many', 
 						'foreign_object'	=> 'core\Permission', 
 						'foreign_field'		=> 'group_id']
 	];

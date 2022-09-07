@@ -149,7 +149,7 @@ A few references can be used in the domain to improve the search.
 | ------------- | ------------------- | -------------------------------------------- |
 | object.       | The current object. | `["object_id", "=", "object.id"]`            |
 | user.         | The current user.   | `["creator", "=", "user.id"]`                |
-| date.         | The current date.   | `["date_from", "=", "date.this.year.first"]` |
+| date          | The current date.   | `["date_from", "=", "date.this.year.first"]` |
 
 
 

@@ -31,7 +31,7 @@ Here is a recap for the `core\User` entity :
 
 ## Front-end logic
 
-A **view** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
+A **View** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
 Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications. 
 
 Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
@@ -53,12 +53,12 @@ Some attributes are common to all types of views. Below is a list of the common 
 
 | **PROPERTY**    | **DESCRIPTION**                                              |
 | --------------- | ------------------------------------------------------------ |
-| **name**       | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| **description** | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
-| **[access](#common_access)**     | (optional)                                                   |
-| **[actions](#common_actions)**    | (optional)                                                   |
-| **[controller](#common_controller)** | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
-| **[header](#common_header)** | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
+| name       | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| description | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
+| [access](#common_access)     | (optional)                                                   |
+| [actions](#common_actions)    | (optional)                                                   |
+| [controller](#common_controller) | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
+| [header](#common_header) | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
 
 <a name="common_access"></a>
 
@@ -84,13 +84,13 @@ Each action item  relates to a button, displayed in the right side of the header
 
 | **PROPERTY** | **DESCRIPTION**                                       |
 | --------------- | ------------------------------------------------------------ |
-| **id**          | Identifier of the action for translation purpose (can be set in the i18n related file). |
-| **description** | The description that is displayed to the user when (s)he clicks on the related button. |
-| **label**       | Label assigned to the view.                                  |
-| **controller**  | Controller to invoke when the user confirms the action. By default, the `id` of the current object is sent as a parameter. |
-| **visible**     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
-| **confirm**     | (optional) If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
-| **params**      | (optional) Associative array mapping fields with their values. Values can be assigned by referencing a property of the current user (e.g. `user.login`) or current object (for form views). |
+| id          | Identifier of the action for translation purpose (can be set in the i18n related file). |
+| description | The description that is displayed to the user when (s)he clicks on the related button. |
+| label       | Label assigned to the view.                                  |
+| controller  | Controller to invoke when the user confirms the action. By default, the `id` of the current object is sent as a parameter. |
+| visible     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
+| confirm     | (optional) If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
+| params      | (optional) Associative array mapping fields with their values. Values can be assigned by referencing a property of the current user (e.g. `user.login`) or current object (for form views). |
 
 Example:
 
@@ -172,8 +172,8 @@ The **header** section allows to override the default behavior of the view.
 
 | **PROPERTY** | **DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ |
-| **actions**  | This property allows to customize the actions buttons shown in the left part of the View header. |
-| **visible**  | (optional) boolean or array (domain)                         |
+| actions      | This property allows to customize the actions buttons shown in the left part of the View header. |
+| visible      | (optional) boolean or array (domain)                         |
 
 
 ##### actions
@@ -189,11 +189,11 @@ Empty arrays or items set to false mean that the action is not available for the
 
 | **ACTION** | **DESCRIPTION** | **ID(S)** |
 | ---- | ---- |---- |
-| **ACTION.EDIT** | For forms in view mode, allows to edit the current object. ||
-| **ACTION.SAVE** | For forms in edit mode, **ACTION.SAVE** is the action used for storing the changes made to the current object. |`SAVE_AND_CLOSE`, `SAVE_AND_VIEW`, `SAVE_AND_CONTINUE`|
-| **ACTION.CREATE** | For all views, **ACTION.CREATE** is the action used for creating a new current object. |`CREATE`, `ADD`|
-| **ACTION.CANCEL** | For forms in edit mode, allows to cancel the changes made to the current object. |`CANCEL_AND_CLOSE`, `CANCEL_AND_VIEW`|
-| **ACTION.SELECT** | For relational fields, allows to select or add one or many objects and relay selection to parent View. ||
+| ACTION.EDIT | For forms in view mode, allows to edit the current object. ||
+| ACTION.SAVE | For forms in edit mode, **ACTION.SAVE** is the action used for storing the changes made to the current object. |`SAVE_AND_CLOSE`, `SAVE_AND_VIEW`, `SAVE_AND_CONTINUE`|
+| ACTION.CREATE | For all views, **ACTION.CREATE** is the action used for creating a new current object. |`CREATE`, `ADD`|
+| ACTION.CANCEL | For forms in edit mode, allows to cancel the changes made to the current object. |`CANCEL_AND_CLOSE`, `CANCEL_AND_VIEW`|
+| ACTION.SELECT | For relational fields, allows to select or add one or many objects and relay selection to parent View. ||
 
 **Predefined actions**: 
 
@@ -424,10 +424,10 @@ Forms views are JSON objects that describe how to render a specific view related
 
 | **PROPERTY** | **DESCRIPTION**                             |
 | ----------- | ------------------------------------------------------------ |
-| **name**    | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| **description** | A **description** property allows to give a short hint about the way the view is intended to be used. |
-|**[header](#common_header)**|This section allows to override action buttons that are displayed in the header of the form.|
-|**[actions](#common_actions)**|(optional) A list of actions associated to a view. If set, visible actions (see below) will be shown in the right-part of the header.|
+| name    | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| description | A **description** property allows to give a short hint about the way the view is intended to be used. |
+|[header](#common_header)|This section allows to override action buttons that are displayed in the header of the form.|
+|[actions](#common_actions)|(optional) A list of actions associated to a view. If set, visible actions (see below) will be shown in the right-part of the header.|
 
 
 
@@ -443,8 +443,8 @@ The groups are stacked vertically. A layout must always have at least 1 group.
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
-|**label**|name of the group|
-|**sections**|Array of sections objects. A group must always have at least 1 section.|
+|label|name of the group.|
+|sections|Array of sections objects. A group must always have at least 1 section.|
 
 
 
@@ -456,10 +456,10 @@ When several sections are present, each section is displayed under a tabs.
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
-|**label**|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
-|**id**|(optional) identifier for mapping the section in translation files|
-|**visible**|(optional) a domain conditioning the visibility of the section and its tab (ex. `["status", "not in", ["quote", "option"]]`)|
-|**rows**|Array of rows objects. A section must always have at least 1 row.|
+|label|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
+|id|(optional) identifier for mapping the section in translation files|
+|visible|(optional) a domain conditioning the visibility of the section and its tab (ex. `["status", "not in", ["quote", "option"]]`)|
+|rows|Array of rows objects. A section must always have at least 1 row.|
 
 
 
@@ -467,7 +467,7 @@ When several sections are present, each section is displayed under a tabs.
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
-|**columns**|An array of columns objects that should be displayed within the row.|
+|columns|An array of columns objects that should be displayed within the row.|
 
 
 
@@ -475,8 +475,8 @@ When several sections are present, each section is displayed under a tabs.
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
-|**width**|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
-|**items**|An array of items that should be displayer within the column.|
+|width|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
+|items|An array of items that should be displayer within the column.|
 
 
 
@@ -488,13 +488,13 @@ Each item is an object accepting the following properties :
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
-|**label**|(optional) Default label|
-|**type**||
-|**value**|value of the field|
-|**width**|width, in percentage of the parent column width.|
-|**visible**|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
-|**domain**|(optional) (ex. `["type", "<>", "I"]`)|
-|**widget**|(optional) additional settings to apply on the widget that holds the fields|
+|label|(optional) Default label|
+|type||
+|value|value of the field|
+|width|width, in percentage of the parent column width.|
+|visible|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
+|domain|(optional) (ex. `["type", "<>", "I"]`)|
+|widget|(optional) additional settings to apply on the widget that holds the fields|
 
 
 
@@ -504,8 +504,8 @@ Within item`objects`, the widget property allows to refine the configuration of 
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
-|**heading**|(optional) if set to true, the widget is emphasized.|
-|**readonly**|(optional) if set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
+|heading|(optional) if set to true, the widget is emphasized.|
+|readonly|(optional) if set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
 
 Additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
@@ -754,21 +754,21 @@ The list view is named *Category.list.default.json* and has the following struct
 
 | **PROPERTY**                   | **DESCRIPTION**                                              |
 | ------------------------------ | ------------------------------------------------------------ |
-| **name**                       | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| **description**                | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
-| **[group_by](#list_group_by)** | (optional)                                                   |
-| **[order](#list_order)**       | (optional)                                                   |
-| **[controller](#list_sort)**   | (optional)                                                   |
-| **[sort](#list_sort)**         | (optional)                                                   |
-| **[limit](#list_limit)**       | (optional)                                                   |
-| **[domain](#list_domain)**     | (optional)                                                   |
-| **[filters](#list_filters)**   | (optional)                                                   |
-| **[header](#list_header)**     | The **header** section allows to override the default behavior of the view. |
-| **[actions](#list_actions)**   | (optional)                                                   |
-| **[exports](#list_exports)** | (optional)                                                   |
-| **[layout](#list_layout)** | The layout part holds an structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them. |
-| **[operations](#list_operations)** | (optional)                                                   |
-| **[access](#list_access)** | (optional)                                                   |
+| name                       | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| description                | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
+| [group_by](#list_group_by) | (optional)                                                   |
+| [order](#list_order)       | (optional)                                                   |
+| [controller](#list_sort)   | (optional)                                                   |
+| [sort](#list_sort)         | (optional)                                                   |
+| [limit](#list_limit)       | (optional)                                                   |
+| [domain](#list_domain)     | (optional)                                                   |
+| [filters](#list_filters)   | (optional)                                                   |
+| [header](#list_header)     | (optional) The **header** section allows to override the default behavior of the view. |
+| [actions](#list_actions)   | (optional)                                                   |
+| [exports](#list_exports) | (optional)                                                   |
+| [layout](#list_layout) | The layout part holds a structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them. |
+| [operations](#list_operations) | (optional)                                                   |
+| [access](#list_access) | (optional)                                                   |
 
 <a name="list_group_by"></a>
 
@@ -936,7 +936,7 @@ The view property points to an HTML file that will be parsed and filled with sel
 
 #### layout 
 
-The layout part holds an structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
+The layout part holds a structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
 
 
 
@@ -1061,13 +1061,13 @@ Menus allow to define custom tree structures of action-buttons for accessing spe
 
 Menu items have the following structure : 
 
-| **PROPERTY**    | **DESCRIPTION**                                              |
-| --------------- | ------------------------------------------------------------ |
-| **id**          | Identifier of the item (used for translations).              |
-| **label**       | Title of the item to display within the menu.                |
-| **description** | (optional) Short string explaining the purpose of the item (the view it leads to). |
-| **icon**        | (optional) icon to show aside the item.                      |
-| **type**        | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| id           | Identifier of the item (used for translations).              |
+| label        | Title of the item to display within the menu.                |
+| description  | (optional) Short string explaining the purpose of the item (the view it leads to). |
+| icon         | (optional) icon to show aside the item.                      |
+| type         | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
 
 
 
@@ -1080,11 +1080,11 @@ Entries items have a **context** property, which has the following structure :
 
 | **PROPERTY** | **DESCRIPTION**                                          |
 | ------------ | -------------------------------------------------------- |
-| **entity**   | Entity to which relates the view to show.                |
-| **view**     | ID of the view to use for showing the targeted entities. |
-| **order**    | (optional)                                               |
-| **sort**     | (optional)                                               |
-| **domain**   | (optional) Domain to apply to specified view.            |
+| entity       | Entity to which relates the view to show.                |
+| view         | ID of the view to use for showing the targeted entities. |
+| order        | (optional)                                               |
+| sort         | (optional)                                               |
+| domain       | (optional) Domain to apply to specified view.            |
 
 Example:
 
@@ -1168,16 +1168,16 @@ Dashboard views are control panels, opening the possibility to show multiple vie
 
 The following example displays 4 different views to simplify the management of informations.
 
-| **PROPERTY**    | **DESCRIPTION**                                              |
-| --------------- | ------------------------------------------------------------ |
-| **id**          | Identifier of the item (used for translations).              |
-| **label**       | Title of the item to display within the menu.                |
-| **description** | (optional) Short string explaining the purpose of the item (the view it leads to). |
-| **width**       | Width of the field.                                          |
-| **type**        | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
-| **entity**      | Entity to which relates the view to show.                    |
-| **view**        | ID of the view to use for showing the targeted entities.     |
-| **domain**      | (optional) Domain to apply to specified view.                |
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| id           | Identifier of the item (used for translations).              |
+| label        | Title of the item to display within the menu.                |
+| description  | (optional) Short string explaining the purpose of the item (the view it leads to). |
+| width        | Width of the field.                                          |
+| type         | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
+| entity       | Entity to which relates the view to show.                    |
+| view         | ID of the view to use for showing the targeted entities.     |
+| domain       | (optional) Domain to apply to specified view.                |
 
 
 ```json

@@ -69,6 +69,9 @@ In other situation, the Access Control Management might be different than the on
 
 In such cases, it is possible to inject dependencies by specifying their class (in addition to their names).
 By doing so, we can perform 2 operation at a time : 
+
+
+
 1) inject a custom service ;
 2) replace the default service with the custom one (by using an existing predefined name to override the service).
 

@@ -88,7 +88,7 @@ This page lists an inventory of available scripts, grouped by category.
 >
 > - **'error'** (ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`);
 > - **'warn'** (ex: `WARN  - I18 - Unknown field 'object_class' referenced in file "packages\/core\/i18n\/en\/alert\MessageModel.json")`;
-> - **\'*'** (error & warn).
+> - **\*** (error & warn).
 
 
 

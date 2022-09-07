@@ -84,9 +84,9 @@ Also, Action controller `core_test_package-consistency` can help to spot any inc
 ## Fields categories
 | **CATEGORY**   | **DESCRIPTION**                                              |
 | -------------- | ------------------------------------------------------------ |
-| **simple**    | Direct field that holds a value of a given type. Such fields are stored as is in database and are automatically converted (SQL/PHP). |
-| **relational** | Field whose value targets one or more objects. Supported relations are : `one2many`, `many2many`, and `many2one` (which behaves like a simple field) |
-| **computed**   | Indirect field that results from a computation based on other values. Computed fields have a final type that can be either simple or relational. |
+| simple    | Direct field that holds a value of a given type. Such fields are stored as is in database and are automatically converted (SQL/PHP). |
+| relational | Field whose value targets one or more objects. Supported relations are : `one2many`, `many2many`, and `many2one` (which behaves like a simple field) |
+| computed   | Indirect field that results from a computation based on other values. Computed fields have a final type that can be either simple or relational. |
 
 ## Fields types <a id="definition_field_types"></a>
 
@@ -328,16 +328,16 @@ public static function calcRightsTxt($om, $ids, $lang) {
 
 | **PROPERTY**    | **DESCRIPTION**                                              |
 | --------------- | ------------------------------------------------------------ |
-| **type**        | The type of field:  one of the value listed as <a href="#definition_field_types">fields types</a>. |
-| **usage**       | (string) Specifies additional information about the format of the field. |
-| **description** | (string) Brief about the field (max 65 chars).              |
-| **visible**     | (optional, boolean \| array) [Domain](../architecture-concepts/domains.md) holding the conditions that must be met in order for the field to be relevant (and shown in UI). |
-| **default**     | (optional) (mixed) Tells how to get the default value of the field. Can be either a value (of the same type than the one target by `type`) or a callable (string). |
-| **readonly**    | (boolean) Marks the field as non-editable (default = false). |
-| **required**    | (boolean) Marks the field as mandatory (trying to store an object without a value for that field raises error) (default = false). |
-| **multilang**   | (boolean) Marks the field as translatable (default = false). |
-| **onupdate**        | (optional, string) Name of the method to invoke when field is updated.<br/>Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
-| **domain**  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation. |
+| type        | The type of field:  one of the value listed as <a href="#definition_field_types">fields types</a>. |
+| usage       | (string) Specifies additional information about the format of the field. |
+| description | (string) Brief about the field (max 65 chars).              |
+| visible     | (optional, boolean \| array) [Domain](../architecture-concepts/domains.md) holding the conditions that must be met in order for the field to be relevant (and shown in UI). |
+| default     | (optional) (mixed) Tells how to get the default value of the field. Can be either a value (of the same type than the one target by `type`) or a callable (string). |
+| readonly    | (boolean) Marks the field as non-editable (default = false). |
+| required    | (boolean) Marks the field as mandatory (trying to store an object without a value for that field raises error) (default = false). |
+| multilang   | (boolean) Marks the field as translatable (default = false). |
+| onupdate        | (optional, string) Name of the method to invoke when field is updated.<br/>Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
+| domain  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation. |
 
 
 
@@ -408,34 +408,34 @@ Some fields are mandatory, and defined in the `Model` class.
 
 ## Getters methods
 
-| **NAME**             | **DESCRIPTION**                                              |
-| -------------------- | ------------------------------------------------------------ |
-| **getName()**        | Get Model readable name.                                     |
-| **getDescription()** | Get Model description.                                       |
-| **getType()**        | Provide the list of unique rules (array of combinations of fields). |
-| **getLink()**        | Get the URL associated with the class.                       |
-| **getColumns()**     | Returns the user-defined part of the schema (i.e. fields list with types and other attributes). |
-| **getConstraints()** | Returns a map of constraint items associating fields with validation functions. |
-| **getUnique()**      | Provide the list of unique rules (array of combinations of fields). |
-| **getFields()**      | Returns all fields names.                                    |
-| **getValues()**      | Returns values of static instance.                           |
-| **getDefaults()**    | Return default values.                                       |
-| **getTable()**       | Return the name of the DB table to be used for storing objects of current class. |
+| **NAME**         | **DESCRIPTION**                                              |
+| ---------------- | ------------------------------------------------------------ |
+| getName()        | Get Model readable name.                                     |
+| getDescription() | Get Model description.                                       |
+| getType()        | Provide the list of unique rules (array of combinations of fields). |
+| getLink()        | Get the URL associated with the class.                       |
+| getColumns()     | Returns the user-defined part of the schema (i.e. fields list with types and other attributes). |
+| getConstraints() | Returns a map of constraint items associating fields with validation functions. |
+| getUnique()      | Provide the list of unique rules (array of combinations of fields). |
+| getFields()      | Returns all fields names.                                    |
+| getValues()      | Returns values of static instance.                           |
+| getDefaults()    | Return default values.                                       |
+| getTable()       | Return the name of the DB table to be used for storing objects of current class. |
 
 
 ## Overridable methods
 
 | **NAME**          | **DESCRIPTION**                                              |
 | ----------------- | ------------------------------------------------------------ |
-| **cancreate()**    | Check wether an object can be created. |
-| **oncreate()**    | Hook invoked after object creation for performing object-specific additional operations. |
-| **canupdate()**   | Check wether an object can be updated.                       |
-| **onupdate()**    | Hook invoked before object update for performing object-specific additional operations. |
-| **candelete()**   | Check wether an object can be deleted.                       |
-| **ondelete()**    | Hook invoked before object deletion for performing object-specific additional operations. |
-| **canclone()**    | Check wether an object can be cloned.                        |
-| **onclone()**     | Hook invoked after object cloning for performing object-specific additional operations. |
-| **onchange()**    | Handler for virtual static methods: use classname to invoke a Collection method, if available. |
+| cancreate()    | Check wether an object can be created. |
+| oncreate()    | Hook invoked after object creation for performing object-specific additional operations. |
+| canupdate()   | Check wether an object can be updated.                       |
+| onupdate()    | Hook invoked before object update for performing object-specific additional operations. |
+| candelete()   | Check wether an object can be deleted.                       |
+| ondelete()    | Hook invoked before object deletion for performing object-specific additional operations. |
+| canclone()    | Check wether an object can be cloned.                        |
+| onclone()     | Hook invoked after object cloning for performing object-specific additional operations. |
+| onchange()    | Handler for virtual static methods: use classname to invoke a Collection method, if available. |
 
 
 # Custom methods
