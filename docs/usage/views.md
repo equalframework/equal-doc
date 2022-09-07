@@ -20,7 +20,7 @@ As a convention, a default view for `list` and `form` types should be defined fo
 
 Here is a recap for the `core\User` entity :
 
-| FILENAME           | ENTITY | VIEW TYPE | VIEW NAME | VIEW ID |
+| **FILENAME**       | **ENTITY** | **VIEW TYPE** | **VIEW NAME** | **VIEW ID** |
 | --------------------------------- | --------- | --------- | --------- | --------- |
 | `core\views\User.list.default.json` | core\User | list | default | list.default |
 | `core\views\User.form.default.json` | core\User | form | default | form.default |
@@ -51,7 +51,7 @@ Some attributes are common to all types of views. Below is a list of the common 
 
 ### Structure summary
 
-| PROPERTY        | DESCRIPTION                                                  |
+| **PROPERTY**    | **DESCRIPTION**                                              |
 | --------------- | ------------------------------------------------------------ |
 | **name**       | The **name** property is mandatory and relates to the unique name assigned to the view. |
 | **description** | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
@@ -82,7 +82,7 @@ Each action item  relates to a button, displayed in the right side of the header
 
 
 
-| PROPERTY | DESCRIPTION                                           |
+| **PROPERTY** | **DESCRIPTION**                                       |
 | --------------- | ------------------------------------------------------------ |
 | **id**          | Identifier of the action for translation purpose (can be set in the i18n related file). |
 | **description** | The description that is displayed to the user when (s)he clicks on the related button. |
@@ -170,10 +170,10 @@ The **header** section allows to override the default behavior of the view.
 
 ##### **Structure summary**
 
-| PROPERTY    | DESCRIPTION                                                  |
-| ----------- | ------------------------------------------------------------ |
-| **actions** | This property allows to customize the actions buttons shown in the left part of the View header. |
-| **visible** | (optional) boolean or array (domain)                         |
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| **actions**  | This property allows to customize the actions buttons shown in the left part of the View header. |
+| **visible**  | (optional) boolean or array (domain)                         |
 
 
 ##### actions
@@ -187,7 +187,7 @@ Each action item is either a boolean or an array of items describing the order o
 
 Empty arrays or items set to false mean that the action is not available for the View. If action is an array with multiple items, the related button will be displayed as a split-button (note: in that case, the order of the items is maintained).
 
-| ACTION | DESCRIPTION | ID(S) |
+| **ACTION** | **DESCRIPTION** | **ID(S)** |
 | ---- | ---- |---- |
 | **ACTION.EDIT** | For forms in view mode, allows to edit the current object. ||
 | **ACTION.SAVE** | For forms in edit mode, **ACTION.SAVE** is the action used for storing the changes made to the current object. |`SAVE_AND_CLOSE`, `SAVE_AND_VIEW`, `SAVE_AND_CONTINUE`|
@@ -198,7 +198,7 @@ Empty arrays or items set to false mean that the action is not available for the
 **Predefined actions**: 
 
 
-| ACTION | DESCRIPTION | CONTROLLER |
+| **ACTION** | **DESCRIPTION** | **CONTROLLER** |
 | ---- | ---- | ---- |
 | SAVE_AND_CLOSE | The view is saved and close. The user is brought to the previous context. | |
 | SAVE_AND_CONTINUE | The view is saved and left open allowing the user to perform further changes. A snackbar is given as feedback to the user. | |
@@ -422,7 +422,7 @@ Forms views are JSON objects that describe how to render a specific view related
 
 ### Structure summary
 
-| PROPERTY | DESCRIPTION                                 |
+| **PROPERTY** | **DESCRIPTION**                             |
 | ----------- | ------------------------------------------------------------ |
 | **name**    | The **name** property is mandatory and relates to the unique name assigned to the view. |
 | **description** | A **description** property allows to give a short hint about the way the view is intended to be used. |
@@ -441,7 +441,7 @@ The layout part holds a nested structure that describes the way the (form) view 
 
 The groups are stacked vertically. A layout must always have at least 1 group.
 
-|PROPERTY|DESCRIPTION|
+|**PROPERTY**|**DESCRIPTION**|
 |--|--|
 |**label**|name of the group|
 |**sections**|Array of sections objects. A group must always have at least 1 section.|
@@ -454,7 +454,7 @@ A group must always have at least 1 section.
 
 When several sections are present, each section is displayed under a tabs.
 
-|PROPERTY|DESCRIPTION|
+|**PROPERTY**|**DESCRIPTION**|
 |--|--|
 |**label**|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
 |**id**|(optional) identifier for mapping the section in translation files|
@@ -465,7 +465,7 @@ When several sections are present, each section is displayed under a tabs.
 
 ##### section.rows
 
-|PROPERTY|DESCRIPTION|
+|**PROPERTY**|**DESCRIPTION**|
 |--|--|
 |**columns**|An array of columns objects that should be displayed within the row.|
 
@@ -473,7 +473,7 @@ When several sections are present, each section is displayed under a tabs.
 
 ##### row.columns
 
-|PROPERTY|DESCRIPTION|
+|**PROPERTY**|**DESCRIPTION**|
 |--|--|
 |**width**|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
 |**items**|An array of items that should be displayer within the column.|
@@ -486,7 +486,7 @@ Each column has a list of items, which are element describing which fields are t
 
 Each item is an object accepting the following properties : 
 
-|PROPERTY|DESCRIPTION|
+|**PROPERTY**|**DESCRIPTION**|
 |--|--|
 |**label**|(optional) Default label|
 |**type**||
@@ -502,14 +502,14 @@ Each item is an object accepting the following properties :
 
 Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
 
-|PROPERTY|DESCRIPTION|
+|**PROPERTY**|**DESCRIPTION**|
 |--|--|
 |**heading**|(optional) if set to true, the widget is emphasized.|
 |**readonly**|(optional) if set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
 
 Additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
-|FIELD TYPE|PROPERTY||
+|**FIELD TYPE**|**PROPERTY**||
 |-|-|-|
 |`many2many`, `one2many`|||
 || **header**       |(optional) The widget can override the configuration that will be relayed to the subsequent View for M2M and O2M fields. For details about **header** structure see <a href="#view_commons_header">views commons</a>.|
@@ -752,7 +752,7 @@ The list view is named *Category.list.default.json* and has the following struct
 
 ### Structure summary
 
-| PROPERTY                       | DESCRIPTION                                                  |
+| **PROPERTY**                   | **DESCRIPTION**                                              |
 | ------------------------------ | ------------------------------------------------------------ |
 | **name**                       | The **name** property is mandatory and relates to the unique name assigned to the view. |
 | **description**                | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
@@ -876,10 +876,10 @@ In addition to the attributes common to all views (see <a href="#view_commons_he
 
 ##### selection
 
-| PROPERTY    | DESCRIPTION                                                  |
-| ----------- | ------------------------------------------------------------ |
-| **default** | (optional) Boolean telling if the default actions have to be present in the available action to apply on current selection. (default = false) |
-| **actions** | (optional) An array of action items that can be applied on current selection. |
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| **default**  | (optional) Boolean telling if the default actions have to be present in the available action to apply on current selection. (default = false) |
+| **actions**  | (optional) An array of action items that can be applied on current selection. |
 
 Example : 
 
@@ -946,7 +946,7 @@ The list view consists of a table having a series of columns (items). Each colum
 
 Each item is an object accepting the following properties : 
 
-| PROPERTY | DESCRIPTION                                           |
+| **PROPERTY** | **DESCRIPTION**                                       |
 | --------------- | ------------------------------------------------------------ |
 | label           | (optional) Default label                                     |
 | type            | always 'field'                                               |
@@ -965,12 +965,12 @@ Each entry of the `opearations` object associates a name (ID of an operation - w
 
 In turn, each descriptor accepts the following properties : 
 
-| PROPERTY  | DESCRIPTION                                                  |
-| --------- | ------------------------------------------------------------ |
-| operation | The operation to apply on the related field (see operation syntax below). |
-| usage     | The `usage` of the operation as hint for displaying the result. (see) Example : `amount/money:2`, `numeric/integer` |
-| suffix    | (optional) string to append to the result.                   |
-| prefix    | (optional) string to prepend to the result.                  |
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| operation    | The operation to apply on the related field (see operation syntax below). |
+| usage        | The `usage` of the operation as hint for displaying the result. (see) Example : `amount/money:2`, `numeric/integer` |
+| suffix       | (optional) string to append to the result.                   |
+| prefix       | (optional) string to prepend to the result.                  |
 
 
 
@@ -1020,7 +1020,7 @@ Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 ```
 
 ##### Binary operators
-|OPERATOR|RESULT|SYNTAX|
+|**OPERATOR**|**RESULT**|**SYNTAX**|
 |--|--|--|
 |+|Sum of `a` and `b`.|`['+', a, b]`|
 |-|Difference between `a` and `b`.|`['-', a, b]`|
@@ -1031,7 +1031,7 @@ Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 
 ##### Unary operators
 
-|OPERATOR|SYNTAX|
+|**OPERATOR**|**SYNTAX**|
 |--|--|
 |SUM|`['SUM', object.field]`|
 |AVG|`['AVG', object.field]` (which is a shortcut for `['/', ['SUM', object.field], ['COUNT', object.field]]`)|
@@ -1061,7 +1061,7 @@ Menus allow to define custom tree structures of action-buttons for accessing spe
 
 Menu items have the following structure : 
 
-| PROPERTY        | DESCRIPTION                                                  |
+| **PROPERTY**    | **DESCRIPTION**                                              |
 | --------------- | ------------------------------------------------------------ |
 | **id**          | Identifier of the item (used for translations).              |
 | **label**       | Title of the item to display within the menu.                |
@@ -1078,13 +1078,13 @@ Entries items have a **context** property, which has the following structure :
 
 
 
-| PROPERTY   | DESCRIPTION                                              |
-| ---------- | -------------------------------------------------------- |
-| **entity** | Entity to which relates the view to show.                |
-| **view**   | ID of the view to use for showing the targeted entities. |
-| **order**  | (optional)                                               |
-| **sort**   | (optional)                                               |
-| **domain** | (optional) Domain to apply to specified view.            |
+| **PROPERTY** | **DESCRIPTION**                                          |
+| ------------ | -------------------------------------------------------- |
+| **entity**   | Entity to which relates the view to show.                |
+| **view**     | ID of the view to use for showing the targeted entities. |
+| **order**    | (optional)                                               |
+| **sort**     | (optional)                                               |
+| **domain**   | (optional) Domain to apply to specified view.            |
 
 Example:
 
@@ -1168,7 +1168,7 @@ Dashboard views are control panels, opening the possibility to show multiple vie
 
 The following example displays 4 different views to simplify the management of informations.
 
-| PROPERTY        | DESCRIPTION                                                  |
+| **PROPERTY**    | **DESCRIPTION**                                              |
 | --------------- | ------------------------------------------------------------ |
 | **id**          | Identifier of the item (used for translations).              |
 | **label**       | Title of the item to display within the menu.                |
@@ -1303,7 +1303,7 @@ Possibilities : date.[this|prev|next].[day|week|month|quarter|semester|year].[fi
 
 The dataset property is about the data that will be shown in the graph, we have the label property that will allow us to the name the element displayed.
 
-###### The operation property that will use the operations talked about in the above sections, will allow us to display a certain type of data. 
+The operation property that will use the operations talked about in the above sections, will allow us to display a certain type of data. 
 
 At last, the domain property allows us to filter the data even more. 
 
