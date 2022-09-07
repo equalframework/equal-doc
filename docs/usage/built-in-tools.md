@@ -192,7 +192,7 @@ This page lists an inventory of available scripts, grouped by category.
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?get=model_collect&entity=core\Group&fields=[created,description]&domain=[id,=,1]`|
 |**CLI**|`$ ./equal.run --get=model_collect --entity=core\\Group --fields=[created,description] --domain=[id,=,1]`|
-|**DESCRIPTION**|Returns a list of entites according to given domain (filter), start offset, limit and order.|
+|**DESCRIPTION**|Returns a list of entities according to given domain (filter), start offset, limit and order.|
 
 
 
@@ -233,7 +233,7 @@ Those values are used, for example, inside `Permission.class.php` on the `rights
 
 Those permissions are used as properties by `User.class.php` & `Group.class.php` to determine the rights available.
 
-## Users
+### Users
 
 #### `user_grant`
 

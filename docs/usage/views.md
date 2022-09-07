@@ -327,22 +327,17 @@ while(true) {
     $class_path = implode('/', $parts);
     $file = QN_BASEDIR."/packages/{$package}/views/{$class_path}/{$file}.{$params['view_id']}.json";
 
-    if(file_exists($file)) {                                       //(1)
+    if(file_exists($file)) {                                   //(1)
         break;
     }
 
-    try {
-        $parent = get_parent_class($orm->getModel($entity));       //(2)
-       if(!$parent || $parent == 'equal\orm\Model') {              //(3) 
-            break;
-        }
-
-        $entity = $parent;
-    }
-    catch(Exception $e) {
-        // support for controller entities
+    $parent = get_parent_class($orm->getModel($entity));       //(2)
+    
+    if(!$parent || $parent == 'equal\orm\Model') {             //(3) 
         break;
     }
+
+    $entity = $parent;
 }
 
 if(!file_exists($file)) {
