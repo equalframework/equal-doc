@@ -4,7 +4,7 @@
 
 Here is the full list of eQual built-in services and their purpose :
 
-|**ID**|**CLASS** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|**DESCRIPTION**|
+|**ID**|**CLASS** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|**DESCRIPTION**|
 |--|--|--|
 |report|`equal\error\Reporter`|Intercepts, handles and filters error and exceptions messages and stores them into a log file. |
 |auth|`equal\auth\AuthenticationManager`| Manages the credentials & authentication tokens. |
