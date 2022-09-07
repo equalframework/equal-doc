@@ -31,7 +31,7 @@ Here is a recap for the `core\User` entity :
 
 ## Front-end logic
 
-A **iew** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
+A **view** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
 Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications. 
 
 Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
@@ -60,9 +60,9 @@ Some attributes are common to all types of views. Below is a list of the common 
 | **[controller](#common_controller)** | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
 | **[header](#common_header)** | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
 
+<a name="common_access"></a>
 
-
-### access <a name="common_access"></a>
+#### access 
 
 groups: array (list of groups the view is restricted to)
 
@@ -72,9 +72,9 @@ Example :
     "access": ['root']
 ```
 
+<a name="common_actions"></a>
 
-
-#### actions <a id="view_commons_actions"></a> <a name="common_actions"></a>
+#### actions <a id="view_commons_actions"></a> 
 
 The optional **actions**  property  contains a list of objects defining a custom list of possible actions attached to the view.
 
@@ -151,7 +151,9 @@ Here below is a flow diagram that recaps the interactions between the controller
 </center>
 
 
-#### controller <a id="view_commons_controller"></a><a name="common_controller"></a>
+<a name="common_controller"></a>
+
+#### controller <a id="view_commons_controller"></a>
 
 The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
 
@@ -160,9 +162,9 @@ The default values is `model_collect` (which is an alias for `core_model_collect
 !!! Note
     Controller are considered as entities. When a controller is specified for a list View, a related `search.default` view is expected , which describes the layout of the form for values relating to fields returned by the `::announce` method of the view controller. In turn, those values are sent to the controller along with default values (`entity`, `fields`, `domain`, `order`, `sort`, `start`, `limit`, `lang`) for feeding the View. Example: for controller `sale_booking_collect`, a `packages/sale/views/booking/collect.search.default.json` file is expected.
 
+<a name="common_header"></a>
 
-
-#### header <a id="view_commons_header"></a><a name="common_header"></a>
+#### header <a id="view_commons_header"></a>
 
 The **header** section allows to override the default behavior of the view.
 
@@ -768,7 +770,9 @@ The list view is named *Category.list.default.json* and has the following struct
 | **[operations](#list_operations)** | (optional)                                                   |
 | **[access](#list_access)** | (optional)                                                   |
 
-#### group_by <a name="list_group_by"></a>
+<a name="list_group_by"></a>
+
+#### group_by 
 
 A `group_by` array can be set to describe the way the objects have to be grouped.
 Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
@@ -796,9 +800,9 @@ Another example :
 "group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
 ```
 
+<a name="list_order"></a>
 
-
-#### order <a name="list_order"></a>
+#### order 
 
 String holding the name(s) of the field to sort results on, separated with commas.
 Example : 
@@ -807,9 +811,9 @@ Example :
 "order": "sku,product_model_id"
 ```
 
+<a name="list_sort"></a>
 
-
-#### sort <a name="list_sort"></a>
+#### sort 
 
 String litteral ('*desc*' or '*asc*')
 
@@ -819,9 +823,9 @@ Example:
 "sort": "asc"
 ```
 
+<a name="list_limit"></a>
 
-
-#### limit <a name="list_limit"></a>
+#### limit 
 
 integer (max size of result set)
 
@@ -833,9 +837,9 @@ Example :
 
 Bear in mind that the default controller (core_mode_collect), has a `max` constraint of `500` for this parameter.
 
+<a name="list_domain"></a>
 
-
-#### domain <a name="list_domain"></a>
+#### domain 
 
 The **domain** property allows to conditionally display the data  (More Info: [domain](../architecture-concepts/domains.md)).
 
@@ -846,9 +850,9 @@ The **domain** property allows to conditionally display the data  (More Info: [d
   "domain": "["type", "<>", "I"]"
  ```
 
+<a name="list_filters"></a>
 
-
-#### filters <a name="list_filters"></a>
+#### filters 
 
 The **filter** property allows to provide a series of predefined search filters.
 
@@ -863,9 +867,9 @@ The **filter** property allows to provide a series of predefined search filters.
 ]```
 ```
 
+<a name="list_header"></a>
 
-
-#### header <a name="list_header"></a>
+#### header 
 
 In addition to the attributes common to all views (see <a href="#view_commons_header">views commons</a>), the **header** property for lists uses an additional features for the `actions` attribute.
 
@@ -898,13 +902,15 @@ Example :
 }
 ```
 
-#### actions <a name="list_actions"></a>
+<a name="list_actions"></a>
+
+#### actions 
 
 The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
 
+<a name="list_exports"></a>
 
-
-#### exports <a name="list_exports"></a>
+#### exports 
 
 Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well. 
 
@@ -926,9 +932,9 @@ All these fields are added inside of the <em>exports</em> section of list view, 
 
 The view property points to an HTML file that will be parsed and filled with selected object values before being converted to PDF.  
 
+<a name="list_layout"></a>
 
-
-#### layout <a name="list_layout"></a>
+#### layout 
 
 The layout part holds an structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
 
@@ -949,9 +955,9 @@ Each item is an object accepting the following properties :
 | visible         | (optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` ) |
 | sortable        | (optional) boolean to mark the column related to the field as sortable. |
 
+<a name="list_operations"></a>
 
-
-#### operations <a name="list_operations"></a>
+#### operations 
 
 This property allows to apply a series of operations on one or more columns, for the displayed records set.
 
@@ -1033,9 +1039,9 @@ Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 |MIN|`['MIN', object.field]`|
 |MAX|`['MAX', object.field]`|
 
+<a name="list_access"></a>
 
-
-#### access <a name="list_access"></a>
+#### access 
 
 Groups and users with the permission to see the content of the view.
 
