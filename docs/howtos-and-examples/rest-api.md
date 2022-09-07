@@ -14,9 +14,9 @@ If you look at the **Directory structure**, you'll get a good idea of what comes
 
 Each of those folders correspond to a specific role :
 
-> /actions	=	method DO (post, put/patch, delete, ...)
-> /data		= 	method GET (fetching data from server)
-> /classes	=	class definition & DB architecture
+> - /actions	=	method DO (post, put/patch, delete, ...)
+> - /data		= 	method GET (fetching data from server)
+> - /classes	=	class definition & DB architecture
 
 Go ahead and create them in your package directory (ex: */public/packages/todolist/*)
 
