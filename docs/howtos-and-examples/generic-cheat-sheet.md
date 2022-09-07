@@ -54,7 +54,7 @@ This controller runs some consistency checks and works with any package:
 >
 > - **'error'** (ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`)
 > - **'warn'** (ex: `WARN  - I18 - Unknown field 'object_class' referenced in file "packages\/core\/i18n\/en\/alert\MessageModel.json"`
-> - ***** (error & warn).
+> -  **\*** (error & warn).
 
 
 #### Initiate eQual core in DB

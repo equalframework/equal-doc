@@ -143,9 +143,13 @@ http://equal.local/?get=model_search&entity=core\User&domain=[[id,in,[1,2,3]]
 
 ## References
 
-`object.`  
-`user.`  
-`date.`  
+A few references can be used in the domain to improve the search.
+
+| **REFERENCE** | **DESCRIPTION**    | **EXAMPLE**                                  |
+| ------------- | ------------------ | -------------------------------------------- |
+| object.       | The current object | `["object_id", "=", "object.id"]`            |
+| user.         | The current user   | `["creator", "=", "user.id"]`                |
+| date.         | The current date   | `["date_from", "=", "date.this.year.first"]` |
 
 
 

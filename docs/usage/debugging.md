@@ -17,9 +17,9 @@ http://your-localhost-path/console.php
 There you can find informations about your error, here is an **example** :
 
 ```bash
-01-05-2022 14:44:43+0.41235100 Warning **@** 
-[`C:\wamp64\www\equal\lib\equal\orm\Collection.class.php:335`] 
-**in** `equal\orm\Domain::toString()`: Undefined offset: 1
+01-05-2022 14:44:43+0.41235100 Warning **@** [`C:\wamp64\www\equal\lib\
+equal\orm\Collection.class.php:335`] **in** `equal\orm\Domain::toString()`
+: Undefined offset: 1
 ```
 
 
@@ -70,8 +70,8 @@ The DEBUG_MODE constant expects a binary mask with the following values :
 
 |**VALUE**|**MEANING**|
 |-|-|
-|QN_DEBUG_PHP||
-|QN_DEBUG_ORM||
-|QN_DEBUG_SQL||
-|QN_DEBUG_APP||
+|QN_DEBUG_PHP|The layer is PHP code, the lowest one. **ex** : `trigger_error()`|
+|QN_DEBUG_SQL|The layer is SQL errors.|
+|QN_DEBUG_ORM|The layer is eQual's [ObjectManager](../architecture-concepts/orm.md). The [validation](./validation.md) method also handles orm errors.|
+|QN_DEBUG_APP|The application layer is handled by eQual's [controllers](./controllers.md) (data & actions folders).|
 

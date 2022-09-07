@@ -53,16 +53,16 @@ Some attributes are common to all types of views. Below is a list of the common 
 
 | PROPERTY        | DESCRIPTION                                                  |
 | --------------- | ------------------------------------------------------------ |
-| **name**        | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| **description** | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
-| **access**      | (optional)                                                   |
-| **actions**     | (optional)                                                   |
-| **controller**      | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
-| **header**      | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
+| **[name](#common_name)**       | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| **[description](#common_description)** | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
+| **[access](#common_access)**     | (optional)                                                   |
+| **[actions](#common_actions)**    | (optional)                                                   |
+| **[controller]("common_controller)**     | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
+| **[header](#common_header)**     | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
 
 
 
-#### access
+#### access <a name="common_access"></a>
 
 groups: array (list of groups the view is restricted to)
 
@@ -74,7 +74,7 @@ Example :
 
 
 
-#### actions <a id="view_commons_actions"></a>
+#### actions <a id="view_commons_actions"></a> <a name="common_actions"></a>
 
 The optional **actions**  property  contains a list of objects defining a custom list of possible actions attached to the view.
 
@@ -149,7 +149,7 @@ Here below is a flow diagram that recaps the interactions between the controller
 </center>
 
 
-#### controller <a id="view_commons_controller"></a>
+#### controller <a id="view_commons_controller"></a><a name="common_controller"></a>
 
 The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
 
@@ -160,7 +160,7 @@ The default values is `model_collect` (which is an alias for `core_model_collect
 
 
 
-#### header <a id="view_commons_header"></a>
+#### header <a id="view_commons_header"></a><a name="common_header"></a>
 
 The **header** section allows to override the default behavior of the view.
 

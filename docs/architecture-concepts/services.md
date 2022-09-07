@@ -2,7 +2,6 @@
 
 ## Built-in services
 
-
 Here is the full list of eQual built-in services and their purpose :
 
 |**ID**|**CLASS**|**DESCRIPTION**|

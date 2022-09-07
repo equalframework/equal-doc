@@ -39,7 +39,7 @@ Objects manipulations are made on selections of objects, described as an array o
 
 All methods can either return an array (in case of success), or an integer (in case of error, the integer is an error code).
 
-### <ins>read</ins>
+### read
 
 Fetches specified field values for the selected objects.
 
@@ -62,7 +62,8 @@ Returns an integer (error code) if an error occurred.
 
 
 
-### <ins>update</ins> 
+### update
+
 Sets new values for one or more object instances.
 
 !!! note "multilang fields"
@@ -90,7 +91,7 @@ Returns an integer (error code) if an error occurred.
 
 
 
-### <ins>delete</ins>
+### delete
 Deletes an object permanently or puts it in the "trash bin" (i.e. setting the 'deleted' flag to 1).
 
 #### description
@@ -111,7 +112,7 @@ Returns an integer (error code) if an error occurred.
 
 
 
-### <ins>search</ins>
+### search
 
 Search for objects matching the domain criteria.
 
@@ -140,7 +141,7 @@ Returns an integer (error code) if an error occurred.
 
 
 
-### <ins>validate </ins>
+### validate 
 
 Checks whether the values of a given object fields are consistent with the related model definition.
 

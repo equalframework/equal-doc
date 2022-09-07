@@ -16,14 +16,14 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
-|ROUTING_METHOD|JSON||
+|ROUTING_METHOD|JSON|Possible values are: 'ORM' and 'JSON' (router.json).|
 |ROUTING_CONFIG_DIR|QN_BASEDIR.'/config/routing'|Routing configuration directory.|
 |FILE_STORAGE_MODE|FS|Binary type storage mode (Possible values: 'DB' (database) and 'FS' (filesystem)).|
 |FILE_STORAGE_DIR|QN_BASEDIR.'/bin'|Binaries storage directory.|
 |DEFAULT_RIGHTS|QN_R_CREATE \| QN_R_READ \| QN_R_DELETE \| QN_R_WRITE|If no ACL is defined (which is the case by default) for an object nor for its class, any user will be granted the permissions in this constant.|
 |ACCESS_CONTROL_LEVEL|class|By default, the control is done at the class level. It means that a user will be granted the same rights for every objects of a given class.|
 |DEFAULT_LANG|fr|The language in which the content must be displayed by default (ISO 639-1).|
-|GUEST_USER_LANG|fr||
+|GUEST_USER_LANG|fr|The language in which the content must be displayed by default (ISO 639-1) for the Guest User.|
 |DEFAULT_PACKAGE|core|Package we'll try to access if nothing is specified in the url (typically while accessing root folder).|
 
 
@@ -36,17 +36,17 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 |EMAIL_SMTP_ACCOUNT_DISPLAYNAME|Full Name|Email display name.|
 |EMAIL_SMTP_ACCOUNT_USERNAME|email.as.username@provider.com|Email username.|
 |EMAIL_SMTP_ACCOUNT_PASSWORD|password|Email password.|
-|EMAIL_SMTP_ACCOUNT_EMAIL|email.to.send.from@provider.com||
-|EMAIL_SMTP_ABUSE_EMAIL|abuse@example.com||
+|EMAIL_SMTP_ACCOUNT_EMAIL|email.to.send.from@provider.com|Email address the email is sent from.|
+|EMAIL_SMTP_ABUSE_EMAIL|abuse@example.com|Email address to handle abusive emails (spams).|
 |EMAIL_SPOOL_DIR|QN_BASEDIR.'/spool'|Email spooler directory.|
 
 ### DB constants
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
-|DB_REPLICATION|MS|Database replication : \* - 'NO': no replication \*  - 'MS' ('master-slave'): 2 servers; write operations are performed on both servers, read operations are performed on the master only \* - 'MM' ('multi-master'): any number of servers; write operations are performed on all servers, read operations can be performed on any server.|
+|DB_REPLICATION|MS|Database replication : \* - **'NO'**: no replication \*  - **'MS'** ('master-slave'): 2 servers; write operations are performed on both servers, read operations are performed on the master only \* - **'MM'** ('multi-master'): any number of servers; write operations are performed on all servers, read operations can be performed on any server.|
 |DB_DBMS|MYSQL|Database management system.|
-|DB_CHARSET|UTF8||
+|DB_CHARSET|UTF8|Default Charset.|
 |DB_HOST|getenv('EQ_DB_HOST')?getenv('EQ_DB_HOST'):'127.0.0.1')|DB host.|
 |DB_PORT|getenv('EQ_DB_PORT')?getenv('EQ_DB_PORT'):'3306')|DB port.|
 |DB_USER|getenv('EQ_DB_USER')?getenv('EQ_DB_USER'):'root')|DB user.|
@@ -66,16 +66,16 @@ When an operation is invoked, the system checks if a config file is defined in t
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
 |EXPORT_FLAG|true|flag constant allowing to detect if config has been exported.|
-|DEBUG_MODE|QN_DEBUG_PHP \| QN_DEBUG_ORM \| QN_DEBUG_SQL \| QN_DEBUG_APP||
+|DEBUG_MODE|QN_DEBUG_PHP \| QN_DEBUG_ORM \| QN_DEBUG_SQL \| QN_DEBUG_APP|Filter the kind of errors that are present in the console.|
 |UPLOAD_MAX_FILE_SIZE|64\*1024*1024|maximum authorized size for file upload (in octet).|
 |LOGGING_ENABLED|true|Enable/Disable the logs (to keep track of object changes).|
 |DRAFT_VALIDITY|0|Draft validity in days.|
-|VERSIONING_ENABLED|true||
+|VERSIONING_ENABLED|true|Enable/Disable versions of object changes.|
 |DRAFT_FORMAT|d/m/Y|Date formatting.|
 |CURRENCY_FORMAT|£#,##0.00|Currency formatting.|
 |NUMERIC_DECIMAL_PRECISION|2|Default precision for floating point values.|
-|AUTH_SECRET_KEY|my_secret_key||
-|AUTH_ACCESS_TOKEN_VALIDITY|3600*1|validity duration of the access token, in seconds.|
-|AUTH_REFRESH_TOKEN_VALIDITY|3600\*24*90|set refresh token validity, in days here.|
-|AUTH_TOKEN_HTTPS|false|limit sending of auth token to HTTPS.|
-|ROOT_APP_URL|http://localhost||
+|AUTH_SECRET_KEY|my_secret_key|Random key generated during install process.|
+|AUTH_ACCESS_TOKEN_VALIDITY|3600*1|Validity duration of the access token, in seconds.|
+|AUTH_REFRESH_TOKEN_VALIDITY|3600\*24*90|Set refresh token validity, in days here.|
+|AUTH_TOKEN_HTTPS|false|Limit sending of auth token to HTTPS.|
+|ROOT_APP_URL|http://localhost|Root URL of the application.|
