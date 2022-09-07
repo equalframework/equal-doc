@@ -14,7 +14,7 @@ Every raised error/exception is either handled in contollers, or catched by the 
 
 The error codes are defined inside the `eq.lib.php` file.
 
-| CONSTANT &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; | VALUE | HTTP | DESCRIPTION                                                  |
+| CONSTANT &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; | VALUE | HTTP | DESCRIPTION                                                  |
 | :----------------------------------------- | --- | --- | ---------------------------------------------- |
 | `QN_ERROR_UNKNOWN`         | -1    | 500  | Something went wrong (that requires to check the logs). Equivalent to  HTTP 'Internal Server Error'. |
 | `QN_ERROR_MISSING_PARAM`   | -2    | 400  | One or more mandatory parameters are missing. Equivalent to  HTTP 'Bad Request'. |
