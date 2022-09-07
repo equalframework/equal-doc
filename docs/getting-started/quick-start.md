@@ -24,10 +24,9 @@ define('DB_PASSWORD',   'test');
 define('DB_NAME',       'equal');
 ```
 !!! note "About DB creation"
-   * You can choose any name for the database: if it does not exist yet, you'll be able to create it using the command line;
-   * In case creation fails, make sure the DBMS server is actually running on the specified host and port;
+    You can choose any name for the database: if it does not exist yet, you'll be able to create it using the command line; In case creation fails, make sure the DBMS server is actually running on the specified host and port;
 
-######         
+ 
 
 You can now test your installation by calling the `test_db-connectivity` test tool :
 
