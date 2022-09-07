@@ -145,8 +145,8 @@ Finally, **$context** is used to accomplish REST's purpose, displaying the data 
 $context
     ->httpResponse()// get the HTTP response being built
     ->body($result)	// populate the body with resulting result
-    ->send();		// output the response
-					// (i.e. some plain text @see https://www.w3.org/Protocols/rfc2616)
+    ->send();		// output the response (i.e. some plain text
+					// @see https://www.w3.org/Protocols/rfc2616)
 ```
 
 
@@ -312,7 +312,8 @@ Let's open  **`/core/apps/model/controllers.php`**.
 ```php
 <?php
 list($params, $providers) = announce([
-    'description'   => 'UI for browsing controllers and their definition amongst packages',
+    'description'   => 'UI for browsing controllers and their definition 
+    					amongst packages',
     'params'        => [
         'package'   => [
             'type'      => 'string',

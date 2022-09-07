@@ -12,23 +12,5 @@ If they are used by a controller, they must be listed by it. If there is an erro
 
 The constants are checked by the announce() function inside `eq.lib.php`.
 
-The constants that can be overriden inside the `config/config.inc.php` file are :
+The constants that can be overriden inside the `config/config.inc.php` file, @See [Getting-started](../getting-started/configuration.md).
 
-
-
-| constant                    | default value                                                | description |
-| --------------------------- | ------------------------------------------------------------ | ----------- |
-| EXPORT_FLAG                 | true                                                         |             |
-| DEBUG_MODE                  | QN_DEBUG_PHP \| QN_DEBUG_ORM \| QN_DEBUG_SQL \| QN_DEBUG_APP |             |
-| UPLOAD_MAX_FILE_SIZE        | 64\*1024*1024                                                |             |
-| LOGGING_ENABLED             | true                                                         |             |
-| DRAFT_VALIDITY              | 0                                                            |             |
-| VERSIONING_ENABLED          | true                                                         |             |
-| DRAFT_FORMAT                | d/m/Y                                                        |             |
-| CURRENCY_FORMAT             | £#,##0.00                                                    |             |
-| NUMERIC_DECIMAL_PRECISION   | 2                                                            |             |
-| AUTH_SECRET_KEY             | my_secret_key                                                |             |
-| AUTH_ACCESS_TOKEN_VALIDITY  | 3600*1                                                       |             |
-| AUTH_REFRESH_TOKEN_VALIDITY | 3600\*24*90                                                  |             |
-| AUTH_TOKEN_HTTPS            | false                                                        |             |
-| ROOT_APP_URL                | http://localhost                                             |             |

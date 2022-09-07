@@ -162,7 +162,8 @@ for($i = 0, $j = count($domain); $i < $j; ++$i)
 
 // either use a HTTP request
 load_class('utils/HttpRequest');
-$request = new HttpRequest(FClib::get_url(true, false).'?get=core_objects_list&object_class=School%5CTeacher&rp=20&page=1&sortname
+$request = new HttpRequest(FClib::get_url(true, false).
+'?get=core_objects_list&object_class=School%5CTeacher&rp=20&page=1&sortname
 =id&sortorder=asc&domain%5B0%5D%5B0%5D%5B%5D=courses_ids&domain%5B0%5D%5B
 0%5D%5B%5D=contains&domain%5B0%5D%5B0%5D%5B2%5D%5B%5D=1&fields%5B%5D=id&
 fields%5B%5D=firstname&fields%5B%5D=lastname');
@@ -182,7 +183,8 @@ $result = get_include_contents('packages/core/data/objects/list.php');
 ### How to sort the result of the browse method (without calling search method)?
 ```php
 <?php
-// $order is an array containing fields names on which we want the result set sorted 
+// $order is an array containing fields names on which we want the result 
+// set sorted 
 // $result is an array returned by a call to the browse method
 
 foreach($order as $ofield) {
