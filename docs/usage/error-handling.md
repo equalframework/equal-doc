@@ -12,10 +12,10 @@ While it remains possible to use try/catch blocks, any "throwable" that is not e
 
 Every raised error/exception is either handled in contollers, or catched by the `run()` method and is eventually turned into a HTTP error code.
 
-###### The error codes are defined inside the `eq.lib.php` file.
+The error codes are defined inside the `eq.lib.php` file.
 
-| CONSTANT                   | VALUE | HTTP | DESCRIPTION                                                  |
-| ------------------------------------------ | --- | --- | ---------------------------------------------- |
+| CONSTANT &nbsp; &nbsp; &nbsp; | VALUE | HTTP | DESCRIPTION                                                  |
+| :----------------------------------------- | --- | --- | ---------------------------------------------- |
 | `QN_ERROR_UNKNOWN`         | -1    | 500  | Something went wrong (that requires to check the logs). Equivalent to  HTTP 'Internal Server Error'. |
 | `QN_ERROR_MISSING_PARAM`   | -2    | 400  | One or more mandatory parameters are missing. Equivalent to  HTTP 'Bad Request'. |
 | `QN_ERROR_INVALID_PARAM`   | -4    | 400  | One or more parameters have invalid or incompatible value. Equivalent to  HTTP 'Bad Request'. |
