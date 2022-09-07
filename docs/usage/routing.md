@@ -2,7 +2,7 @@
 
 The Router `equal/route/Router.class.php` class handles routes located inside the `config/routing`folder.
 
-Structure of a route  :	URI -> operation
+Structure of a route  :	`URI -> operation`
 
 Reserved parameters :
 
@@ -18,7 +18,7 @@ Reserved parameters :
 
   
 
-routing to scripts
+Routing to scripts.
 
 	simple scripts 
 	
