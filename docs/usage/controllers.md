@@ -21,12 +21,11 @@ They are separated because they can achieve different kinds of operation/action'
 ## Announcement
 
 - description
+	-  what it does
 
-  - what it does
+  	- expected parameters and related characteristics
 
-  - expected parameters and related characteristics
-
-  - constraints, default value, optional or mandatory; type; name; description
+  	- constraints, default value, optional or mandatory; type; name; description
 
 - dependency injection services required by the script
 
