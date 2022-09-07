@@ -53,16 +53,16 @@ Some attributes are common to all types of views. Below is a list of the common 
 
 | PROPERTY        | DESCRIPTION                                                  |
 | --------------- | ------------------------------------------------------------ |
-| **[name](#common_name)**       | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| **[description](#common_description)** | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
+| **name**       | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| **description** | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
 | **[access](#common_access)**     | (optional)                                                   |
 | **[actions](#common_actions)**    | (optional)                                                   |
-| **[controller]("common_controller)**     | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
-| **[header](#common_header)**     | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
+| **[controller](#common_controller)** | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
+| **[header](#common_header)** | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
 
 
 
-#### access <a name="common_access"></a>
+### access <a name="common_access"></a>
 
 groups: array (list of groups the view is restricted to)
 
@@ -79,6 +79,8 @@ Example :
 The optional **actions**  property  contains a list of objects defining a custom list of possible actions attached to the view.
 
 Each action item  relates to a button, displayed in the right side of the header, which, when clicked, relays a request to a given controller. Upon successful completion of the action, the view is automatically refreshed.
+
+
 
 | PROPERTY | DESCRIPTION                                           |
 | --------------- | ------------------------------------------------------------ |
@@ -422,20 +424,8 @@ Forms views are JSON objects that describe how to render a specific view related
 | ----------- | ------------------------------------------------------------ |
 | **name**    | The **name** property is mandatory and relates to the unique name assigned to the view. |
 | **description** | A **description** property allows to give a short hint about the way the view is intended to be used. |
-|**header**|This section allows to override action buttons that are displayed in the header of the form.|
-|**actions**|(optional) A list of actions associated to a view. If set, visible actions (see below) will be shown in the right-part of the header.|
-
-
-
-#### header
-
-The **header** property is common to all views. For details about its structure see <a href="#view_commons_header">views commons</a>.
-
-
-
-#### actions
-
-The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
+|**[header](#common_header)**|This section allows to override action buttons that are displayed in the header of the form.|
+|**[actions](#common_actions)**|(optional) A list of actions associated to a view. If set, visible actions (see below) will be shown in the right-part of the header.|
 
 
 
@@ -760,19 +750,25 @@ The list view is named *Category.list.default.json* and has the following struct
 
 ### Structure summary
 
-#### name
+| PROPERTY                       | DESCRIPTION                                                  |
+| ------------------------------ | ------------------------------------------------------------ |
+| **name**                       | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| **description**                | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
+| **[group_by](#list_group_by)** | (optional)                                                   |
+| **[order](#list_order)**       | (optional)                                                   |
+| **[controller](#list_sort)**   | (optional)                                                   |
+| **[sort](#list_sort)**         | (optional)                                                   |
+| **[limit](#list_limit)**       | (optional)                                                   |
+| **[domain](#list_domain)**     | (optional)                                                   |
+| **[filters](#list_filters)**   | (optional)                                                   |
+| **[header](#list_header)**     | The **header** section allows to override the default behavior of the view. |
+| **[actions](#list_actions)**   | (optional)                                                   |
+| **[exports](#list_exports)** | (optional)                                                   |
+| **[layout](#list_layout)** | The layout part holds an structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them. |
+| **[operations](#list_operations)** | (optional)                                                   |
+| **[access](#list_access)** | (optional)                                                   |
 
-The **name** property is mandatory and relates to the unique name assigned to the view.
-
-
-
-#### description
-
-A **description** property allows to give a short hint about the view's context or the way it is intended to be used.
-
-
-
-#### group_by
+#### group_by <a name="list_group_by"></a>
 
 A `group_by` array can be set to describe the way the objects have to be grouped.
 Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
@@ -802,7 +798,7 @@ Another example :
 
 
 
-#### order
+#### order <a name="list_order"></a>
 
 String holding the name(s) of the field to sort results on, separated with commas.
 Example : 
@@ -813,7 +809,7 @@ Example :
 
 
 
-#### sort
+#### sort <a name="list_sort"></a>
 
 String litteral ('*desc*' or '*asc*')
 
@@ -825,7 +821,7 @@ Example:
 
 
 
-#### limit
+#### limit <a name="list_limit"></a>
 
 integer (max size of result set)
 
@@ -839,7 +835,7 @@ Bear in mind that the default controller (core_mode_collect), has a `max` constr
 
 
 
-#### domain
+#### domain <a name="list_domain"></a>
 
 The **domain** property allows to conditionally display the data  (More Info: [domain](../architecture-concepts/domains.md)).
 
@@ -852,7 +848,7 @@ The **domain** property allows to conditionally display the data  (More Info: [d
 
 
 
-#### filters
+#### filters <a name="list_filters"></a>
 
 The **filter** property allows to provide a series of predefined search filters.
 
@@ -869,7 +865,7 @@ The **filter** property allows to provide a series of predefined search filters.
 
 
 
-#### header
+#### header <a name="list_header"></a>
 
 In addition to the attributes common to all views (see <a href="#view_commons_header">views commons</a>), the **header** property for lists uses an additional features for the `actions` attribute.
 
@@ -902,13 +898,13 @@ Example :
 }
 ```
 
-#### actions
+#### actions <a name="list_actions"></a>
 
 The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
 
 
 
-#### exports
+#### exports <a name="list_exports"></a>
 
 Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well. 
 
@@ -932,7 +928,7 @@ The view property points to an HTML file that will be parsed and filled with sel
 
 
 
-#### layout
+#### layout <a name="list_layout"></a>
 
 The layout part holds an structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
 
@@ -955,7 +951,7 @@ Each item is an object accepting the following properties :
 
 
 
-#### operations
+#### operations <a name="list_operations"></a>
 
 This property allows to apply a series of operations on one or more columns, for the displayed records set.
 
@@ -1039,7 +1035,7 @@ Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 
 
 
-#### access
+#### access <a name="list_access"></a>
 
 Groups and users with the permission to see the content of the view.
 
