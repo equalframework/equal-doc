@@ -10,7 +10,7 @@ eQual natively handles most errors as exceptions.
 
 While it remains possible to use try/catch blocks, any "throwable" that is not explicitly unhandled will by handled by eQual.
 
-###### Every raised error/exception is either handled in contollers, or catched by the `run()` method and is eventually turned into a HTTP error code.
+Every raised error/exception is either handled in contollers, or catched by the `run()` method and is eventually turned into a HTTP error code.
 
 The error codes are defined inside the `eq.lib.php` file.
 
