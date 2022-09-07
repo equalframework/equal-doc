@@ -86,6 +86,8 @@ $providers['context']
 
 
 
+
+
 ### Authentication to external social networks
 
 The `oauth controller` attempts to authenticate a user from an external social network.
