@@ -499,8 +499,9 @@ Within item`objects`, the widget property allows to refine the configuration of 
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
-|heading|(optional) if set to true, the widget is emphasized.|
-|readonly|(optional) if set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
+|heading|(optional) If set to true, the widget is emphasized.|
+|readonly|(optional) If set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
+|usage|(optional) A widget can be applied on an item, to force apply a specific data rendering. If an usage is defined at the schema level, it is overridden.|
 
 Additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
