@@ -951,6 +951,15 @@ Each item is an object accepting the following properties :
 | visible         | (optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` ) |
 | sortable        | (optional) boolean to mark the column related to the field as sortable. |
 
+##### item.widget
+
+Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
+
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| readonly     | (optional) If set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view. |
+| usage        | (optional) A widget can be applied on an item, to force apply a specific data rendering. If an usage is defined at the schema level, it is overridden. |
+
 <a name="list_operations"></a>
 
 #### operations 
