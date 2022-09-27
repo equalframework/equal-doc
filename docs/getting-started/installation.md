@@ -14,15 +14,13 @@
 ``` bash
 $ wsl --install
 ```
-* install WSL2 core update
-https://docs.microsoft.com/fr-fr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package
+* install WSL2 core update  (can be found [here](https://docs.microsoft.com/fr-fr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package))
 
-* install Docker Desktop for windows
-https://docs.docker.com/desktop/install/windows-install/
+* install [Docker Desktop for windows ](https://docs.docker.com/desktop/install/windows-install/)
 
 
 #### Linux
-[https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+See the official doc from Docker [here](https://docs.docker.com/engine/install/)
 
 Ubuntu
 ```bash
