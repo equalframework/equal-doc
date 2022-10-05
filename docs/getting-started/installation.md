@@ -4,10 +4,7 @@
 
 ## Using Docker
 
-!!! note "Docker"
-    Docker sets up the environment & ables you to use eQual on any computer.
-
-### Install Docker
+### 1. Install Docker
 
 #### Windows 
 
@@ -17,15 +14,13 @@
 ``` bash
 $ wsl --install
 ```
-* install WSL2 core update
-https://docs.microsoft.com/fr-fr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package
+* install WSL2 core update  (can be found [here](https://docs.microsoft.com/fr-fr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package))
 
-* install Docker Desktop for windows
-https://docs.docker.com/desktop/install/windows-install/
+* install [Docker Desktop for windows ](https://docs.docker.com/desktop/install/windows-install/)
 
 
 #### Linux
-[https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+See the official doc from Docker [here](https://docs.docker.com/engine/install/)
 
 Ubuntu
 ```bash
@@ -34,7 +29,7 @@ $ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plug
 
 
 
-### Run the container
+### 2. Start the container
 
 Download the [Docker Compose file from github](https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml) (`wget`).
 
@@ -69,9 +64,10 @@ $ docker exec -ti equal.local /bin/bash
 
 Some editors use extensions that able you to use a [Docker container](https://docker.com/) as a full-featured development environment. 
 
-Example:
 
-**"VS Code"** has the extension [Remote - Containers](https://code.visualstudio.com/docs/remote/containers) , where you may work as if everything were running locally on your machine, except now they are inside a container.
+
+!!! Using VS Code
+    **"VS Code"** has the extension [Remote - Containers](https://code.visualstudio.com/docs/remote/containers) , where you may work as if everything were running locally on your machine, except now they are inside a container.
 
 
 

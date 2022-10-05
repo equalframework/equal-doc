@@ -72,9 +72,9 @@ class Student extends Model {
 
 ## Consistency with Database
 
-For each entity, a table is defined in the database that has a structure matching the related class definition. 
+Classes are mapped with database tables. Each table having structure (columns) matching the fields defined in the model. 
 
-Consistency between models (`*.class.php` files) and database schema must be maintained at all time, and columns types must be compatible.
+Consistency between models (`*.class.php` files) and database schema is done at package initialization (columns types must be compatible). It must be maintained manually in case of change.
 
 When a new class is created or the schema of a class is modified, the SQL schema must be adapted consequently. Controllers `core_init_package` and `utils_sql-schema` are made to help with this task.
 
@@ -92,19 +92,17 @@ Also, Action controller `core_test_package-consistency` can help to spot any inc
 
 The type property sets the type of the field.
 
-The following types are supported by the ObjectManager : 
+The following types are supported by the ORM : 
 
 * `boolean`
 * `integer`
 * `float`
-* `double`
 * `string`
 * `text`
 * `date`
 * `time`
 * `datetime`
 * `binary`
-* `file`
 * `many2one`
 * `one2many`
 * `many2many`
@@ -114,8 +112,6 @@ The following types are supported by the ObjectManager :
 !!! note "usage property"
 	The `usage` property is complementary to the `type` property and allows to refine the way the field should be handled by the ORM and the DBMS, and how it should be rendered in the UI. 
 	
-
-
 
 #### boolean
 
@@ -338,6 +334,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 | multilang   | (boolean) Marks the field as translatable (default = false). |
 | onupdate        | (optional, string) Name of the method to invoke when field is updated.<br/>Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
 | domain  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation. |
+| dependencies | (optional, array) list of computed fields (relative to current object or through relations traversal) that must be reset when the value of the field is updated. There must be a symmetrical 'depends_on' on targeted computed fields. |
 
 
 
@@ -371,7 +368,8 @@ public static function calcRightsTxt($om, $ids, $lang) {
 |  | result_type     | Specifies the type of the result returned by the field function, which can be any of the allowed types. |
 |     | store     | (optional) boolean telling if the result must be stored in database (in that case, the related table must contain a column for the field). By default, this attribute is set to **false**. |
 |     | function  | String holding the name of the method to invoke for computing the value of the field.<br /> Syntax: `method` (relative to current class) or `package\Class::method` (absolute notation) |
-|              | multilang | (optional) boolean telling if field can be translated (default value: false). This applies only for stored fields. |
+|              | multilang | (optional) Boolean flag telling if field can be translated (default value: false). This applies only for stored fields. |
+| | depends_on | (optional) Symetrical link allowing to check consistency of a class declaration (make sure that reverse inlinks are actually set) |
 
 
 

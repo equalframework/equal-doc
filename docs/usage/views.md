@@ -160,7 +160,7 @@ The optional **controller**  property specifies the controller that must be requ
 The default values is `model_collect` (which is an alias for `core_model_collect`)
 
 !!! Note
-    Controller are considered as entities. When a controller is specified for a list View, a related `search.default` view is expected , which describes the layout of the form for values relating to fields returned by the `::announce` method of the view controller. In turn, those values are sent to the controller along with default values (`entity`, `fields`, `domain`, `order`, `sort`, `start`, `limit`, `lang`) for feeding the View. Example: for controller `sale_booking_collect`, a `packages/sale/views/booking/collect.search.default.json` file is expected.
+    Controller are considered as entities. When a controller is specified for a list View, a special view is expected (`search.default`) for describing the layout of the form for inputing parameters values (i.e. fields returned by the `::announce` method of the view controller). In turn, those values are sent to the controller along with default values (`entity`, `fields`, `domain`, `order`, `sort`, `start`, `limit`, `lang`) for feeding the View. Example: for controller `sale_booking_collect`, a `packages/sale/views/booking/collect.search.default.json` file is expected.
 
 <a name="common_header"></a>
 
@@ -327,22 +327,17 @@ while(true) {
     $class_path = implode('/', $parts);
     $file = QN_BASEDIR."/packages/{$package}/views/{$class_path}/{$file}.{$params['view_id']}.json";
 
-    if(file_exists($file)) {                                       //(1)
+    if(file_exists($file)) {                                   //(1)
         break;
     }
 
-    try {
-        $parent = get_parent_class($orm->getModel($entity));       //(2)
-       if(!$parent || $parent == 'equal\orm\Model') {              //(3) 
-            break;
-        }
-
-        $entity = $parent;
-    }
-    catch(Exception $e) {
-        // support for controller entities
+    $parent = get_parent_class($orm->getModel($entity));       //(2)
+    
+    if(!$parent || $parent == 'equal\orm\Model') {             //(3) 
         break;
     }
+
+    $entity = $parent;
 }
 
 if(!file_exists($file)) {
@@ -504,8 +499,9 @@ Within item`objects`, the widget property allows to refine the configuration of 
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
-|heading|(optional) if set to true, the widget is emphasized.|
-|readonly|(optional) if set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
+|heading|(optional) If set to true, the widget is emphasized.|
+|readonly|(optional) If set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
+|usage|(optional) A widget can be applied on an item, to force apply a specific data rendering. If an usage is defined at the schema level, it is overridden.|
 
 Additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
@@ -954,6 +950,15 @@ Each item is an object accepting the following properties :
 | width           | column width, in percentage of the list width.               |
 | visible         | (optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` ) |
 | sortable        | (optional) boolean to mark the column related to the field as sortable. |
+
+##### item.widget
+
+Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
+
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| readonly     | (optional) If set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view. |
+| usage        | (optional) A widget can be applied on an item, to force apply a specific data rendering. If an usage is defined at the schema level, it is overridden. |
 
 <a name="list_operations"></a>
 
