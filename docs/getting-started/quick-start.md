@@ -52,7 +52,7 @@ This can be done using the `init_package` tool :
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?do=init_package&package=core`|
 |**CLI**|`$ ./equal.run --do=init_package --package=core`|
-|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
+|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package. Compile the apps (`apps folder`) of the package and copy them in the public folder.|
 
 
 
