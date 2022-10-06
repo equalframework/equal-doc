@@ -1,4 +1,4 @@
-
+###### 
 
 
 
@@ -101,8 +101,7 @@ package_name
 ├── i18n
 │   └── *
 │       └── *.json
-├── manifest.json
-│         
+├── manifest.json         
 ├── config.inc.php
 └── readme.md
 ```
@@ -128,35 +127,33 @@ package_name
 The manifest is a file containing informations about the package :
 
 ```
-├── name*
-│   
-├── depends_on
-│   
-├── apps
+├── name*						-> PACKAGE  
+├── depends_on   
+├── apps						-> APPS
 	└── ├── name**
-        │
         ├── description
-        │
         ├── url
-        │
         ├── icon
-        │
         ├── color
-        │
         ├── access
         	└── ├── groups
 ```
 
+**Package**
 
 | **PROPERTY** | **ROLE** |  **EXAMPLES**  |
 |-|-|---|
-| name* | name of the package | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
+| name* | name of the package | `"core", "finance"` |
 | depends_on | packages that need to be instanciated preventively | `["core", "finance"]` |
 | apps       | applications related to the package | `auth, apps` |
-| name** | name of an application | `APPS_APP_SETTINGS` |
+
+**Apps**
+
+| **PROPERTY** | **ROLE** |  **EXAMPLES**  |
+|-|-|---|
+| name** | name of the application | `APPS_APP_SETTINGS` |
 | description | description of the application |  |
 | url    | url of the application | `/auth` |
-| icon (optional) | material icons representing an application | `settings` |
-| color (optional) | color attributed to a class | `#FF9741` |
+| icon (optional) | material icons representing the application | `settings` |
+| color (optional) | color attributed to the application | `#FF9741` |
 | access/groups | groups giving access to the application | `setting.default.user` |
-
