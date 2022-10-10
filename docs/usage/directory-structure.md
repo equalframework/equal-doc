@@ -124,7 +124,7 @@ package_name
 
 ##### manifest.json
 
-The manifest is a file containing informations about the package :
+The manifest is a file containing informations about the package and its apps:
 
 ```
 ├── name*						-> PACKAGE  
