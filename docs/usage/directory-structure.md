@@ -1,4 +1,4 @@
-
+###### 
 
 
 
@@ -101,6 +101,7 @@ package_name
 ├── i18n
 │   └── *
 │       └── *.json
+├── manifest.json         
 ├── config.inc.php
 └── readme.md
 ```
@@ -111,7 +112,7 @@ package_name
 |-|-|-|---|
 | classes    | model          |                  | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
 | actions    | action handler (controller) | do       | core_manage, core_utils |
-| apps       | user interface (view) | show       | core_manage, core_utils |
+| apps       | applications related to the package |        | auth, apps |
 | data    | data provider | get       | core_objects_browse, core_user_lang |
 | test    | test units | do | `default.php` |
 | init    | initialize the package with data (**requires**:`import=true`) or routes | do | `core_Group.json` |
@@ -121,3 +122,38 @@ package_name
 
 
 
+##### manifest.json
+
+The manifest is a file containing informations about the package and its apps:
+
+```
+├── name*						-> PACKAGE  
+├── depends_on   
+├── apps						-> APPS
+	└── ├── name**
+        ├── description
+        ├── url
+        ├── icon
+        ├── color
+        ├── access
+        	└── ├── groups
+```
+
+**Package**
+
+| **PROPERTY** | **ROLE** |  **EXAMPLES**  |
+|-|-|---|
+| name* | name of the package | `"core", "finance"` |
+| depends_on | packages that need to be instanciated preventively | `["core", "finance"]` |
+| apps       | applications related to the package | `auth, apps` |
+
+**Apps**
+
+| **PROPERTY** | **ROLE** |  **EXAMPLES**  |
+|-|-|---|
+| name** | name of the application | `APPS_APP_SETTINGS` |
+| description | description of the application |  |
+| url    | url of the application | `/auth` |
+| icon (optional) | material icons representing the application | `settings` |
+| color (optional) | color attributed to the application | `#FF9741` |
+| access/groups | groups giving access to the application | `setting.default.user` |
