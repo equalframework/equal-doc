@@ -185,6 +185,10 @@ The actions property can be used for 3 purposes: to force action buttons visibil
 
 Each action item is either a boolean or an array of items describing the order of the buttons and parameters for subsequent views. 
 
+
+!!! Note "Action descriptor"
+    Actions descriptors used in the header has the same structure than View actions. Therefore, it is possible to force the view to use a specific controller when a standard button is clicked.
+
 Empty arrays or items set to false mean that the action is not available for the View. If action is an array with multiple items, the related button will be displayed as a split-button (note: in that case, the order of the items is maintained).
 
 | **ACTION** | **DESCRIPTION** | **ID(S)** |
@@ -217,7 +221,8 @@ Empty arrays or items set to false mean that the action is not available for the
                     "view": "form.create",
                     "description": "Overload form to use for objects creation.",
                     "domain": ["parent_status", "=", "object.status"],
-                    "visible": ["admin", "in", "user.groups"]
+                    "visible": ["admin", "in", "user.groups"],
+                    "controller": "custompackage_mode_update"
                 }
             ],
             "ACTION.SELECT": false,
