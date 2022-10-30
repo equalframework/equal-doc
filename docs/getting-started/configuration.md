@@ -1,17 +1,53 @@
 # Configuration
 
+eQual allows to define globally some values that are used across the different services as configuration properties.  
+
+These properties are defined throuh config files. 
+
+eQual supports cascading configuration : each package can have a config file of its own that defines specific properties or overwrites existing properties.  
+
+Config files are optional, and the default values for mandatory properties are stored in the configuration schema (see below). 
+
+The root custom config file must be placed under : `./config/` and is expected to be named `config.json`.  
+
+Properties are exported as (global) constants.
+Services, controllers and classes are responsible of announcing which constants they expect (throug a `getConstants()` method). If one of the required constant is missing, an exception is raised.
 
 
-eQual config file allows to customize a wide range of pre-defined constants that are used across the different services.
+Config properties must always be called by using the `constant()` function. This is because, since they're not defined at the moment the parsing is done, using literal notation would result in warnings and wrong values assignments.
 
-The default config file is located at: `./config/default.inc.php`.  
-That file holds comprehensive description of role and usage for each constant.
+
+## schema
+
+A `schema.json` file is located under the `./config/` folder. That file holds a comprehensive description of role and usage for each constant.
+
+Some constants might be required by mandatory services. Those must therefore be defined immediately when the config file is read. Those properties are marked as 'instant'. 
+
+When no value is given in config.json for such property: if a 'default' value or an 'environment' varname is given in schema, the constant is declared using the retrieved value, if not and if the property is marked as 'required' an Exception is raised, otherwise property is ignored and no constant is defined.
 
 As a convention, it is best to leave the default config file untouched, and create a copy of it, named `config.inc.php` for customizing the configuration of your installation.
 
 Below is the detail of these constants (that are mandatory and cannot be overriden) and their roles.
 
-### General constants
+
+
+
+!!! About integer values
+    Properties set as integer also support the following shorthand notations (case-sensitive):
+
+    * byte notation: KB (for Kibibytes), MB (for Mebibytes) and GB (for Gibibytes)
+        * seconds notations
+        * s for seconds (default)
+        * m for minutes (=60s)
+        * h for hours (=60m)
+        * d for days (=24h)
+        * w for weeks (=7d)
+        * M for months (=4w)
+        * Y for years (=12m)
+
+
+
+### General properties
 
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
@@ -27,7 +63,7 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 |DEFAULT_PACKAGE|core|Package we'll try to access if nothing is specified in the url (typically while accessing root folder).|
 
 
-### Email constants
+### Email properties
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
@@ -40,7 +76,7 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 |EMAIL_SMTP_ABUSE_EMAIL|abuse@example.com|Email address to handle abusive emails (spams).|
 |EMAIL_SPOOL_DIR|QN_BASEDIR.'/spool'|Email spooler directory.|
 
-### DB constants
+### Database related properties
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
@@ -55,27 +91,15 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 
 
 
-
-
-
-
-## Cascade configuration
-
-Some constants can be overridden in optional package specific config files.
-
-When an operation is invoked, the system checks if a config file is defined in the targeted package. If so, constants from that file **override** the ones from the general config file.
+### Other properies
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
-|EXPORT_FLAG|true|flag constant allowing to detect if config has been exported.|
 |DEBUG_MODE|QN_DEBUG_PHP \| QN_DEBUG_ORM \| QN_DEBUG_SQL \| QN_DEBUG_APP|Filter the kind of errors that are present in the console.|
 |UPLOAD_MAX_FILE_SIZE|64\*1024*1024|maximum authorized size for file upload (in octet).|
 |LOGGING_ENABLED|true|Enable/Disable the logs (to keep track of object changes).|
 |DRAFT_VALIDITY|0|Draft validity in days.|
 |VERSIONING_ENABLED|true|Enable/Disable versions of object changes.|
-|DRAFT_FORMAT|d/m/Y|Date formatting.|
-|CURRENCY_FORMAT|£#,##0.00|Currency formatting.|
-|NUMERIC_DECIMAL_PRECISION|2|Default precision for floating point values.|
 |AUTH_SECRET_KEY|my_secret_key|Random key generated during install process.|
 |AUTH_ACCESS_TOKEN_VALIDITY|3600*1|Validity duration of the access token, in seconds.|
 |AUTH_REFRESH_TOKEN_VALIDITY|3600\*24*90|Set refresh token validity, in days here.|
