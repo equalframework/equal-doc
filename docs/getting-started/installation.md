@@ -109,7 +109,7 @@ SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
 
 ##### Ubuntu
 
-Here are the commands to setup a LAMP stack under Ubuntu
+Installing the LAMP stack under Ubuntu is straightforward:
 
 ```bash
 sudo apt update
@@ -211,25 +211,26 @@ You should get the simple output "hello universe". If not, review carefully the 
 
 ### Config file
 
-eQual expects at least one config file in the `/config` directory (if no `config.inc.php` file is found , then `default.inc.php` is used).
+eQual expects an optional root config file in the `/config` directory.
 
-To create and customize your config file, start with copying `default.inc.php`:
+To create and customize your config file, start by creating `config.json`:
 
 ```bash
-cp config/default.inc.php config/config.inc.php
+touch config/config.json
 ```
 
-Edit `config.inc.php` to adapt the values according to your environment:
+Edit `config.json` to adapt the values according to your environment:
 
 ```php
-<?php
-define('DB_DBMS',     'MYSQL'); 
-define('DB_HOST',     '127.0.0.1'); 
-define('DB_PORT',     '3306'); 
-define('DB_USER',     'root'); 	    	// adapt this
-define('DB_PASSWORD', 'test');  		// this (with your own password)
-define('DB_NAME',     'equal');   		// and this
-define('DB_CHARSET',  'UTF8'); 
+{
+	"DB_DBMS": "MYSQL",
+	"DB_HOST": "127.0.0.1",
+	"DB_PORT": "3306",
+	"DB_USER": "root",
+	"DB_PASSWORD": "test",
+	"DB_NAME": "equal",
+	"DB_CHARSET": "UTF8"
+}
 ```
 
 

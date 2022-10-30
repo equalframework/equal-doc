@@ -34,11 +34,11 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 !!! note "About integer values"  
     Properties set as integer can also hold a string that supports the following shorthand notations (case-sensitive):
 
-    * byte notation 
+    * memory notation (converted in bytes)
         * KB (for KiloBytes)
         * MB (for MegaBytes) 
         * GB (for GigaBytes)
-    * seconds notations
+    * time notations (converted in seconds)
         * s for seconds (default)
         * m for minutes (=60s)
         * h for hours (=60m)
