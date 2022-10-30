@@ -31,7 +31,7 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 
 
 
-!!! "About integer values"
+!!! note "About integer values"  
     Properties set as integer can also hold a string that supports the following shorthand notations (case-sensitive):
 
     * byte notation 
@@ -60,8 +60,8 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 |FILE_STORAGE_DIR|QN_BASEDIR.'/bin'|Binaries storage directory.|
 |DEFAULT_RIGHTS|QN_R_CREATE \| QN_R_READ \| QN_R_DELETE \| QN_R_WRITE|If no ACL is defined (which is the case by default) for an object nor for its class, any user will be granted the permissions in this constant.|
 |ACCESS_CONTROL_LEVEL|class|By default, the control is done at the class level. It means that a user will be granted the same rights for every objects of a given class.|
-|DEFAULT_LANG|fr|The language in which the content must be displayed by default (ISO 639-1).|
-|GUEST_USER_LANG|fr|The language in which the content must be displayed by default (ISO 639-1) for the Guest User.|
+|DEFAULT_LANG|en|The language in which the content must be displayed by default (ISO 639-1).|
+|GUEST_USER_LANG|en|The language in which the content must be displayed by default (ISO 639-1) for the Guest User.|
 |DEFAULT_PACKAGE|core|Package we'll try to access if nothing is specified in the url (typically while accessing root folder).|
 
 

@@ -66,7 +66,7 @@ Some editors use extensions that able you to use a [Docker container](https://do
 
 
 
-!!! Using VS Code
+!!! note "Using VS Code"
     **"VS Code"** has the extension [Remote - Containers](https://code.visualstudio.com/docs/remote/containers) , where you may work as if everything were running locally on your machine, except now they are inside a container.
 
 
