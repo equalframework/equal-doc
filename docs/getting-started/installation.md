@@ -72,8 +72,7 @@ Some editors use extensions that able you to use a [Docker container](https://do
 
 
 
-
-# Manual installation
+## Manual installation
 
 ### Requirements
 
