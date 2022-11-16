@@ -97,7 +97,7 @@ This controller runs some consistency checks and works with any package:
 
 ## Invoking Controllers
 
-### Get
+### Data provider
 
 |**PATH**|`/packages/mypackage/data/my-controller.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -107,7 +107,7 @@ This controller runs some consistency checks and works with any package:
 
 *Collect is the name of the controller, and model the directory to which it belongs.*
 
-### DO :
+### Action handler
 
 |**PATH**|`/packages/mypackage/actions/subdir/my-action.php`|
 | --------------- | ------------------------------------------------------------ |

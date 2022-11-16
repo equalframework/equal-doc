@@ -45,7 +45,7 @@ Array containing values used by the controller, which may be required.
 
 List of strings, representing constant names, used by the system.
 
-They are present globally inside the `config/config.inc.php` file, but also can be overwritten (with the **namespace config**) inside packages with a `config.inc.php` file.
+They are present globally inside the `config/config.inc.php` file, but also can be overwritten (with the **namespace `config`**) inside packages with a `config.inc.php` file.
 
 Every overwritten constant is limited to the package it belongs to.
 

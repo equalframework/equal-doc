@@ -3,14 +3,14 @@
 
 
 ## Console
-To help you with human-readable data, eQual comes with its own  UI debug console (which simply reads the `qn_error.log` located  in the `/log` directory).
+To help you with human-readable data, eQual comes with its own UI debug console (which simply reads the `qn_error.log` located  in the `/log` directory).
 
-> Note: qn_error.log gets loads of information for each occuring event, so don't forget to delete that file from time to time if you don't want to end up with a few unused Mo of old logs. Especially if you're running a lot of tests.
+> Note: `eq_error.log` provides information for each occurring event, so don't forget to delete that file from time to time if you don't want to end up with a huge logs. Especially if you're running a lot of tests.
 
 To access it from the browser:
 
 ```url
-http://your-localhost-path/console.php
+http://equal.local/console.php
 ```
 
 
@@ -27,7 +27,7 @@ equal\orm\Collection.class.php:335`] **in** `equal\orm\Domain::toString()`
 An other **example**, if I did the request :
 
 ```
-http://[localhost]/?get=model_collect
+http://equal.local/?get=model_collect
 ```
 
 The built-in responses, usually already give some informations about the error :
@@ -35,7 +35,7 @@ The built-in responses, usually already give some informations about the error :
 ```json
 "errors": {
         "MISSING_PARAM": "entity"
-    }
+}
 ```
 
 Each Controller tells explicitly which parameters are **required**.
@@ -52,7 +52,7 @@ Now, if I check inside the console, it would tell me the same :
 An entity is **missing**, if I do add one :
 
 ```
-http://[localhost]/?get=model_collect&entity=core\User
+http://equal.local/?get=model_collect&entity=core\User
 ```
 
 I will get a JSON-object with all the users. 
