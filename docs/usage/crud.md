@@ -17,19 +17,22 @@ By convention, in case of error, a negative integer is returned.
 
 ### Supported errors codes
 
+!!! note "error codes"
+	All codes are prefixed with `QN_ERROR_` (not show in the table to avoid redundancy). So, for instance,  `UNKNOWN` will appear as `QN_ERROR_UNKNOWN` in code.
+
 | NAME | VALUE | DESCRIPTION |
 | ---- | ----- | ----------- |
-|`QN_ERROR_UNKNOWN`|-1| Something went wrong in an unexpected way. |
-|`QN_ERROR_MISSING_PARAM`|-2| One or more mandatory parameters are missing. |
-|`QN_ERROR_INVALID_PARAM`|-4| One or more parameters have invalid or incompatible value. |
-|`QN_ERROR_SQL`|-8| An error occurred while building SQL query or processing it. |
-|`QN_ERROR_UNKNOWN_OBJECT`|-16| The request targets an unknown resource (class, object, view, ...). |
-|`QN_ERROR_NOT_ALLOWED`|-32| Action violates some rule (including UPLOAD_MAX_FILE_SIZE for binary fields) or user don't have required permissions. |
-|`QN_ERROR_LOCKED_OBJECT`|-64| Object is currently locked by another process. |
-|`QN_ERROR_CONFLICT_OBJECT`|-128| Version conflict. |
-|`QN_ERROR_INVALID_USER`|-256| Authentication failure. |
-|`QN_ERROR_UNKNOWN_SERVICE`|-512| Server error : missing service. |
-|`QN_ERROR_INVALID_CONFIG`|-1024| Server error : faulty configuration. |
+|`UNKNOWN`|-1| Something went wrong in an unexpected way. |
+|`MISSING_PARAM`|-2| One or more mandatory parameters are missing. |
+|`INVALID_PARAM`|-4| One or more parameters have invalid or incompatible value. |
+|`SQL`|-8| An error occurred while building SQL query or processing it. |
+|`UNKNOWN_OBJECT`|-16| The request targets an unknown resource (class, object, view, ...). |
+|`NOT_ALLOWED`|-32| Action violates some rule (including UPLOAD_MAX_FILE_SIZE for binary fields) or user don't have required permissions. |
+|`LOCKED_OBJECT`|-64| Object is currently locked by another process. |
+|`CONFLICT_OBJECT`|-128| Version conflict. |
+|`INVALID_USER`|-256| Authentication failure. |
+|`UNKNOWN_SERVICE`|-512| Server error : missing service. |
+|`INVALID_CONFIG`|-1024| Server error : faulty configuration. |
 
 
 
