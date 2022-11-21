@@ -14,16 +14,11 @@ Each User object holds a list of groups to which it belongs.
 <?php
 public static function getColumns() {
 	return [
-		'firstname'		=> ['type' => 'string'],
-        
+		'firstname'		=> ['type' => 'string'],        
 		'lastname'		=> ['type' => 'string'],
-        
 		'login'			=> ['type' => 'string', 'label' => 'Username'],
-        
 		'password'		=> ['type' => 'string', 'label' => 'Password'],
-        
 		'language'		=> ['type' => 'string'],
-        
 		'groups_ids'	=> ['type' => 'many2many', 
 						  'foreign_object'	=> 'core\Group', 
 						  'foreign_field'	=> 'users_ids', 
@@ -66,7 +61,7 @@ public static function getColumns() {
 
 ## ACL 
 
-The structure is defined inside the `core\Permission` (`packages/core/classes/Permission.class.php`).
+The structure is defined inside the `core\Permission`(`packages/core/classes/Permission.class.php`).
 
 In resume of the previous sections, Users are inside groups, and those groups have different rights (property **group_id**).
 
@@ -89,9 +84,7 @@ public static function getColumns() {
 
 
 
-## Permission management
-
-The field 'rights' of the Permission class is a binary mask (logical OR) of the rights given to the related group.
+The field 'rights' of the `Permission` class is a binary mask (logical OR) of the rights given to the related group.
 If a user belongs to several groups, the permission set will result in the most permissive combination of the rights from all its groups.
 
 Rights values that can be assigned are defined in the file `/eq.lib.php` :
@@ -105,8 +98,8 @@ define('R_DELETE',	8);
 define('R_MANAGE',	16); 	// autorisation to manage the rights 
 ```
 
-### Default rights 
-In any case, all users receive the default permissions, defined in the configuration file (see //DEFAULT_RIGHTS// constant in `/config.inc.php`).
+!!! Notes "Default rights"
+    All users receive the default permissions, defined in the configuration file (`/config.json`) through setting `DEFAULT_RIGHTS`.
 
 ### AccessController.php
 
@@ -184,4 +177,17 @@ class AccessController extends \equal\access\AccessController {
     
 }
 ```
+
+
+
+## Authentication
+
+During authentication (via the signin controler) a token is generated, the validity of which can be defined using the AUTH_ACCESS_TOKEN_VALIDITY parameter, and stored by the browser via an access_token (HttpOnly) cookie.
+
+The duration defined in AUTH_ACCESS_TOKEN_VALIDITY corresponds to the maximum inactivity duration of a user session.
+
+When the token's validity limit has been exceeded, the token is deleted by the browser and the user must identify himself again to open a session.
+
+!!! Note "Extension of validity"
+    Each time a valid session token is used, it authenticates the user for a minimum of 1 hour and the validity of the token is extended if necessary.
 

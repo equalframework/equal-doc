@@ -155,7 +155,7 @@ Collections give the ability to apply chained actions on multiple objects at a t
 
 
 
-### Querying sub-objects
+
 
 
 
@@ -174,18 +174,25 @@ User::search(['firstname', 'ilike', '%sam%'])
 
 
 
-### 
-
-
 Retrieving a collection is through API calls is available using the standard controller `core_model_collect`.
 
 The purpose of that operation  is to perform a `search()` and a `read()` in a single call.
 
-```
-// a) dot notation
-$ ./equal.run --get=model_collect --entity=core\\User --fields=[id,name,groups_ids.name,groups_ids.description]
+#### Querying sub-objects
 
-// b) array notation
-$ ./equal.run --get=model_collect --entity=core\\User --fields="{id,name,groups_ids:{name,description}}" 
+
+
+```
+# a) dot notation
+$ ./equal.run \
+--get=model_collect \
+--entity=core\\User \
+--fields=[id,name,groups_ids.name,groups_ids.description]
+
+# b) array notation
+$ ./equal.run \
+--get=model_collect \
+--entity=core\\User \
+--fields="{id,name,groups_ids:{name,description}}" 
 ```
 
