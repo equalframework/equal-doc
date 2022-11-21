@@ -182,12 +182,21 @@ class AccessController extends \equal\access\AccessController {
 
 ## Authentication
 
-During authentication (via the signin controler) a token is generated, the validity of which can be defined using the AUTH_ACCESS_TOKEN_VALIDITY parameter, and stored by the browser via an access_token (HttpOnly) cookie.
+
+
+### Access token
+
+eQual uses JWT tokens that are exchanged between the back-end and the client (browser ) as HttpOnly cookie.
+
+!!! Note "using CLI"
+   There is no user authentication using CLI: user is identified as root user with full priviledges.
+
+During authentication (via the signin controller) a token is generated, the validity of which can be defined using the AUTH_ACCESS_TOKEN_VALIDITY parameter, and stored by the browser.
 
 The duration defined in AUTH_ACCESS_TOKEN_VALIDITY corresponds to the maximum inactivity duration of a user session.
 
 When the token's validity limit has been exceeded, the token is deleted by the browser and the user must identify himself again to open a session.
 
 !!! Note "Extension of validity"
-    Each time a valid session token is used, it authenticates the user for a minimum of 1 hour and the validity of the token is extended if necessary.
+    Each time a valid session token is used, it authenticates the user for a minimum of 1 hour. The validity of the token is extended if necessary.
 
