@@ -20,6 +20,7 @@ extra_css:
   - 'assets/css/extra.css'
 extra:
   version:
+    method: mike
     provider: mike
 markdown_extensions:
   - markdown.extensions.admonition
