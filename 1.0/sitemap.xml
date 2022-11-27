@@ -1,198 +1,198 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-     <loc>https://doc.equal.run/1.0.0/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/welcome/release-notes/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/advanced/cascade-configuration/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/welcome/contribution-guide/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/advanced/ci-cd/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/getting-started/installation/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/advanced/external-libraries/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/getting-started/quick-start/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/advanced/logging/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/getting-started/configuration/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/advanced/remote-apis/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/getting-started/deployment/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/advanced/security/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/architecture-concepts/http-native/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/architecture-concepts/collections/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/architecture-concepts/services/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/architecture-concepts/dependency-injection/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/architecture-concepts/orm/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/architecture-concepts/domains/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/architecture-concepts/collections/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/architecture-concepts/http-native/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/architecture-concepts/dependency-injection/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/architecture-concepts/operations/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/architecture-concepts/domains/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/architecture-concepts/orm/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/architecture-concepts/operations/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/architecture-concepts/services/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/built-in-tools/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/contact-and-support/contact/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/directory-structure/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/contact-and-support/support/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/model-definition/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/getting-started/configuration/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/controllers/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/getting-started/deployment/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/crud/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/getting-started/installation/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/searching/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/getting-started/quick-start/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/validation/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/howtos-and-examples/basic-controller/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/routing/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/howtos-and-examples/basic-webapp/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/views/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/howtos-and-examples/generic-cheat-sheet/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/i18n/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/howtos-and-examples/rest-api/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/error-handling/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/built-in-tools/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/debugging/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/controllers/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/usage/testing/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/crud/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/howtos-and-examples/generic-cheat-sheet/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/debugging/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/howtos-and-examples/basic-controller/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/directory-structure/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/howtos-and-examples/rest-api/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/error-handling/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/howtos-and-examples/basic-webapp/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/i18n/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/advanced/security/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/model-definition/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/advanced/logging/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/routing/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/advanced/remote-apis/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/searching/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/advanced/cascade-configuration/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/testing/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/advanced/ci-cd/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/validation/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/advanced/external-libraries/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/usage/views/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/contact-and-support/contact/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/welcome/contribution-guide/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://doc.equal.run/1.0.0/contact-and-support/support/</loc>
-     <lastmod>2022-11-27</lastmod>
-     <changefreq>daily</changefreq>
+         <loc>https://doc.equal.run/1.0/welcome/release-notes/</loc>
+         <lastmod>2022-11-27</lastmod>
+         <changefreq>daily</changefreq>
     </url>
 </urlset>
