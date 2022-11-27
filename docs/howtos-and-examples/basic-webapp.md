@@ -1,22 +1,20 @@
 # A basic WebApp
 
-## Learning by example how to create a web application with eQual
+Learning by example how to create a web application with eQual.
 
 This tutorial details the required steps for creating a webapp from scratch using eQual.
 As sample webapp, we are going to build a basic blog.
 
-(Files from the "blog" demo package - SQL schema and dataset - as well as other sample files are available [[http://easyobject.cedricfrancoys.be/samples|here]].)
 
-===== 0. Install easyObject =====
 
-For installation notes, see [[http://easyobject.cedricfrancoys.be/wiki/install|easyObject quickstart]]
+## Install equal
 
-> URL ?
+For installation notes, see [Installation](../getting-started/installation.md) in the "Getting started" section.
 
-===== 1. Create a new package =====
+## 1. Create a new package
 **(Estimated time : 1 minute)**
 
-This part is quite easy: in the //packages// folder, we create a new folder named "blog".
+This part is quite easy: in the `packages` folder, we create a new folder named "blog".
 In addition, inside this new folder, let's create the following subfolders (as they are mandatory): "classes" and "views".
 
 Tree structure is now:
@@ -27,39 +25,37 @@ Tree structure is now:
       /classes
       /views
 ```
-===== 2. Write some classes =====
+## 2. Write some classes
 **(Estimated time : 3 minutes)**
 
 Now, we need to create a new kind of object. Let's call it "post".
 
 Each post consists of a title and some text (content). 
 
-So,in the folder //packages/blog/classes//, we add a new file named //Post.class.php//.
+So,in the folder `packages/blog/classes`, we add a new file named `Post.class.php`.
 
 ```php
 <?php
+namespace blog;
 
-namespace blog {
+class Post extends \core\Object {
 
-    class Post extends \core\Object {
-    
-        public static function getColumns() {
-            return array(
-                'title'      => array('type' => 'string'),
-                'content'    => array('type' => 'text')
-            );
-        }
-    
+    public static function getColumns() {
+        return [
+            'title'      => array('type' => 'string'),
+            'content'    => array('type' => 'text')
+        ];
     }
+
 }
+
 ```
 
-
 In addition, we want to be able to retrieve the name of the author of the post.
-The special field //creator// gives us the id of the user (//core\User//) who created the post, but we would like to be able to display author's name without having to perform additional requests.
+The special field `creator` gives us the id of the user (`core\User`) who created the post, but we would like to be able to display author's name without having to perform additional requests.
 
 
-In order to do so, we add an //author// field, defined like this:
+In order to do so, we add an `author` field, defined like this:
 ```php
 <?php
 'author'     => array(
@@ -91,37 +87,36 @@ Finally, our file looks like this:
 
 ```php
 <?php
+namespace blog;
 
-namespace blog {
+class Post extends \core\Object {
 
-    class Post extends \core\Object {
-    
-        public static function getColumns() {
-            return array(
-                'title'      => array('type' => 'string'),
-                'content'    => array('type' => 'text'),
-                'author'     => array(
-                                     'type' => 'function', 
-                                     'result_type' => 'string', 
-                                     'store' => true, 
-                                     'function' => 'blog\Post::getAuthor'
-                                )
-            );
-        }
-    
-        public static function getAuthor($om, $uid, $oid, $lang) {
-            $author = '';
-            $res = $om->browse($uid, 'blog\Post', array($oid), array('creator'), $lang);
-            if(is_array($res)) {
-                $user_id = $res[$oid]['creator'];
-                $res = $om->browse($uid, 'core\User', array($user_id), array('firstname', 'lastname'), $lang);
-            }
-            if(is_array($res)) $author = $res[$user_id]['firstname'].' '.$res[$user_id]['lastname'];
-            return $author;
-        }
-    
+    public static function getColumns() {
+        return array(
+            'title'      => array('type' => 'string'),
+            'content'    => array('type' => 'text'),
+            'author'     => array(
+                'type' => 'function', 
+                'result_type' => 'string', 
+                'store' => true, 
+                'function' => 'blog\Post::getAuthor'
+            )
+        );
     }
+
+    public static function getAuthor($om, $uid, $oid, $lang) {
+        $author = '';
+        $res = $om->browse($uid, 'blog\Post', array($oid), array('creator'), $lang);
+        if(is_array($res)) {
+            $user_id = $res[$oid]['creator'];
+            $res = $om->browse($uid, 'core\User', array($user_id), array('firstname', 'lastname'), $lang);
+        }
+        if(is_array($res)) $author = $res[$user_id]['firstname'].' '.$res[$user_id]['lastname'];
+        return $author;
+    }
+
 }
+
 ```
 
 Tree structure is now:
@@ -134,16 +129,17 @@ Tree structure is now:
       /views
 ```
 
-===== 3. Create related DB tables =====
+
+
+## 3. Create related DB tables
+
 **(Estimated time : 2 minutes)**
 
-Open your internet browser and go to the //core_utils// application. For instance, http://localhost/easyobject/index.php?show=core_utils.
+Open your internet browser and go to the `core_utils` application. For instance, http:`localhost/equal/index.php?show=core_utils.
 
-(If you are getting confused, see easyObject [[http://easyobject.cedricfrancoys.be/wiki/url_mechanism|URL mechanism]].)
+If you are getting confused, read the [HTTP native](/architecture-concepts/http-native/#invoking-controllers) section.
 
-> URL ?
-
-Now, among the packages list, select the newly created //blog// package, then choose the //sql-schema// plugin and click 'ok'.
+Now, among the packages list, select the newly created `blog` package, then choose the `sql-schema` plugin and click 'ok'.
 
 In the right panel, you should see the following SQL code : 
 ```sql
@@ -164,11 +160,12 @@ CREATE TABLE IF NOT EXISTS `blog_post` (
 
 You may now copy/paste this code in order to create a new table with your favorite SQL GUI manager (phpMyAdmin, workbench, ...)
 
-===== 4. Create views =====
+## 4. Create views
 **(Estimated time : 1 minute)**
 
-In the //packages/blog/views//, create two new files:
-== 1. Post.form.default.html ==
+In the `packages/blog/views`, create two new files:
+### 1. Post.form.default.html
+
 ```html
 <form action="core_objects_update">
     <div>
@@ -187,7 +184,8 @@ In the //packages/blog/views//, create two new files:
     </div>
 </form>
 ```
-== 2. Post.list.default.html ==
+### 2. Post.list.default.html
+
 ```html
 <ul>
     <li id="title" width="55%"></li>
@@ -208,13 +206,13 @@ Tree structure is now:
         Post.list.default.html
 ```
 
-===== 5. Create some sample objects =====
+## 5. Create some sample objects
 **(Estimated time : 1 minute)**
 
-  * Open your internet browser and go to the //core_manage// application. 
-''For instanceb:
-http://localhost/easyobject/index.php?show=core_manage''
-  * Among packages list, select the //blog// package, then click on the //Post// class.
+  * Open your internet browser and go to the `core_manage` application. 
+''For instance:
+http:`equal.local/index.php?show=core_manage''
+  * Among packages list, select the `blog` package, then click on the `Post` class.
   * On the right panel, click on the 'create new' button.
   * Choose a title and a content for this new post
     For instance:
@@ -223,16 +221,16 @@ http://localhost/easyobject/index.php?show=core_manage''
 
 
 
-===== 6. Create an application =====
+## 6. Create an application
 **(Estimated time : 2 minutes)**
 
-==== 1. Template ====
+### 1. Template
 
   * To display some nice html, we need a template. Let's adapt one from a WP template designer.
-  * Let's pick one from diovo.com : http://www.diovo.com/links/voidy/
-  * We create a new folder //packages/blog/html/css// and copy //img// folder and //style.css// into it.
-  * In //packages/blog/html// we put the adapted template below.
- Note that we added two //var// tags in order to display the template dynamically (based on the //post_id// parameter from the URL):
+  * Let's pick one from diovo.com : http:`www.diovo.com/links/voidy/
+  * We create a new folder `packages/blog/html/css` and copy `img` folder and `style.css` into it.
+  * In `packages/blog/html` we put the adapted template below.
+ Note that we added two `var` tags in order to display the template dynamically (based on the `post_id` parameter from the URL):
     <var id="content"></var>
     and 
     <var id="recent_posts"></var>
@@ -253,7 +251,7 @@ http://localhost/easyobject/index.php?show=core_manage''
         <div id="header">
             <div id="logo">
                 <div id="h1"><a href="#">Yet another easy blog</a></div>
-                <div id="h2" style="font-style: italic;">powered by easyObject</div>        
+                <div id="h2" style="font-style: italic;">powered by equal</div>        
             </div>
             <div id="header-icons"></div>
             <div id="menu">
@@ -272,7 +270,7 @@ http://localhost/easyobject/index.php?show=core_manage''
             <div id="sidebar1" class="sidecol">
                 <ul>
                     <li>
-                        <p style="font-style: italic; font-family: Georgia,serif;">This blog is run by a hand-made webapp developed in minutes thanks to easyObject.</p>
+                        <p style="font-style: italic; font-family: Georgia,serif;">This blog is run by a hand-made webapp developed in minutes thanks to equal.</p>
                     </li>            
                     <li class="widget recent">
                         <h2 class="widgettitle">Latest articles</h2>
@@ -284,9 +282,9 @@ http://localhost/easyobject/index.php?show=core_manage''
         </div>    
         <div id="footer">
             <p>
-                <a title="easyObject" href="http://easyobject.cedricfrancoys.be/">Powered by easyObject</a>
+                <a title="equal" href="http:`equal.cedricfrancoys.be/">Powered by equal</a>
                 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                <a title="Diovo" href="http://www.diovo.com/links/voidy/">Theme by Niyaz</a>
+                <a title="Diovo" href="http:`www.diovo.com/links/voidy/">Theme by Niyaz</a>
             </p>    
         </div>        
     </div>            
@@ -294,15 +292,15 @@ http://localhost/easyobject/index.php?show=core_manage''
 </html>
 ```
 
-==== 2. Script ====
+### 2. Script
 
-Finally, let's create a folder //packages/blog/apps// inside wich we put a file named //display.php// containing the code below.
+Finally, let's create a folder `packages/blog/apps` inside wich we put a file named `display.php` containing the code below.
 
 
 ```php
 <?php
-// the dispatcher (index.php) is in charge of setting the context and should include the easyObject library
-defined('__EASYOBJECT_LIB') or die(__FILE__.' cannot be executed directly.');
+// the dispatcher (index.php) is in charge of setting the context and should include the equal library
+defined('__equal_LIB') or die(__FILE__.' cannot be executed directly.');
 
 // we'll need to format some dates
 load_class('utils/DateFormatter');
@@ -343,7 +341,7 @@ function decorate_template($template, $decorator) {
 }
 /**
 * Returns html part specified by $attributes (from a 'var' tag) and associated with current post id
-* (here come the calls to easyObject API)
+* (here come the calls to equal API)
 *
 * @param array $attributes
 */
@@ -377,7 +375,7 @@ $get_html = function ($attributes) {
     return $html;
 };
 
-// if we got the post_id and if the template file can be found, read the template and decorate it with current post values 
+` if we got the post_id and if the template file can be found, read the template and decorate it with current post values 
 if(!is_null($params['post_id']) && file_exists('packages/blog/html/template.html')) print(decorate_template(file_get_contents('packages/blog/html/template.html'), $get_html));
 ```
 
@@ -401,9 +399,9 @@ Tree structure is now :
         Post.list.default.html
 ```
 
-To access your newly created blog, open your browser and request the //blog_display// application.
-  URL example : http://localhost/easyobject/?show=blog_display
+To access your newly created blog, open your browser and request the `blog_display` application.
+  URL example : http://equal.local/equal/?show=blog_display
 
 Remember that post_id will be set to 1 by default. To display another blog entry, you'll have to specify the related post_id in the URL.
 
-  Another URL example could be : http://localhost/easyobject/?show=blog_display&post_id=2
+  Another URL example could be : http://equal.local/equal/?show=blog_display&post_id=2
