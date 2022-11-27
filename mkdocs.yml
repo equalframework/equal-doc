@@ -11,16 +11,19 @@ theme:
   logo: 'assets/img/eq_logo.png'
   feature:
     tabs: true
-  features:    
+  features: 
+    - navigation.instant  
+    - navigation.tracking
     - navigation.tabs
   # 404 page
   static_templates:
     - 404.html
 extra_css:
   - 'assets/css/extra.css'
+plugins:
+  - search  
 extra:
   version:
-    method: mike
     provider: mike
 markdown_extensions:
   - markdown.extensions.admonition

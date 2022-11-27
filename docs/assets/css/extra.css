@@ -13,6 +13,9 @@ article table th {
 	background-color: #3f51b5 !important;
 	white-space: nowrap;
 }
+article table th strong {
+	color: white;
+}
 
 article .admonition {
 	font-size: 0.95em !important;

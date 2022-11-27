@@ -45,7 +45,7 @@ Example :
 
 | **PATH** | `demo\simple.php`                                        |
 | ---------------- | ------------------------------------------------------- |
-| **HTTP Request** | ?get=demo_simple                                        |
+| **HTTP Request** | `GET http://equal.local/?get=demo_simple`               |
 | **CLI**          | `$ ./equal.run --get=demo_simple`                       |
 | **PHP Script**   | `eQual::run('get', 'demo_simple');` |
 
