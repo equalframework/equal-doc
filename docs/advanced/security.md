@@ -107,7 +107,7 @@ This file is the built-in "control tower" of eQual, and is located in **/lib/equ
 
 #### Examples :
 
-* The controller tells us that the root_user has access to every rights.
+* The controller tells us that the root_user has all rights.
 
 * On the other hand, the **filter** method checks if a specific **user** has the rights to execute a specific operation.
 
@@ -189,13 +189,13 @@ class AccessController extends \equal\access\AccessController {
 eQual uses JWT tokens that are exchanged between the back-end and the client (browser ) as HttpOnly cookie.
 
 !!! Note "using CLI"
-   There is no user authentication using CLI: user is identified as root user with full priviledges.
+   There is no authentication using CLI: user is identified as root with full priviledges.
 
-During authentication (via the signin controller) a token is generated, the validity of which can be defined using the AUTH_ACCESS_TOKEN_VALIDITY parameter, and stored by the browser.
+During authentication (via the signin controller) a token is generated, according to the AUTH_ACCESS_TOKEN_VALIDITY parameter, and stored by the browser.
 
-The duration defined in AUTH_ACCESS_TOKEN_VALIDITY corresponds to the maximum inactivity duration of a user session.
+The duration defined in AUTH_ACCESS_TOKEN_VALIDITY corresponds to the maximum duration of inactivity of a user session.
 
-When the token's validity limit has been exceeded, the token is deleted by the browser and the user must identify himself again to open a session.
+When the token's validity limit has been exceeded, the token is deleted by the browser and the user must identify himself again.
 
 !!! Note "Extension of validity"
     Each time a valid session token is used, it authenticates the user for a minimum of 1 hour. The validity of the token is extended if necessary.

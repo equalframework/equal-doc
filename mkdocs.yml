@@ -16,6 +16,9 @@ theme:
     - 404.html
 extra_css:
   - 'assets/css/extra.css'
+extra:
+  version:
+    provider: mike
 markdown_extensions:
   - markdown.extensions.admonition
   - markdown.extensions.codehilite:
