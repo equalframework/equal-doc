@@ -91,7 +91,7 @@ This controller runs some consistency checks and works with any package:
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?do=test_package&package=core`|
 |**CLI**|`$ ./equal.run --do=test_package --package=core`|
-|**DESCRIPTION**|The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](./testing.md)).|
+|**DESCRIPTION**|The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](../usage/testing.md)).|
 
 
 
