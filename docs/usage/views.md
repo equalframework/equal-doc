@@ -489,8 +489,8 @@ Each item is an object accepting the following properties :
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
 |label|(optional) Default label|
-|type||
-|value|value of the field|
+|type|type of the item(`"label"` or `"field"`)|
+|value|value of the field (label to display for `"label"` item, or name of the target field for `"field"` item)|
 |width|width, in percentage of the parent column width.|
 |visible|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
 |domain|(optional) (ex. `["type", "<>", "I"]`)|

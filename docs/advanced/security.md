@@ -189,7 +189,7 @@ class AccessController extends \equal\access\AccessController {
 eQual uses JWT tokens that are exchanged between the back-end and the client (browser ) as HttpOnly cookie.
 
 !!! Note "using CLI"
-    There is no authentication using CLI: in commdna-line context, user is identified as root with full priviledges.
+    There is no authentication using CLI: in command-line context, user is identified as root with full privileges.
 
 During authentication (via the signin controller) a token is generated, according to the AUTH_ACCESS_TOKEN_VALIDITY parameter, and stored by the browser.
 
