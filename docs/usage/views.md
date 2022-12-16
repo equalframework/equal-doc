@@ -64,12 +64,19 @@ Some attributes are common to all types of views. Below is a list of the common 
 
 #### access 
 
-groups: array (list of groups the view is restricted to)
+Associative map for restriction the access of the view to specific users.
+
+| **PROPERTY** | **DESCRIPTION**                                       |
+| --------------- | ------------------------------------------------------------ |
+| groups     | Array of group names whose members are granted for using the view. |
+| users | Array of logins of users that are granted for using the view. |
 
 Example : 
 
 ```
-    "access": ['root']
+"access": {
+    "groups": ["users"]
+}
 ```
 
 <a name="common_actions"></a>
@@ -80,6 +87,8 @@ The optional **actions**  property  contains a list of objects defining a custom
 
 Each action item  relates to a button, displayed in the right side of the header, which, when clicked, relays a request to a given controller. Upon successful completion of the action, the view is automatically refreshed.
 
+!!! note "Distinction between actions and header.actions"
+    Make sure not to mix up the "actions" section with the header "actions" subsection. The former lists the actions that are available for the whole view (genrally form views) while the latter can be used to allow or prevent specific actions on selected objects (generally list views).
 
 
 | **PROPERTY** | **DESCRIPTION**                                       |
@@ -89,8 +98,9 @@ Each action item  relates to a button, displayed in the right side of the header
 | label       | Label assigned to the view.                                  |
 | controller  | Controller to invoke when the user confirms the action. By default, the `id` of the current object is sent as a parameter. |
 | visible     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
-| confirm     | (optional) If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
+| confirm     | (optional) Boolean flag. If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
 | params      | (optional) Associative array mapping fields with their values. Values can be assigned by referencing a property of the current user (e.g. `user.login`) or current object (for form views). |
+| access | Associative array (similar to the one that can be applied on the view) to limit access to the action (this is used to display or hide the action in the list, but the actual permission to invoke the related controller must be set in the controller itself). |
 
 Example:
 

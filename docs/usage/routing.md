@@ -1,6 +1,8 @@
 # Router 
 
-The Router `equal/route/Router.class.php` class handles routes located inside the `config/routing`folder.
+The Router `equal/route/Router.class.php` class handles routes located inside the `config/routing` folder.
+
+The routing mechanism is meant to route a request to the targeted controller.
 
 Structure of a route  :	`URI -> operation`
 
@@ -18,14 +20,6 @@ Reserved parameters :
 
   
 
-Routing to scripts.
-
-	simple scripts 
-	
-	Main constraint : routing and FS tree
-
-
-
 ## Creating Routes
 
 Inside the `config/routing` directory, you have the possibility to build your own routes. 
@@ -35,10 +29,10 @@ The expected route structure :
 | **STRUCTURE** | **TYPE**                                                     | **DESCRIPTION** |
 | --------------- | -----------------------------------------|------------------ |
 | method | string         | HTTP method, example: "GET", "POST", "PUT", "DELETE", "PATCH". |
-| path | string | full path of the requested URI. |
-| parts | array |array of parts composing the path.|
-| operation | string |the operation the URI resolves to.|
-| params | array |map of parameters names as keys, related to their values.|
+| path | string | Full path of the requested URI. |
+| parts | array |Array of parts composing the path.|
+| operation | string |The operation the URI resolves to.|
+| params | array |Map of parameters names as keys, related to their values.|
 
 
 
@@ -73,11 +67,21 @@ And the description is simply a field to indicate what the operation does.
 
 ##### routes hierarchy
 
-The routes are read in alphabetical order (also counts for numbers). Which means, that if two different files contain the same route, the first one, in alphabetical order, found by the system, will be read.
+Routes are stored in files located in th the `config/routing` folder. 
 
-Only the routes inside the global `config/routing` folder matter. 
+The files holding the routes configuration are read in alphabetical order. Which means, that if two distinct files contain a same route (targeting different controllers), it is the route that is contained in the first file, in alphabetical order, that will be applied.
 
-In conclusion, if you need a route to be read before an other, you need to place the route in earlier files.
+Typically, when a package needs to override an existing route, it uses files with a prefix having a higher priority.
+
+Example: 
+
+```
+/routing
+  10-lodging.json
+  80-documents.json
+  80-identity.json
+  99-default.json
+```
 
 
 
