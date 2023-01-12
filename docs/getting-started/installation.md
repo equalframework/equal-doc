@@ -6,6 +6,14 @@
 
 ### 1. Install Docker
 
+#### Linux
+See the official doc from Docker [here](https://docs.docker.com/engine/install/)
+
+Ubuntu
+```bash
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
 #### Windows 
 
 * install Windows HyperV
@@ -17,15 +25,6 @@ $ wsl --install
 * install WSL2 core update  (can be found [here](https://docs.microsoft.com/fr-fr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package))
 
 * install [Docker Desktop for windows ](https://docs.docker.com/desktop/install/windows-install/)
-
-
-#### Linux
-See the official doc from Docker [here](https://docs.docker.com/engine/install/)
-
-Ubuntu
-```bash
-$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-```
 
 
 
@@ -87,24 +86,7 @@ eQual requires the following dependencies:
 
 #### OS configuration
 
-##### Windows
 
-Under Windows, you can use any of the following tools for a ready-to-use WAMP environment :
-
-* [XAMPP 7.3](https://www.apachefriends.org/download.html)
-* [WAMP Server 3.2+](https://www.wampserver.com/en/) 
-* [DevServer 17.x](https://www.easyphp.org/easyphp-devserver.php)
-
-Retrieve the path of the PHP executable:
-```bash
-where php
-```
-This will output something like `C:\wamp64\bin\php\php7.2.18\php.exe` 
-
-Add the PHP binary to the PATH environment variable:
-```bash
-SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
-```
 
 ##### Ubuntu
 
@@ -141,6 +123,25 @@ Install Mysql server, PHP and Apache:
 ```bash
 yum update
 yum install httpd php mysql-server php-mysql
+```
+
+##### Windows
+
+Under Windows, you can use any of the following tools for a ready-to-use WAMP environment :
+
+* [XAMPP 7.3](https://www.apachefriends.org/download.html)
+* [WAMP Server 3.2+](https://www.wampserver.com/en/) 
+* [DevServer 17.x](https://www.easyphp.org/easyphp-devserver.php)
+
+Retrieve the path of the PHP executable:
+```bash
+where php
+```
+This will output something like `C:\wamp64\bin\php\php7.2.18\php.exe` 
+
+Add the PHP binary to the PATH environment variable:
+```bash
+SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
 ```
 
 #### Getting eQual
@@ -190,8 +191,8 @@ Example for Apache2:
 
 Remember to map the domain name with an IP address in your local hosts file:
 
-* Windows :  `C:\Windows\System32\drivers\etc\hosts`
 * Linux : `/etc/hosts`
+* Windows :  `C:\Windows\System32\drivers\etc\hosts`
 
 
 Example:
@@ -279,7 +280,7 @@ This can be done by using the `core_init_package` controller.
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?do=init_package&package=core`|
 |**CLI**|`$ ./equal.run --do=init_package --package=core`|
-|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
+|**DESCRIPTION**|Initialize database for given package. If no package is given, initialize core package.|
 
 Now, you should be able to fetch data by using the controllers from the `core` package.
 

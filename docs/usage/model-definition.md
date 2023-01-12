@@ -117,7 +117,7 @@ The following types are supported by the ORM :
 
 Numeric value of Boolean type (**true** or **false**)
 
-!!! Note
+!!! note "booleans notation"
 	For booleans, we use the PHP built-in constant : true and false (when using '0', '1', 0 or 1, value is converted to a bool).
 
 #### integer
@@ -403,6 +403,16 @@ Some fields are mandatory, and defined in the `Model` class.
 | modified | datetime       | Date date on which the object was last modified |
 | modifier | foreign_object | `core\User`                                                  |
 | deleted | boolean | Marks the object as soft-deleted.               |
+
+!!! note "About 'name field'"
+    Le champ name peut être redéfini comme un alias ou un champ calculé.
+
+### optional system fields
+
+Some fields are reserved but optional (with a convention of use):
+
+* state : this field is used when a workflow applies on an entity.
+* alert: this field is used in conjunction with the core\alert entities. If defined, it is expected to be a computed field.
 
 ## Getters methods
 
