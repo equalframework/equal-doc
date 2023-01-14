@@ -167,9 +167,9 @@ Example :
 use core\User;
 
 User::search(['firstname', 'ilike', '%sam%'])
-        ->from(0)
-        ->limit(5)
-        ->get();
+    ->from(0)
+    ->limit(5)
+    ->get();
 ```
 
 
@@ -180,16 +180,17 @@ The purpose of that operation  is to perform a `search()` and a `read()` in a si
 
 #### Querying sub-objects
 
-
+##### a) dot notation
 
 ```
-# a) dot notation
 $ ./equal.run \
 --get=model_collect \
 --entity=core\\User \
 --fields=[id,name,groups_ids.name,groups_ids.description]
+```
 
-# b) array notation
+##### b) array notation
+```
 $ ./equal.run \
 --get=model_collect \
 --entity=core\\User \
