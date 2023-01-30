@@ -11,7 +11,7 @@ Here is the full list of eQual built-in services with their related classes :
 |access|**`equal\access\AccessController`**<br /> Manages the access/permissions of User & Groups to entities & controllers. |
 |context|**`equal\php\Context`**<br /> Manages the HTTP requests & responses. |
 |validate|**`equal\data\DataValidator`**<br /> Checks the fields consistency of entities & controllers. |
-|adapt|**`equal\data\DataAdapter`**<br /> Transforms the data to the needed type (example: string to date). |
+|adapt|**`equal\data\DataAdapterProvider`**<br />DAP provides DataAdapters for transforming the data to the needed type (example: string to date) according to a specific type (JSON, SQL, TXT). |
 |orm|**`equal\orm\ObjectManager`**<br /> Manages the objects (classes). |
 |route|**`equal\route\Router`**<br /> Returns an existing route. |
 |spool|**`equal\email\EmailSpooler`**<br /> Manages the emails. |
