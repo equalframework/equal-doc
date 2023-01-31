@@ -30,7 +30,11 @@ $ wsl --install
 
 ### 2. Start the container
 
-Download the [Docker Compose file from github](https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml) (`wget`).
+Download the [Docker Compose file from github](https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml).
+
+```bash
+$ wget https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml
+```
 
 And instantiate the stack by using the following command :  
 Under Windows:
@@ -43,7 +47,14 @@ Under Linux:
 $ docker-compose up -d
 ```
 
-Remember to map the domain name with an IP address in your local hosts file:
+
+
+!!! note "Using the Docker image"
+    Alternatively, you may create a docker-compose file or a Dockerfile of your own, and use the image from Docker.io. In this case, you can just use this pull command `docker pull cedricfrancoys/equal`.
+
+
+
+Remember to map the default domain name with an IP address in your local hosts file:
 
 * Windows :  `C:\Windows\System32\drivers\etc\hosts`
 * Linux : `/etc/hosts`
@@ -304,7 +315,7 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 
 
-**Fetch the details of user[1] (admin).**
+**Fetch the details of the root user [1].**
 
 `GET /user/1`
 
@@ -346,7 +357,7 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 **Fetch the full list of existing groups.**
 
-`GET l/groups`
+`GET /groups`
 
 ```json
 [
