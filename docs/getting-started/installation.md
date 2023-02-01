@@ -7,7 +7,7 @@
 ### 1. Install Docker
 
 #### Linux
-See the official doc from Docker [here](https://docs.docker.com/engine/install/)
+See the official doc from Docker [here](https://docs.docker.com/engine/install/).
 
 Ubuntu
 ```bash
