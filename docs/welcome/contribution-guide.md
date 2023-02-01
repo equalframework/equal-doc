@@ -17,6 +17,20 @@ Active committers and contributors are invited to introduce themselves and reque
 
 
 
+## Submitting a pull request
+
+* Fork the repository ( https://github.com/cedricfrancoys/equal/fork )
+
+* Create your feature branch (git checkout -b my-new-feature)
+
+* Commit your changes (git commit -am 'Add some feature')
+
+* Push to the branch (git push origin my-new-feature)
+
+* Create a new Pull Request
+
+    
+
 ## Bugs and Issues
 Please report these on our [GitHub page](https://github.com/cedricfrancoys/equal/issues) . Please do not use issues for support requests: for help using eQual, please consider Stack Overflow.
 
