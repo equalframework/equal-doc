@@ -248,6 +248,8 @@ Edit `config.json` to adapt the values according to your environment:
 ```
 If you are under a docker environment , replace the DB_HOST value with equal_db
 
+If some problems appear with the charset, try to replace it with utf8mb4
+
 
 ### Database initialization
 
