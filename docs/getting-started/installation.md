@@ -234,16 +234,21 @@ Edit `config.json` to adapt the values according to your environment:
 
 ```php
 {
-	"DB_DBMS": "MYSQL",
-	"DB_HOST": "127.0.0.1",
-	"DB_PORT": "3306",
-	"DB_USER": "root",
-	"DB_PASSWORD": "test",
-	"DB_NAME": "equal",
-	"DB_CHARSET": "UTF8"
+    "DB_DBMS": "MYSQL",
+    "DB_HOST": "127.0.0.1",
+    "DB_PORT": "3306",
+    "DB_USER": "root",
+    "DB_PASSWORD": "test",
+    "DB_NAME": "equal",
+    "DB_CHARSET": "UTF8",
+    "DEBUG_MODE": "QN_DEBUG_PHP | QN_DEBUG_ORM | QN_DEBUG_SQL",
+    "DEBUG_LEVEL": "QN_REPORT_DEBUG | QN_REPORT_INFO | QN_REPORT_WARNING | QN_REPORT_ERROR | QN_REPORT_FATAL",
+    "DEFAULT_RIGHTS": "QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE"
 }
 ```
+If you are under a docker environment , replace the DB_HOST value with equal_db
 
+If some problems appear with the charset, try to replace it with utf8mb4
 
 
 ### Database initialization
@@ -290,7 +295,7 @@ This can be done by using the `core_init_package` controller.
 |**PATH**|`core\actions\init\package.php`|
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?do=init_package&package=core`|
-|**CLI**|`$ ./equal.run --do=init_package --package=core`|
+|**CLI**|`$ ./equal.run --do=init_package --package=core --import=true`|
 |**DESCRIPTION**|Initialize database for given package. If no package is given, initialize core package.|
 
 Now, you should be able to fetch data by using the controllers from the `core` package.
@@ -381,6 +386,11 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 **Create a new group.**
 
 `POST /group`
+
+The body request may be empty, but it is preferable to specify a name for a group
+You should not specify an id since it will be generated automatically
+
+The response to the request must be something like this
 
 ```json
 {
