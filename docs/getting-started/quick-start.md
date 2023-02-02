@@ -2,31 +2,7 @@
 
 You've just installed eQual. And now what ?
 
-## Init your environment
-
-First, let's configure it according to your environment.
-
-A default configuration file is already present and can be modified, but it is a good practice to leave it untouched, especially if you're using git or any other versioning system, so that the configuration details of your environment remain confidential (not part of the repository).
-
-```bash
-$ cp config/default.inc.php config/config.inc.php
-```
-Then edit `config.inc.php` and update the values of the DBMS access. 
-
-Constants role is unambiguous : 
-
-```php
-<?php 
-define('DB_HOST',       '127.0.0.1');
-define('DB_PORT',       '3306');   
-define('DB_USER',       'root');
-define('DB_PASSWORD',   'test');
-define('DB_NAME',       'equal');
-```
-!!! note "About DB creation"
-    You can choose any name for the database: if it does not exist yet, you'll be able to create it using the command line; In case creation fails, make sure the DBMS server is actually running on the specified host and port;
-
- 
+## Init your environment 
 
 You can now test your installation by calling the `test_db-connectivity` test tool :
 
