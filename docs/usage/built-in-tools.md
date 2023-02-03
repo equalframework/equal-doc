@@ -288,3 +288,13 @@ Those permissions are used as properties by `User.class.php` & `Group.class.php`
 
 
 
+#### `group_add-user`
+
+| **PATH**        | `core\actions\group\add-user.php`                            |
+| --------------- | ------------------------------------------------------------ |
+| **URL**         | `?do=group_add-user&group=users&user=cedric@equal.run`       |
+| **CLI**         | `$ ./equal.run --do=group_add-user --group=users --user=cedric@equal.run` |
+| **DESCRIPTION** | Add a user as member of a given group.                       |
+
+
+

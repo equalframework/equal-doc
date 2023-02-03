@@ -135,17 +135,18 @@ $providers['context']
 
 ## In short
 
-eQual uses **3** kinds of **controllers** (Action handlers, Data providers, App providers), **5 methods** (Create, Read, Update, Delete, Search) and has a robust set of **native features** : 
+eQual has a robust set of **native features** : 
 
-* I/O as HTTP messages 
-* Cascading Configuration 
+* CQRS architecture (Action handlers, Data providers, App providers)
+* I/O as HTTP messages
+* CRUD operations through ORM & Collections
+* Model definition with inheritance support
 * Dependency injection
-* Services overload
-* ORM & Collections support
-* Model definition + inheritance support
 * Data Adaptation
 * Authentication Management
 * Access Control Management
+* Services overloading
+* Cascading Configuration 
 * Unit testing
 * Logging
 * Debugging console

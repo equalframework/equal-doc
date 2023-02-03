@@ -246,11 +246,11 @@ Edit `config.json` to adapt the values according to your environment:
     "DEFAULT_RIGHTS": "QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE"
 }
 ```
-If you are under a docker environment , replace the DB_HOST value with equal_db
 
-If there are issues with the charset, it may be because utf8 is an alias of utf8mb3 in mysql right now (version 8.0)
+If you are under a docker environment, replace the DB_HOST value with `equal_db`.
 
-So utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wish to store language characters and symbols, utf8mb4 is a solution
+!!! note "DB_CHARSET"  
+    If there are issues with the charset, it may be because utf8 is an alias of utf8mb3 in mysql 8.0 (utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wish to store language characters and symbols, consider using utf8mb4).
 
 
 ### Database initialization
@@ -283,7 +283,7 @@ The database can be created by using the `core_init_db controller`.
 >
 > 
 > * Open MySQL session as root – type the password upon request (if none set omit -p)
-  	`mysql -uroot -p`
+  	`mysql -u root -p`
 > * Create eQual database
   	`create database mydb character set utf8;`
 
@@ -322,9 +322,13 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 
 
-**Fetch the details of the root user [1].**
+### Fetch the details of the root user [1]
+
+**Request:**
 
 `GET /user/1`
+
+**Response:**
 
 ```json
 [
@@ -339,9 +343,13 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 
 
-**Fetch the full list of existing groups.**
+### Fetch the full list of existing groups
+
+**Request:**
 
 `GET /users`
+
+**Response:**
 
 ```json
 [
@@ -361,10 +369,13 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 ```
 
 
+### Fetch the full list of existing groups
 
-**Fetch the full list of existing groups.**
+**Request:**
 
 `GET /groups`
+
+**Response:**
 
 ```json
 [
@@ -385,14 +396,20 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 
 
-**Create a new group.**
+### Create a new group
 
-`POST /group`
+**Request:**
 
-The body request may be empty, but it is preferable to specify a name for a group
-You should not specify an id since it will be generated automatically
+```
+POST /group
+{
+    "name": "test"
+}
+```
 
-The response to the request must be something like this
+Note: The body request may be empty, but it is preferable to specify a name for a group.
+
+**Response:**
 
 ```json
 {
@@ -403,9 +420,18 @@ The response to the request must be something like this
 
 
 
-**Update the 'name' property of the group[3].**
+!!! note "id field"  
+    All entities are identified with an id, which is an auto increment field and is generated automatically.
+
+
+
+### Update the 'name' property of the group[3]
+
+**Request:**
 
 `PUT group/3?fields[name]=test`
+
+**Response:**
 
 ```json
 []
@@ -413,9 +439,13 @@ The response to the request must be something like this
 
 
 
-**Fetch the full list of existing groups.**
+### Fetch the full list of existing groups
+
+**Request:**
 
 `GET /groups`
+
+**Response:**
 
 ```json
 [

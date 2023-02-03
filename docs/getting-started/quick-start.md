@@ -28,7 +28,7 @@ This can be done using the `init_package` tool :
 | --------------- | ------------------------------------------------------------ |
 |**URL**|`?do=init_package&package=core`|
 |**CLI**|`$ ./equal.run --do=init_package --package=core`|
-|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package. Compile the apps (`apps folder`) of the package and copy them in the public folder.|
+|**DESCRIPTION**|Initialize database for given package. If no package is given, initialize core package. Compile the apps (`apps folder`) of the package and copy them in the public folder.|
 
 
 
@@ -62,14 +62,14 @@ In this example, we define the class **Task** for a todo-list app :
 ```php
 <?php  
 namespace mypackage;
-use equal\orm\Model; // this is a built-in object handler
+use equal\orm\Model;
     
 class Task extends Model {
     public static function getColumns() {
         return [
             'title'     => ['type' => 'string'],
             'content'   => ['type' => 'text']
-       		];
+        ];
     }
 }
 ```
@@ -86,7 +86,10 @@ That's where the types **many2many**, **one2many**, and **many2one** come in han
 // ...
       return [
         // ...
-        'user_id'	=> ['type' => 'many2one', 'foreign_object' => 'mypackage\User']
+        'user_id'	=> [
+            'type'           => 'many2one', 
+            'foreign_object' => 'mypackage\User'
+        ]
       ];
 ```
 
@@ -98,7 +101,10 @@ We also need to do the opposite in `User.class.php` :
 // ...
       return [
         // ...
-        'task_id'	=> ['type' => 'one2many', 'foreign_object' => 'mypackage\Task']
+        'task_id'	=> [
+            'type'           => 'one2many', 
+            'foreign_object' => 'mypackage\Task'
+        ]
       ];
 ```
 
@@ -135,17 +141,15 @@ Now the database should have the following tables:
 * `mypackage_task`  
 * `mypackage_user`  
 
-#### Troubleshooting
 
-If none of the above is working. Try this :
 
-|**PATH**|`core\actions\test\package-consistency.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?do=test_package-consistency&package=core`|
-|**CLI**|`$ ./equal.run --do=test_package-consistency --package=core`|
-|**DESCRIPTION**|Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
+#### Consistency checks
 
-It will tell you if something is wrong or missing. You can ignore any error related to view or translation (they are optional but will display a warning nonetheless).
+When writing new classes, you can take advantage of the consistency controllers in order to check the validity of the files just created.
+
+The checks cover the schema consistency as well as syntax validity for classes (PHP), views and translation files (JSON).
+
+In case something is wrong or missing, an error or a warning  is emitted.
 
 You can run the same command with your package's name instead of "core", see if the problem lies in here.
 
@@ -185,28 +189,22 @@ If you want to target **all the classes** of a package, you can specify with ```
 
 ### Debug mode
 
-Alternatively, you can grant all access through all the project. This should only be used for testing purpose.
+Alternatively, you can grant all rights to all users (for testing purpose): 
 
-In the `/config` folder, open the **`config.inc.php`** file. If you don't have one, create one by copying it from `default.inc.php`.
+In the `/config` folder, open or create the `config.json` file and add or adapt the "DEFAULT_RIGHTS" value.
 
-There is a parameter called "DEFAULT_RIGHTS" you can customize :
-
-```php
-<?php
-// [...]
-
-	// replace this
-    define('DEFAULT_RIGHTS', 0);
-
-	// by this
-    define('DEFAULT_RIGHTS', QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE);
-
-// [...]
+Replace this :
+```json
+    "DEFAULT_RIGHTS": 0
+```
+By this :
+```json
+    "DEFAULT_RIGHTS": "QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE"
 ```
 
-Uncomment the commented part, comment the uncommented part, then save.
 
-Note: eQual uses binary masks for granting rights : 
+
+Note: eQual uses binary masks for granting rights.
 
 - 0 means **no rights** 
 - 1 is **create** 
@@ -217,29 +215,7 @@ Note: eQual uses binary masks for granting rights :
 
 
 
-## 5. Change default view
-
-In `/config`, open *config.inc.php* or *default.inc.php* (unrecommended) and adapt this :
-
-```php
-define('default_package', 'mypackage');
-```
-
-In `/packages/mypackage`, create a *config.inc.php* file and add these lines :
-
-```php
-<?php
-namespace config;
-
-define('DEFAULT_APP', 'landing');	
-// it refers to packages/mypackage/apps/landing.php
-```
-
-And we're done, eQual will now use the landing controller when requesting mypackage.
-
-To test it, navigate to: [http://equal.local/?show=mypackage](http://equal.local/?show=mypackage)
-
-### More learning ressources
+## More learning ressources
 
 See [*Usage*](../usage/directory-structure.md) and [*Howtos*](../howtos-and-examples/generic-cheat-sheet.md)
 

@@ -6,47 +6,25 @@ These properties are defined throuh config files.
 
 eQual supports cascading configuration : each package can have a config file of its own that defines specific properties or overwrites existing properties.  
 
-Config files are optional, and the default values for mandatory properties are stored in the configuration schema (see below). 
+Config files are optional, and the default values for mandatory properties are listed in the configuration schema (see below). 
 
 The root custom config file must be placed under : `./config/` and is expected to be named `config.json`.  
 
-Properties are exported as (global) constants.
-Services, controllers and classes are responsible of announcing which constants they expect (throug a `getConstants()` method). If one of the required constant is missing, an exception is raised.
+Properties are exported as (global) constants. Services, controllers and classes are responsible of announcing which constants they expect (through a `getConstants()` method). If one of the required constant is missing, an exception is raised.
 
 
-Config properties must always be called by using the `constant()` function. This is because, since they're not defined at the moment the parsing is done, using literal notation would result in warnings and wrong values assignments.
+Settings values defined in config files must always be called by using the `constant()` function. This is because, since they're not defined at the moment the parsing is done, using literal notation would result in warnings and wrong values assignments.
 
 
 ## schema
 
-A `schema.json` file is located under the `./config/` folder. That file holds a comprehensive description of role and usage for each constant.
+A `schema.json` file is located under the `./config/` folder. That file holds a comprehensive description of the role and usage of each available constant.
 
 Some constants might be required by mandatory services. Those must therefore be defined immediately when the config file is read. Those properties are marked as 'instant'. 
 
-When no value is given in config.json for such property: if a 'default' value or an 'environment' varname is given in schema, the constant is declared using the retrieved value, if not and if the property is marked as 'required' an Exception is raised, otherwise property is ignored and no constant is defined.
+When no value is given in `config.json` for such property, if a 'default' or an 'environment' property is set, the constant is declared using the retrieved value, if not, the property is ignored and no constant is defined, unless the property is also marked as 'required' in which case an Exception is raised.
 
-As a convention, it is best to leave the default config file untouched, and create a copy of it, named `config.inc.php` for customizing the configuration of your installation.
-
-Below is the detail of these constants (that are mandatory and cannot be overriden) and their roles.
-
-
-
-!!! note "About integer values"  
-    Properties set as integer can also hold a string that supports the following shorthand notations (case-sensitive):
-
-    * memory notation (converted in bytes)
-        * KB (for KiloBytes)
-        * MB (for MegaBytes) 
-        * GB (for GigaBytes)
-    * time notations (converted in seconds)
-        * s for seconds (default)
-        * m for minutes (=60s)
-        * h for hours (=60m)
-        * d for days (=24h)
-        * w for weeks (=7d)
-        * M for months (=4w)
-        * Y for years (=12m)
-
+Below is the detail of these constants (that are mandatory and cannot be overridden) and their roles.
 
 
 ### General properties
@@ -82,8 +60,8 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
-|DB_REPLICATION|MS|Database replication : \* - **'NO'**: no replication \*  - **'MS'** ('master-slave'): 2 servers; write operations are performed on both servers, read operations are performed on the master only \* - **'MM'** ('multi-master'): any number of servers; write operations are performed on all servers, read operations can be performed on any server.|
-|DB_DBMS|MYSQL|Database management system.|
+|DB_REPLICATION|MS|Database replication : <br />* **'NO'**: no replication <br />\*  **'MS'** ('master-slave'): 2 servers; write operations are performed on both servers, read operations are performed on the master only <br />\* **'MM'** ('multi-master'): any number of servers; write operations are performed on all servers, read operations can be performed on any server.|
+|DB_DBMS|MYSQL|Selection of the Database Management System.|
 |DB_CHARSET|UTF8|Default Charset.|
 |DB_HOST|getenv('EQ_DB_HOST')?getenv('EQ_DB_HOST'):'127.0.0.1')|DB host.|
 |DB_PORT|getenv('EQ_DB_PORT')?getenv('EQ_DB_PORT'):'3306')|DB port.|
@@ -106,4 +84,23 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 |AUTH_ACCESS_TOKEN_VALIDITY|3600*1|Validity duration of the access token, in seconds.|
 |AUTH_REFRESH_TOKEN_VALIDITY|3600\*24*90|Set refresh token validity, in days here.|
 |AUTH_TOKEN_HTTPS|false|Limit sending of auth token to HTTPS.|
-|ROOT_APP_URL|http://localhost|Root URL of the application.|
+|ROOT_APP_URL|http://equal.local|Root URL of the application.|
+
+
+
+!!! note "About integer values"  
+    Properties set as integer can also hold a string that supports the following shorthand notations (case-sensitive):
+
+    * memory notation (converted in bytes)
+        * KB (for KiloBytes)
+        * MB (for MegaBytes) 
+        * GB (for GigaBytes)
+        * time notations (converted in seconds)
+        * s for seconds (default)
+        * m for minutes (=60s)
+        * h for hours (=60m)
+        * d for days (=24h)
+        * w for weeks (=7d)
+        * M for months (=4w)
+        * Y for years (=12m)
+

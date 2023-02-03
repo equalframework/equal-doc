@@ -132,30 +132,13 @@ In addition to classic CRUD operations, eQual comes with a  `search()` method de
 function search($class, $domain=null, $sort=['id' => 'asc'], $start='0', $limit='0', $lang=null) {
 ```
 
-Example :
-
-
-```php
-<?php
-use core\User;
-
-User::search(['firstname', 'ilike', '%sam%'])
-    ->from(0)
-    ->limit(5)
-    ->get();
-```
-
 
 
 ### Collections 
 
-eQual also implements Collections through `Collection` objects that are instantiated using entities (model).
+eQual implements Collections through `Collection` objects that are instantiated using entities (model).
 
 Collections give the ability to apply chained actions on multiple objects at a time while checking the permission of the current user (returned by the `Authentication` service).
-
-
-
-
 
 
 
@@ -176,7 +159,9 @@ User::search(['firstname', 'ilike', '%sam%'])
 
 Retrieving a collection is through API calls is available using the standard controller `core_model_collect`.
 
-The purpose of that operation  is to perform a `search()` and a `read()` in a single call.
+The purpose of the "collect" operation is to perform a `search()` and a `read()` in a single call.
+
+
 
 #### Querying sub-objects
 
