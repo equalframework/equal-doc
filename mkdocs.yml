@@ -51,11 +51,10 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 nav:
-  - 'Welcome':
-      - 'Prologue': 'index.md'
+  - 'Welcome': 'index.md'
+  - 'Prologue':
       - 'Release notes': 'welcome/release-notes.md'
       - 'Contribution Guide': 'welcome/contribution-guide.md'
-      - 'Getting Started': 'getting-started/installation.md'
   - 'Getting Started':
       - 'Installation': 'getting-started/installation.md'
       - 'Quick Start': 'getting-started/quick-start.md'
