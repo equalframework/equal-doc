@@ -248,7 +248,9 @@ Edit `config.json` to adapt the values according to your environment:
 ```
 If you are under a docker environment , replace the DB_HOST value with equal_db
 
-If some problems appear with the charset, try to replace it with utf8mb4
+If there are issues with the charset, it may be because utf8 is an alias of utf8mb3 in mysql right now (version 8.0)
+
+So utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wishto store language characters and symbols, utf8mb4 is a solution
 
 
 ### Database initialization
