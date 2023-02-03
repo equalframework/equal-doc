@@ -250,7 +250,7 @@ If you are under a docker environment , replace the DB_HOST value with equal_db
 
 If there are issues with the charset, it may be because utf8 is an alias of utf8mb3 in mysql right now (version 8.0)
 
-So utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wishto store language characters and symbols, utf8mb4 is a solution
+So utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wish to store language characters and symbols, utf8mb4 is a solution
 
 
 ### Database initialization
