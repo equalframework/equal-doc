@@ -173,7 +173,7 @@ If you want to bypass this you have 2 options :
 
 ### CLI commands
 
-When you make a CLI command, eQual automatically bypass all limitations. It makes it the only reliable way to give and retain rights within your project.
+When using CLI commands, no permission checks are made and all requests are handled in super-suer mode. It is thus the preferred way to grant and revoke rights.
 
 The rights available are **create**, **read**, **update**, **delete**, **manage**.
 

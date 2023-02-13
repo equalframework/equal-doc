@@ -20,8 +20,8 @@ By convention, in case of error, a negative integer is returned.
 !!! note "error codes"
     All codes are prefixed with `QN_ERROR_` (not show in the table to avoid redundancy). So, for instance,  `UNKNOWN` will appear as `QN_ERROR_UNKNOWN` in code.
 
-| NAME | VALUE | DESCRIPTION |
-| ---- | ----- | ----------- |
+| **NAME**    | **VALUE** | **DESCRIPTION** |
+| ----------- | ----- | --------- |
 |`UNKNOWN`|-1| Something went wrong in an unexpected way. |
 |`MISSING_PARAM`|-2| One or more mandatory parameters are missing. |
 |`INVALID_PARAM`|-4| One or more parameters have invalid or incompatible value. |

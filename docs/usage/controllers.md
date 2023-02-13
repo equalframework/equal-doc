@@ -15,7 +15,7 @@ eQual follows the CQRS architectural pattern (Command-Query Responsibility Separ
 
 !!! note "About Controllers"
     * Controllers are re-usable and can be interdependent.
-        * Controllers can act as data funnels and dispatchers.
+    * Controllers can act as data funnels and dispatchers.
 
 ## Announcement
 
@@ -122,4 +122,18 @@ Example:
 <?php 
 'providers'   => ['context', 'orm' , 'auth']     
  //'orm'= ObjectManager & 'auth'=AuthentificationManager
+```
+
+
+
+## CLI calls
+
+When invoking controllers through CLI, parameters can be provided using long options notation :  `--arg=param` (as handled by `getopt_long()`).
+
+As the command will be interpreted by bash and that special chars might be involved in the parameters values, it might be necessary to encapsulate values within double quotes.
+
+Example:
+
+```bash
+./equal.run --get=model_collect --entity=core\\User --domain="[id,>,100]" --limit=500 --fields="{id,points}"
 ```
