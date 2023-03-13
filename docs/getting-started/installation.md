@@ -2,9 +2,9 @@
 
 
 
-## Using Docker
+## 1. Using Docker
 
-### 1. Install Docker
+### Install Docker
 
 #### Linux
 See the official doc from Docker [here](https://docs.docker.com/engine/install/).
@@ -28,7 +28,7 @@ $ wsl --install
 
 
 
-### 2. Start the container
+### Start the container
 
 Download the [Docker Compose file from github](https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml).
 
@@ -82,7 +82,7 @@ Some editors use extensions that able you to use a [Docker container](https://do
 
 
 
-## Manual installation
+## 2. Manual installation
 
 ### Requirements
 

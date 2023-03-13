@@ -237,7 +237,7 @@ Empty arrays or items set to false mean that the action is not available for the
             ],
             "ACTION.SELECT": false,
             "ACTION.SAVE": [ {"id": "SAVE_AND_CONTINUE"}, {"id": "SAVE_AND_CLOSE"} ],
-            "ACTION.CANCEL": [ {"id": CANCEL_AND_VIEW"}]
+            "ACTION.CANCEL": [ {"id": "CANCEL_AND_VIEW"}]
         }
     }
 ```
@@ -254,7 +254,7 @@ Here is an example of an extended class.
 <?php
 namespace lodging\sale\booking;
     
-    class Contact extends \sale\booking\Contact {
+class Contact extends \sale\booking\Contact {
     
     public static function getName() {
         return "Contact";
@@ -298,7 +298,7 @@ namespace lodging\sale\booking;
     
         ];
     }
-    }
+}
 ```
 
 To decide which view will be used, eQual uses a system of **class inheritance**, where the child view (*class extending the parent*) **replaces** the parent (*class being extended*) view file.
@@ -342,13 +342,13 @@ while(true) {
     $class_path = implode('/', $parts);
     $file = QN_BASEDIR."/packages/{$package}/views/{$class_path}/{$file}.{$params['view_id']}.json";
 
-    if(file_exists($file)) {                                   //(1)
+    if(file_exists($file)) {                               //(1)
         break;
     }
 
-    $parent = get_parent_class($orm->getModel($entity));       //(2)
+    $parent = get_parent_class($orm->getModel($entity));   //(2)
     
-    if(!$parent || $parent == 'equal\orm\Model') {             //(3) 
+    if(!$parent || $parent == 'equal\orm\Model') {         //(3) 
         break;
     }
 
@@ -673,16 +673,8 @@ A list view is defined according to the following structure:
         "description": "Users with locale set to french",
         "clause": ["language", "=", "fr"] 
     }
-  ],
+  ],   
   "layout": {
-    "filter": "bool",
-    "pager": "bool",
-    "selection_actions": [
-      {
-          "label": "export",
-          "action": "products_export"
-      }
-    ],
     "items": [
         {
             "type": "field",
@@ -771,9 +763,9 @@ The list view is named *Category.list.default.json* and has the following struct
 | [order](#list_order)       | (optional)                                                   |
 | [controller](#list_sort)   | (optional)                                                   |
 | [sort](#list_sort)         | (optional)                                                   |
-| [limit](#list_limit)       | (optional)                                                   |
+| [limit](#list_limit)       | (optional)                           |
 | [domain](#list_domain)     | (optional)                                                   |
-| [filters](#list_filters)   | (optional)                                                   |
+| [filters](#list_filters)   | (optional) array of filter descriptors or boolean false to hide the filtering options |
 | [header](#list_header)     | (optional) The **header** section allows to override the default behavior of the view. |
 | [actions](#list_actions)   | (optional)                                                   |
 | [exports](#list_exports) | (optional)                                                   |
@@ -907,11 +899,31 @@ Example :
                 "label": "Mark as ignored",
                 "icon": "",
                 "controller": "lodging_sale_booking_bankstatementline_bulk-ignore"
+            },
+            {
+                "id": "ACTION.CLONE",
+                "visible": false
             }
         ]
     }
 }
 ```
+
+
+
+Custom actions can have an arbitrary ID, while default actions use the common actions IDs : 
+```
+ACTION.EDIT
+ACTION.EDIT_BULK
+ACTION.EDIT_INLINE
+ACTION.CLONE
+ACTION.ARCHIVE
+ACTION.DELETE
+```
+
+!!! note "Hiding a specific default action"
+
+​    Default actions can be overwritten by using the targeted ID and setting the `visible` property to false.
 
 <a name="list_actions"></a>
 
@@ -1232,9 +1244,9 @@ The following example displays 4 different views to simplify the management of i
                                                 "label": "Mes Réservations",
                                                 "description": "",
                                                 "width": "50%",
-                                                "entity": "lodging\\sale\\booking\\Booking",         * // Following section
+                                                "entity": "lodging\\sale\\booking\\Booking",
                                                 "view": "list.dashboard",
-                                                "domain": ["creator", "=", "user.id"]                **
+                                                "domain": ["creator", "=", "user.id"]
                                             }
 
                                         ]
