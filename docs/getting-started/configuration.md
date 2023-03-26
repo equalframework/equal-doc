@@ -2,11 +2,13 @@
 
 eQual allows to define globally some values that are used across the different services as configuration properties.  
 
-These properties are defined throuh config files. 
+These properties are defined through config files. 
 
 eQual supports cascading configuration : each package can have a config file of its own that defines specific properties or overwrites existing properties.  
 
 Config files are optional, and the default values for mandatory properties are listed in the configuration schema (see below). 
+
+## config file
 
 The root custom config file must be placed under : `./config/` and is expected to be named `config.json`.  
 
@@ -18,7 +20,7 @@ Settings values defined in config files must always be called by using the `cons
 
 ## schema
 
-A `schema.json` file is located under the `./config/` folder. That file holds a comprehensive description of the role and usage of each available constant.
+The `schema.json` file is located under the `./config/` folder. That file holds a comprehensive description of the role and usage of each available constant.
 
 Some constants might be required by mandatory services. Those must therefore be defined immediately when the config file is read. Those properties are marked as 'instant'. 
 
@@ -89,13 +91,14 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 
 
 !!! note "About integer values"  
-    Properties set as integer can also hold a string that supports the following shorthand notations (case-sensitive):
+    Properties holding an integer value can be given as a string that supports the following shorthand notations (case-sensitive):
 
     * memory notation (converted in bytes)
         * KB (for KiloBytes)
         * MB (for MegaBytes) 
         * GB (for GigaBytes)
-        * time notations (converted in seconds)
+    
+    * time notations (converted in seconds)
         * s for seconds (default)
         * m for minutes (=60s)
         * h for hours (=60m)
