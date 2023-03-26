@@ -1,12 +1,12 @@
 # HTTP native
 
-eQual complies with HTTP standards by natively analyzing HTTP messages to route client requests to the appropriate controller and outputting data as an HTTP response.
+eQual complies with HTTP standards by natively analyzing HTTP messages to route client requests to the appropriate controller.
 
-A controller can announce which content-type it uses for the output. And in all situations, the output is sent to the STDOUT stream. For that reason, eQual can can seamlessly be used in both CLI or ReSTful API context.
+A controller can announce which content-type must be used for the output. And in all situations, the output is sent to the STDOUT stream. For that reason, eQual can can seamlessly be used in both CLI or HTTP context.
 
 
 
-The following schema uses number lists, representing the order in which the elements happen.
+The following schema summarizes the way HTTP requests are handled in order to generate a response.
 
 ![http-request](../assets/img/http-request.drawio.png)
 
@@ -39,9 +39,9 @@ Hello World
 
 Controllers are considered as **operations** that run specific sets of instructions based on parameters provided in the HTTP request.
 
-For convenience, controllers can also be invoked in a CLI context, or directly within a PHP script.
+For convenience, controllers can also be invoked in a CLI context, or directly within another PHP script.
 
-Example : 
+Examples : 
 
 | **PATH** | `demo\simple.php`                                        |
 | ---------------- | ------------------------------------------------------- |
@@ -66,9 +66,9 @@ Here is an example of a controller invocation :
 http://equal.local/?get=model_collect&entity=core\Group
 ```
 
-In this example, the main entry point (`index.php`) will try to execute the following script : `packages/core/data/model/collect.php`.
+In this example, the main entry point (`index.php`) will run the script `packages/core/data/model/collect.php`.
 
-
+### Unknown routes
 
 If no controller matches the received request, a response with a `404 status` is returned.
 
@@ -76,6 +76,12 @@ Example:
 
 http://equal.local/?do=foo
 ```JSON
+HTTP/1.1 404 Not Found
+Server: Apache/2.4.51
+Content-Type: application/json
+Connection: Keep-Alive
+Content-Length: 96
+
 {
     "errors": {
         "UNKNOWN_OBJECT": "Unknown ACTION_HANDLER (do) public:foo"
@@ -87,20 +93,17 @@ http://equal.local/?do=foo
 
 ## Default controller
 
-The main config file (`config/config.inc.php`) allows to define a default package, and a default App can be defined for every package.  
+The main config file (`config/config.json`) allows to define a default package and a default App to make the root entry-point redirect to a webapp.  
 
 
-```php
-<?php
-define('DEFAULT_PACKAGE', 'core');
+```json
+{    
+    [...],
+    "DEFAULT_PACKAGE": "core",
+    "DEFAULT_APP": "workbench",
+    [...]
+}
 ```
 
-In turn, each package can define a default App in its own config file (i.e. `packages/equal/config.inc.php`)
-```php
-<?php
-namespace config;
-define('DEFAULT_APP', 'workbench');
-```
-
-This allows to make the root entry point redirect to a webapp (in this example:  `http://equal.local/index.php?show=core_workbench'`).
+In this example, we define the root entry-point `http://equal.local/` will redirect to a `http://equal.local/index.php?show=core_workbench'`.
 
