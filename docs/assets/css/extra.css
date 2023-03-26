@@ -5,6 +5,7 @@ body {
 
 article table {
 	font-size: 0.95em !important;
+	border-radius: 10px;
 }
 
 article table th {
@@ -15,6 +16,7 @@ article table th {
 }
 article table th strong {
 	color: white;
+	font-weight: 500;
 }
 
 article .admonition {
