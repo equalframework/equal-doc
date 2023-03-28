@@ -2,7 +2,7 @@
 
 
 
-The latest build of the eQual Docker image is available at [https://hub.docker.com/repository/docker/cedricfrancoys/equal](https://hub.docker.com/repository/docker/cedricfrancoys/equal)
+The latest build of the eQual Docker image is available at [https://hub.docker.com/repository/docker/equalframework/equal](https://hub.docker.com/repository/docker/equalframework/equal)
 
 Here are the steps for getting the Docker image from Docker Hub and running it.
 
@@ -13,7 +13,7 @@ Here are the steps for getting the Docker image from Docker Hub and running it.
 ### 1. Pull Image from Docker Hub
 
 ```
-docker pull cedricfrancoys/equal:latest
+docker pull equalframework/equal:latest
 ```
 
 
@@ -21,7 +21,7 @@ docker pull cedricfrancoys/equal:latest
 ### 2. Run the downloaded Docker Image 
 
 ```
-docker run --name equal.local -p 80:8080 -d cedricfrancoys/equal:latest 
+docker run --name equal.local -p 80:8080 -d equalframework/equal:latest 
 ```
 
 
@@ -45,7 +45,7 @@ Create a file named `docker-compose.yml` with the content below:
 version: '3'
 services:
   equal:
-    image: cedricfrancoys/equal
+    image: equalframework/equal
     restart: always
     ports:
       - 80:80
