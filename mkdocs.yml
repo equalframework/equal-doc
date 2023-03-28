@@ -3,7 +3,7 @@ site_url: https://doc.equal.run/
 docs_dir: docs
 # dev_addr: 127.0.0.1:8000
 repo_name: equal
-repo_url: https://github.com/cedricfrancoys/equal
+repo_url: https://github.com/equalframework/equal
 edit_uri: ""
 theme:
   name: material

@@ -2,7 +2,7 @@
 
 
 
-Support is provided on a volunteer basis. If you have any specific question regarding eQual, please consider using [Github](https://github.com/cedricfrancoys/equal/issues) or [Stackoverflow](https://stackoverflow.com/questions/tagged/equal-framework).
+Support is provided on a volunteer basis. If you have any specific question regarding eQual, please consider using [Github](https://github.com/equalframework/equal/issues) or [Stackoverflow](https://stackoverflow.com/questions/tagged/equal-framework).
 
 
 

@@ -38,7 +38,7 @@ So,in the folder `packages/blog/classes`, we add a new file named `Post.class.ph
 <?php
 namespace blog;
 
-class Post extends \core\Object {
+class Post extends \core\Model {
 
     public static function getColumns() {
         return [
@@ -282,7 +282,7 @@ http:`equal.local/index.php?show=core_manage''
         </div>    
         <div id="footer">
             <p>
-                <a title="equal" href="http:`equal.cedricfrancoys.be/">Powered by equal</a>
+                <a title="equal" href="http:`equal.run/">Powered by equal</a>
                 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <a title="Diovo" href="http:`www.diovo.com/links/voidy/">Theme by Niyaz</a>
             </p>    

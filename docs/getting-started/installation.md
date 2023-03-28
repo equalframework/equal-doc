@@ -30,10 +30,10 @@ $ wsl --install
 
 ### Start the container
 
-Download the [Docker Compose file from github](https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml).
+Download the [Docker Compose file from github](https://raw.githubusercontent.com/equalframework/equal/master/.docker/docker-compose.yml).
 
 ```bash
-$ wget https://raw.githubusercontent.com/cedricfrancoys/equal/master/.docker/docker-compose.yml
+$ wget https://raw.githubusercontent.com/equalframework/equal/master/.docker/docker-compose.yml
 ```
 
 And instantiate the stack by using the following command :  
@@ -159,13 +159,13 @@ SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
 
 - Download code as ZIP: 
 
-  `wget https://github.com/cedricfrancoys/equal/archive/master.zip`
+  `wget https://github.com/equalframework/equal/archive/master.zip`
 
 **OR**
 
 - Clone with Git :
 
-  `git clone https://github.com/cedricfrancoys/equal.git`
+  `git clone https://github.com/equalframework/equal.git`
 
 
 Copy the files to your webserver HTML directory.
