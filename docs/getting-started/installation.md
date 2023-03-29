@@ -1,15 +1,15 @@
 # Installation
 
+## 1. Install
 
+### Option A - Using Docker
 
-## A. Using Docker
+#### 1. Install Docker
 
-### 1. Install Docker
-
-#### Linux
+##### Linux
 [See the official doc on docker.com](https://docs.docker.com/desktop/install/linux-install/).
 
-#### Windows 
+##### Windows 
 [See the official doc on docker.com](https://docs.docker.com/desktop/install/windows-install/).
 
 * install Windows HyperV
@@ -19,7 +19,7 @@
 
 
 
-### 2. Start the container
+#### 2. Start the container
 
 Download the [Docker Compose file from github](https://raw.githubusercontent.com/equalframework/equal/master/.docker/docker-compose.yml).
 
@@ -72,9 +72,9 @@ Some editors use extensions that able you to use a [Docker container](https://do
 
 
 
-## B. Manual installation
+### Option B - Manual installation
 
-### Requirements
+#### Requirements
 
 eQual requires the following dependencies:
 
@@ -83,13 +83,13 @@ eQual requires the following dependencies:
 - **MySQL 5+** compatible DBMS (MySQL or MariaDB)
 
 
-### 1. Environment setup
+#### 1. Environment setup
 
-#### OS configuration
+##### OS configuration
 
 
 
-##### Ubuntu
+###### Ubuntu
 
 Installing the LAMP stack under Ubuntu is straightforward:
 
@@ -118,7 +118,7 @@ Add the PHP binary to the PATH environment variable:
 export PATH=$PATH:/usr/bin/php
 ```
 
-##### RedHat / Fedora / Centos 
+###### RedHat / Fedora / Centos 
 
 Install Mysql server, PHP and Apache:
 ```bash
@@ -126,7 +126,7 @@ yum update
 yum install httpd php mysql-server php-mysql
 ```
 
-##### Windows
+###### Windows
 
 Under Windows, you can use any of the following tools for a ready-to-use WAMP environment :
 
@@ -138,14 +138,14 @@ Retrieve the path of the PHP executable:
 ```bash
 where php
 ```
-This will output something like `C:\wamp64\bin\php\php7.2.18\php.exe` 
+This will output something like `C:\wamp64\bin\php\php7.4.26\php.exe` 
 
 Add the PHP binary to the PATH environment variable:
 ```bash
-SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
+SET PATH=%PATH%;C:\wamp64\bin\php\php7.4.26
 ```
 
-### 2. Getting eQual
+#### 2. Getting eQual
 
 - Download code as ZIP: 
 
@@ -168,7 +168,7 @@ cp equal /var/www/html/
 
 
 
-### 3. Virtual host configuration
+#### 3. Virtual host configuration
 
 Within the documentation pages, we refer to the installation that runs on a local web server using `equal.local`as servername  (accessible through http://equal.local).
 
@@ -208,9 +208,9 @@ You should get the simple output "hello universe". If not, review carefully the 
 
 
 
-# Configuration
+## 2. Configure
 
-### Config file
+#### Config file
 
 eQual expects an optional root config file in the `/config` directory.
 
@@ -247,7 +247,7 @@ If you are under a docker environment, replace the DB_HOST value with `equal_db`
     If there are issues with the charset, it may be because UTF8 is an alias of utf8mb3 in mysql 8.0 (utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wish to store language characters and symbols, consider using utf8mb4).
 
 
-### Database initialization
+#### Database initialization
 
 You should now have a properly configured environment and be able to perform some operations calls.
 
@@ -283,7 +283,7 @@ The database can be created by using the `core_init_db controller`.
 
   	
 
-### Package  initialization
+#### Package  initialization
 
 In order to be able to manipulate entities, the related package needs to be initialized (each package contains the class definition of its own entities).
 This can be done by using the `core_init_package` controller.
@@ -309,7 +309,7 @@ Example:
 
 
 
-# API requests
+## 3. Make first API requests
 
 A list of routes related to default API is defined in `/config/routing/api_default.json`.
 Here below are some examples of HTTP calls and their responses (in JSON) that you can us to test your installation:
@@ -318,19 +318,23 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 ### Fetch the details of the root user [1]
 
-**Request:**
+**HTTP Request:**
 
 `GET /user/1`
+
+**CLI Equivalent:**
+
+`$ ./equal.run --get=model_read --entity=core\\User --ids=[1]`
 
 **Response:**
 
 ```json
 [
     {
-        "id": 1,
-        "name": "admin",
+        "modified": "2023-01-28T00:00:00+00:00",
         "state": "instance",
-        "modified": "2012-08-18T15:06:43+02:00"
+        "id": 1,
+        "name": "root@host.local"
     }
 ]
 ```
@@ -339,26 +343,30 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 ### Fetch the full list of existing groups
 
-**Request:**
+**HTTP Request:**
 
 `GET /users`
+
+**CLI equivalent:**
+
+`$ ./equal.run --get=model_collect --entity=core\\User`
 
 **Response:**
 
 ```json
 [
     {
-        "id": 1,
-        "name": "admin",
+        "modified": "2023-01-28T00:00:00+00:00",
         "state": "instance",
-        "modified": "2012-08-18T15:06:43+02:00"
+        "id": 1,
+        "name": "root@host.local"
     },
     {
-        "id": 2,
-        "name": "cedric@equal.run",
+        "modified": "2023-02-12T12:12:52+00:00",
         "state": "instance",
-        "modified": "2014-09-04T12:21:34+02:00"
-    }
+        "id": 2,
+        "name": "cedric@equal.run"
+    },
 ]
 ```
 
