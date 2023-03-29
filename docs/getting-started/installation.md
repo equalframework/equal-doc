@@ -2,33 +2,24 @@
 
 
 
-## 1. Using Docker
+## A. Using Docker
 
-### Install Docker
+### 1. Install Docker
 
 #### Linux
-See the official doc from Docker [here](https://docs.docker.com/engine/install/).
-
-Ubuntu
-```bash
-$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-```
+[See the official doc on docker.com](https://docs.docker.com/desktop/install/linux-install/).
 
 #### Windows 
+[See the official doc on docker.com](https://docs.docker.com/desktop/install/windows-install/).
 
 * install Windows HyperV
-
 * install WSL
-``` bash
-$ wsl --install
-```
 * install WSL2 core update  (can be found [here](https://docs.microsoft.com/fr-fr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package))
-
 * install [Docker Desktop for windows ](https://docs.docker.com/desktop/install/windows-install/)
 
 
 
-### Start the container
+### 2. Start the container
 
 Download the [Docker Compose file from github](https://raw.githubusercontent.com/equalframework/equal/master/.docker/docker-compose.yml).
 
@@ -37,16 +28,15 @@ $ wget https://raw.githubusercontent.com/equalframework/equal/master/.docker/doc
 ```
 
 And instantiate the stack by using the following command :  
+Under Linux:
+```bash
+$ docker-compose up -d
+```
 Under Windows:
 
 ```bash
 $ docker compose up -d
 ```
-Under Linux:
-```bash
-$ docker-compose up -d
-```
-
 
 
 !!! note "Using the Docker image"
@@ -82,7 +72,7 @@ Some editors use extensions that able you to use a [Docker container](https://do
 
 
 
-## 2. Manual installation
+## B. Manual installation
 
 ### Requirements
 
@@ -93,7 +83,7 @@ eQual requires the following dependencies:
 - **MySQL 5+** compatible DBMS (MySQL or MariaDB)
 
 
-### Environment setup
+### 1. Environment setup
 
 #### OS configuration
 
@@ -155,7 +145,7 @@ Add the PHP binary to the PATH environment variable:
 SET PATH=%PATH%;C:\wamp64\bin\php\php7.2.18
 ```
 
-#### Getting eQual
+### 2. Getting eQual
 
 - Download code as ZIP: 
 
@@ -178,7 +168,7 @@ cp equal /var/www/html/
 
 
 
-#### Virtual host configuration
+### 3. Virtual host configuration
 
 Within the documentation pages, we refer to the installation that runs on a local web server using `equal.local`as servername  (accessible through http://equal.local).
 
@@ -218,7 +208,7 @@ You should get the simple output "hello universe". If not, review carefully the 
 
 
 
-## Configuration
+# Configuration
 
 ### Config file
 
@@ -227,10 +217,15 @@ eQual expects an optional root config file in the `/config` directory.
 To create and customize your config file, start by creating `config.json`:
 
 ```bash
-touch config/config.json
+$ touch config/config.json
 ```
 
-Edit `config.json` to adapt the values according to your environment:
+As an alternative, you can also use one of the example config files, by copying 
+```bash
+$ cp config-example_xxxxx.json config.json
+```
+
+Here is a minimalist `config.json` that you can adapt according to your environment:
 
 ```php
 {
@@ -241,16 +236,15 @@ Edit `config.json` to adapt the values according to your environment:
     "DB_PASSWORD": "test",
     "DB_NAME": "equal",
     "DB_CHARSET": "UTF8",
-    "DEBUG_MODE": "QN_DEBUG_PHP | QN_DEBUG_ORM | QN_DEBUG_SQL",
-    "DEBUG_LEVEL": "QN_REPORT_DEBUG | QN_REPORT_INFO | QN_REPORT_WARNING | QN_REPORT_ERROR | QN_REPORT_FATAL",
-    "DEFAULT_RIGHTS": "QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE"
+    "DEBUG_MODE": "QN_MODE_PHP | QN_MODE_ORM | QN_MODE_SQL",
+    "DEBUG_LEVEL": "E_ALL | E_ALL"
 }
 ```
 
 If you are under a docker environment, replace the DB_HOST value with `equal_db`.
 
 !!! note "DB_CHARSET"  
-    If there are issues with the charset, it may be because utf8 is an alias of utf8mb3 in mysql 8.0 (utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wish to store language characters and symbols, consider using utf8mb4).
+    If there are issues with the charset, it may be because UTF8 is an alias of utf8mb3 in mysql 8.0 (utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wish to store language characters and symbols, consider using utf8mb4).
 
 
 ### Database initialization
@@ -315,7 +309,7 @@ Example:
 
 
 
-## API requests
+# API requests
 
 A list of routes related to default API is defined in `/config/routing/api_default.json`.
 Here below are some examples of HTTP calls and their responses (in JSON) that you can us to test your installation:
