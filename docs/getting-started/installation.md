@@ -237,7 +237,9 @@ Here is a minimalist `config.json` that you can adapt according to your environm
     "DB_NAME": "equal",
     "DB_CHARSET": "UTF8",
     "DEBUG_MODE": "QN_MODE_PHP | QN_MODE_ORM | QN_MODE_SQL",
-    "DEBUG_LEVEL": "E_ALL | E_ALL"
+    "DEBUG_LEVEL": "E_ALL | E_ALL",
+    "DEFAULT_RIGHTS": "QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE",
+    "DEBUG_MODE": "QN_MODE_PHP | QN_MODE_ORM | QN_MODE_SQL"    
 }
 ```
 
@@ -376,6 +378,11 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 **Request:**
 
 `GET /groups`
+
+**CLI equivalent:**
+
+`$ ./equal.run --get=model_collect --entity=core\\Group`
+
 
 **Response:**
 

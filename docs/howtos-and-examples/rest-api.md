@@ -18,7 +18,7 @@ Each of those folders correspond to a specific role :
 > - /data		= 	method GET (fetching data from server)
 > - /classes	=	class definition & DB architecture
 
-Go ahead and create them in your package directory (ex: */public/packages/todolist/*)
+Go ahead and create them in your package directory (ex: */packages/todolist/*)
 
 
 
@@ -250,8 +250,7 @@ if(is_null($user)) {
 
 $task = Task::create($params)
         ->read(['id', 'title', 'content', 'deadline', 'user_id' => ['id', 'name']])
-        ->adapt('txt')
-        ->first();
+        ->first(true);
 
 $context->httpResponse()
         ->status(201)
@@ -336,8 +335,7 @@ if(is_null($user)) {
 $task = Task::ids($params['id'])
         ->update($params)
         ->read(['id', 'title', 'content', 'deadline', 'user_id' => ['id', 'name']])
-        ->adapt('txt')
-        ->first();
+        ->first(true);
 
 $context->httpResponse()
         ->status(201)
@@ -392,7 +390,7 @@ In practice :
 
 ```
 DO : DELETE
-http://equal-framework/index.php?do=todolist_task_delete&id=1
+http://equal.local/index.php?do=todolist_task_delete&id=1
 
 id= refers to the task we delete
 ```

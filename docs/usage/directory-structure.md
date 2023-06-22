@@ -108,17 +108,17 @@ package_name
 
 
 
-| **FOLDER** | **ROLE** | **URI KEY** |  **EXAMPLES**  |
-|-|-|-|---|
+| **FOLDER** | **ROLE** | **URI KEY** | **EXAMPLES**                                                                       |
+|-|-|-|------------------------------------------------------------------------------------|
 | classes    | model          |                  | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
-| actions    | action handler (controller) | do       | core_manage, core_utils |
-| apps       | applications related to the package |        | auth, apps |
-| data    | data provider | get       | core_objects_browse, core_user_lang |
-| test    | test units | do | `default.php` |
-| init    | initialize the package with data (**requires**:`import=true`) or routes | do | `core_Group.json` |
-| views    | templates |        | `User.form.default.json`, `User.list.default.json` |
-| i18n    | translations |        | `User.json` |
-| assets | static html |        | static content, javascripts, stylesheets, images |
+| actions    | action handler (controller) | do       | core_manage, core_utils                                                            |
+| apps       | applications related to the package |        | auth, apps                                                                         |
+| data    | data provider | get       | core_objects_browse, core_user_lang                                                |
+| test    | test units | do | `default.php`                                                                      |
+| init    | initialize the package with data (**requires**:`import=true`) or routes | do | `core_Group.json`                                                                  |
+| views    | templates |        | `User.form.default.json`, `User.list.default.json`                                 |
+| i18n    | translations |        | `User.json`                                                                        |
+| assets | static html |        | static content, javascripts, stylesheets, images                                   |
 
 
 
