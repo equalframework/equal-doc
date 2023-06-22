@@ -77,7 +77,9 @@ The entry point of every project, you'll find **index.php** as well as the **pac
 ## Packages
 
 An application is divided in several parts, stored in a package folder located under the `/packages` directory.
-Each package might contain the following folders (underlined folders are mandatory).
+Each package might contain the following folders (underlined folders are mandatory). 
+
+The package_name must be in **lowercase**.
 
 Each **package** is defined as follows :
 
