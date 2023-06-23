@@ -77,7 +77,9 @@ The entry point of every project, you'll find **index.php** as well as the **pac
 ## Packages
 
 An application is divided in several parts, stored in a package folder located under the `/packages` directory.
-Each package might contain the following folders (underlined folders are mandatory).
+Each package might contain the following folders (underlined folders are mandatory). 
+
+The package_name must be in **lowercase**.
 
 Each **package** is defined as follows :
 
@@ -108,17 +110,17 @@ package_name
 
 
 
-| **FOLDER** | **ROLE** | **URI KEY** |  **EXAMPLES**  |
-|-|-|-|---|
+| **FOLDER** | **ROLE** | **URI KEY** | **EXAMPLES**                                                                       |
+|-|-|-|------------------------------------------------------------------------------------|
 | classes    | model          |                  | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
-| actions    | action handler (controller) | do       | core_manage, core_utils |
-| apps       | applications related to the package |        | auth, apps |
-| data    | data provider | get       | core_objects_browse, core_user_lang |
-| test    | test units | do | `default.php` |
-| init    | initialize the package with data (**requires**:`import=true`) or routes | do | `core_Group.json` |
-| views    | templates |        | `User.form.default.json`, `User.list.default.json` |
-| i18n    | translations |        | `User.json` |
-| assets | static html |        | static content, javascripts, stylesheets, images |
+| actions    | action handler (controller) | do       | core_manage, core_utils                                                            |
+| apps       | applications related to the package |        | auth, apps                                                                         |
+| data    | data provider | get       | core_objects_browse, core_user_lang                                                |
+| test    | test units | do | `default.php`                                                                      |
+| init    | initialize the package with data (**requires**:`import=true`) or routes | do | `core_Group.json`                                                                  |
+| views    | templates |        | `User.form.default.json`, `User.list.default.json`                                 |
+| i18n    | translations |        | `User.json`                                                                        |
+| assets | static html |        | static content, javascripts, stylesheets, images                                   |
 
 
 
