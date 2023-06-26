@@ -896,13 +896,16 @@ In addition to the attributes common to all views (see <a href="#view_commons_he
 
 
 ##### filters
+The `filters` property allows to customize the available the filtering features available in the header of the view.
 
 | **PROPERTY** | **DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ |
 | **custom**  | (optional) Boolean for providing the ability to create custom filters on the view (default = true) |
 | **quicksearch**  | (optional) Boolean flag for providing a search input for performing search on the 'name' column of the current Entity. |
 
+
 ##### selection
+The `selection` property allows to customize the list of bulk actions that are available when one or more items are selected.
 
 | **PROPERTY** | **DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ |
