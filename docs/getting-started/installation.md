@@ -341,7 +341,7 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 
 
-### Fetch the full list of existing groups
+### Fetch the full list of existing users
 
 **HTTP Request:**
 
@@ -445,34 +445,3 @@ Note: The body request may be empty, but it is preferable to specify a name for 
 ```
 
 
-
-### Fetch the full list of existing groups
-
-**Request:**
-
-`GET /groups`
-
-**Response:**
-
-```json
-[
-    {
-        "id": 1,
-        "name": "root",
-        "state": "",
-        "modified": "2012-05-30T20:45:20+02:00"
-    },
-    {
-        "id": 2,
-        "name": "default",
-        "state": "instance",
-        "modified": "2021-07-05T12:40:49+02:00"
-    },
-    {
-        "id": 3,
-        "name": "test",
-        "state": "instance",
-        "modified": "2021-07-05T12:42:30+02:00"
-    }
-]
-```
