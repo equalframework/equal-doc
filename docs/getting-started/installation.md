@@ -219,10 +219,16 @@ To create and customize your config file, start by creating `config.json`:
 ```bash
 $ touch config/config.json
 ```
+To write to your config file, type the following command
 
-As an alternative, you can also use one of the example config files, by copying 
 ```bash
-$ cp config-example_xxxxx.json config.json
+$ vi config.json
+```
+
+As an alternative, you can also use one of the example config files, by copying
+
+```bash
+$ cp config-example_mysql.json config.json
 ```
 
 Here is a minimalist `config.json` that you can adapt according to your environment:
@@ -235,9 +241,7 @@ Here is a minimalist `config.json` that you can adapt according to your environm
     "DB_USER": "root",
     "DB_PASSWORD": "test",
     "DB_NAME": "equal",
-    "DB_CHARSET": "UTF8",
-    "DEBUG_MODE": "QN_MODE_PHP | QN_MODE_ORM | QN_MODE_SQL",
-    "DEBUG_LEVEL": "E_ALL | E_ALL"  
+    "DB_CHARSET": "UTF8"
 }
 ```
 
@@ -250,6 +254,8 @@ If you are under a docker environment, replace the DB_HOST value with `equal_db`
 #### Database initialization
 
 You should now have a properly configured environment and be able to perform some operations calls.
+
+##### Connection DBMS
 
 To make sure the DBMS can be access, you can use the following controller : 
 ```bash
@@ -264,6 +270,7 @@ Upon success this controller exits with no message (exit 0), and the database is
     }
 }
 ```
+##### Creation database
 
 The database can be created by using the `core_init_db controller`.
 
@@ -273,17 +280,9 @@ The database can be created by using the `core_init_db controller`.
 | **CLI**         | `$ ./equal.run --do=init_db`                                 |
 | **DESCRIPTION** | Creates a database using the details provided in config file. This controllers calls db-connectivity and if connection can be established with the host, it requests the creation of the database, if it does not exist yet. |
 
->  Alternatively, you can create the database manually : 
->
-> 
-> * Open MySQL session as root – type the password upon request (if none set omit -p)
-  	`mysql -u root -p`
-> * Create eQual database
-  	`create database mydb character set utf8;`
-
-  	
 
 #### Package  initialization
+
 
 In order to be able to manipulate entities, the related package needs to be initialized (each package contains the class definition of its own entities).
 This can be done by using the `core_init_package` controller.
@@ -311,7 +310,7 @@ Example:
 
 ## 3. Make first API requests
 
-A list of routes related to default API is defined in `/config/routing/api_default.json`.
+A list of routes related to default API is defined in `/config/routing/99-default.json`.
 Here below are some examples of HTTP calls and their responses (in JSON) that you can us to test your installation:
 
 
@@ -341,7 +340,7 @@ Here below are some examples of HTTP calls and their responses (in JSON) that yo
 
 
 
-### Fetch the full list of existing groups
+### Fetch the full list of existing users
 
 **HTTP Request:**
 
@@ -445,34 +444,3 @@ Note: The body request may be empty, but it is preferable to specify a name for 
 ```
 
 
-
-### Fetch the full list of existing groups
-
-**Request:**
-
-`GET /groups`
-
-**Response:**
-
-```json
-[
-    {
-        "id": 1,
-        "name": "root",
-        "state": "",
-        "modified": "2012-05-30T20:45:20+02:00"
-    },
-    {
-        "id": 2,
-        "name": "default",
-        "state": "instance",
-        "modified": "2021-07-05T12:40:49+02:00"
-    },
-    {
-        "id": 3,
-        "name": "test",
-        "state": "instance",
-        "modified": "2021-07-05T12:42:30+02:00"
-    }
-]
-```
