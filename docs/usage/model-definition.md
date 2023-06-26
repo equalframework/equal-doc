@@ -13,6 +13,8 @@ Here is an example of a `Category ` class having multiple fields for which we wi
 
 ```php
 <?php 
+// [...]
+
 class Category extends Model {
     
     public static function getColumns() {
