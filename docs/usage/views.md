@@ -3,9 +3,9 @@
 Views are intended to describe how to present the objects to end-users under a given context.
 They are used as templates for the front-end, and are stored as JSON files within the `views` folder of their respective package.
 
-Each of them represents a mode of visualization: form, list, chart, dashboard, etc; and can be edited independently from the models they relate to. 
+Each of them represents a mode of visualization: form, list, chart, dashboard, etc; and can be edited independently from the models they relate to.
 
-It is possible to define as many views (of different types, or variations of same type) as necessary. 
+It is possible to define as many views (of different types, or variations of same type) as necessary.
 Each view is referenced by an ID, which is composed of its type and its name.
 
 As a convention, a default view for `list` and `form` types should be defined for each entity.
@@ -32,7 +32,7 @@ Here is a recap for the `core\User` entity :
 ## Front-end logic
 
 A **View** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
-Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications. 
+Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications.
 
 Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
 
@@ -62,7 +62,7 @@ Some attributes are common to all types of views. Below is a list of the common 
 
 <a name="common_access"></a>
 
-#### access 
+#### access
 
 Associative map for restriction the access of the view to specific users.
 
@@ -71,7 +71,7 @@ Associative map for restriction the access of the view to specific users.
 | groups     | Array of group names whose members are granted for using the view. |
 | users | Array of logins of users that are granted for using the view. |
 
-Example : 
+Example :
 
 ```
 "access": {
@@ -81,7 +81,7 @@ Example :
 
 <a name="common_actions"></a>
 
-#### actions <a id="view_commons_actions"></a> 
+#### actions <a id="view_commons_actions"></a>
 
 The optional **actions**  property  contains a list of objects defining a custom list of possible actions attached to the view.
 
@@ -193,7 +193,7 @@ The actions property can be used for 3 purposes: to force action buttons visibil
 * For **forms**, default actions are : `ACTION.EDIT`, `ACTION.SAVE`, `ACTION.CREATE`, `ACTION.CANCEL`
 * For **lists**, default actions are : `ACTION.SELECT`, `ACTION.CREATE`
 
-Each action item is either a boolean or an array of items describing the order of the buttons and parameters for subsequent views. 
+Each action item is either a boolean or an array of items describing the order of the buttons and parameters for subsequent views.
 
 
 !!! Note "Action descriptor"
@@ -209,7 +209,7 @@ Empty arrays or items set to false mean that the action is not available for the
 | ACTION.CANCEL | For forms in edit mode, allows to cancel the changes made to the current object. |`CANCEL_AND_CLOSE`, `CANCEL_AND_VIEW`|
 | ACTION.SELECT | For relational fields, allows to select or add one or many objects and relay selection to parent View. ||
 
-**Predefined actions**: 
+**Predefined actions**:
 
 
 | **ACTION** | **DESCRIPTION** | **CONTROLLER** |
@@ -221,7 +221,7 @@ Empty arrays or items set to false mean that the action is not available for the
 | CREATE |  | model_create |
 | ADD |  | model_update |
 
-**Usage example**: 
+**Usage example**:
 
 ```json
     "header": {
@@ -253,19 +253,19 @@ Here is an example of an extended class.
 ```php
 <?php
 namespace lodging\sale\booking;
-    
+
 class Contact extends \sale\booking\Contact {
-    
+
     public static function getName() {
         return "Contact";
     }
-    
+
     public static function getDescription() {
         return "Booking contacts are persons involved in the organisation of a booking.";
     }
-    
+
     public static function getColumns() {
-    
+
         return [
             'owner_identity_id' => [
                 'type'              => 'many2one',
@@ -273,7 +273,7 @@ class Contact extends \sale\booking\Contact {
                 'description'       => 'The organisation which the targeted identity is a partner of.',
                 'default'           => 1
             ],
-    
+
             'partner_identity_id' => [
                 'type'              => 'many2one',
                 'foreign_object'    => 'lodging\identity\Identity',
@@ -281,21 +281,21 @@ class Contact extends \sale\booking\Contact {
                 'onupdate'          => 'identity\Partner::onupdatePartnerIdentityId',
                 'required'          => true
             ],
-    
+
             'booking_id' => [
                 'type'              => 'many2one',
                 'foreign_object'    => 'lodging\sale\booking\Booking',
                 'description'       => 'Booking the contact relates to.',
                 'required'          => true
             ],
-    
+
             'owner_identity_id' => [
                 'type'              => 'many2one',
                 'foreign_object'    => 'lodging\identity\Identity',
                 'description'       => 'The organisation which the targeted identity is a partner of.',
                 'default'           => 1
             ]
-    
+
         ];
     }
 }
@@ -347,8 +347,8 @@ while(true) {
     }
 
     $parent = get_parent_class($orm->getModel($entity));   //(2)
-    
-    if(!$parent || $parent == 'equal\orm\Model') {         //(3) 
+
+    if(!$parent || $parent == 'equal\orm\Model') {         //(3)
         break;
     }
 
@@ -368,7 +368,7 @@ $context->httpResponse()
         ->send();
 ```
 
-**What it does :**  
+**What it does :**
 
 - **(1)** If the file exists in the view folder of the package where we are, the loop stops and uses that view.
 
@@ -376,11 +376,11 @@ $context->httpResponse()
 
 - **(3)** This scenario goes on until we reach the root-parent class **`"equal\orm\Model"`**.
 
-  
+
 
 ## Form views
 
-**Forms** allow to view and edit individual objects. It is possible to define as many views as desired, and a given entity should always have default form view (`{entity}.form.default.json`). 
+**Forms** allow to view and edit individual objects. It is possible to define as many views as desired, and a given entity should always have default form view (`{entity}.form.default.json`).
 
 Forms views are JSON objects that describe how to render a specific view related to a given entity.
 
@@ -394,7 +394,7 @@ Forms views are JSON objects that describe how to render a specific view related
   "description": "Simple form for displaying a basic objects",
   "actions": [],
   "layout": {
-    "groups": [    
+    "groups": [
       {
         "label": "",
         "sections": [
@@ -494,7 +494,7 @@ When several sections are present, each section is displayed under a tabs.
 
 Each column has a list of items, which are element describing which fields are to be rendered, how to render them (room within the column, widget override, ...), and under what conditions they must be displayed.
 
-Each item is an object accepting the following properties : 
+Each item is an object accepting the following properties :
 
 |**PROPERTY**|**DESCRIPTION**|
 |--|--|
@@ -538,16 +538,33 @@ Additional properties apply only to specific field types. Here is the full list 
 
 
 
-**Example:**
+**Examples:**
 
 ```json
 "widget": {
     "header": {
         "actions": {
             "ACTION.SELECT": true,
-            "ACTION.CREATE": false        
+            "ACTION.CREATE": false
         }
     }
+}
+```
+
+```json
+"widget": {
+	"view": "list.credit",
+	"mode": "edit",
+	"header": {
+		"actions": {
+			"ACTION.CREATE": [{"view": "form.credit"}],
+			"ACTION.EDIT": [{"view": "form.credit"}]
+		},
+		"selection": {
+			"default" : false,
+			"actions" : true
+		}
+	}
 }
 ```
 
@@ -651,8 +668,9 @@ The view's name is `Category.form.default.json` and is as follows:
 
 ## List views
 
-List views are used to display collections of items. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and a few additional ones. Some of the additional properties that are specific for the list views are `filters`, `pager` for displaying in navigation bar, `selection_actions` which allows the modification of an object in the list or exporting and printing it. ```sortable``` property could also be added to the list view, which enables the action of sorting the list when it has the value "true" since it's of type Boolean.
-By clicking on one row in the list, it redirects you to the editable form related to the view. 
+List views are used to display collections of items. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and additional ones, specific to Lists.
+Clicking on a row in the list redirects you to the form view related to the targeted entity.
+Ticking one or more checkboxes triggers the display of a list of available actions that can be applied on the selection.
 
 
 
@@ -671,9 +689,9 @@ A list view is defined according to the following structure:
         "id": "lang.french",
         "label": "français",
         "description": "Users with locale set to french",
-        "clause": ["language", "=", "fr"] 
+        "clause": ["language", "=", "fr"]
     }
-  ],   
+  ],
   "layout": {
     "items": [
         {
@@ -721,7 +739,7 @@ A list view is defined according to the following structure:
             "widget": {
                 "type": "one2many"
             }
-        }    
+        }
     ]
   }
 }
@@ -775,12 +793,12 @@ The list view is named *Category.list.default.json* and has the following struct
 
 <a name="list_group_by"></a>
 
-#### group_by 
+#### group_by
 
 A `group_by` array can be set to describe the way the objects have to be grouped.
 Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
 
-Example : 
+Example :
 
 ```json
 "group_by": ["date"]
@@ -788,16 +806,16 @@ Example :
 
 
 
-The operations items have the following structure : 
+The operations items have the following structure :
 
 ```json
-{ 
-    "field": "product_id", 
+{
+    "field": "product_id",
     "operation": ["SUM", "object.qty"]
 }
 ```
 
-Another example : 
+Another example :
 
 ```json
 "group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
@@ -805,10 +823,10 @@ Another example :
 
 <a name="list_order"></a>
 
-#### order 
+#### order
 
 String holding the name(s) of the field to sort results on, separated with commas.
-Example : 
+Example :
 
 ```json
 "order": "sku,product_model_id"
@@ -816,7 +834,7 @@ Example :
 
 <a name="list_sort"></a>
 
-#### sort 
+#### sort
 
 String litteral ('*desc*' or '*asc*')
 
@@ -828,11 +846,11 @@ Example:
 
 <a name="list_limit"></a>
 
-#### limit 
+#### limit
 
 integer (max size of result set)
 
-Example : 
+Example :
 
 ```json
 "limit": 100
@@ -842,7 +860,7 @@ Bear in mind that the default controller (core_mode_collect), has a `max` constr
 
 <a name="list_domain"></a>
 
-#### domain 
+#### domain
 
 The **domain** property allows to conditionally display the data  (More Info: [domain](../architecture-concepts/domains.md)).
 
@@ -855,7 +873,7 @@ The **domain** property allows to conditionally display the data  (More Info: [d
 
 <a name="list_filters"></a>
 
-#### filters 
+#### filters
 
 The **filter** property allows to provide a series of predefined search filters.
 
@@ -865,17 +883,24 @@ The **filter** property allows to provide a series of predefined search filters.
         "id": "lang.french",
         "label": "French",
         "description": "French speaking people",
-        "clause": ["language", "=", "fr"] 
+        "clause": ["language", "=", "fr"]
     }
 ]```
 ```
 
 <a name="list_header"></a>
 
-#### header 
+#### header
 
-In addition to the attributes common to all views (see <a href="#view_commons_header">views commons</a>), the **header** property for lists uses an additional features for the `actions` attribute.
+In addition to the attributes common to all views (see <a href="#view_commons_header">views commons</a>), the **header** property for lists offers additional attributes.
 
+
+##### filters
+
+| **PROPERTY** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ |
+| **custom**  | (optional) Boolean for providing the ability to create custom filters on the view (default = true) |
+| **quicksearch**  | (optional) Boolean flag for providing a search input for performing search on the 'name' column of the current Entity. |
 
 ##### selection
 
@@ -884,12 +909,16 @@ In addition to the attributes common to all views (see <a href="#view_commons_he
 | **default**  | (optional) Boolean telling if the default actions have to be present in the available action to apply on current selection. (default = false) |
 | **actions**  | (optional) An array of action items that can be applied on current selection. |
 
-Example : 
+Example :
 
 ```json
 "header": {
     "actions": {
         "ACTION.CREATE" : false
+    },
+    "filters": {
+        "custom": true,
+        "quicksearch": false
     },
     "selection": {
         "default" : false,
@@ -911,7 +940,7 @@ Example :
 
 
 
-Custom actions can have an arbitrary ID, while default actions use the common actions IDs : 
+Custom actions can have an arbitrary ID, while default actions use the common actions IDs :
 ```
 ACTION.EDIT
 ACTION.EDIT_BULK
@@ -922,20 +951,19 @@ ACTION.DELETE
 ```
 
 !!! note "Hiding a specific default action"
-
 ​    Default actions can be overwritten by using the targeted ID and setting the `visible` property to false.
 
 <a name="list_actions"></a>
 
-#### actions 
+#### actions
 
 The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
 
 <a name="list_exports"></a>
 
-#### exports 
+#### exports
 
-Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well. 
+Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well.
 
 All these fields are added inside of the <em>exports</em> section of list view, which is an array of objects that has the below structure:
 
@@ -953,11 +981,11 @@ All these fields are added inside of the <em>exports</em> section of list view, 
     ]
 ```
 
-The view property points to an HTML file that will be parsed and filled with selected object values before being converted to PDF.  
+The view property points to an HTML file that will be parsed and filled with selected object values before being converted to PDF.
 
 <a name="list_layout"></a>
 
-#### layout 
+#### layout
 
 The layout part holds a structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
 
@@ -967,7 +995,7 @@ The layout part holds a structure that describes the way the (list) view has to 
 
 The list view consists of a table having a series of columns (items). Each column relates to a field, and is described by an item that specifies how the field is to be rendered, the behaviors attached to it (ordering, sorting, ...), and under what conditions it must be displayed.
 
-Each item is an object accepting the following properties : 
+Each item is an object accepting the following properties :
 
 | **PROPERTY** | **DESCRIPTION**                                       |
 | --------------- | ------------------------------------------------------------ |
@@ -989,13 +1017,13 @@ Within item`objects`, the widget property allows to refine the configuration of 
 
 <a name="list_operations"></a>
 
-#### operations 
+#### operations
 
 This property allows to apply a series of operations on one or more columns, for the displayed records set.
 
 Each entry of the `opearations` object associates a name (ID of an operation - which will allow to group the results), with an associative array mapping field names with operation descriptors.
 
-In turn, each descriptor accepts the following properties : 
+In turn, each descriptor accepts the following properties :
 
 | **PROPERTY** | **DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ |
@@ -1006,7 +1034,7 @@ In turn, each descriptor accepts the following properties :
 
 
 
-Examples: 
+Examples:
 
 ```json
 "operations": {
@@ -1073,7 +1101,7 @@ Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 
 <a name="list_access"></a>
 
-#### access 
+#### access
 
 Groups and users with the permission to see the content of the view.
 
@@ -1091,7 +1119,7 @@ Example :
 
 Menus allow to define custom tree structures of action-buttons for accessing specific routes or contexts.
 
-Menu items have the following structure : 
+Menu items have the following structure :
 
 | **PROPERTY** | **DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ |
@@ -1105,7 +1133,7 @@ Menu items have the following structure :
 
 Parent items have a **children** property, which is an array holding a list of items (which, in turn, can be either parents or entries).
 
-Entries items have a **context** property, which has the following structure : 
+Entries items have a **context** property, which has the following structure :
 
 
 
@@ -1131,7 +1159,7 @@ Example:
         "id": "item.pos_sessions.pending",
         "type": "entry",
         "label": "Pending sessions",
-        "description": "", 
+        "description": "",
         "context": {
             "entity": "lodging\\sale\\pos\\CashdeskSession",
             "view": "list.default",
@@ -1145,7 +1173,7 @@ Example:
 
 
 
-As other views, a menu has a `name` property and a `layout` property, that describes how the items are going to be displayed. 
+As other views, a menu has a `name` property and a `layout` property, that describes how the items are going to be displayed.
 
 In the example shown below, one parent menu item is present named "New Booking" and it contains two children, "New Booking" to create a new booking and "All Bookings" that displays the list of all the bookings ordered by id and sorted in descending order.
 
@@ -1222,14 +1250,14 @@ The following example displays 4 different views to simplify the management of i
                 "label": "test",
                 "height": "100%",
                 "sections": [
-                    {                
+                    {
                         "rows": [
                             {
-                                "height": "50%", 
+                                "height": "50%",
                                 "columns": [
                                     {
                                         "width": "100%",
-                                        "items": [ 
+                                        "items": [
                                             {
                                                 "id": "item.bookings",
                                                 "label": "Alertes",
@@ -1279,11 +1307,11 @@ The following example displays 4 different views to simplify the management of i
                                         ]
                                     }
                                 ]
-                            }                            
+                            }
                         ]
                     }
                 ]
-            }            
+            }
         ]
     }
 }
@@ -1309,7 +1337,7 @@ Here we use a new `list view`, that could, for example, have a different domain*
     "domain": ["center_office_id", "in", "user.center_offices_ids"],
     "layout": {
         "items": [
-            {   
+            {
             }
         ]
     }
@@ -1323,21 +1351,21 @@ Here we use a new `list view`, that could, for example, have a different domain*
 
 Charts enable us to visually compare multiple sets of data. It can be very helpful to display statistics.
 
-Below is an example of a chart view, the proprerties are very similar to the ones we can find in menus (check the section above this one). 
+Below is an example of a chart view, the proprerties are very similar to the ones we can find in menus (check the section above this one).
 
 ### The properties
-The access property is allowing the people that belong to the group to see this chart. The layout describes how the items are going to be displayed. 
+The access property is allowing the people that belong to the group to see this chart. The layout describes how the items are going to be displayed.
 
 The range_interval property allows us to choose which period of time will delimit the data that we want to see, the possibilities are : "day, week, semester, year".
 
-The range_to & range_from properties allow us to choose, when the range starts and when it stops (linked with the range_interval property). 
+The range_to & range_from properties allow us to choose, when the range starts and when it stops (linked with the range_interval property).
 Possibilities : date.[this|prev|next].[day|week|month|quarter|semester|year].[first|last].
 
 The dataset property is about the data that will be shown in the graph, we have the label property that will allow us to the name the element displayed.
 
-The operation property that will use the operations talked about in the above sections, will allow us to display a certain type of data. 
+The operation property that will use the operations talked about in the above sections, will allow us to display a certain type of data.
 
-At last, the domain property allows us to filter the data even more. 
+At last, the domain property allows us to filter the data even more.
 
 
 ```json
@@ -1367,7 +1395,7 @@ At last, the domain property allows us to filter the data even more.
                 "label": "",
                 "height": "100%",
                 "sections": [
-                    {                
+                    {
                         "rows": [
                             {
                                 "height": "50%",
@@ -1390,7 +1418,7 @@ At last, the domain property allows us to filter the data even more.
                         ]
                     }
                 ]
-            }            
+            }
         ]
     }
 }

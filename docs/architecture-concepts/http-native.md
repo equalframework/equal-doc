@@ -2,7 +2,7 @@
 
 eQual complies with HTTP standards by natively analyzing HTTP messages to route client requests to the appropriate controller.
 
-A controller can announce which content-type must be used for the output. And in all situations, the output is sent to the STDOUT stream. For that reason, eQual can can seamlessly be used in both CLI or HTTP context.
+A controller can announce which content-type must be used for the output. And in all situations, the output is sent to the STDOUT stream. For that reason, eQual can seamlessly be used in both CLI or HTTP context.
 
 
 

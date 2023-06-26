@@ -373,21 +373,32 @@ public static function calcRightsTxt($om, $ids, $lang) {
 
 
 
-<a name="anchor">Example of a basic field using the `selection` attribute:</a> 
+<a name="anchor">Examples of fields using the `selection` attribute:</a> 
 
 ```php 
 <?php
-'fieldname' => [
+'field_a' => [
     'type'      => 'string',
     'selection' => [
         'choice1', 
         'choice2',
         'choice3'
     ]
+],
+// associative arrays are also allowed for assinging distinct labels on values
+'field_b' => [
+    'type'      => 'string',
+    'selection' => [
+        'choice1' => 'First choice', 
+        'choice2' => 'Second choice',
+        'choice3' => 'Third choice'
+    ]
 ]
+
 ```
 
-
+!!! note "Key-Value mapping"
+    In case of an associative array, if keys are numeric values (i.e. something that can be converted to an integer), the map will be handled as an array when converted to JSON. Therefore, it is advised not to use numeric values for keys to avoid the UI mixing up values and labels.
 
 ## System fields
 
