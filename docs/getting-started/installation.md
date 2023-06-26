@@ -225,6 +225,12 @@ To write to your config file, type the following command
 $ vi config.json
 ```
 
+As an alternative, you can also use one of the example config files, by copying
+
+```bash
+$ cp config-example_mysql.json config.json
+```
+
 Here is a minimalist `config.json` that you can adapt according to your environment:
 
 ```php
@@ -235,9 +241,7 @@ Here is a minimalist `config.json` that you can adapt according to your environm
     "DB_USER": "root",
     "DB_PASSWORD": "test",
     "DB_NAME": "equal",
-    "DB_CHARSET": "UTF8",
-    "DEBUG_MODE": "QN_MODE_PHP | QN_MODE_ORM | QN_MODE_SQL",
-    "DEBUG_LEVEL": "E_ALL | E_ALL"  
+    "DB_CHARSET": "UTF8"
 }
 ```
 
