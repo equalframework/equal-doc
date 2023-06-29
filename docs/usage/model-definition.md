@@ -442,6 +442,44 @@ Some fields are reserved but optional (with a convention of use):
 | getValues()      | Returns values of static instance.                           |
 | getDefaults()    | Return default values.                                       |
 | getTable()       | Return the name of the DB table to be used for storing objects of current class. |
+| getWorkflow()    | Returns the workflow associated with the entity |
+
+### getWorkflow()
+
+The Workflow is defined by status (e.g. [`validated`, `suspended`, `confirmed`] and transitions (e.g. [`validate`, `suspend`, `confirm`]).
+The transitions are executed through the actions of the views (see [actions](../views/#actions)). 
+
+```php
+<?php
+public static function getWorkflow() {
+        return [
+            'created' => [
+                'transitions' => [
+                    'validate' => [
+                        'watch'       => ['validated'],
+                        'domain'      => ['validated', '=', true],
+                        'description' => 'Update the user status as validated.',
+                        'status'	  => 'validated',
+                    ]
+                ]
+            ],
+            'validated' => [
+                'transitions' => [
+                    'suspend' => [
+                        'description' => 'Set the user status as suspended.',
+                        'status'	  => 'suspended'
+                    ],
+                    'confirm' => [
+                        'domain'      => ['validated', '=', true],
+                        'description' => 'Update the user status as confirmed.',
+                        'status'	  => 'confirmed'
+                    ]
+                ]
+            ],
+            ];
+    }
+```
+
 
 
 ## Overridable methods
