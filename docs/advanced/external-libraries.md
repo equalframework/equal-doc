@@ -8,6 +8,18 @@ eQual supports the [PSR-4 standard](https://www.php-fig.org/psr/psr-4/) for auto
 Libraries that follow the PSR-4 standard can be loaded with a simple `use` statement. 
 For libraries that do not provide such support, simply use 'require' or 'include' as stated in the documentation of the library.
 
+The `require` command adds new libraries to the `composer.json`. The `require` need the library names (e.g) `swiftmailer/swiftmailer` and version constraints (e.g) `^6.2`
+
+```json
+    "require": {
+            "swiftmailer/swiftmailer": "^6.2",
+        },
+```
+Open your CLI at the root of eQual's folder and use this :
+
+```bash
+$ ./equal.run --do=init_composer
+```
 
 ### Examples
 
@@ -15,11 +27,12 @@ Here below are a few examples showing how to embed various popular libraries.
 
 #### Twig - template engine
 
+
 ```bash
-composer require "twig/twig:^2.0"
+$ composer require "twig/twig:^2.0"
 ```
 
-```
+``` php
 <?php
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -28,7 +41,7 @@ use Twig\Loader\FilesystemLoader;
 #### PHPOffice - MS Office compatible documents generation library
 
 ```bash
-composer require phpoffice/phpspreadsheet
+$ composer require phpoffice/phpspreadsheet
 ```
 
 ```php
@@ -40,7 +53,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 #### DOMPDF - HTML to PDF converter
 
 ```bash
-composer require dompdf/dompdf
+$ composer require dompdf/dompdf
 ```
 
 ```php
