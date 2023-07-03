@@ -169,9 +169,6 @@ The optional **controller**  property specifies the controller that must be requ
 
 The default values is `model_collect` (which is an alias for `core_model_collect`)
 
-!!! Note
-    Controller are considered as entities. When a controller is specified for a list View, a special view is expected (`search.default`) for describing the layout of the form for inputing parameters values (i.e. fields returned by the `::announce` method of the view controller). In turn, those values are sent to the controller along with default values (`entity`, `fields`, `domain`, `order`, `sort`, `start`, `limit`, `lang`) for feeding the View. Example: for controller `sale_booking_collect`, a `packages/sale/views/booking/collect.search.default.json` file is expected.
-
 <a name="common_header"></a>
 
 #### header <a id="view_commons_header"></a>
@@ -774,22 +771,22 @@ The list view is named *Category.list.default.json* and has the following struct
 ### Structure summary
 
 | **PROPERTY**                   | **DESCRIPTION**                                              |
-| ------------------------------ | ------------------------------------------------------------ |
-| name                       | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| description                | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
-| [group_by](#list_group_by) | (optional)                                                   |
-| [order](#list_order)       | (optional)                                                   |
-| [controller](#list_sort)   | (optional)                                                   |
-| [sort](#list_sort)         | (optional)                                                   |
-| [limit](#list_limit)       | (optional)                           |
-| [domain](#list_domain)     | (optional)                                                   |
-| [filters](#list_filters)   | (optional) array of filter descriptors or boolean false to hide the filtering options |
-| [header](#list_header)     | (optional) The **header** section allows to override the default behavior of the view. |
-| [actions](#list_actions)   | (optional)                                                   |
-| [exports](#list_exports) | (optional)                                                   |
-| [layout](#list_layout) | The layout part holds a structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them. |
+|--------------------------------| ------------------------------------------------------------ |
+| name                           | The **name** property is mandatory and relates to the unique name assigned to the view. |
+| description                    | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
+| [group_by](#list_group_by)     | (optional)                                                   |
+| [order](#list_order)           | (optional)                                                   |
+| [controller](#list_controller) | (optional)                                                   |
+| [sort](#list_sort)             | (optional)                                                   |
+| [limit](#list_limit)           | (optional)                           |
+| [domain](#list_domain)         | (optional)                                                   |
+| [filters](#list_filters)       | (optional) array of filter descriptors or boolean false to hide the filtering options |
+| [header](#list_header)         | (optional) The **header** section allows to override the default behavior of the view. |
+| [actions](#list_actions)       | (optional)                                                   |
+| [exports](#list_exports)       | (optional)                                                   |
+| [layout](#list_layout)         | The layout part holds a structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them. |
 | [operations](#list_operations) | (optional)                                                   |
-| [access](#list_access) | (optional)                                                   |
+| [access](#list_access)         | (optional)                                                   |
 
 <a name="list_group_by"></a>
 
@@ -831,6 +828,50 @@ Example :
 ```json
 "order": "sku,product_model_id"
 ```
+
+<a name="list_controller"></a>
+
+#### controller 
+
+The `controller` property specifies the controller that is requested for fetching the Model collection that will show in the View. 
+
+Example:
+
+```json
+"controller": "sale_booking_collect"
+```
+
+Controller are considered as entities. When a controller is specified for a list View, a special view is expected (`search.default`) for describing the layout of the form for inputing parameters values (i.e. fields returned by the `eQual::announce` method of the view controller).
+In turn, those values are sent to the controller along with default values (`entity`, `fields`, `domain`, `order`, `sort`, `start`, `limit`, `lang`) for feeding the View.
+
+For controller `sale_booking_collect` a `collect.php` and a  `collect.search.default.json` file are expected.
+
+Here a controller example 
+
+```php
+<?php
+use equal\orm\Domain;
+
+list($params, $providers) = eQual::announce([
+    'description'   => 'Advanced search for Reports',
+    'extends'       => 'core_model_collect',
+    'params'        => [
+        'entity' =>  [
+            'description'   => 'name',
+            'type'          => 'string',
+            'default'       => 'sale\Booking'
+        ]
+    ],
+    'response'      => [
+        'content-type'  => 'application/json',
+        'charset'       => 'utf-8',
+        'accept-origin' => '*'
+    ],
+    'providers'     => [ 'context', 'orm' ]
+]);
+```
+
+
 
 <a name="list_sort"></a>
 
