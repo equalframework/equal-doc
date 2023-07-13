@@ -461,12 +461,12 @@ A group must always have at least 1 section.
 
 When several sections are present, each section is displayed under a tabs.
 
-|**PROPERTY**|**DESCRIPTION**|
-|--|--|
-|label|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
-|id|(optional) identifier for mapping the section in translation files|
-|visible|(optional) a domain conditioning the visibility of the section and its tab (ex. `["status", "not in", ["quote", "option"]]`)|
-|rows|Array of rows objects. A section must always have at least 1 row.|
+|**PROPERTY**| **DESCRIPTION**                                                                                                                       |
+|--|---------------------------------------------------------------------------------------------------------------------------------------|
+|label| (optional) Label (en) of the section. The label of a section is only displayed when there are several sections.                       |
+|id| (optional) identifier for mapping the section in translation files                                                                    |
+|visible| (optional) a domain conditioning the visibility of the section and its tab.<br/> Example  `"visible":["status", "=", "quote"]`) |
+|rows| Array of rows objects. A section must always have at least 1 row.                                                                     |
 
 
 
@@ -493,16 +493,15 @@ Each column has a list of items, which are element describing which fields are t
 
 Each item is an object accepting the following properties : 
 
-|**PROPERTY**|**DESCRIPTION**|
-|--|--|
-|label|(optional) Default label|
-|type|type of the item(`"label"` or `"field"`)|
-|value|value of the field (label to display for `"label"` item, or name of the target field for `"field"` item)|
-|width|width, in percentage of the parent column width.|
-|visible|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
-|domain|(optional) (ex. `["type", "<>", "I"]`)|
-|widget|(optional) additional settings to apply on the widget that holds the fields|
-
+|**PROPERTY**| **DESCRIPTION**                                                                                          |
+|--|----------------------------------------------------------------------------------------------------------|
+|label| (optional) Default label                                                                                 |
+|type| type of the item(`"label"` or `"field"`)                                                                 |
+|value| value of the field (label to display for `"label"` item, or name of the target field for `"field"` item) |
+|width| width, in percentage of the parent column width.                                                         |
+|visible| (optional) either a boolean (true, false) or a domain (ex. `["has_description", "=", true]` )            |
+|domain| (optional) (ex. `["type", "<>", "I"]`)                                                                   |
+|widget| (optional) additional settings to apply on the widget that holds the fields                              |
 
 
 ##### item.widget
@@ -515,6 +514,25 @@ Within item`objects`, the widget property allows to refine the configuration of 
 |readonly|(optional) If set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
 |usage|(optional) A widget can be applied on an item, to force apply a specific data rendering. If an usage is defined at the schema level, it is overridden.|
 
+Here example item
+
+```json
+  "items": [
+       {
+         "type": "field",
+         "value": "description",
+         "label": "Description",      
+         "width": "50%",
+         "visible": ["has_description", "=", true]
+         "widget":{
+               "heading": false,
+               "readonly": false,
+               "usage": "string/text"
+         }
+       }
+  ]
+
+```
 Additional properties apply only to specific field types. Here is the full list of the available options by type of field:
 
 |**FIELD TYPE**|**PROPERTY**||

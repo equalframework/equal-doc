@@ -324,18 +324,18 @@ public static function calcRightsTxt($om, $ids, $lang) {
 
 #### Common properties
 
-| **PROPERTY**    | **DESCRIPTION**                                              |
-| --------------- | ------------------------------------------------------------ |
-| type        | The type of field:  one of the value listed as <a href="#definition_field_types">fields types</a>. |
-| usage       | (string) Specifies additional information about the format of the field. |
-| description | (string) Brief about the field (max 65 chars).              |
-| visible     | (optional, boolean \| array) [Domain](../architecture-concepts/domains.md) holding the conditions that must be met in order for the field to be relevant (and shown in UI). |
-| default     | (optional) (mixed) Tells how to get the default value of the field. Can be either a value (of the same type than the one target by `type`) or a callable (string). |
-| readonly    | (boolean) Marks the field as non-editable (default = false). |
-| required    | (boolean) Marks the field as mandatory (trying to store an object without a value for that field raises error) (default = false). |
-| multilang   | (boolean) Marks the field as translatable (default = false). |
-| onupdate        | (optional, string) Name of the method to invoke when field is updated.<br/>Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
-| domain  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation. |
+| **PROPERTY**    | **DESCRIPTION**                                                                                                                                                                                                                        |
+| --------------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type        | The type of field:  one of the value listed as <a href="#definition_field_types">fields types</a>.                                                                                                                                     |
+| usage       | (string) Specifies additional information about the format of the field.                                                                                                                                                               |
+| description | (string) Brief about the field (max 65 chars).                                                                                                                                                                                         |
+| visible     | (optional, boolean \| array) [Domain](../architecture-concepts/domains.md) holding the conditions that must be met in order for the field to be relevant (and shown in UI). <br/>Example: `'visible'=> ['status', '=', 'quote']`       |
+| default     | (optional) (mixed) Tells how to get the default value of the field. Can be either a value (of the same type than the one target by `type`) or a callable (string).                                                                     |
+| readonly    | (boolean) Marks the field as non-editable (default = false).                                                                                                                                                                           |
+| required    | (boolean) Marks the field as mandatory (trying to store an object without a value for that field raises error) (default = false).                                                                                                      |
+| multilang   | (boolean) Marks the field as translatable (default = false).                                                                                                                                                                           |
+| onupdate        | (optional, string) Name of the method to invoke when field is updated.<br/>Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}`                                 |
+| domain  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation.                                                               |
 | dependencies | (optional, array) list of computed fields (relative to current object or through relations traversal) that must be reset when the value of the field is updated. There must be a symmetrical 'depends_on' on targeted computed fields. |
 
 
