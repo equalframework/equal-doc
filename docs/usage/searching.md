@@ -20,14 +20,22 @@ In order to search amongst existing objects, the `search` method  uses a  `domai
 
 ### ORM search
 
-In classes, searching can be invoked by calling the ObjectManager service. 
+The ObjectManager service offers a dedicated method for searching amongst Objects. 
 
 #### signature
 
 ```php
 <?php
-public function search($class, $domain=NULL, $sort=['id' => 'asc'], $start='0',
-$limit='0', $lang=DEFAULT_LANG)
+/*
+ * @param   string     $class       Class of the objects to search for.
+ * @param   array      $domain      Domain (disjunction of conjunctions) defining the criteria the objects have to match.
+ * @param   array      $sort        Associative array mapping fields and orders on which result have to be sorted.
+ * @param   integer    $start       The offset at which to start the segment of the list of matching objects.
+ * @param   string     $limit       The maximum number of results/identifiers to return.
+ *
+ * @return  integer|array   Returns an array of matching objects ids, or a negative integer in case of error.
+ */
+public function search($class, $domain=NULL, $sort=['id' => 'asc'], $start='0', $limit='0', $lang=DEFAULT_LANG)
 ```
 
 
@@ -38,7 +46,7 @@ Example:
 
 ```php
 <?php
-$orm->search('core\User', ['login', '=', $login])
+$res = $orm->search('core\User', ['login', '=', $login]);
 ```
 
 
@@ -63,7 +71,7 @@ Example:
 <?php
 use core\User;
 
-User::search([
+$collection = User::search([
         ['login', 'like', '%john%'],
         ['validated', '=', 'true']				
     ]);

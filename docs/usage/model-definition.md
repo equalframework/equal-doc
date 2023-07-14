@@ -195,8 +195,8 @@ When stored to the DBMS, those types follow the standard SQL format:
 * time: HH:mm:ss
 * datetime: YYYY-mm-dd HH:mm:ss
 
-!!! Tip 
-	Internally, dates, times and datetimes are handled as timestamps. These are adapted to SQL format or JSON format when needed.
+!!! Tip "Datetime manipulations using eQual"
+	Within PHP scripts, eQual handles dates, times and datetimes as UTC timestamps. These are adapted to SQL format or JSON format when needed.
 
 #### many2one
 Relational field used for fields holding a N-1 relation. The stored value is an integer that holds the identifier of the pointed object.
@@ -243,8 +243,7 @@ Example:
 
 M-N relation
 
-	foreign_object -> select amongst other classes
-		+ ability to create symetrical one (one2many)
+* foreign_object : allows to select amongst other classes + ability to create symmetrical one (one2many)
 ```php
 <?php
 // school\Teacher
@@ -260,10 +259,11 @@ M-N relation
 
 #### computed
 
-	type: 'computed'
-	function: string holding name of a callable method
-	result_type : select ('boolean', 'integer', 'float', 'string', 'text', 'html' )
-	store : boolean
+
+* result_type : select ('boolean', 'integer', 'float', 'string', 'text', 'html' )
+*  function: string holding name of a callable method
+* store : boolean
+
 Computed fields are not stored in the DB, unless the `store` attribute is set to true.
 
 To get it,  we use the 'function' key, that will point at any function.
@@ -327,7 +327,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 | **PROPERTY**    | **DESCRIPTION**                                              |
 | --------------- | ------------------------------------------------------------ |
 | type        | The type of field:  one of the value listed as <a href="#definition_field_types">fields types</a>. |
-| usage       | (string) Specifies additional information about the format of the field. |
+| usage       | (string) Specifies additional information about the format of the field (@see [Usages](../architecture-concepts/usages.md) for more details) |
 | description | (string) Brief about the field (max 65 chars).              |
 | visible     | (optional, boolean \| array) [Domain](../architecture-concepts/domains.md) holding the conditions that must be met in order for the field to be relevant (and shown in UI). |
 | default     | (optional) (mixed) Tells how to get the default value of the field. Can be either a value (of the same type than the one target by `type`) or a callable (string). |
@@ -336,7 +336,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 | multilang   | (boolean) Marks the field as translatable (default = false). |
 | onupdate        | (optional, string) Name of the method to invoke when field is updated.<br/>Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
 | domain  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation. |
-| dependencies | (optional, array) list of computed fields (relative to current object or through relations traversal) that must be reset when the value of the field is updated. There must be a symmetrical 'depends_on' on targeted computed fields. |
+| dependencies | (optional, array) list of computed fields (relative to current object or through relations traversal) that must be reset when the value of the field (the property relates to) is updated. |
 
 
 
@@ -442,43 +442,7 @@ Some fields are reserved but optional (with a convention of use):
 | getValues()      | Returns values of static instance.                           |
 | getDefaults()    | Return default values.                                       |
 | getTable()       | Return the name of the DB table to be used for storing objects of current class. |
-| getWorkflow()    | Returns the workflow associated with the entity |
-
-### getWorkflow()
-
-The Workflow is defined by status (e.g. [`validated`, `suspended`, `confirmed`] and transitions (e.g. [`validate`, `suspend`, `confirm`]).
-The transitions are executed through the actions of the views (see [actions](../views/#actions)). 
-
-```php
-<?php
-public static function getWorkflow() {
-        return [
-            'created' => [
-                'transitions' => [
-                    'validate' => [
-                        'watch'       => ['validated'],
-                        'domain'      => ['validated', '=', true],
-                        'description' => 'Update the user status as validated.',
-                        'status'	  => 'validated',
-                    ]
-                ]
-            ],
-            'validated' => [
-                'transitions' => [
-                    'suspend' => [
-                        'description' => 'Set the user status as suspended.',
-                        'status'	  => 'suspended'
-                    ],
-                    'confirm' => [
-                        'domain'      => ['validated', '=', true],
-                        'description' => 'Update the user status as confirmed.',
-                        'status'	  => 'confirmed'
-                    ]
-                ]
-            ],
-            ];
-    }
-```
+| getWorkflow()    | Returns the workflow associated with the entity. For more details @see [Workflows](../advanced/workflows.md) section.|
 
 
 
