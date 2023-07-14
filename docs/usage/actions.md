@@ -12,7 +12,7 @@ Example:
 
 `Report.class`
 
-```
+```php
 <?php
 public static function getActions() {
     return [
