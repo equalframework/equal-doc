@@ -5,7 +5,7 @@
 eQual is a versatile, language-agnostic, and web-oriented framework, aiming to elegantly manage interactions between front-end Apps and Business Logic involved in modern Web Applications.
 
 **Natively Secure**  
-eQual offers native HTTP Auth support (JWT, CORS) to secure every endpoint with User Management, Role-Based Access Controls, or custom Access management.
+eQual offers native HTTP Auth support (JWT, CORS) to secure every endpoint, along with various Access Control strategies (ACL, RBAC, ABAC, PBAC).
 
 **Server-Side Scripting**  
 eQual allows to implement custom logic on any route endpoint, for quick creation of controllers and **micro-services**.
@@ -26,22 +26,18 @@ echo "This is a valid Contoller!"
 
 While being a solid framework that has everything you need to do almost anything, eQual has been designed to oppose as little constraints as possible to developers.
 
-Most frameworks require a long time to master and, while learning them, you might find yourself struggling to achieve simple things. But with eQual, taking advantage of the native features is entirely up to you.
+Most frameworks require a long time to master and, while learning them, you might find yourself struggling to achieve simple things.  
+With eQual, taking advantage of the native features is entirely up to you.
 
-Actually, since you're reading this, you probably already know everything needed to start using it.
-
-So, use it your way.
-
+Actually, since you're reading this, you probably already know everything needed to start using it. So, just use it your way!   
 
 
-> What I value the most in eQual is its high level of re-usability and its way of defining controllers by announcing what they do and what they expect, which relieves me from documenting boredom and memory blackouts.
+> *What I value the most in eQual is its high level of re-usability and its way of defining controllers by announcing what they do, what they expect and what response they provide, which relieves me from documenting boredom and having to remember everything.*
 
-*Cédric Françoys*
-
-
+*— Cédric Françoys*
 
 
-## Sneak peek ?
+## Sneak peek
 
 ### Controller
 `/packages/demo/data/simple.php`:

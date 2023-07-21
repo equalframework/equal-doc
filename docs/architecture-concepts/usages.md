@@ -13,8 +13,13 @@ Types are aliases representing specific usages.
 Services based on the DataAdapter interface are used to convert data to and from PHP (from the perspective of PHP).
 
 Adapters are capable of bidirectional conversion of a value based on its usage:
-x   => PHP	adaptIn(value, usage | type)
-PHP => x	adaptOut(value, usage | type), synonymous with adapt(value, usage | type)
+
+|Conversion||
+|-|-|
+|x   => PHP|`adaptIn(value, usage)`|
+|PHP => x|`adaptOut(value, usage |type)` can be applied on whole Collection with ::adapt(dest)|
+
+
 
 * The objects manipulated in controllers and classes contain values using PHP types.
 * Collections can be exported by recursively converting the values during export (`get()`):
