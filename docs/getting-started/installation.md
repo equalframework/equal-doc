@@ -240,8 +240,7 @@ Here is a minimalist `config.json` that you can adapt according to your environm
     "DB_PORT": "3306",
     "DB_USER": "root",
     "DB_PASSWORD": "test",
-    "DB_NAME": "equal",
-    "DB_CHARSET": "UTF8"
+    "DB_NAME": "equal"
 }
 ```
 
