@@ -995,7 +995,7 @@ ACTION.DELETE
 ```
 
 !!! note "Hiding a specific default action"
-​    Default actions can be overwritten by using the targeted ID and setting the `visible` property to false.
+    Default actions can be overwritten by using the targeted ID and setting the `visible` property to false.
 
 <a name="list_actions"></a>
 
