@@ -955,7 +955,7 @@ The `selection` property allows to customize the list of bulk actions that are a
 
 Examples :
 
-1. Prevent selecting items within the list:
+a. Prevent selecting items within the list:
 
 ```json
 "header": {
@@ -963,8 +963,7 @@ Examples :
 }
 ```
 
-
-2. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a custom action :
+b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a custom action :
 
 ```json
 "header": {
