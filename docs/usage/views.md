@@ -529,6 +529,7 @@ Additional properties apply only to specific field types. Here is the full list 
 ||**sort**|Direction for sorting 'asc' (ascending order) or 'desc' (descending order).|
 ||**limit**|Override the maximum items that the list must display.|
 ||**domain**|Apply an additional domain to the view's collection. In case the view has a domain of its own, both domains are merged.|
+|`{any}`|**mode**|(optional) Force a specific mode ('view' or 'edit') whatever the current context. This can be used in order to prevent the display of the checkboxes (which also prevents the application of selection actions).|
 
 !!! Note "About widget property"
     For one2many and many2many field, it is also possible to force using a specific widget (non-default).
@@ -559,7 +560,7 @@ Additional properties apply only to specific field types. Here is the full list 
 		},
 		"selection": {
 			"default" : false,
-			"actions" : true
+			"actions" : false
 		}
 	}
 }
