@@ -22,3 +22,8 @@ article table th strong {
 article .admonition {
 	font-size: 0.95em !important;
 }
+
+.md-grid {
+	/* allow use of max available space in the center area */
+    max-width: 100%;
+}
