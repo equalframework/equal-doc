@@ -157,9 +157,7 @@ If no parameter is required but the `confirm` property is set to `true`, then a 
 Here below is a flow diagram that recaps the interactions between the controller and the `confirm` property.
 
 
-<center>
-<img src="../assets/img/eq_confirm_diagram.png" />
-</center>
+<center><img src="/assets/img/eq_confirm_diagram.png" /></center>
 
 
 <a name="common_controller"></a>
