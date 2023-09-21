@@ -28,7 +28,7 @@ Let's go a bit more into details...
 
 
 
-##  DATA Controllers
+##  Data Providers
 
 We will use the above example, to make it easier.
 
@@ -203,7 +203,7 @@ As easy as that. You now have a REST response that you can use in any frontend p
 
 
 
-## Actions Controllers
+## Action Handlers
 
 Let's open  **`/core/actions/model/create.php`**.
 
@@ -305,33 +305,13 @@ Congrats, you created a new User !
 
 
 
-## APPS Controllers
+## Apps Controllers
 
-Let's open  **`/core/apps/model/controllers.php`**.
+Apps controllers are meant for server-side rendering (example: fully rendered HTML page for the client, the way Wordpress does).
 
-```php
-<?php
-list($params, $providers) = announce([
-    'description'   => 'UI for browsing controllers and their definition 
-    					amongst packages',
-    'params'        => [
-        'package'   => [
-            'type'      => 'string',
-            'required'  => true
-        ]
-    ],
-    'response'      => [
-        'content-type'  => 'text/html',
-        'charset'       => 'UTF-8'
-    ],
-    'constants'     => [],
-    'providers'     => ['context']
-]);
+Most apps built with eQual have little or no use of Apps controllers and rather call data providers through ajax requests and then use the data for client-side rendering of components.
 
-+ A LOT OF JS
-```
-
-This controller **adds html through javascript**  and gives it to the **context**, that will send it and get a response.
+However, the philosophy of eQual is to allow developers to do things the way they want. For that reason the choice of the use of Apps controllers is left to the discretion of the developers.
 
 
 
@@ -340,20 +320,26 @@ This controller **adds html through javascript**  and gives it to the **context*
 If we type in the browser :
 
 ```markdown
-?show=model_controllers&package=core
+?show=core_welcome&announce=1
 ```
 
 **The Response** :
 
-![](https://files.yesbabylon.org/document/80db9aa19789aef24bded69bdc687299)
+```
+{
+    "announcement": {
+        "description": "Redirect to welcome folder.",
+        "params": [],
+        "response": {
+            "location": "\/welcome\/"
+        }
+    }
+}
+```
 
 
 
 The response has the form of an **APP/UI**, where we can browse controllers and their definition amongst packages.
-
-It's very usefull to have a quick overview.
-
-You know all the basics of controllers, **good luck** !
 
 
 

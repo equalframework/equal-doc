@@ -97,6 +97,8 @@ nav:
      - 'Cascade Configuration': 'advanced/cascade-configuration.md'
      - 'CI/CD' : 'advanced/ci-cd.md'
      - 'External libraries' : 'advanced/external-libraries.md'
+  - 'Low-code tools':µ
+     - 'Low_Code' : 'low-code/low-code.md'
   - 'Contact & Support':
      - 'Contact': 'contact-and-support/contact.md'
      - 'Support': 'contact-and-support/support.md'
