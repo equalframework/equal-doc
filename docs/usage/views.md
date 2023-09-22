@@ -225,7 +225,9 @@ Empty arrays or items set to false mean that the action is not available for the
                     "view": "form.create",
                     "description": "Overload form to use for objects creation.",
                     "domain": ["parent_status", "=", "object.status"],
-                    "visible": ["admin", "in", "user.groups"],
+                    "access": {
+                        "groups":["admin"]
+                    },
                     "controller": "custompackage_mode_update"
                 }
             ],
