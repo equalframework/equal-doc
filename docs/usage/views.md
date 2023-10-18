@@ -185,7 +185,7 @@ The **header** section allows to override the default behavior of the view.
 The actions property can be used for 3 purposes: to force action buttons visibility; to define the order of the actions for buttons having multiple actions ("split buttons"); and to override the configuration of the subsequent Views (for relational fields).
 
 * For **forms**, default actions are : `ACTION.EDIT`, `ACTION.SAVE`, `ACTION.CREATE`, `ACTION.CANCEL`
-* For **lists**, default actions are : `ACTION.SELECT`, `ACTION.CREATE`
+* For **lists**, default actions are : `ACTION.CREATE`, `ACTION.SELECT`, `ACTION.OPEN`
 
 Each action item is either a boolean or an array of items describing the order of the buttons and parameters for subsequent views.
 
@@ -195,13 +195,16 @@ Each action item is either a boolean or an array of items describing the order o
 
 Empty arrays or items set to false mean that the action is not available for the View. If action is an array with multiple items, the related button will be displayed as a split-button (note: in that case, the order of the items is maintained).
 
+Here is the exhaustive list of the actions ID that are supported by the views. Each ID corresponds to a button that will be present (or not, according to the config of the view) in the header of the view. `header.actions` allows to map these actions ID with predefined or custom action items  (note that custom action ID are not accepted).
+
 | **ACTION** | **DESCRIPTION** | **ID(S)** |
 | ---- | ---- |---- |
 | ACTION.EDIT | For forms in view mode, allows to edit the current object. ||
 | ACTION.SAVE | For forms in edit mode, **ACTION.SAVE** is the action used for storing the changes made to the current object. |`SAVE_AND_CLOSE`, `SAVE_AND_VIEW`, `SAVE_AND_CONTINUE`|
-| ACTION.CREATE | For all views, **ACTION.CREATE** is the action used for creating a new current object. |`CREATE`, `ADD`|
+| ACTION.CREATE | For list views, **ACTION.CREATE** is the action used for creating a new object of the current entity. |`CREATE`, `ADD`|
 | ACTION.CANCEL | For forms in edit mode, allows to cancel the changes made to the current object. |`CANCEL_AND_CLOSE`, `CANCEL_AND_VIEW`|
 | ACTION.SELECT | For relational fields, allows to select or add one or many objects and relay selection to parent View. ||
+| ACTION.OPEN |  ||
 
 **Predefined actions**:
 
@@ -213,7 +216,10 @@ Empty arrays or items set to false mean that the action is not available for the
 | SAVE_AND_VIEW | The view is saved and closed. The user is brought to the 'view' version (SAVE action can only occur in 'edit' mode). In most cases, the 'view' version is the parent. If not, a new (similar) context is opened in 'view' mode. | |
 | SAVE_AND_EDIT | The view is saved and closed. The user is brought to a cloned context (still in 'edit' mode). | |
 | CREATE |  | model_create |
-| ADD |  | model_update |
+| SELECT | An object in the current list view has been selected (selection might consist in several selected objects). |  |
+| ADD | A context is requested for adding one or more object to a many2many list. | model_update |
+| CANCEL | The action relating to the current view (form in edit mode : CREATE, EDIT), has been cancelled by the user. |  |
+| OPEN | A request for opening a form view for a given object has been received by the list. |  |
 
 **Usage example**:
 
