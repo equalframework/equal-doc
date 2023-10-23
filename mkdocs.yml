@@ -72,6 +72,7 @@ nav:
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
      - 'Directory Structure': 'usage/directory-structure.md'
+     - 'Packages': 'usage/packages.md'
      - 'Model Definition': 'usage/model-definition.md'
      - 'Actions': 'usage/actions.md'
      - 'Controllers': 'usage/controllers.md'
