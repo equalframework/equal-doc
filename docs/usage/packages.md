@@ -1,6 +1,6 @@
 # Packages
 
-In order to ease development and collaboration, the eQual framework's architecture organizes application logic into themed packages represented by folders, located under the `/packages` directory. 
+In order to ease development and collaboration, eQual organizes application logic into themed packages represented by folders, located under the `/packages` directory. 
 
 These packages contain components like models, views, controllers, and translation files. Models define data structure, views describe user interface, controllers manage data flow, and translations support multilingual features. 
 
@@ -35,17 +35,17 @@ package_name
 
 
 
-| **FOLDER** | **ROLE** | **URI KEY** | **EXAMPLES**                                                                       |
-|-|-|-|------------------------------------------------------------------------------------|
-| `classes`  | model          |                  | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
-| `actions`  | action handler (controller) | do       | core_manage, core_utils                                                            |
-| `apps`     | applications related to the package |        | auth, apps                                                                         |
-| `data`  | data provider | get       | core_objects_browse, core_user_lang                                                |
-| `test`  | test units | do | `default.php`                                                                      |
-| `init`  | initialize the package with data (**requires**:`import=true`) or routes | do | `core_Group.json`                                                                  |
-| `views`  | templates |        | `User.form.default.json`, `User.list.default.json`                                 |
-| `i18n`  | translations |        | `User.json`                                                                        |
-| `assets` | static html |        | static content, javascripts, stylesheets, images                                   |
+| **FOLDER** | **ROLE** | **EXAMPLES**                                                                       |
+|-|-|------------------------------------------------------------------------------------|
+| `classes`  | model          | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
+| `actions`  | action handler (controller) | `core_manage`, `core_utils`                                                        |
+| `apps`     | applications related to the package | `auth`, `apps`                                                                     |
+| `data`  | data provider | `core_model_read`, `core_config_packages`                    |
+| `test`  | test units | `default.php`                                                                      |
+| `init`  | initialize the package (entities, data, routes) | `core_Group.json`                                                                  |
+| `views`  | templates | `User.form.default.json`, `User.list.default.json`                                 |
+| `i18n`  | translations | `User.json`                                                                        |
+| `assets` | static content (resources) | js scripts, stylesheets, fonts, images                         |
 
 
 
@@ -79,9 +79,11 @@ The manifest is a file containing informations about the package and its apps:
 | `apps` | applications related to the package | `[myapps]` |
 
 
+### readme.md
+A markdown file containing various relevant information about the package, things to know about installation and configuration, and the features it offers.
 
-### Apps
-#### manifest.json
+## Apps
+### manifest.json
 
 | **PROPERTY** | **ROLE** |  **EXAMPLES**  |
 |-|-|---|
