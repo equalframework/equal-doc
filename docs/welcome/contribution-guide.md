@@ -15,6 +15,12 @@ This document contains notes and guidelines on how to contribute to eQual.
 
 Active committers and contributors are invited to introduce themselves and request commit access to the project on the Discord [#join](https://discord.gg/65WcBQFVg6) channel. If you think you can help, we'd love to have you!
 
+## First-time contributors
+We've tagged some issues to make it easy to get started :smile:
+[Good first issues](https://github.com/equalframework/equal/labels/good%20first%20issue) 
+
+If you're interested in working on an issue, make sure it has either a `good-first-issue` label added. Add a comment on the issue and wait for the issue to be assigned before you start working on it (this helps to avoid multiple people working on similar issues).
+
 
 ## Bugs and Issues
 
