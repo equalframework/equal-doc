@@ -12,10 +12,10 @@ As sample webapp, we are going to build a basic blog.
 For installation notes, see [Installation](../getting-started/installation.md) in the "Getting started" section.
 
 ## 1. Create a new package
-**(Estimated time : 1 minute)**
+**(Estimated time : 2 minutes)**
 
 This part is quite easy: in the `packages` folder, we create a new folder named "blog".
-In addition, inside this new folder, let's create the following subfolders (as they are mandatory): "classes" and "views".
+In addition, inside this new folder, let's create the following subdirectories (as they are mandatory): "classes" and "views".
 
 Tree structure is now:
 ```
@@ -24,9 +24,46 @@ Tree structure is now:
     /blog
       /classes
       /views
+      manifest.json
 ```
+
+### Add a manifest.json in blog 
+
+```json
+{
+    "name": "blog",
+    "description": "Application Blog",
+    "version": "1.0",
+    "author": "YesBabylon",
+    "license": "LGPL-3",
+    "depends_on": [ "core" ],
+    "apps": [
+        {
+          "id": "blog",
+          "name": "Blog",
+          "extends": "app",
+          "description": "blog",
+          "icon": "ad_units",
+          "color": "#3498DB",
+          "access": {
+            "groups": [
+              "users"
+            ]
+          },
+          "params": {
+            "menus": {
+              "left": "app.left"
+            }
+          }
+        }
+      ],
+    "tags": [ ]
+}
+
+```
+
 ## 2. Write some classes
-**(Estimated time : 3 minutes)**
+**(Estimated time : 5 minutes)**
 
 Now, we need to create a new kind of object. Let's call it "post".
 
@@ -36,14 +73,33 @@ So,in the folder `packages/blog/classes`, we add a new file named `Post.class.ph
 
 ```php
 <?php
+
 namespace blog;
+use equal\orm\Model;
 
-class Post extends \core\Model {
+class Post extends Model {
 
-    public static function getColumns() {
+    public static function getColumns(){
+
         return [
-            'title'      => array('type' => 'string'),
-            'content'    => array('type' => 'text')
+            'title' => [
+                'type'=>'string',
+                'description' => "Title of the post.",
+            ],
+            'content' => [
+                'type'=>'text',
+                'description' => "Content of the post.",
+                ],
+            'published'=> [
+                'type'=>'date',
+                'description' => "The date the post is published.",
+                ],
+            'author' => [
+                'type'          => 'computed',
+                'result_type'   => 'string',
+                'store'         => true,
+                'function'      => 'calcAuthor'
+            ]
         ];
     }
 
@@ -55,30 +111,44 @@ In addition, we want to be able to retrieve the name of the author of the post.
 The special field `creator` gives us the id of the user (`core\User`) who created the post, but we would like to be able to display author's name without having to perform additional requests.
 
 
-In order to do so, we add an `author` field, defined like this:
+In order to do so, we add an `author_full_name` field. This field is of type computed and its function for this is calcAuthorFullName. When a field is computed we think a good practice is to prefix with `calc` the name of the function.   
+
 ```php
-<?php
-'author'     => array(
-                      'type'        => 'function', 
-                      'result_type' => 'string', 
-                      'store'       => true, 
-                      'function'    => 'blog\Post::getAuthor'
-                )
+
+   'author_full_name' => [
+                'type'          => 'computed',
+                'result_type'   => 'string',
+                'store'         => true,
+                'function'      => 'calcAuthorFullName'
+            ]
+
 ```
 
-As well as the method allowing to retrieve the name of the given user id:
+The method we write to compute the author's full name is based on the User's fullname entry. We want to retrieve it with the user. Post extends from Model which has the property :        
 ```php
-<?php
-public static function getAuthor($om, $uid, $oid, $lang) {
-    $author = '';
-    $res = $om->browse($uid, 'blog\Post', array($oid), array('creator'), $lang);
-    if(is_array($res)) {
-        $user_id = $res[$oid]['creator'];
-        $res = $om->browse($uid, 'core\User', array($user_id), array('firstname', 'lastname'), $lang);
+lib/equal/orm/Model.class.php
+
+  'creator' => [
+                'type'              => 'many2one',
+                'foreign_object'    => 'core\User',
+                'default'           => QN_ROOT_USER_ID
+            ], 
+            
+             
+```
+
+As such we can use $self which is an instance of Post and its method [read()](https://doc.equal.run/architecture-concepts/orm/#read) to get the creator of a post. We can call subproperties so we will get the creator['fullname'] entry.
+
+```php
+
+     public static function calcAuthorFullName($self){
+        $result = [];
+        $posts = $self->read(['id', 'creator' => ['fullname']]);
+        foreach($posts as $id => $post) {
+            $result[$id] = $post['creator']['fullname'];
+        };
+        return $result;
     }
-    if(is_array($res)) $author = $res[$user_id]['firstname'].' '.$res[$user_id]['lastname'];
-    return $author;
-}
 
 ```
 
@@ -87,34 +157,46 @@ Finally, our file looks like this:
 
 ```php
 <?php
+
 namespace blog;
 
-class Post extends \core\Object {
+use equal\orm\Model;
 
-    public static function getColumns() {
-        return array(
-            'title'      => array('type' => 'string'),
-            'content'    => array('type' => 'text'),
-            'author'     => array(
-                'type' => 'function', 
-                'result_type' => 'string', 
-                'store' => true, 
-                'function' => 'blog\Post::getAuthor'
-            )
-        );
+class Post extends Model {
+
+    public static function getColumns(){
+
+        return [
+            'title' => [
+                'type'=>'string',
+                'description' => "Title of the post.",
+            ],
+            'content' => [
+                'type'=>'text',
+                'description' => "Content of the post.",
+                ],
+            'published'=> [
+                'type'=>'date',
+                'description' => "The date the post is published.",
+                'default'   => null
+                ],
+            'author_full_name' => [
+                'type'          => 'computed',
+                'result_type'   => 'string',
+                'store'         => true,
+                'function'      => 'calcAuthorFullName'
+            ]
+        ];
     }
 
-    public static function getAuthor($om, $uid, $oid, $lang) {
-        $author = '';
-        $res = $om->browse($uid, 'blog\Post', array($oid), array('creator'), $lang);
-        if(is_array($res)) {
-            $user_id = $res[$oid]['creator'];
-            $res = $om->browse($uid, 'core\User', array($user_id), array('firstname', 'lastname'), $lang);
-        }
-        if(is_array($res)) $author = $res[$user_id]['firstname'].' '.$res[$user_id]['lastname'];
-        return $author;
+    public static function calcAuthorFullName($self){
+        $result = [];
+        $posts = $self->read(['id', 'creator' => ['fullname']]);
+        foreach($posts as $id => $post) {
+            $result[$id] = $post['creator']['fullname'];
+        };
+        return $result;
     }
-
 }
 
 ```
@@ -129,70 +211,53 @@ Tree structure is now:
       /views
 ```
 
+## 3. Create some init data :
 
-
-## 3. Create related DB tables
-
-**(Estimated time : 2 minutes)**
-
-Open your internet browser and go to the `core_utils` application. For instance, http:`localhost/equal/index.php?show=core_utils.
-
-If you are getting confused, read the [HTTP native](/architecture-concepts/http-native/#invoking-controllers) section.
-
-Now, among the packages list, select the newly created `blog` package, then choose the `sql-schema` plugin and click 'ok'.
-
-In the right panel, you should see the following SQL code : 
-```sql
-CREATE TABLE IF NOT EXISTS `blog_post` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `created` datetime DEFAULT NULL,
-    `modified` datetime DEFAULT NULL,
-    `creator` int(11) NOT NULL DEFAULT '0',
-    `modifier` int(11) NOT NULL DEFAULT '0',
-    `published` tinyint(4) NOT NULL DEFAULT '0',
-    `deleted` tinyint(4) NOT NULL DEFAULT '0',
-    `title` varchar(255),
-    `content` mediumtext,
-    `author` mediumtext DEFAULT NULL,
-    PRIMARY KEY (`id`)
-) DEFAULT CHARSET=utf8;
+**(Estimated time : 1 minutes)**
+Tree structure is now:
 ```
+  /
+  /packages
+    /blog
+      /classes
+        Post.class.php      
+      /init
+        /data
+            blog_Post.json
 
-You may now copy/paste this code in order to create a new table with your favorite SQL GUI manager (phpMyAdmin, workbench, ...)
+```
+Lets create two posts when we initialize our app. 
+
+```json
+[
+    {
+        "name": "blog\\Post",
+        "lang": "en",
+        "data": [
+            {
+                "id" : 1,
+                "title" : "Post test 1",
+                "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, hic voluptates libero explicabo fuga commodi magni nulla ea iure corporis corrupti cum dolores ducimus voluptatem rem provident! Animi, numquam et?",
+                "published" : "2023-11-27",
+                "creator" : 1
+            },
+            {
+                "id" : 2,
+                "title" : "Post test 2",
+                "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, hic voluptates libero explicabo fuga commodi magni nulla ea iure corporis corrupti cum dolores ducimus voluptatem rem provident! Animi, numquam et?",
+                "published" : "2023-11-27",
+                "creator": 1
+            }
+        ]
+    }
+]
+
+```
 
 ## 4. Create views
-**(Estimated time : 1 minute)**
+**(Estimated time : 10 minutes)**
 
-In the `packages/blog/views`, create two new files:
-### 1. Post.form.default.html
-
-```html
-<form action="core_objects_update">
-    <div>
-        <span width="100%">
-            <label for="title"></label><var id="title" required="true"></var>
-        </span>	
-        <div>
-            <fieldset title="details">
-                <div>
-                    <section name="content">
-                        <var id="content"></var>
-                    </section>					
-                </div>
-            </fieldset>			
-        </div>
-    </div>
-</form>
-```
-### 2. Post.list.default.html
-
-```html
-<ul>
-    <li id="title" width="55%"></li>
-    <li id="author" width="25%"></li>		
-    <li id="created" width="20%"></li>			
-</ul>
-```
+In the `packages/blog/views`, create three new files:
 
 Tree structure is now:
 ```
@@ -201,207 +266,462 @@ Tree structure is now:
     /blog
       /classes
         Post.class.php      
+      /init
+        /data
+            blog_Post.json      
       /views
-        Post.form.default.html
-        Post.list.default.html
+        menu.app.left.json
+        Post.form.default.json
+        Post.list.default.json
+```
+### 1. menu.app.left.json
+A menu with posts and users entries.
+
+```json
+
+{
+  "name": "blog menu",
+  "access": {
+    "groups": [
+      "project.default.blog"
+    ]
+  },
+  "layout": {
+    "items": [
+      {
+        "id": "project.project.test",
+        "label": "Blog Menu",
+        "description": "",
+        "icon": "menu_book",
+        "type": "parent",
+        "children": [
+          {
+            "id": "project.project.blog",
+            "type": "entry",
+            "label": "Posts",
+            "description": "List of the Posts",
+            "context": {
+              "entity": "blog\\Post",
+              "view": "list.default"
+            }
+          },
+          {
+            "id": "project.project.user",
+            "type": "entry",
+            "label": "Users",
+            "description": "Users of the app",
+            "context": {
+              "entity": "core\\User",
+              "view": "list.default"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+
 ```
 
-## 5. Create some sample objects
+### 2. Post.form.default.json
+A form view to create and update posts.
+
+```json
+{
+  "name": "post.form.default",
+  "description": "Create of update a Post",
+  "layout": {
+    "groups": [
+      {
+        "label": "New Group",
+        "id": "group.0",
+        "sections": [
+          {
+            "label": "Post",
+            "id": "section.0",
+            "rows": [
+              {
+                "id": "row.0",
+                "label": "New Row",
+                "columns": [
+                  {
+                    "id": "column.0",
+                    "label": "New Column",
+                    "width": "100%",
+                    "items": [
+                      {
+                        "type": "field",
+                        "value": "title",
+                        "width": "25%",
+                      },
+                      {
+                        "type": "field",
+                        "value": "published",
+                        "width": "25%",
+                      },
+                      {
+                        "type": "field",
+                        "value": "content",
+                        "width": "50%",
+                        "widget": {},
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+}
+```
+
+### 3. Post.list.default.json
+A list view to display a list of posts.
+
+```json
+{
+    "name": "post.list.default",
+    "description": "Displays a list of posts",
+    "layout": {
+        "items": [
+            {
+                "type": "field",
+                "value": "",
+                "width": "10%"
+            },
+            {
+                "type": "field",
+                "value": "author",
+                "width": "25%"
+            },
+            {
+                "type": "field",
+                "value": "title",
+                "width": "10%"
+            },
+            {
+                "type": "field",
+                "value": "content",
+                "width": "50%"
+            },
+            {
+                "type": "field",
+                "value": "published",
+                "width": "25%"
+            },
+            {
+                "type": "field",
+                "value": "creator",
+                "width": "25%"
+            }
+        ]
+    }
+}
+```
+
+
+## 5. Test package consistency and initialize the blog backend app : 
 **(Estimated time : 1 minute)**
 
-  * Open your internet browser and go to the `core_manage` application. 
-''For instance:
-http:`equal.local/index.php?show=core_manage''
-  * Among packages list, select the `blog` package, then click on the `Post` class.
-  * On the right panel, click on the 'create new' button.
-  * Choose a title and a content for this new post
-    For instance:
-    Title : About this blog
-    Content: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi vel erat non mauris convallis vehicula. Nulla et sapien. Integer tortor tellus, aliquam faucibus, convallis id, congue eu, quam. Mauris ullamcorper felis vitae erat. Proin feugiat, augue non elementum posuere, metus purus iaculis lectus, et tristique ligula justo vitae magna.
+```bash
+./equal.run --do=test_package-consistency --package=blog 
 
+./equal.run --do=init_package --package=blog --import=true
 
+```
+
+Go to http://equal.local/apps/
+
+Login using the `core/init/data/core_User.json` or your own credentials.
+Then click on the `Blog` button to visit the app.
+
+At this stage you have a back end where users can connect and create blog posts.
+
+Now we want to create a front-end so that everybody can read our blog posts. 
 
 ## 6. Create an application
-**(Estimated time : 2 minutes)**
-
-### 1. Template
-
-  * To display some nice html, we need a template. Let's adapt one from a WP template designer.
-  * Let's pick one from diovo.com : http:`www.diovo.com/links/voidy/
-  * We create a new folder `packages/blog/html/css` and copy `img` folder and `style.css` into it.
-  * In `packages/blog/html` we put the adapted template below.
- Note that we added two `var` tags in order to display the template dynamically (based on the `post_id` parameter from the URL):
-    <var id="content"></var>
-    and 
-    <var id="recent_posts"></var>
-    
-    
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="UTF-8">
-    <title>my blog</title>
-    <link media="all" rel="stylesheet" type="text/css" href="packages/blog/html/css/style.css" />
-</head>
-<body>
-    <div id="body">
-        <div id="header">
-            <div id="logo">
-                <div id="h1"><a href="#">Yet another easy blog</a></div>
-                <div id="h2" style="font-style: italic;">powered by equal</div>        
-            </div>
-            <div id="header-icons"></div>
-            <div id="menu">
-                <div class="menu-bottom">
-                    <ul><li class="page_item"><a href="#">contact</a></li></ul>
-                    <div class="spacer" style="clear: both;"></div>
-                </div>    
-            </div>
-        </div>
-        <div id="main">    
-            <div id="content">
-                <div class="post type-post format-standard">
-                    <var id="content"></var>            
-                </div>                    
-            </div>
-            <div id="sidebar1" class="sidecol">
-                <ul>
-                    <li>
-                        <p style="font-style: italic; font-family: Georgia,serif;">This blog is run by a hand-made webapp developed in minutes thanks to equal.</p>
-                    </li>            
-                    <li class="widget recent">
-                        <h2 class="widgettitle">Latest articles</h2>
-                        <ul><var id="recent_posts"></var></ul>                    
-                    </li>
-                </ul>
-            </div>
-            <div style="clear:both"></div>
-        </div>    
-        <div id="footer">
-            <p>
-                <a title="equal" href="http:`equal.run/">Powered by equal</a>
-                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                <a title="Diovo" href="http:`www.diovo.com/links/voidy/">Theme by Niyaz</a>
-            </p>    
-        </div>        
-    </div>            
-</body>
-</html>
-```
-
-### 2. Script
-
-Finally, let's create a folder `packages/blog/apps` inside wich we put a file named `display.php` containing the code below.
+**(Estimated time : 15 minutes)**
 
 
-```php
-<?php
-// the dispatcher (index.php) is in charge of setting the context and should include the equal library
-defined('__equal_LIB') or die(__FILE__.' cannot be executed directly.');
+### 1. Create a three new files for the front-end app
 
-// we'll need to format some dates
-load_class('utils/DateFormatter');
+We will create a simple view in html and fetch the posts from back end in using vanilla javascript.
 
-// get the value of the post_id parameter (set it to 1 if not present), and put it in the $params array
-$params = get_params(array('post_id'=>1));
-
-/*
-* A small html parser that replaces 'var' tags with their associated content.
-*
-* @param string $template    the full html code of a page, containing var tags to be replaced by content
-* @param function $decorator    the function to use in order to return html code matching a var tag
-*/
-function decorate_template($template, $decorator) {
-    $previous_pos = 0;
-    $html = '';
-    // use regular expression to locate all 'var' tags in the template
-    preg_match_all("/<var([^>]*)>.*<\/var>/iU", $template, $matches, PREG_OFFSET_CAPTURE);
-    // replace 'var' tags with their associated content
-    for($i = 0, $j = count($matches[1]); $i < $j; ++$i) {
-        // 1) get tag attributes
-        $attributes = array();
-        $args = explode(' ', ltrim($matches[1][$i][0]));
-        foreach($args as $arg) {
-            if(!strlen($arg)) continue;
-            list($attribute, $value) = explode('=', $arg);
-            $attributes[$attribute] = str_replace('"', '', $value);
-        }
-        // 2) get content pointed by var tag, replace tag with content and build resulting html
-        $pos = $matches[0][$i][1];
-        $len = strlen($matches[0][$i][0]);
-        $html .= substr($template, $previous_pos, ($pos-$previous_pos)).$decorator($attributes);
-        $previous_pos = $pos + $len;
-    }
-    // add trailer
-    $html .= substr($template, $previous_pos);
-    return $html;
-}
-/**
-* Returns html part specified by $attributes (from a 'var' tag) and associated with current post id
-* (here come the calls to equal API)
-*
-* @param array $attributes
-*/
-$get_html = function ($attributes) {
-    global $params;
-    $html = '';
-    switch($attributes['id']) {
-        case 'content':
-            if(is_int($post_values = &browse('blog\Post', array($params['post_id']), array('id', 'created', 'title', 'content')))) break;
-            $title = $post_values[$params['post_id']]['title'];
-            $content = $post_values[$params['post_id']]['content'];
-            $dateFormatter = new DateFormatter();
-            $dateFormatter->setDate($post_values[$params['post_id']]['created'], DATE_TIME_SQL);
-            $date = ucfirst(strftime("%A %d %B %Y", $dateFormatter->getTimestamp()));
-            $html = "
-                <h2 class=\"title\">$title</h2>
-                <div class=\"meta\"><p>$date</p></div>
-                <div class=\"entry\">$content</div>
-            ";        
-            break;
-        case 'recent_posts':
-            $ids = search('blog\Post', array(array(array())), 'created', 'desc', 0, 5);
-            $recent_values = &browse('blog\Post', $ids, array('id', 'title'));
-            foreach($recent_values as $values) {
-                $title = $values['title'];
-                $id = $values['id'];
-                $html .= "<li><a href=\"index.php?show=blog_display&post_id={$id}\">$title</a></li>";
-            }
-            break;            
-    }
-    return $html;
-};
-
-` if we got the post_id and if the template file can be found, read the template and decorate it with current post values 
-if(!is_null($params['post_id']) && file_exists('packages/blog/html/template.html')) print(decorate_template(file_get_contents('packages/blog/html/template.html'), $get_html));
-```
-
-
-Tree structure is now :
+Tree structure is now:
 ```
   /
   /packages
     /blog
       /apps
-        display.php
+        /blog
+          export.sh
+          index.html
+          manifest.json
       /classes
-        Post.class.php      
-      /html
-        /css
-          /img
-          style.css
-        template.html
+          Post.class.php      
       /views
-        Post.form.default.html
-        Post.list.default.html
+      /init
+        /data
+      manifest.json
 ```
 
-To access your newly created blog, open your browser and request the `blog_display` application.
-  URL example : http://equal.local/equal/?show=blog_display
+* In `packages/blog/apps/blog/index.html`
 
-Remember that post_id will be set to 1 by default. To display another blog entry, you'll have to specify the related post_id in the URL.
+    
+```html
 
-  Another URL example could be : http://equal.local/equal/?show=blog_display&post_id=2
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eQual Blog</title>
+    <link rel="icon" type="image/x-icon" href="https://doc.equal.run/assets/img/favicon.png">
+</head>
+
+<body>
+    <main>
+        <h1 style="text-align: center;">eQual Blog</h1>
+
+        <ul class="list"></ul>
+
+        <script type="module">
+            (async () => {
+                const apiUrl="http://equal.local/?get=model_collect&entity=blog%5CPost&fields[]=id&fields[]=author_full_name&fields[]=title&fields[]=content&fields[]=published";
+                let response = await fetch(apiUrl, {
+                    method: "GET",
+                    headers: { "Accept": "*/*" }
+                });
+                let posts = await response.json();
+                let ul = document.querySelector(".list");
+                posts.forEach(post => {
+                    let blogPost = document.createElement("article");
+                    let card = document.createElement('li');
+                    let newTitle = document.createElement("h2");
+                    newTitle.textContent = post.title;
+                    let newContent = document.createElement("p");
+                    newContent.textContent = post.content;
+                    blogPost.appendChild(newTitle);
+                    blogPost.appendChild(newContent);
+                    ul.appendChild(blogPost);
+                });
+            })();
+        </script>
+    </main>
+</body>
+
+</html>
+
+```
+
+* In `packages/blog/apps/blog/manifest.json`
+
+```json
+
+{
+    "name": "blog",
+    "description": "blog screen displayed as default App.",
+    "version": "1.0",
+    "authors": ["YesBabylon"],
+    "license": "LGPL-3",
+    "url": "/blog",
+    "icon": "home",
+    "color": "#d2252c",
+    "access": {
+        "groups": [
+            "users"
+        ]
+    },
+    "show_in_apps": false
+}
+
+```
+* Now in ``packages/blog/manifest.json` add `blog` in "apps"
+```json 
+{
+    "name": "blog",
+    "description": "Application Blog",
+    "version": "1.0",
+    "author": "YesBabylon",
+    "license": "LGPL-3",
+    "depends_on": [ "core" ],
+    "apps": [
+        {
+          "id": "blog",
+          "name": "Blog",
+          "extends": "app",
+          "description": "blog",
+          "icon": "ad_units",
+          "color": "#3498DB",
+          "access": {
+            "groups": [
+              "users"
+            ]
+          },
+          "params": {
+            "menus": {
+              "left": "app.left"
+            }
+          }
+        },
+        "blog"
+      ],
+    "tags": [ ]
+}
+
+```
+
+* Finally in `packages/blog/apps/blog/export.sh`
+
+With the index.html, we will create a zip file called web.app. You can run it directly in your console or you can make a script in export.sh.
+
+```bash
+
+zip web.app index.html
+
+```
+
+Running the export.sh script will create zip the file into web.app in your console.  
+
+```bash
+
+cd /var/www/html/packages/blog/apps/blog/
+sh export.sh
+```
+
+Initialize your package in /var/www/html/. This will create the app in /var/www/html/public/blog. 
+
+```bash
+cd /var/www/html/
+./equal.run --do=init_package --package=blog
+
+```
+
+Now if you got to http://equal.local/blog/ you should see the blog page. 
+
+**Problem**
+
+We have not created any controller in eQual. If you look at the apiUrl you see that we use the basic built in get=model_collect which will only return data if your user is logged in in eQual. What we want is for everyone to be able to access the blog and read the posts. So we are going to make a public controller and a custom route.
+
+### 2. Make a simple controller and a route for posts.
+
+Finally, let's create a controller `packages/blog/data/post/collect.php` and a route `packages/blog/init/routes/98-blog.json`.
+
+Tree structure is now:
+```
+  /
+  /packages
+    /blog
+      /actions
+      /apps
+        /blog
+          export.sh
+          index.html
+          manifest.json
+      /classes
+          Post.class.php      
+      /views
+        menu.app.left.json
+        Post.form.default.json
+        Post.list.default.json
+      /data
+        /post
+          collect.php
+      /init
+        /data
+        /routes
+          98-blog.json
+      manifest.json
+```
+
+`packages/blog/data/post/collect.php`
+```php
+<?php
+
+use \blog\Post;
+
+list($params, $providers) = eQual::announce([
+    'description'   => 'This is the blog_post_collect controller.',
+    'response'      => [
+        'charset'       => 'utf-8',
+        'accept-origin' => '*',
+        'content-type' => 'application/json'
+    ],
+    'params'        => [
+    ],
+    'access'        => [
+        'visibility'    => 'public',
+        'groups'        => ['users']
+    ],
+    'providers'         => ['context', "auth"]
+]);
+/**
+ * @var \equal\php\context  Context
+ */
+list($context,$auth) = [$providers['context'],$providers['auth']];
+
+$auth->su();
+
+$params = [
+    'fields' => [
+        'creator.name',
+        'author',
+        'title',
+        'content'
+    ],
+];
+
+$res = Post::search()->read($params['fields'])->get(true);
+
+$context->httpResponse()
+        ->body($res)
+        ->status(200)
+        ->send();
+
+```
+
+Now lets create the route `/posts` which will use our collect controller to get all posts.
+
+`packages/blog/init/routes/98-blog.json`
+```json
+{"\/posts": {
+    "GET" : {
+        "description" : "Get all blog posts.",
+        "operation" : "?get=blog_post_collect"
+    }
+}}
+
+```
+
+Now change the apiUrl in `packages/blog/apps/blog/index.html` to `http://equal.local/posts`
+```javascript
+<script type="module">
+  (async () => {
+      const apiUrl=  "http://equal.local/posts";
+      let response = await fetch(apiUrl, {
+          method: "GET",
+          headers: { "Accept": "*/*" }
+      });
+      let posts = await response.json();
+      let ul = document.querySelector(".list");
+      posts.forEach(post => {
+          let blogPost = document.createElement("article");
+          let card = document.createElement('li');
+          let newTitle = document.createElement("h2");
+          newTitle.textContent = post.title;
+          let newContent = document.createElement("p");
+          newContent.textContent = post.content;
+          blogPost.appendChild(newTitle);
+          blogPost.appendChild(newContent);
+          ul.appendChild(blogPost);
+      });
+  })();
+</script>
+
+```
+
+Rerun the export.sh script and initialize your package to apply the changes and your blog should be available for everyone to read now at http://equal.local/blog/.
