@@ -481,11 +481,27 @@ Tree structure is now:
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eQual Blog</title>
     <link rel="icon" type="image/x-icon" href="https://doc.equal.run/assets/img/favicon.png">
+    <style>
+      .list {
+          list-style: none;
+          display: grid;
+          gap : 1rem;
+      }
+      .post {
+          background-color: lightgray;
+          border-radius: 10px;
+          padding: 1rem;
+      }
+      
+      h1,h2 {
+          text-align: center;
+      }
+  </style>
 </head>
 
 <body>
     <main>
-        <h1 style="text-align: center;">eQual Blog</h1>
+        <h1>eQual Blog</h1>
 
         <ul class="list"></ul>
 
@@ -500,12 +516,18 @@ Tree structure is now:
                 let ul = document.querySelector(".list");
                 posts.forEach(post => {
                     let blogPost = document.createElement("article");
-                    let card = document.createElement('li');
                     let newTitle = document.createElement("h2");
+                    let newContent = document.createElement("div");
+                    let newAuthor = document.createElement("h3");
+                    let newPublished = document.createElement('div');
+                    blogPost.classList.add("post")
                     newTitle.textContent = post.title;
-                    let newContent = document.createElement("p");
-                    newContent.textContent = post.content;
+                    newContent.innerHTML = post.content;
+                    newAuthor.textContent = `Written by ${post.author_full_name}`;
+                    newPublished.textContent = `On ${new Date(post.published).toLocaleDateString()}`;
                     blogPost.appendChild(newTitle);
+                    blogPost.appendChild(newAuthor);
+                    blogPost.appendChild(newPublished);
                     blogPost.appendChild(newContent);
                     ul.appendChild(blogPost);
                 });
@@ -660,7 +682,8 @@ list($params, $providers) = eQual::announce([
     'providers'         => ['context', "auth"]
 ]);
 /**
- * @var \equal\php\context  Context
+ * @var \equal\php\context  $context
+ * @var \equal\auth\AuthenticationManager $auth
  */
 list($context,$auth) = [$providers['context'],$providers['auth']];
 
@@ -669,13 +692,14 @@ $auth->su();
 $params = [
     'fields' => [
         'creator.name',
-        'author',
+        'author_full_name',
+        'published',
         'title',
         'content'
     ],
 ];
 
-$res = Post::search()->read($params['fields'])->get(true);
+$res = Post::search()->read($params['fields'])->adapt('json')->get(true);
 
 $context->httpResponse()
         ->body($res)
@@ -700,26 +724,32 @@ Now lets create the route `/posts` which will use our collect controller to get 
 Now change the apiUrl in `packages/blog/apps/blog/index.html` to `http://equal.local/posts`
 ```javascript
 <script type="module">
-  (async () => {
-      const apiUrl=  "http://equal.local/posts";
-      let response = await fetch(apiUrl, {
-          method: "GET",
-          headers: { "Accept": "*/*" }
-      });
-      let posts = await response.json();
-      let ul = document.querySelector(".list");
-      posts.forEach(post => {
-          let blogPost = document.createElement("article");
-          let card = document.createElement('li');
-          let newTitle = document.createElement("h2");
-          newTitle.textContent = post.title;
-          let newContent = document.createElement("p");
-          newContent.textContent = post.content;
-          blogPost.appendChild(newTitle);
-          blogPost.appendChild(newContent);
-          ul.appendChild(blogPost);
-      });
-  })();
+    (async () => {
+        const apiUrl = "http://equal.local/posts"
+        let response = await fetch(apiUrl, {
+            method: "GET",
+            headers: { "Accept": "*/*" }
+        });
+        let posts = await response.json();
+        let ul = document.querySelector(".list");
+        posts.forEach(post => {
+            let blogPost = document.createElement('li');
+            let newTitle = document.createElement("h2");
+            let newContent = document.createElement("div");
+            let newAuthor = document.createElement("h3");
+            let newPublished = document.createElement('div');
+            blogPost.classList.add("post")
+            newTitle.textContent = post.title;
+            newContent.innerHTML = post.content;
+            newAuthor.textContent = `Written by ${post.author_full_name}`;
+            newPublished.textContent = `On ${new Date(post.published).toLocaleDateString()}`;
+            blogPost.appendChild(newTitle);
+            blogPost.appendChild(newAuthor);
+            blogPost.appendChild(newPublished);
+            blogPost.appendChild(newContent);
+            ul.appendChild(blogPost);
+        });
+    })();
 </script>
 
 ```
