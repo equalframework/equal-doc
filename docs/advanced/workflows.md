@@ -2,7 +2,9 @@
 
 Workflows are part of the Model definition.
 
-When a workflow must be assigned to an entity, a dedicated method , named `getWorkflow()`, must be written for defining the workflow.  The `getWorkflow()`method must return an associative array in which all possible status ate identified by a key of the map.
+When a workflow must be assigned to an entity, a dedicated method , `getWorkflow()`, must be defined for describing the workflow.  
+
+The `getWorkflow()`method must return an associative array in which all possible status ate identified by a key of the map.
 
 For a given entity, the Workflow reflects all possible values of the special field `status` (e.g. [`validated`, `suspended`, `confirmed`]), along with all possible transitions from one status to another (e.g. [`validate`, `suspend`, `confirm`]).
 
@@ -39,7 +41,6 @@ public static function getWorkflow() {
             ];
     }
 ```
-
 
 
 * By default, no workflow is defined.
@@ -90,7 +91,7 @@ The status influences the fields that can be modified the object, the display of
 
 ```json
 {
-  'status_name_1' : {      // each status has a descriptor that can have 3 properties : `readonly`, `columns` and `transitions`
+  'status_name_A' : {      // each status has a descriptor that can have 3 properties : `readonly`, `columns` and `transitions`
     'readonly': {},        // bool, domain or function: if true, the whole object cannot be updated at this status
     'columns' : {          // schema overrides when object has that status (fields not defined in getColumns are ignored)
       'field1' : {         // specifics for given field, that override properties at parent level
@@ -101,23 +102,23 @@ The status influences the fields that can be modified the object, the display of
       }
     },
     'transitions' : {      // all possible transitions from the current status descriptor are listed in the transition property
-      'transition1' : {                          // each transition has an ID (name) and holds a transition descriptor
+      'transitionX' : {                          // each transition has an ID (name) and holds a transition descriptor
         'watch'      : ['field1', 'field3'],     // watcher: tester la transition en cas de modification de ces champs
         'domain'     : ['field1', '>', 'field3'],// conditions to be met in order to allow the transition
         'policies'   : ['policy1', 'policy2'],   // policies that apply on the transition (conditions defined at class level)
         'description': 'f1 > f3',
-        'status'     : 'status_name_2'           // new value of the status (node in the flow) when the transition succeeds
+        'status'     : 'status_name_B'           // new value of the status (node in the flow) when the transition succeeds
       },
-      'transition2' : {
+      'transitionY' : {
         'watch': ['has_quotation_sent'],   // watch
         'description': 'has_quotation_sent',
-        'status': 'status_name_3'
+        'status': 'status_name_C'
       },
-      'transition3' : {
+      'transitionZ' : {
         'description' : 'manual',           // signal de transition sans conditions
-        'status'    : 'status_name_4',      // new status to be assigned to the object
-        'onbefore'  : 'onbeforeTransition3',// method to call before the transition (upon acceptation of the transition)
-        'onafter'   : 'onafterTransition3'  // method to call after the transition has been performed
+        'status'    : 'status_name_D',      // new status to be assigned to the object
+        'onbefore'  : 'onbeforeTransitionC',// method to call before the transition (upon acceptation of the transition)
+        'onafter'   : 'onafterTransitionC'  // method to call after the transition has been performed
       }
     }
   }
@@ -127,25 +128,27 @@ The status influences the fields that can be modified the object, the display of
 ### Manual transitions
 
 A) Controllers can directly modify the status of the object (permitted only if consistent with the workflow, status_from, status_to, and fulfilled conditions without any condition)
-  * Retrieve the workflow and look for the descriptor corresponding to the current status.
-  * Go through all existing transitions and filter among those whose status property matches the requested new status.
-  * If there is no match or if there is no transition with all the fulfilled conditions, an error is thrown.
-  * If there is a match without conditions or with all the fulfilled conditions, the status is updated. If there is a function property, a call is made with the current object.
 
-B) A controller can invoke a transition on an object by emitting a "signal" (transition identifier):
-ORM::transition(transition_id)
-  * Retrieve the workflow and look for the descriptor corresponding to the current status.
-  * Search for the transition among those in the descriptor.
-  * If there is a match and any optional conditions are fulfilled, the status is updated. If there is a function property, a call is made with the current object.
-  * Otherwise, an error is thrown.
+* Retrieve the workflow and look for the descriptor corresponding to the current status.
+* Go through all existing transitions and filter among those whose status property matches the requested new status.
+* If there is no match or if there is no transition with all the fulfilled conditions, an error is thrown.
+* If there is a match without conditions or with all the fulfilled conditions, the status is updated. If there is a function property, a call is made with the current object.
+
+B) A controller can invoke a transition on an object by emitting a "signal" (transition identifier): `ORM::transition(transition_id)`
+
+* Retrieve the workflow and look for the descriptor corresponding to the current status.
+* Search for the transition among those in the descriptor.
+* If there is a match and any optional conditions are fulfilled, the status is updated. If there is a function property, a call is made with the current object.
+* Otherwise, an error is thrown.
 
 ### Automated transitions
 
-C) When modifying an object (all fields), a specific handler checks if conditions are met to automatically modify the status.
-  * Retrieve the workflow and look for the descriptor corresponding to the current status.
-  * Go through all existing transitions and filter among those whose depends_on property contains any of the updated fields.
-  * If there is a match without conditions or with all the fulfilled conditions, the status is updated based on the status property.
-  * Otherwise, no action is taken.
+C) When modifying an object (all fields), a specific handler checks if conditions are met to automatically modify the status.  
+
+* Retrieve the workflow and look for the descriptor corresponding to the current status.
+* Go through all existing transitions and filter among those whose depends_on property contains any of the updated fields.
+* If there is a match without conditions or with all the fulfilled conditions, the status is updated based on the status property.
+* Otherwise, no action is taken.
 
 
 
