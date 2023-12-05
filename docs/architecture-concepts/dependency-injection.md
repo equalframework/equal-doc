@@ -96,10 +96,7 @@ list($params, $providers) = announce([
 * @var custom\AuthenticationManager		$auth
 * @var custom\AccessController			$access
 */
-list($auth, $access)  = [ $providers];
-	'auth'   => custom\AuthenticationManager,
-	'access'  => custom\AccessController
-  ]
+list($auth, $access)  = [$providers];
 ```
 
 
