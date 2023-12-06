@@ -2,8 +2,6 @@
 
 This section presents common questions along with some relevant examples.
 
-
-
 ## eQual Apps
 
 ### Console
@@ -18,15 +16,13 @@ http://equal.local/console.php
 http://equal.local/workbench
 ```
 
-
-
 ## CLI commands
 
 Should be located at the root of eQual (folder containing file `run.php`)
 
 #### Grant DB rights
 
-Available rights: 
+Available rights:
 
 - create
 - read
@@ -44,83 +40,78 @@ You can grant one right for one entity at a time:
 
 This controller runs some consistency checks and works with any package:
 
-| **PATH**        | `core\actions\test\package-consistency.php`                  |
-| --------------- | ------------------------------------------------------------ |
-| **URL**         | `?do=test_package-consistency&package=core`                  |
-| **CLI**         | `$ ./equal.run --do=test_package-consistency --package=core --level=warn` |
+| **PATH**        | `core\actions\test\package-consistency.php`                                                                                 |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
+| **URL**         | `?do=test_package-consistency&package=core`                                                                                 |
+| **CLI**         | `$ ./equal.run --do=test_package-consistency --package=core --level=warn`                                                   |
 | **DESCRIPTION** | Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON). |
 
-> The level property has 3 options : 
+> The level property has 3 options :
 >
-> - **'error'** (ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`)
-> - **'warn'** (ex: `WARN  - I18 - Unknown field 'object_class' referenced in file "packages\/core\/i18n\/en\/alert\MessageModel.json"`
-> -  **\*** (error & warn).
-
+> - **'error'** (
+    ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`)
+> - **'warn'** (
+    ex: `WARN - I18 - Unknown field 'object_class' referenced in file "packages\/core\/i18n\/en\/alert\MessageModel.json"`
+> - **\*** (error & warn).
 
 #### Initiate eQual core in DB
 
-|**PATH**|`core\actions\init\package.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?do=init_package&package=core`|
-|**CLI**|`$ ./equal.run --do=init_package --package=core`|
-|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
+| **PATH**        | `core\actions\init\package.php`                                                         |
+|-----------------|-----------------------------------------------------------------------------------------|
+| **URL**         | `?do=init_package&package=core`                                                         |
+| **CLI**         | `$ ./equal.run --do=init_package --package=core`                                        |
+| **DESCRIPTION** | Initialise database for given package. If no package is given, initialize core package. |
 
 > (this step is mandatory for every new installation)
 
-
 #### Initiate your package in DB
 
-|**PATH**|`core\actions\init\package.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?do=init_package&package=myPackage`|
-|**CLI**|`$ ./equal.run --do=init_package --package=myPackage`|
-|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
-
+| **PATH**        | `core\actions\init\package.php`                                                         |
+|-----------------|-----------------------------------------------------------------------------------------|
+| **URL**         | `?do=init_package&package=myPackage`                                                    |
+| **CLI**         | `$ ./equal.run --do=init_package --package=myPackage`                                   |
+| **DESCRIPTION** | Initialise database for given package. If no package is given, initialize core package. |
 
 #### Initiate your package with initial data in DB
 
-|**PATH**|`core\actions\init\package.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?do=init_package&package=myPackage&import=true`|
-|**CLI**|`$ ./equal.run --do=init_package --package=myPackage --import=true`|
-|**DESCRIPTION**|Initialise database for given package. If no package is given, initialize core package.|
+| **PATH**        | `core\actions\init\package.php`                                                         |
+|-----------------|-----------------------------------------------------------------------------------------|
+| **URL**         | `?do=init_package&package=myPackage&import=true`                                        |
+| **CLI**         | `$ ./equal.run --do=init_package --package=myPackage --import=true`                     |
+| **DESCRIPTION** | Initialise database for given package. If no package is given, initialize core package. |
 
 #### Run package test unit
 
-|**PATH**|`core\actions\test\package.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?do=test_package&package=core`|
-|**CLI**|`$ ./equal.run --do=test_package --package=core`|
-|**DESCRIPTION**|The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](../usage/testing.md)).|
-
-
+| **PATH**        | `core\actions\test\package.php`                                                                                                       |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| **URL**         | `?do=test_package&package=core`                                                                                                       |
+| **CLI**         | `$ ./equal.run --do=test_package --package=core`                                                                                      |
+| **DESCRIPTION** | The controller checks the presence of test units for a given package and runs them, if any. (page :['Testing'](../usage/testing.md)). |
 
 ## Invoking Controllers
 
 ### Data provider
 
-|**PATH**|`/packages/mypackage/data/my-controller.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?get=mypackage_my-controller`|
-|**CLI**|`$ ./equal.run --get=model_collect --entity="mypackage\MyClass"`|
-|**PHP**|```run('get', 'mypackage_MyClass')```|
+| **PATH** | `/packages/mypackage/data/my-controller.php`                     |
+|----------|------------------------------------------------------------------|
+| **URL**  | `?get=mypackage_my-controller`                                   |
+| **CLI**  | `$ ./equal.run --get=model_collect --entity="mypackage\MyClass"` |
+| **PHP**  | ```run('get', 'mypackage_MyClass')```                            |
 
 *Collect is the name of the controller, and model the directory to which it belongs.*
 
 ### Action handler
 
-|**PATH**|`/packages/mypackage/actions/subdir/my-action.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?do=mypackage_subdir_my-action](http://equal.local?do=mypackage_subdir_my-action`|
-|**CLI**|`$ ./equal.run --do=model_update --entity=mypackage\MyObject --fields=[ids]=1 --fields=[name]=example`|
-|**PHP**|```run('do', 'mypackage_myobject_action', [/* parameters */])```|
+| **PATH** | `/packages/mypackage/actions/subdir/my-action.php`                                                     |
+|----------|--------------------------------------------------------------------------------------------------------|
+| **URL**  | `?do=mypackage_subdir_my-action`                                                                       |
+| **CLI**  | `$ ./equal.run --do=model_update --entity=mypackage\MyObject --fields=[ids]=1 --fields=[name]=example` |
+| **PHP**  | ```run('do', 'mypackage_myobject_action', [/* parameters */])```                                       |
 
-
-
-
-## Howtos 	
+## Howtos
 
 ### How to create a new object?
+
 ```php
 <?php
 use core\User;
@@ -130,7 +121,8 @@ User::create(['firstname'=>'Bart']);
 User::create()->update(['firstname'=>'Bart']);
 ```
 
-> Note: When creating an object, by default, the `state` fields is assigned to 'instance', unless another value is given as parameter (ex. state=draft)
+> Note: When creating an object, by default, the `state` fields is assigned to 'instance', unless another value is given
+> as parameter (ex. state=draft)
 
 ### How to check if a given object does exist?
 
@@ -141,6 +133,7 @@ if(count(search($object_class, array(array(array('id', '=', $object_id)))))) {..
 ```
 
 ### How to browse all objects of a given class?
+
 ```php
 <?php
 // note: ensure the specified class does actually exist
@@ -148,6 +141,7 @@ $res = browse($object_class, search($object_class));
 ```
 
 ### How to add a clause to every condition?
+
 ```php
 <?php
 // example: add the (deleted = 1) clause to every condition
@@ -156,6 +150,7 @@ for($i = 0, $j = count($domain); $i < $j; ++$i)
 ```
 
 ### How to obtain output (json/html) from another script ?
+
 ```php
 <?php
 // There are 2 possibilities :
@@ -181,6 +176,7 @@ $result = get_include_contents('packages/core/data/objects/list.php');
 ```
 
 ### How to sort the result of the browse method (without calling search method)?
+
 ```php
 <?php
 // $order is an array containing fields names on which we want the result 
@@ -196,6 +192,7 @@ foreach($order as $ofield) {
 ```
 
 ### How to request fields from all sub-objects at once?
+
 ```php
 <?php
 $pages_values = $orm->read('icway\Page', $pages_ids, array('url_resolver_id'), 
