@@ -1,6 +1,7 @@
 # Usages
 
-Usages is a that can be used to define all at once : how to store a value, how to convert it from one context to another, how to validate it and how to represent it in the UI.
+Usages is a that can be used to define all at once : how to store a value, how to convert it from one context to
+another, how to validate it and how to represent it in the UI.
 
 Types are aliases representing specific usages.
 
@@ -8,26 +9,20 @@ Types are aliases representing specific usages.
 * Usage takes precedence over type.
 * A field always has an unambiguous resulting usage.
 
-
-
 Services based on the DataAdapter interface are used to convert data to and from PHP (from the perspective of PHP).
 
 Adapters are capable of bidirectional conversion of a value based on its usage:
 
-|Conversion||
-|-|-|
-|x   => PHP|`adaptIn(value, usage)`|
-|PHP => x|`adaptOut(value, usage |type)` can be applied on whole Collection with ::adapt(dest)|
-
-
+| Conversion |                         |
+|------------|-------------------------|
+| x   => PHP | `adaptIn(value, usage)` |
+| PHP => x   | `adaptOut(value, usage  |type)` can be applied on whole Collection with ::adapt(dest)|
 
 * The objects manipulated in controllers and classes contain values using PHP types.
 * Collections can be exported by recursively converting the values during export (`get()`):
-`adapter->adaptOut($value, $f->getUsage())`
+  `adapter->adaptOut($value, $f->getUsage())`
 
-
-
-Non-exhaustive list of supported Usages : 
+Non-exhaustive list of supported Usages :
 
 ```
 text/plain
@@ -52,6 +47,4 @@ language/iso-639
 uri/url
 uri/urn.iban
 uri/urn.ean
-uri/url
-
 ```
