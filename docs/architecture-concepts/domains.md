@@ -15,7 +15,6 @@ To represent such a filter, we take advantage of the fact that, whatever the log
 Here below are some Math equivalences to illustrate this (`∨` = OR, `∧` =  AND):
 
 ```
-(A ∧ B) ∨ (C ∧ D) = A ∨ B ∨ C ∨ D
 (A ∨ B) ∧ (C ∨ D) = (A ∧ C) ∨ (A ∧ D) ∨ (B ∧ C) ∨ (B ∧ D)
 ```
 
@@ -125,7 +124,7 @@ $domain = [
 ```
 ```json
 {
-	domain: [
+	"domain": [
         ["login", "like", "%@equal.run"],
         ["validated", "=", true]
     ]
