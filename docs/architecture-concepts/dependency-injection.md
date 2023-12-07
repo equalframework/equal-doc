@@ -12,7 +12,7 @@ eQual offers a series of services that can be used to ease the writing of contro
 
 This can be done by using the `eQual::announce` method, which allows dependency injection.
 
-Dependency injection consists of receiving two kind of data : 
+Dependency injection consists of receiving two kind of data :
 
 1) the parameters received from the HTTP requests (or CLI equivalent call).
 2) the instances to the services that the controller needs in order to perform its required tasks.
@@ -27,11 +27,11 @@ list($params, $providers) = announce([
         'content-type'  => 'application/json',
         'charset'       => 'utf-8',
         'accept-origin' => '*'
-    ],    
+    ],
     'params' 		=>	[
     	[...]
-    ],    
-    'providers'     => ['context', 'orm']   // list of services to inject    
+    ],
+    'providers'     => ['context', 'orm']   // list of services to inject
 ]);
 
 /**
@@ -65,10 +65,10 @@ list($context, $orm) = $providers['context', 'orm'];
 ## Injection of custom services
 
 In some case, it is useful to design a custom service with a logic of its own.
-In other situation, the Access Control Management might be different than the one implemented by eQual. 
+In other situation, the Access Control Management might be different than the one implemented by eQual.
 
 In such cases, it is possible to inject dependencies by specifying their class (in addition to their names).
-By doing so, we can perform 2 operation at a time : 
+By doing so, we can perform 2 operation at a time :
 
 
 
@@ -79,26 +79,25 @@ For instance, here is how the Access controller and Authentication manager can b
 
 ```php
 <?php
-list($params, $providers) = announce([
+list($params, $providers) = eQual::announce([
     'response'      => [
         'content-type'  => 'application/json',
         'charset'       => 'utf-8',
         'accept-origin' => '*'
-    ],    
+    ],
     'params' 		=>	[...],
     'providers'     =>  [
-        'auth'   => custom\AuthenticationManager,
+        'auth',
         'access'  => custom\AccessController
     ]
 ]);
 
 /**
-* @var custom\AuthenticationManager		$auth
-* @var custom\AccessController			$access
+* @var equal\auth\AuthenticationManager		$auth
+* @var custom\AccessController			    $access
 */
-list($auth, $access)  = [$providers];
+list($auth, $access)  = [$providers['auth'], $provider['access']];
 ```
-
 
 
 By doing so, all calls made within the Collection class will use the `custom\AccesController` to check the permissions of the current user for CRUD requests.
