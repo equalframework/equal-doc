@@ -40,7 +40,8 @@ $ docker compose up -d
 
 
 !!! note "Using the Docker image"
-    Alternatively, you may create a docker-compose file or a Dockerfile of your own, and use the image from Docker.io. In this case, you can just use this pull command `docker pull equalframework/equal`.
+    Alternatively, you may create a docker-compose file or a Dockerfile of your own, and use the image from Docker.io. In this case, you can just use this pull command  
+    `docker pull equalframework/equal:latest`
 
 
 
