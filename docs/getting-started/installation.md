@@ -86,11 +86,8 @@ eQual requires the following dependencies:
 
 #### 1. Environment setup
 
-##### OS configuration
 
-
-
-###### Ubuntu
+##### Ubuntu
 
 Installing the LAMP stack under Ubuntu is straightforward:
 
@@ -108,7 +105,14 @@ Restart Apache:
 ```bash
 sudo systemctl restart apache2
 ```
+OR
+```bash
+sudo service apache2 restart
+```
+
+
 Retrieve the path of the PHP binary:
+
 ```bash
 which php
 ```
@@ -119,7 +123,7 @@ Add the PHP binary to the PATH environment variable:
 export PATH=$PATH:/usr/bin/php
 ```
 
-###### RedHat / Fedora / Centos 
+##### RedHat / Fedora / Centos 
 
 Install Mysql server, PHP and Apache:
 ```bash
@@ -127,7 +131,7 @@ yum update
 yum install httpd php mysql-server php-mysql
 ```
 
-###### Windows
+##### Windows
 
 Under Windows, you can use any of the following tools for a ready-to-use WAMP environment :
 
@@ -206,12 +210,16 @@ To make sure everything is setup properly, try to request the hello controller b
 
 You should get the simple output "hello universe". If not, review carefully the previous steps of the installation.
 
+#### 4. File permissions
+Make sure that the `/var/www/` directory and its content have `www-data:www-data` as owner.:
 
 
 
 ## 2. Configure
 
-#### Config file
+
+
+#### Backend config
 
 eQual expects an optional root config file in the `/config` directory.
 
@@ -248,9 +256,17 @@ Here is a minimalist `config.json` that you can adapt according to your environm
 
 If you are under a docker environment, replace the DB_HOST value with `equal_db`.
 
+`ROOT_APP_URL` is particularly important to allow Aps to comunicate with the backend and to avoir CORS errors.
+
 !!! note "DB_CHARSET"  
     If there are issues with the charset, it may be because UTF8 is an alias of utf8mb3 in mysql 8.0 (utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wish to store language characters and symbols, consider using utf8mb4).
 
+#### Front-end config 
+
+Make sure to have a valid front-end configuration 
+`./public/assets/env/config.json`
+
+`backend_url` & `rest_api_url` are particularly important to avoid CORS errors.
 
 #### Database initialization
 
@@ -443,5 +459,4 @@ Note: The body request may be empty, but it is preferable to specify a name for 
 ```json
 []
 ```
-
 
