@@ -11,7 +11,7 @@ same way as a native eQual app.
 
 ### Node version
 
-To compile  `sb-shared-lib` you will need to use node 16.
+To compile  `sb-shared-lib` you will need to use node 14.18.
 
 If you need to install it aside of another node installation, you may use [Node Version Manager](https://github.com/nvm-sh/nvm) as follow :
 ```bash
