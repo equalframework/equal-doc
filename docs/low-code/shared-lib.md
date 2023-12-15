@@ -31,6 +31,7 @@ git pull
 cd symbiose-ui
 npm install
 cd sb-shared-lib
+npm install
 ng build
 cd dist/sb-shared-lib
 npm link 
