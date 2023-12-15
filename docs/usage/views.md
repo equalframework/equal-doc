@@ -20,19 +20,16 @@ As a convention, a default view for `list` and `form` types should be defined fo
 
 Here is a recap for the `core\User` entity :
 
-| **FILENAME**       | **ENTITY** | **VIEW TYPE** | **VIEW NAME** | **VIEW ID** |
-| --------------------------------- | --------- | --------- | --------- | --------- |
-| `core\views\User.list.default.json` | core\User | list | default | list.default |
-| `core\views\User.form.default.json` | core\User | form | default | form.default |
-
-
-
+| **FILENAME**       | **ENTITY** | **VIEW TYPE** | **VIEW NAME** | **VIEW ID** | **Workbench Name**
+| --------------------------------- | --------- | --------- | --------- | --------- | --- |
+| `core\views\User.list.default.json` | core\User | list | default | list.default | core\User:list.default
+| `core\views\User.form.default.json` | core\User | form | default | form.default | core\User:form.default
 
 
 ## Front-end logic
 
 A **View** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
-Within a view, a layout defines the way in which the widgets are linked to the model. The view is synchronized with the model during modifications.
+Within a view, a layout defines the way in which the Items are linked to the model. The view is synchronized with the model during modifications.
 
 Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
 
@@ -40,29 +37,133 @@ A **Model** is a collection of objects of a given entity. This class keeps the f
 
 A **Layout** is the layout associated with a given view. It is always linked to a Model.
 
-A **Widget** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
+A **Item** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
 
 
+## List and Form view
+
+#### Form views
+
+**Forms** allow to view and edit individual objects. It is possible to define as many views as desired, and a given entity should always have default form view (`{entity}.form.default.json`).
+
+Forms views are JSON objects that describe how to render a specific view related to a given entity.
+
+#### List views
+
+List views are used to display collections of items. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and additional ones, specific to Lists.
+Clicking on a row in the list redirects you to the form view related to the targeted entity.
+Ticking one or more checkboxes triggers the display of a list of available actions that can be applied on the selection.
+
+---
+
+### View (root of the structure)
+
+This is the root of the structure of a view.
+
+#### Structure summary
+
+| **PROPERTY**| **TYPE**| **DESCRIPTION**|
+| --- | --- | --- |
+| name | `string` | Name of the view that will be displayed in the final app
+| description | `string` | description of the view and it's purpose
+| domain | `array`>`domain` | domain to filter which item of the input collection will be displayed
+| filters | [Filter](#filters) | associative array of couple (name,clauses |
+|controller| `string`>`orm/entity` | controller used to fetch the object from the db. needs to be a data-controller that extends of core_model_collect (by default is core_model_collect)
+| header | [Header](#header) | Override the default header of the view |
+| actions | list of [Actions](#actions) | Custom action that can be applied on the context of the view |
+| routes | list of [Routes](#routes) | Contextual link to other part of the application. |
+| access|  [Access](#access)| Define the ability to see the view for an user group or a user|
+
+##### List only attributes
+
+| **PROPERTY**| **TYPE**| **DESCRIPTION**|
+| --- | --- | --- |
+| group_by | [Group by](#group_by) | (optional)        |
+| order        | `string`   | (optional) `asc` or  `desc`  |
+| sort        |   `string`  | (optional)  field name(s) used to sort the view by default |
+| limit   |  `integer`>`number/natural`      | (optional)  number of item fetched     |
+|  operation | Associative array (name,[Operation](#operation)) | (optional) make calculation on the whole fetcthed data do display it
+|  export | [Export](#export)
+
+#### controller
+
+The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
+
+The default values is `model_collect` (which is an alias for `core_model_collect`)
+
+#### group_by
+
+A `group_by` array can be set to describe the way the objects have to be grouped.
+Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
+
+Example :
+
+```json
+"group_by": ["date"]
+```
+
+The operations items have the following structure :
+
+```json
+{
+    "field": "product_id",
+    "operation": ["SUM", "object.qty"]
+}
+```
+
+Another example :
+
+```json
+"group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
+```
+
+##### Binary operators
+|**OPERATOR**|**RESULT**|**SYNTAX**|
+|--|--|--|
+|+|Sum of `a` and `b`.|`['+', a, b]`|
+|-|Difference between `a` and `b`.|`['-', a, b]`|
+|*|Product of `a` by `b`.|`['*', a, b]`|
+|/|Division of `a` by `b`.|`['/', a, b]`|
+|%|Modulo `b` of `a`.|`['%', a, b]`|
+|^|`a` at power  `b`.|`['^', a, b]`|
+
+##### Unary operators
+
+|**OPERATOR**|**SYNTAX**|
+|--|--|
+|SUM|`['SUM', object.field]`|
+|AVG|`['AVG', object.field]` (which is a shortcut for `['/', ['SUM', object.field], ['COUNT', object.field]]`)|
+|COUNT|`['COUNT', object.field]`|
+|MIN|`['MIN', object.field]`|
+|MAX|`['MAX', object.field]`|
+
+#### order
+
+String holding the name(s) of the field to sort results on, separated with commas.
+Example :
+
+```json
+"order": "sku,product_model_id"
+```
 
 
+----
 
-## Views commons
-Some attributes are common to all types of views. Below is a list of the common attributes and their role.
 
-### Structure summary
+### Domain
 
-| **PROPERTY**    | **DESCRIPTION**                                              |
-| --------------- | ------------------------------------------------------------ |
-| name       | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| description | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
-| [access](#common_access)     | (optional)                                                   |
-| [actions](#common_actions)    | (optional)                                                   |
-| [controller](#common_controller) | (optional) When set, the **controller** property allows to customize the controller that is used for populating the view (by default: 'model_collect' for lists, 'model_read' for forms). |
-| [header](#common_header) | (optional) In the header property, one can customize the standard buttons of the header and the actions attached to these. |
+The **domain** property allows to conditionally display the data  (More Info: [domain](../architecture-concepts/domains.md)).
 
-<a name="common_access"></a>
+ Example:
 
-#### access
+ ```php
+ <?php
+  "domain": "["type", "<>", "I"]"
+ ```
+
+---
+
+### Access
 
 Associative map for restriction the access of the view to specific users.
 
@@ -79,9 +180,73 @@ Example :
 }
 ```
 
-<a name="common_actions"></a>
+----
 
-#### actions <a id="view_commons_actions"></a>
+### Operation
+
+This property allows to apply a series of operations on one or more columns, for the displayed records set.
+
+Each entry of the `opearations` object associates a name (ID of an operation - which will allow to group the results), with an associative array mapping field names with operation descriptors.
+
+In turn, each descriptor accepts the following properties :
+
+#### Structure Summary
+
+| **PROPERTY** |**TYPE**| **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ---- |
+| operation    | `string` | The operation to apply on the related field (see operation syntax below). |
+| usage        | `string` | The `usage` of the operation as hint for displaying the result. (see) Example : `amount/money:2`, `numeric/integer` |
+| suffix       | `string` | (optional) string to append to the result.                   |
+| prefix       | `string` | (optional) string to prepend to the result.                  |
+
+#### Operation Syntax
+
+```
+Unary operators : [ OPERATOR, {FIELD | OPERATION} ]
+```
+OR
+```
+Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
+```
+
+
+Examples:
+
+```json
+"operations": {
+    "total": {
+        "total_paid": {
+            "id": "operations.total.total_paid",
+            "label": "Total received",
+            "operation": "SUM",
+            "usage": "amount/money:2"
+        },
+        "total_due": {
+            "operation": "SUM",
+            "usage": "amount/money:2"
+        }
+    }
+}
+```
+
+
+
+```json
+"operations": {
+    "total": {
+        "rental_unit_id": {
+           "operation": "COUNT",
+           "usage": "numeric/integer",
+           "suffix": "p."
+        }
+    }
+}
+```
+
+
+----
+
+### Action
 
 The optional **actions**  property  contains a list of objects defining a custom list of possible actions attached to the view.
 
@@ -90,17 +255,29 @@ Each action item  relates to a button, displayed in the right side of the header
 !!! note "Distinction between actions and header.actions"
     Make sure not to mix up the "actions" section with the header "actions" subsection. The former lists the actions that are available for the whole view (genrally form views) while the latter can be used to allow or prevent specific actions on selected objects (generally list views).
 
+#### Structure summary
 
-| **PROPERTY** | **DESCRIPTION**                                       |
-| --------------- | ------------------------------------------------------------ |
-| id          | Identifier of the action for translation purpose (can be set in the i18n related file). |
-| description | The description that is displayed to the user when (s)he clicks on the related button. |
-| label       | Label assigned to the view.                                  |
-| controller  | Controller to invoke when the user confirms the action. By default, the `id` of the current object is sent as a parameter. |
-| visible     | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
-| confirm     | (optional) Boolean flag. If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
-| params      | (optional) Associative array mapping fields with their values. Values can be assigned by referencing a property of the current user (e.g. `user.login`) or current object (for form views). |
-| access | Associative array (similar to the one that can be applied on the view) to limit access to the action (this is used to display or hide the action in the list, but the actual permission to invoke the related controller must be set in the controller itself). |
+| **PROPERTY**  | **TYPE**  | **DESCRIPTION**                                       |
+| --------------- | ---- | --------------------------------------------------------- |
+| id  | `string`    | Identifier of the action for translation purpose (can be set in the i18n related file). |
+| description| `string` | The description that is displayed to the user when (s)he clicks on the related button. |
+| label |  `string`| Label assigned to the view.                                  |
+| controller | `string>orm/entity`  | Controller to invoke when the user confirms the action. By default, the `id` of the current object is sent as a parameter. |
+| visible | `array>domain`    | (optional) Domain (array) of conditions to meet in order to make the action button visible. Example: `"visible": ["status", "=", "quote"]` |
+| confirm | `boolean`    | (optional) Boolean flag. If set to true, a confirmation dialog is displayed before relaying the request to the controller. |
+| params  | `array` | (optional) Associative array mapping fields with their values. Values can be assigned by referencing a property of the current user (e.g. `user.login`) or current object (for form views). |
+| access | [Access](#access) | Associative array (similar to the one that can be applied on the view) to limit access to the action (this is used to display or hide the action in the list, but the actual permission to invoke the related controller must be set in the controller itself). |
+
+
+If target controller requires one or more parameter, the view will generate a dialog asking the user for the values to be assigned to each parameter.
+
+If no parameter is required but the `confirm` property is set to `true`, then a confirmation dialog is displayed before performing the action.
+
+Here below is a flow diagram that recaps the interactions between the controller and the `confirm` property.
+
+<center><img src="/assets/img/eq_confirm_diagram.png" /></center>
+
+<a name="common_controller"></a>
 
 Example:
 
@@ -148,39 +325,87 @@ Example:
 ]
 ```
 
+---
+
+##### Filter
+The `filters` property allows to customize the filtering features available in the header of the view.
+
+| **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ---- |
+| id| `string` | Unique ID used for translation |
+| label| `string` | default name is no translation is set |
+| clause | `array`>`clause` | Clause that will be added to the view domain to search with the filter |
+
+```json
+"filters": [
+    {
+        "id": "lang.french",
+        "label": "French",
+        "description": "French speaking people",
+        "clause": ["language", "=", "fr"]
+    }
+]```
+```
+
+<a name="list_header"></a>
 
 
-If target controller requires one or more parameter, the view will generate a dialog asking the user for the values to be assigned to each parameter.
 
-If no parameter is required but the `confirm` property is set to `true`, then a confirmation dialog is displayed before performing the action.
+Custom actions can have an arbitrary ID, while default actions use the common actions IDs :
+```
+ACTION.EDIT
+ACTION.EDIT_BULK
+ACTION.EDIT_INLINE
+ACTION.CLONE
+ACTION.ARCHIVE
+ACTION.DELETE
+```
 
-Here below is a flow diagram that recaps the interactions between the controller and the `confirm` property.
+!!! note "Hiding a specific default action"
+    Default actions can be hidden by using the targeted ID and setting the `visible` property to false.
 
-<center><img src="/assets/img/eq_confirm_diagram.png" /></center>
+---
 
-<a name="common_controller"></a>
+### Export
 
-#### controller <a id="view_commons_controller"></a>
+Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well.
 
-The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
+All these fields are added inside of the <em>exports</em> section of list view, which is an array of objects that has the below structure:
 
-The default values is `model_collect` (which is an alias for `core_model_collect`)
+```json                                           
+"exports": [
+        {
+            "id": "export.print.contract",
+            "label": "Print contract",
+            "icon": "print",
+            "description": "Print contract related to the booking.",
+            "controller": "lodging_booking_print-contract",
+            "view": "print.default",
+            "visible": ["status", "=", "quote"]
+        }
+    ]
+```
 
-<a name="common_header"></a>
+---
 
-#### header <a id="view_commons_header"></a>
+### Header <a id="view_commons_header"></a>
 
 The **header** section allows to override the default behavior of the view.
 
 ##### **Structure summary**
 
-| **PROPERTY** | **DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ |
-| actions      | This property allows to customize the actions buttons shown in the left part of the View header. |
-| visible      | (optional) boolean or array (domain)                         |
+| **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
+| ------------ | ---- | ------------------------------------------------------------ |
+| actions      | [Header Action](#header-actions) | This property allows to customize the actions buttons shown in the left part of the View header. |
+| *[LIST ONLY]* selection | [Selection](#selection) | Action that aplies on item selection |
+| visible      | `boolean` or `array`>`domain`                  | |
 
+---
 
-##### actions
+### Header Action
+
+!!! note "Distinction between actions and Header Actions"
+    Make sure not to mix up the "actions" section with the header "actions" subsection. The former lists the actions that are available for the whole view (genrally form views) while the latter can be used to allow or prevent specific actions on selected objects (generally list views).
 
 The actions property can be used for 3 purposes: to force action buttons visibility; to define the order of the actions for buttons having multiple actions ("split buttons"); and to override the configuration of the subsequent Views (for relational fields).
 
@@ -197,17 +422,27 @@ Empty arrays or items set to false mean that the action is not available for the
 
 Here is the exhaustive list of the actions ID that are supported by the views. Each ID corresponds to a button that will be present (or not, according to the config of the view) in the header of the view. `header.actions` allows to map these actions ID with predefined or custom action items  (note that custom action ID are not accepted).
 
+##### **Structure summary**
+
+| **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
+| ------------ | ---- | ------------------------------------------------------------ |
+| id | `string` | Id of the predefined action, define the behavior of the action |
+| description | `string` ||
+| domain | `array`>`domain` ||
+| view | `string` | id of the view used if the action require displaying a view|
+
+**Possible actions**
+
 | **ACTION** | **DESCRIPTION** | **ID(S)** |
 | ---- | ---- |---- |
-| ACTION.EDIT | For forms in view mode, allows to edit the current object. ||
+| ACTION.EDIT | For forms in view mode, allows to edit the current object. |  `EDIT`|
 | ACTION.SAVE | For forms in edit mode, **ACTION.SAVE** is the action used for storing the changes made to the current object. |`SAVE_AND_CLOSE`, `SAVE_AND_VIEW`, `SAVE_AND_CONTINUE`|
 | ACTION.CREATE | For list views, **ACTION.CREATE** is the action used for creating a new object of the current entity. |`CREATE`, `ADD`|
 | ACTION.CANCEL | For forms in edit mode, allows to cancel the changes made to the current object. |`CANCEL_AND_CLOSE`, `CANCEL_AND_VIEW`|
-| ACTION.SELECT | For relational fields, allows to select or add one or many objects and relay selection to parent View. ||
-| ACTION.OPEN |  ||
+| ACTION.SELECT | For relational fields, allows to select or add one or many objects and relay selection to parent View. | `SELECT` |
+| ACTION.OPEN |  | `OPEN` |
 
-**Predefined actions**:
-
+#### Predefined actions :
 
 | **ACTION** | **DESCRIPTION** | **CONTROLLER** |
 | ---- | ---- | ---- |
@@ -221,7 +456,7 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
 | CANCEL | The action relating to the current view (form in edit mode : CREATE, EDIT), has been cancelled by the user. |  |
 | OPEN | A request for opening a form view for a given object has been received by the list. |  |
 
-**Usage example**:
+#### Usage example :
 
 ```json
     "header": {
@@ -244,13 +479,191 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
     }
 ```
 
+---
 
+### Selection
+The `selection` property allows to customize the list of bulk actions that are available when one or more items are selected.
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| **default**  | `boolean` | (optional)telling if the default actions have to be present in the available action to apply on current selection. (default = false) |
+| **actions**  | list of [Action](#action) |(optional) An array of action items that can be applied on current selection. |
+
+
+Examples :
+
+a. Prevent selecting items within the list:
+
+```json
+"header": {
+    "selection": false
+}
+```
+
+b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a custom action :
+
+```json
+"header": {
+    "actions": {
+        "ACTION.CREATE" : false
+    },
+    "filters": {
+        "custom": true,
+        "quicksearch": false
+    },
+    "selection": {
+        "default" : false,
+        "actions" : [
+            {
+                "id": "header.selection.actions.mark_ignored",
+                "label": "Mark as ignored",
+                "icon": "",
+                "controller": "lodging_sale_booking_bankstatementline_bulk-ignore"
+            },
+            {
+                "id": "ACTION.CLONE",
+                "visible": false
+            }
+        ]
+    }
+}
+```
+
+---
+
+### Layout
+
+The **layout** is the part of the view that contains all the information needed to display the Model in the view
+
+#### Structure summary
+
+##### Form View
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| Groups | list of [Group](#group) | Groups of Section used to split the page horizontally |
+
+##### List View
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| Items | list of [Item](#item) | List of the column to display |
+
+---
+
+### Group
+
+**Groups** are horizontal part of a form view, containing sections.
+
+#### Structure summary
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| id | `string` | unique, used for translations.
+| label | `string` | (optional) name used when no translation is available.
+| sections |  list of [Section](#section) | list of section, represented as tabs |
+
+---
+
+### Section
+
+**Section** Are tabs that contains information about an instance of a model
+
+#### Structure summary
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| id | `string` | unique id, used for translations.
+| label | `string` | (optional) name used when no translation is available.
+| rows |  list of [Row](#row) |  |
+|visible | `array`>`domain` | Domain that use the context to allow display of the section or not |
+
+---
+
+### Row
+
+#### Structure summary
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| id | `string` | unique id, used for translations.
+| label | `string` | (optional) name used when no translation is available.
+| rows |  list of [Column](#column) |  |
+|visible | `array`>`domain` | Domain that use the context to allow display of the section or not |
+
+---
+
+### Column
+
+#### Structure summary
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| id | `string` | unique id, used for translations.
+| label | `string` | (optional) name used when no translation is available.
+| rows |  list of [Item](#item) |  |
+|visible | `array`>`domain` | Domain that use the context to allow display of the section or not |
+| width  | `integer`>`number/natural:100` | width of the column |
+
+---
+
+### Item
+
+**Items** are a descriptor of the way a **field** or a **label** of a **Model** is displayed in a view.
+
+#### Structure summary
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| id | `string` | (optional) unique id, used for traductions (traductions override label and value) |
+| label | `string` | (optional) override the value for the title value of the item |
+| type | `string` | type of item (either `field` or `label`) |
+| width |  `integer`>`number/natural:100`| width of the field (in percentage its parent) |
+| readonly | `boolean` | tell if the item is editable in a creation or edtition context of the usage of the view |
+| visible | `boolean` or `array`>`domain` | tell if the item should be displayed |
+| widget | [Widget](#widget) | Give properties to the item, depends on the type of view |
+
+---
+
+### Widget
+
+Widget are used to give proerties that depends on the type of view.
+
+#### Structure Summary
+
+##### Form view
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| link | `boolean` | is the content of the item a link ? |
+| heading | `boolean`| makes the item bigger |
+| type | `string` | edit the type of display of the item, depends on the type of the field |
+| values | list of `string` | depecrated, do not use.|
+| usage | `string` | override the usage of the field to display it|
+| header | [Header](#header) | *Associative Field Only*  Override the header of the view to display the relation|
+| domain | `array`>`domain` | *Associative Field Only*  Override the domain of the view to display the relation|
+| view | `string` | *Associative Field Only* precise the id of the view to use to display the relation|
+
+
+##### List view
+
+| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
+| ------------ | ------------------------------------------------------------ | ----- |
+| link | `boolean` | is the content of the item a link ? |
+| sortable | `boolean`| can the user sort the list by this item ? |
+| type | `string` | edit the type of display of the item, depends on the type of the field |
+| values | list of `string` | depecrated, do not use.|
+| domain | `array`>`domain` | |
+| usage | `string` | override the usage of the field to display it|
+
+---
 
 ## View Inheritance
 
 Classes may be used in different packages (extending parent classes with the possibility of adding new fields) and therefore, they also may have different view files.
 
 Here is an example of an extended class.
+
 
 ```php
 <?php
@@ -380,11 +793,8 @@ $context->httpResponse()
 
 
 
-## Form views
+## Form views Example
 
-**Forms** allow to view and edit individual objects. It is possible to define as many views as desired, and a given entity should always have default form view (`{entity}.form.default.json`).
-
-Forms views are JSON objects that describe how to render a specific view related to a given entity.
 
 ### Minimal example
 
@@ -429,153 +839,6 @@ Forms views are JSON objects that describe how to render a specific view related
   }
 }
 ```
-
-
-
-### Structure summary
-
-| **PROPERTY** | **DESCRIPTION**                             |
-| ----------- | ------------------------------------------------------------ |
-| name    | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| description | A **description** property allows to give a short hint about the way the view is intended to be used. |
-|[header](#common_header)|This section allows to override action buttons that are displayed in the header of the form.|
-|[actions](#common_actions)|(optional) A list of actions associated to a view. If set, visible actions (see below) will be shown in the right-part of the header.|
-
-
-
-#### layout
-
-The layout part holds a nested structure that describes the way the (form) view has to be rendered (which fields, using which widgets) and how to place its elements, by grouping fields within rows and columns.
-
-
-
-##### layout.groups
-
-The groups are stacked vertically. A layout must always have at least 1 group.
-
-|**PROPERTY**|**DESCRIPTION**|
-|--|--|
-|label|name of the group.|
-|sections|Array of sections objects. A group must always have at least 1 section.|
-
-
-
-##### group.sections
-
-A group must always have at least 1 section.
-
-When several sections are present, each section is displayed under a tabs.
-
-|**PROPERTY**|**DESCRIPTION**|
-|--|--|
-|label|(optional) Label (en) of the section. The label of a section is only displayed when there are several sections.|
-|id|(optional) identifier for mapping the section in translation files|
-|visible|(optional) a domain conditioning the visibility of the section and its tab (ex. `["status", "not in", ["quote", "option"]]`)|
-|rows|Array of rows objects. A section must always have at least 1 row.|
-
-
-
-##### section.rows
-
-|**PROPERTY**|**DESCRIPTION**|
-|--|--|
-|columns|An array of columns objects that should be displayed within the row.|
-
-
-
-##### row.columns
-
-|**PROPERTY**|**DESCRIPTION**|
-|--|--|
-|width|Width of the column, as percentage of the width of the parent row (ex.: "25%").|
-|items|An array of items that should be displayer within the column.|
-
-
-
-##### column.items
-
-Each column has a list of items, which are element describing which fields are to be rendered, how to render them (room within the column, widget override, ...), and under what conditions they must be displayed.
-
-Each item is an object accepting the following properties :
-
-|**PROPERTY**|**DESCRIPTION**|
-|--|--|
-|label|(optional) Default label|
-|type|type of the item(`"label"` or `"field"`)|
-|value|value of the field (label to display for `"label"` item, or name of the target field for `"field"` item)|
-|width|width, in percentage of the parent column width.|
-|visible|(optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` )|
-|domain|(optional) (ex. `["type", "<>", "I"]`)|
-|widget|(optional) additional settings to apply on the widget that holds the fields|
-
-
-
-##### item.widget
-
-Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
-
-|**PROPERTY**|**DESCRIPTION**|
-|--|--|
-|heading|(optional) If set to true, the widget is emphasized.|
-|readonly|(optional) If set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view.|
-|usage|(optional) A widget can be applied on an item, to force apply a specific data rendering. If an usage is defined at the schema level, it is overridden.|
-
-Additional properties apply only to specific field types. Here is the full list of the available options by type of field:
-
-|**FIELD TYPE**|**PROPERTY**||
-|-|-|-|
-|`many2many`, `one2many`|||
-|| **header**       |(optional) The widget can override the configuration that will be relayed to the subsequent View for M2M and O2M fields. For details about **header** structure see <a href="#view_commons_header">views commons</a>.|
-||**header.actions**|(optional) works the same way as View **actions** property. For details about **header** structure see <a href="#view_commons_header">views commons</a>.|
-||**view**|(optional) ID of the view to use for subobjects. For forms, default is "form.default", and for lists, default is "list.default" (ex.: "form.create").|
-||**domain**|Apply an additional domain to the view's collection. In case the view has a domain of its own, both domains are merged.|
-|`many2one`|||
-||**order**|Name of the field which the collection must be sorted on.|
-||**sort**|Direction for sorting 'asc' (ascending order) or 'desc' (descending order).|
-||**limit**|Override the maximum items that the list must display.|
-||**domain**|Apply an additional domain to the view's collection. In case the view has a domain of its own, both domains are merged.|
-|`{any}`|**mode**|(optional) Force a specific mode ('view' or 'edit') whatever the current context. This can be used in order to prevent the display of the checkboxes (which also prevents the application of selection actions).|
-
-!!! Note "About widget property"
-    For one2many and many2many field, it is also possible to force using a specific widget (non-default).
-
-
-
-**Examples:**
-
-```json
-"widget": {
-    "header": {
-        "actions": {
-            "ACTION.SELECT": true,
-            "ACTION.CREATE": false
-        }
-    }
-}
-```
-
-```json
-"widget": {
-	"view": "list.credit",
-	"mode": "edit",
-	"header": {
-		"actions": {
-			"ACTION.CREATE": [{"view": "form.credit"}],
-			"ACTION.EDIT": [{"view": "form.credit"}]
-		},
-		"selection": {
-			"default" : false,
-			"actions" : false
-		}
-	}
-}
-```
-
-
-
-!!! Note
-    When an `usage` property is set in the schema of the entity, the widget is adapted accordingly. For example, when a field has its **type** set as `float` and its **usage** set to `amount/percent`, in view mode, it is displayed as an integer value between 0 an 100, and followed by a '%' sign (e.g.: "0.12" is converted to "'12%'').
-
 
 
 #### Real life example
@@ -669,12 +932,7 @@ The view's name is `Category.form.default.json` and is as follows:
 
 
 
-## List views
-
-List views are used to display collections of items. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and additional ones, specific to Lists.
-Clicking on a row in the list redirects you to the form view related to the targeted entity.
-Ticking one or more checkboxes triggers the display of a list of available actions that can be applied on the selection.
-
+## List View Example
 
 
 ### Minimal example
@@ -770,407 +1028,6 @@ The list view is named *Category.list.default.json* and has the following struct
         ]
     }
 }
-```
-
-
-
-### Structure summary
-
-| **PROPERTY**                   | **DESCRIPTION**                                              |
-|--------------------------------| ------------------------------------------------------------ |
-| name                           | The **name** property is mandatory and relates to the unique name assigned to the view. |
-| description                    | A **description** property allows to give a short hint about the view's context or the way it is intended to be used. |
-| [group_by](#list_group_by)     | (optional)                                                   |
-| [order](#list_order)           | (optional)                                                   |
-| [controller](#list_controller) | (optional)                                                   |
-| [sort](#list_sort)             | (optional)                                                   |
-| [limit](#list_limit)           | (optional)                           |
-| [domain](#list_domain)         | (optional)                                                   |
-| [filters](#list_filters)       | (optional) array of filter descriptors or boolean false to hide the filtering options |
-| [header](#list_header)         | (optional) The **header** section allows to override the default behavior of the view. |
-| [actions](#list_actions)       | (optional)                                                   |
-| [exports](#list_exports)       | (optional)                                                   |
-| [layout](#list_layout)         | The layout part holds a structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them. |
-| [operations](#list_operations) | (optional)                                                   |
-| [access](#list_access)         | (optional)                                                   |
-
-<a name="list_group_by"></a>
-
-#### group_by
-
-A `group_by` array can be set to describe the way the objects have to be grouped.
-Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
-
-Example :
-
-```json
-"group_by": ["date"]
-```
-
-
-
-The operations items have the following structure :
-
-```json
-{
-    "field": "product_id",
-    "operation": ["SUM", "object.qty"]
-}
-```
-
-Another example :
-
-```json
-"group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
-```
-
-<a name="list_order"></a>
-
-#### order
-
-String holding the name(s) of the field to sort results on, separated with commas.
-Example :
-
-```json
-"order": "sku,product_model_id"
-```
-
-<a name="list_controller"></a>
-
-#### controller 
-
-The `controller` property specifies the controller that is requested for fetching the Model collection that will show in the View. 
-
-Example:
-
-```json
-"controller": "sale_booking_collect"
-```
-
-Controller are considered as entities. When a controller is specified for a list View, a special view is expected (`search.default`) for describing the layout of the form for inputing parameters values (i.e. fields returned by the `eQual::announce` method of the view controller).
-In turn, those values are sent to the controller along with default values (`entity`, `fields`, `domain`, `order`, `sort`, `start`, `limit`, `lang`) for feeding the View.
-
-For controller `sale_booking_collect` a `collect.php` and a  `collect.search.default.json` file are expected.
-
-Here a controller example 
-
-```php
-<?php
-use equal\orm\Domain;
-
-list($params, $providers) = eQual::announce([
-    'description'   => 'Advanced search for Reports',
-    'extends'       => 'core_model_collect',
-    'params'        => [
-        'entity' =>  [
-            'description'   => 'name',
-            'type'          => 'string',
-            'default'       => 'sale\Booking'
-        ]
-    ],
-    'response'      => [
-        'content-type'  => 'application/json',
-        'charset'       => 'utf-8',
-        'accept-origin' => '*'
-    ],
-    'providers'     => [ 'context', 'orm' ]
-]);
-```
-
-
-
-<a name="list_sort"></a>
-
-#### sort
-
-String litteral ('*desc*' or '*asc*')
-
-Example:
-
-```json
-"sort": "asc"
-```
-
-<a name="list_limit"></a>
-
-#### limit
-
-integer (max size of result set)
-
-Example :
-
-```json
-"limit": 100
-```
-
-Bear in mind that the default controller (core_mode_collect), has a `max` constraint of `500` for this parameter.
-
-<a name="list_domain"></a>
-
-#### domain
-
-The **domain** property allows to conditionally display the data  (More Info: [domain](../architecture-concepts/domains.md)).
-
- Example:
-
- ```php
- <?php
-  "domain": "["type", "<>", "I"]"
- ```
-
-<a name="list_filters"></a>
-
-#### filters
-
-The **filter** property allows to provide a series of predefined search filters.
-
-```json
-"filters": [
-    {
-        "id": "lang.french",
-        "label": "French",
-        "description": "French speaking people",
-        "clause": ["language", "=", "fr"]
-    }
-]```
-```
-
-<a name="list_header"></a>
-
-#### header
-
-In addition to the attributes common to all views (see <a href="#view_commons_header">views commons</a>), the **header** property for lists offers additional attributes.
-
-
-##### filters
-The `filters` property allows to customize the filtering features available in the header of the view.
-
-| **PROPERTY** | **DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ |
-| **custom**  | (optional) Boolean for providing the ability to create custom filters on the view. (default = true) |
-| **quicksearch**  | (optional) Boolean flag for providing a search input for performing search on the 'name' column of the current Entity. (default = true) |
-
-
-##### selection
-The `selection` property allows to customize the list of bulk actions that are available when one or more items are selected.
-
-| **PROPERTY** | **DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ |
-| **default**  | (optional) Boolean telling if the default actions have to be present in the available action to apply on current selection. (default = false) |
-| **actions**  | (optional) An array of action items that can be applied on current selection. |
-
-Examples :
-
-a. Prevent selecting items within the list:
-
-```json
-"header": {
-    "selection": false
-}
-```
-
-b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a custom action :
-
-```json
-"header": {
-    "actions": {
-        "ACTION.CREATE" : false
-    },
-    "filters": {
-        "custom": true,
-        "quicksearch": false
-    },
-    "selection": {
-        "default" : false,
-        "actions" : [
-            {
-                "id": "header.selection.actions.mark_ignored",
-                "label": "Mark as ignored",
-                "icon": "",
-                "controller": "lodging_sale_booking_bankstatementline_bulk-ignore"
-            },
-            {
-                "id": "ACTION.CLONE",
-                "visible": false
-            }
-        ]
-    }
-}
-```
-
-
-
-Custom actions can have an arbitrary ID, while default actions use the common actions IDs :
-```
-ACTION.EDIT
-ACTION.EDIT_BULK
-ACTION.EDIT_INLINE
-ACTION.CLONE
-ACTION.ARCHIVE
-ACTION.DELETE
-```
-
-!!! note "Hiding a specific default action"
-    Default actions can be hidden by using the targeted ID and setting the `visible` property to false.
-
-<a name="list_actions"></a>
-
-#### actions
-
-The **action** property is common to all views. For details about its structure see <a href="#view_commons_actions">views commons</a>.
-
-<a name="list_exports"></a>
-
-#### exports
-
-Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well.
-
-All these fields are added inside of the <em>exports</em> section of list view, which is an array of objects that has the below structure:
-
-```json
-"exports": [
-        {
-            "id": "export.print.contract",
-            "label": "Print contract",
-            "icon": "print",
-            "description": "Print contract related to the booking.",
-            "controller": "lodging_booking_print-contract",
-            "view": "print.default",
-            "visible": ["status", "=", "quote"]
-        }
-    ]
-```
-
-The view property points to an HTML file that will be parsed and filled with selected object values before being converted to PDF.
-
-<a name="list_layout"></a>
-
-#### layout
-
-The layout part holds a structure that describes the way the (list) view has to be rendered (which fields, using which widgets) and how to order its elements, group them or apply operations on them.
-
-
-
-##### layout.items
-
-The list view consists of a table having a series of columns (items). Each column relates to a field, and is described by an item that specifies how the field is to be rendered, the behaviors attached to it (ordering, sorting, ...), and under what conditions it must be displayed.
-
-Each item is an object accepting the following properties :
-
-| **PROPERTY** | **DESCRIPTION**                                       |
-| --------------- | ------------------------------------------------------------ |
-| label           | (optional) Default label                                     |
-| type            | always 'field'                                               |
-| value           | the name of the field                                        |
-| width           | column width, in percentage of the list width.               |
-| visible         | (optional) either a boolean (true, false) or a domain (ex. `["is_complete", "=", true]` ) |
-| sortable        | (optional) boolean to mark the column related to the field as sortable. |
-
-##### item.widget
-
-Within item`objects`, the widget property allows to refine the configuration of the widget (i.e. how the widget has to be rendered within the view).
-
-| **PROPERTY** | **DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ |
-| readonly     | (optional) If set to true, the value cannot be modified by the user (marked as disabled in edit mode). If the readonly property is set to true in the schema, it cannot be overridden by the view. |
-| usage        | (optional) A widget can be applied on an item, to force apply a specific data rendering. If an usage is defined at the schema level, it is overridden. |
-
-<a name="list_operations"></a>
-
-#### operations
-
-This property allows to apply a series of operations on one or more columns, for the displayed records set.
-
-Each entry of the `opearations` object associates a name (ID of an operation - which will allow to group the results), with an associative array mapping field names with operation descriptors.
-
-In turn, each descriptor accepts the following properties :
-
-| **PROPERTY** | **DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ |
-| operation    | The operation to apply on the related field (see operation syntax below). |
-| usage        | The `usage` of the operation as hint for displaying the result. (see) Example : `amount/money:2`, `numeric/integer` |
-| suffix       | (optional) string to append to the result.                   |
-| prefix       | (optional) string to prepend to the result.                  |
-
-
-
-Examples:
-
-```json
-"operations": {
-    "total": {
-        "total_paid": {
-            "id": "operations.total.total_paid",
-            "label": "Total received",
-            "operation": "SUM",
-            "usage": "amount/money:2"
-        },
-        "total_due": {
-            "operation": "SUM",
-            "usage": "amount/money:2"
-        }
-    }
-}
-```
-
-
-
-```json
-"operations": {
-    "total": {
-        "rental_unit_id": {
-           "operation": "COUNT",
-           "usage": "numeric/integer",
-           "suffix": "p."
-        }
-    }
-}
-```
-
-
-
-##### Operation Syntax
-
-```
-Unary operators : [ OPERATOR, {FIELD | OPERATION} ]
-```
-OR
-```
-Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
-```
-
-##### Binary operators
-|**OPERATOR**|**RESULT**|**SYNTAX**|
-|--|--|--|
-|+|Sum of `a` and `b`.|`['+', a, b]`|
-|-|Difference between `a` and `b`.|`['-', a, b]`|
-|*|Product of `a` by `b`.|`['*', a, b]`|
-|/|Division of `a` by `b`.|`['/', a, b]`|
-|%|Modulo `b` of `a`.|`['%', a, b]`|
-|^|`a` at power  `b`.|`['^', a, b]`|
-
-##### Unary operators
-
-|**OPERATOR**|**SYNTAX**|
-|--|--|
-|SUM|`['SUM', object.field]`|
-|AVG|`['AVG', object.field]` (which is a shortcut for `['/', ['SUM', object.field], ['COUNT', object.field]]`)|
-|COUNT|`['COUNT', object.field]`|
-|MIN|`['MIN', object.field]`|
-|MAX|`['MAX', object.field]`|
-
-<a name="list_access"></a>
-
-#### access
-
-Groups and users with the permission to see the content of the view.
-
-Example :
-
-```json
-"access": {
-        "groups": ["booking.default.user"]
-     },
 ```
 
 
