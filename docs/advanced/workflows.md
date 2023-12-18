@@ -92,15 +92,7 @@ The status influences the fields that can be modified the object, the display of
 ```json
 {
   'status_name_A' : {      // each status has a descriptor that can have 3 properties : `readonly`, `columns` and `transitions`
-    'readonly': {},        // bool, domain or function: if true, the whole object cannot be updated at this status
-    'columns' : {          // schema overrides when object has that status (fields not defined in getColumns are ignored)
-      'field1' : {         // specifics for given field, that override properties at parent level
-        'access'    : {},  // specific access descriptor for the field when object has this status
-        'readonly'  : {},  // bool, domain or function: if true, the field cannot be updated at this status
-        'required'  : {},  // bool, domain or function: if true, field is mandatory at this status
-        'visible'   : {}   // bool, domain or function: defines visibility in views for field when object has this status
-      }
-    },
+    'readonly': {},        // bool, domain or function: if resulting to true, the whole object cannot be updated at this status (this is handled at the same level as the `canupdate()` method)
     'transitions' : {      // all possible transitions from the current status descriptor are listed in the transition property
       'transitionX' : {                          // each transition has an ID (name) and holds a transition descriptor
         'watch'      : ['field1', 'field3'],     // watcher: tester la transition en cas de modification de ces champs
@@ -125,6 +117,8 @@ The status influences the fields that can be modified the object, the display of
 }
 ```
 
+
+
 ### Manual transitions
 
 A) Controllers can directly modify the status of the object (permitted only if consistent with the workflow, status_from, status_to, and fulfilled conditions without any condition)
@@ -140,6 +134,8 @@ B) A controller can invoke a transition on an object by emitting a "signal" (tra
 * Search for the transition among those in the descriptor.
 * If there is a match and any optional conditions are fulfilled, the status is updated. If there is a function property, a call is made with the current object.
 * Otherwise, an error is thrown.
+
+
 
 ### Automated transitions
 
