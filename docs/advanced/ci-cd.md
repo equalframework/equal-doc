@@ -269,6 +269,8 @@ definitions:
         MYSQL_ROOT_PASSWORD: 'test'
 ```
 
+
+
 ## CircleCI
 
 Configuration example (in YAML) for a **`.config.yml`** file, running basic tests for checking eQual installation integrity:

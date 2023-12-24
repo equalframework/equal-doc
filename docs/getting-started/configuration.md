@@ -8,25 +8,22 @@ eQual supports cascading configuration : each package can have a config file of 
 
 Config files are optional, and the default values for mandatory properties are listed in the configuration schema (see below). 
 
-## config file
+## schema.json
 
-The root custom config file must be placed under : `./config/` and is expected to be named `config.json`.  
+A `schema.json` file is located under the `./config/` folder. That file holds a comprehensive description of the role and usage of each available constant. This file is not meant to be modified. Instead, constants that must be modified according to the current environment can be set in a `config.json` file.
+
+## config.json
+
+Customization can be achieved by using a custom `config.json` file that must be placed under : `./config/` along with the `schema.json`.  
 
 Properties are exported as (global) constants. Services, controllers and classes are responsible of announcing which constants they expect (through a `getConstants()` method). If one of the required constant is missing, an exception is raised.
 
 
 Settings values defined in config files must always be called by using the `constant()` function. This is because, since they're not defined at the moment the parsing is done, using literal notation would result in warnings and wrong values assignments.
 
+Some constants might be required by mandatory services. Those must therefore be defined immediately when the config file is read. Those properties are marked as 'instant'.  When no value is given in `config.json` for such property, if a 'default' or an 'environment' property is set in the `schema.json`, the constant is declared using the retrieved value, if not, the property is ignored and no constant is defined, unless the property is also marked as 'required' in which case an Exception is raised.
 
-## schema
-
-The `schema.json` file is located under the `./config/` folder. That file holds a comprehensive description of the role and usage of each available constant.
-
-Some constants might be required by mandatory services. Those must therefore be defined immediately when the config file is read. Those properties are marked as 'instant'. 
-
-When no value is given in `config.json` for such property, if a 'default' or an 'environment' property is set, the constant is declared using the retrieved value, if not, the property is ignored and no constant is defined, unless the property is also marked as 'required' in which case an Exception is raised.
-
-Below is the detail of these constants (that are mandatory and cannot be overridden) and their roles.
+The list below shows the details for supported constants and their roles.
 
 
 ### General properties
@@ -84,9 +81,13 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
 |VERSIONING_ENABLED|true|Enable/Disable versions of object changes.|
 |AUTH_SECRET_KEY|my_secret_key|Random key generated during install process.|
 |AUTH_ACCESS_TOKEN_VALIDITY|3600*1|Validity duration of the access token, in seconds.|
-|AUTH_REFRESH_TOKEN_VALIDITY|3600\*24*90|Set refresh token validity, in days here.|
+|AUTH_REFRESH_TOKEN_VALIDITY|3600\*24*90|Refresh token validity, in days.|
 |AUTH_TOKEN_HTTPS|false|Limit sending of auth token to HTTPS.|
-|ROOT_APP_URL|http://equal.local|Root URL of the application.|
+|APP_URL|http://equal.local|Root URL of the application.|
+|APP_NAME|eQual|Custom name of the Application.|
+|APP_LOGO_URL|/assets/img/logo.svg|Absolute URL of the logo to be used for the App (under the public folder).|
+|ORG_NAME|eQual framework|Name or brand of the organization that owns the instance.|
+|ORG_URL|https://equal.run|Official website of the organization.|
 
 
 
@@ -107,3 +108,29 @@ Below is the detail of these constants (that are mandatory and cannot be overrid
         * M for months (=4w)
         * Y for years (=12m)
 
+
+
+## UI configuration 
+
+In order to bootstrap communication with the back-end, the front-end needs some information. To that end, a configuration file is expected under `./public/assets/env/config.json` to hold a series of public details that are needed by the UI.
+
+That file can be generated manually or using the `init` controller.
+
+The properties, roles and default values are describes in the list below.
+
+|name|default value|origin|
+|-|-|-|
+|production|true|ENV_MODE|
+|parent_domain|equal.local|parse_url(ROOT_APP_URL, PHP_URL_HOST)|
+|backend_url|http://equal.local|ROOT_APP_URL|
+|rest_api_url|http://equal.local/|ROOT_APP_URL.'/'|
+|lang|en|DEFAULT_LANG|
+|locale|en|L10N_LOCALE|
+|version|1.0 (2022)|EQ_VERSION|
+|company_name|eQual framework|ORG_NAME|
+|company_url|https://equal.run/|ORG_URL|
+|app_name|eQual|APP_NAME|
+|app_logo_url|/assets/img/logo.svg|APP_LOGO_URL|
+|app_settings_root_package|core|(deprecated?)|
+|license|AGPL v3.0|(manual - must be compliant)|
+|license_url|https://www.gnu.org/licenses/agpl-3.0.en.html|(manual - must be compliant)|
