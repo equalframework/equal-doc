@@ -164,8 +164,8 @@ Generic format of a date reference: `date.{origin}.{interval}[.{offset}]`
 
 Possible values are:  
 
-|**part**|**values**|
-|:--|:--|
+| **PART** | **VALUES** |
+| :-- | :-- |
 |origin|`prev`, `next`, `this`|
 |interval|`day`, `week`, `month`, `quarter`, `semester`, `year`|
 |offset|`first`, `last`|
