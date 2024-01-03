@@ -154,5 +154,24 @@ A few references can be used in the domain to improve the search.
 
 
 
+### Date References
 
+Dates references can be used in domains to define a filter based on a date relative to the date at which the request is made.
 
+Example: `date.this.year.first` (first day of the current year at 00:00 UTC)
+
+Generic format of a date reference: `date.{origin}.{interval}[.{offset}]`
+
+Possible values are:
+|part|values|
+|-|-|
+|origin|`prev`, `next`, `this`|
+|interval|`day`, `week`, `month`, `quarter`, `semester`, `year`|
+|offset|`first`, `last`|
+
+Examples:
+- today's date: `date.this.day`
+- first day of the current month: `date.this.month.first`
+- last day of the previous month: `date.prev.month.last`
+- last day of the current year: `date.this.year.last`
+- first day of the next year: `date.next.year.first`
