@@ -171,6 +171,7 @@ Possible values are:
 |offset|`first`, `last`|
 
 Examples:  
+
 * today's date: `date.this.day`
 * first day of the current month: `date.this.month.first`
 * last day of the previous month: `date.prev.month.last`
