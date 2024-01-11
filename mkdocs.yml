@@ -102,6 +102,7 @@ nav:
      - 'eQui': 'low-code/equi.md'
      - 'Shared Lib': 'low-code/shared-lib.md'
      - 'Low-Code' : 'low-code/low-code.md'
+     - 'eQual Workbench' : 'low-code/workbench.md'
   - 'Contact & Support':
      - 'Contact': 'contact-and-support/contact.md'
      - 'Support': 'contact-and-support/support.md'
