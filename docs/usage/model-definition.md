@@ -336,7 +336,7 @@ public static function calcRightsTxt($om, $ids, $lang) {
 | multilang   | (boolean) Marks the field as translatable (default = false). |
 | onupdate        | (optional, string) Name of the method to invoke when field is updated.<br/>Format: `package\Class::method`<br />Signature : `public static function onupdateFieldName($orm, $oids, $values, $lang) {}` |
 | domain  | (only relational fields, array) [Domain](../architecture-concepts/domains.md) holding the additional conditions to apply on the set of objects targeted by the relation. |
-| dependencies | (optional, array) list of computed fields (relative to current object or through relations traversal) that must be reset when the value of the field (the property relates to) is updated. |
+| dependencies | (optional, array) list of computed fields (relative to current object or through relations traversal) that must be reset when the value of the field (the property is part of) is updated. |
 
 
 
@@ -352,14 +352,14 @@ public static function calcRightsTxt($om, $ids, $lang) {
 |        | alias |(string) Targets another field whose value must be returned when fetching the field value. By default, the `name`field is an alias for the `id` field.|
 | **many2one** |  |  |
 |     | foreign_object     | Full name of the class toward which field is pointing back. |
-|     | ondelete | Tells how to behave when the parent object is deleted.<br /><em>cascade</em>: delete the children  too.<br /><em>null</em> : void the pointer and keep the children. |
+|     | ondelete | (string ['null', 'cascade'])Tells how to behave when the parent object is deleted.<br /><em>cascade</em>: delete the children  too.<br /><em>null</em> : void the pointer and keep the children. |
 | **one2many** |  |  |
 |     | foreign_object     | (string) Class toward which current field is pointing back. |
 |     | foreign_field     | (string) Name of the field of the pointed class that is pointing back toward the current class. |
 |     | foreign_key     | (optional, string) Name of the field that serves as identifier for objects pointed by the relation (default = 'id') |
 |     | order     | (optional) Name of the field pointed objects must be sorted on. |
 |     | sort     | (optional, string) direction fort sorting (possible values: 'asc', 'desc') |
-|     | ondetach | (string [null, delete]) Tells how to handle the children objects when the relation is removed: either set the pointer to `null` or `delete` the children objects. (default = null) |
+|     | ondetach | (string ['null', 'delete']) Tells how to handle the children objects when the relation is removed: either set the pointer to `null` or `delete` the children objects. (default = null) |
 | **many2many** |  |  |
 |     | foreign_object     | Full name of the class the relation points to. |
 |     | foreign_field | Name of the field of the pointed class that is pointing back toward the current class. |
@@ -370,8 +370,8 @@ public static function calcRightsTxt($om, $ids, $lang) {
 |  | result_type     | Specifies the type of the result returned by the field function, which can be any of the allowed types. |
 |     | store     | (optional) boolean telling if the result must be stored in database (in that case, the related table must contain a column for the field). By default, this attribute is set to **false**. |
 |     | function  | String holding the name of the method to invoke for computing the value of the field.<br /> Syntax: `method` (relative to current class) or `package\Class::method` (absolute notation) |
-|              | multilang | (optional) Boolean flag telling if field can be translated (default value: false). This applies only for stored fields. |
-| | depends_on | (optional) Symetrical link allowing to check consistency of a class declaration (make sure that reverse inlinks are actually set) |
+|              | multilang | (optional, boolean) Flag telling if field can be translated (default value: false). This applies only for stored fields. |
+| | onrevert | (optional, string) Name of the method to invoke when field is reverted to NULL. |
 
 
 
@@ -413,7 +413,7 @@ Some fields are mandatory, and defined in the `Model` class.
 | status   | string         | 'draft', 'instance', 'archive'.                              |
 | created  | datetime       | Date at which the object was created. |
 | creator  | foreign_object | `core\User`                                                  |
-| modified | datetime       | Date date on which the object was last modified |
+| modified | datetime       | Date date on which the object was last modified. |
 | modifier | foreign_object | `core\User`                                                  |
 | deleted | boolean | Marks the object as soft-deleted.               |
 
@@ -437,12 +437,15 @@ Some fields are reserved but optional (with a convention of use):
 | getLink()        | Get the URL associated with the class.                       |
 | getColumns()     | Returns the user-defined part of the schema (i.e. fields list with types and other attributes). |
 | getConstraints() | Returns a map of constraint items associating fields with validation functions. |
-| getUnique()      | Provide the list of unique rules (array of combinations of fields). |
+| getUnique()      | Provide the list of unique rules (list of arrays of combinations of fields). |
 | getFields()      | Returns all fields names.                                    |
 | getValues()      | Returns values of static instance.                           |
 | getDefaults()    | Return default values.                                       |
 | getTable()       | Return the name of the DB table to be used for storing objects of current class. |
-| getWorkflow()    | Returns the workflow associated with the entity. For more details @see [Workflows](../advanced/workflows.md) section.|
+| getWorkflow()    | Returns the workflow associated with the entity. For more details @see [Workflows](../advanced/workflows.md) section. |
+| getRoles()       |                                                              |
+| getActions()     |                                                              |
+| getPolicies()    |                                                              |
 
 
 
@@ -458,7 +461,7 @@ Some fields are reserved but optional (with a convention of use):
 | ondelete()    | Hook invoked before object deletion for performing object-specific additional operations. |
 | canclone()    | Check wether an object can be cloned.                        |
 | onclone()     | Hook invoked after object cloning for performing object-specific additional operations. |
-| onchange()    | Handler for virtual static methods: use classname to invoke a Collection method, if available. |
+| onchange()    | Handler for providing consistency in model by reacting to front-end form edition (automatic changes). |
 
 
 # Custom methods
