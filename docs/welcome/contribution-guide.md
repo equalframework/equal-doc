@@ -87,7 +87,8 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 
 ## Unit Tests
-When writing Unit Tests, please
+When writing Unit Tests, please:
+
 * Always try to write Unit Tests for both the happy and unhappy scenarios.
 * Put all assertions in the Test itself, not in external classes or functions (even if this means code duplication between tests).
 * Always try to split the test logic into AAA callbacks `arrange()`, `act()`, `assert()` and `rollback()` for each Test.
