@@ -52,8 +52,8 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 1. Fork the repo and create your branch from `master`  ([https://github.com/equalframework/equal/fork](https://github.com/equalframework/equal/fork))
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-3. Push to the branch (`git push origin my-new-feature`)
-6. Create a new Pull Request
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
 
 ### Guidelines
 * Before opening a PR for additions or changes, please discuss those by filing an issue on [GitHub](https://github.com/equalframework/equal/issues) or asking about it on [Discord](https://discord.gg/BNCPYxD9kk) (#general channel). This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
