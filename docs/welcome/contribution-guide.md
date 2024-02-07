@@ -52,8 +52,8 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 1. Fork the repo and create your branch from `master`  ([https://github.com/equalframework/equal/fork](https://github.com/equalframework/equal/fork))
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-3. Push to the branch (`git push origin my-new-feature`)
-6. Create a new Pull Request
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
 
 ### Guidelines
 * Before opening a PR for additions or changes, please discuss those by filing an issue on [GitHub](https://github.com/equalframework/equal/issues) or asking about it on [Discord](https://discord.gg/BNCPYxD9kk) (#general channel). This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
@@ -87,7 +87,8 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 
 ## Unit Tests
-When writing Unit Tests, please
+When writing Unit Tests, please:
+
 * Always try to write Unit Tests for both the happy and unhappy scenarios.
 * Put all assertions in the Test itself, not in external classes or functions (even if this means code duplication between tests).
 * Always try to split the test logic into AAA callbacks `arrange()`, `act()`, `assert()` and `rollback()` for each Test.
