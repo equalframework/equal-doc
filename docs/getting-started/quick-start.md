@@ -6,29 +6,29 @@ You've just installed eQual. And now what ?
 
 You can now test your installation by calling the `test_db-connectivity` test tool :
 
-| **PATH**        | `core\actions\test\db-connectivity.php`                      |
-| --------------- | ------------------------------------------------------------ |
-| **URL**         | `?do=test_db-connectivity`                                   |
-| **CLI**         | `$ ./equal.run --do=test_db-connectivity`                    |
+| **PATH**        | `core\actions\test\db-connectivity.php`  |
+| --------------- | ---------------------------------------- |
+| **URL**         | `?do=test_db-connectivity`               |
+| **CLI**         | `$ ./equal.run --do=test_db-connectivity` |
 | **DESCRIPTION** | Tests connectivity to the DBMS server (check if we're able to establish a TCP/IP connection). |
 
 If no error message is returned (the command ends with a `0` exit code), you can create your database by calling the `init_db` tool :
 
-|**PATH**|`core\actions\init\db.php`|
-|-|-|
-|**URL**|`?do=init_db`|
-|**CLI**|`$ ./equal.run --do=init_db`|
-|**DESCRIPTION**|Creates a database using the details provided in config file. This controllers calls db-connectivity and if connection can be established with the host, it requests the creation of the database, if it does not exist yet.|
+| **PATH**        | `core\actions\init\db.php`               |
+| --------------- | ---------------------------------------- |
+| **URL**         | `?do=init_db`                            |
+| **CLI**         | `$ ./equal.run --do=init_db`             |
+| **DESCRIPTION** | Creates a database using the details provided in config file. This controllers calls db-connectivity and if connection can be established with the host, it requests the creation of the database, if it does not exist yet. |
 
 eQual holds a native `core` package that holds a few classes and operations. All packages depend on the ORM layer, which is responsible of storing the objects into the database. So, in order to start using a package that defines object classes, you have to initialize it. 
 
 This can be done using the `init_package` tool :
 
-|**PATH**|`core\actions\init\package.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?do=init_package&package=core`|
-|**CLI**|`$ ./equal.run --do=init_package --package=core`|
-|**DESCRIPTION**|Initialize database for given package. If no package is given, initialize core package. Compile the apps (`apps folder`) of the package and copy them in the public folder.|
+| **PATH**        | `core\actions\init\package.php`          |
+| --------------- | ---------------------------------------- |
+| **URL**         | `?do=init_package&package=core`          |
+| **CLI**         | `$ ./equal.run --do=init_package --package=core` |
+| **DESCRIPTION** | Initialize database for given package. If no package is given, initialize core package. Compile the apps (`apps folder`) of the package and copy them in the public folder. |
 
 
 
@@ -101,9 +101,10 @@ We also need to do the opposite in `User.class.php` :
 // ...
       return [
         // ...
-        'task_id'	=> [
+        'task_ids'	=> [
             'type'           => 'one2many', 
-            'foreign_object' => 'mypackage\Task'
+            'foreign_object' => 'mypackage\Task',
+          	'foreign_field' => 'user_id'
         ]
       ];
 ```
@@ -153,11 +154,11 @@ In case something is wrong or missing, an error or a warning  is emitted.
 
 You can run the same command with your package's name instead of "core", see if the problem lies in here.
 
-|**PATH**|`core\actions\test\package-consistency.php`|
-| --------------- | ------------------------------------------------------------ |
-|**URL**|`?do=test_package-consistency&package=myPackage`|
-|**CLI**|`$ ./equal.run --do=test_package-consistency --package=myPackage`|
-|**DESCRIPTION**|Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON).|
+| **PATH**        | `core\actions\test\package-consistency.php` |
+| --------------- | ---------------------------------------- |
+| **URL**         | `?do=test_package-consistency&package=mypackage` |
+| **CLI**         | `$ ./equal.run --do=test_package-consistency --package=mypackage` |
+| **DESCRIPTION** | Consistency checks between DB and class as well as syntax validation for classes (PHP), views and translation files (JSON). |
 
 
 

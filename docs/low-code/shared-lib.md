@@ -26,9 +26,9 @@ Next, you'll need to clone symbioseUI and build it.
 ```
 git clone https://github.com/yesbabylon/symbiose-ui.git
 # you probably need to checkout to dev-2.0 to get newest version of symbioseUI
+cd symbiose-ui
 git checkout dev-2.0
 git pull
-cd symbiose-ui
 npm install
 cd sb-shared-lib
 npm install
@@ -44,7 +44,7 @@ Once you did this you only need to add equal.bundle.js to the library folder you
 Finaly, you can clone and build eQualUI
 
 ```
-git clone https://github.com/cedricfrancoys/equal-ui.git
+git clone https://github.com/equalframework/equal-ui.git
 cd equal-ui
 npm install
 sh export.sh

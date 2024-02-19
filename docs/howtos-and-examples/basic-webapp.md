@@ -5,17 +5,11 @@ Learning by example how to create a web application with eQual.
 This tutorial details the required steps for creating a webapp from scratch using eQual.
 As sample webapp, we are going to build a basic blog.
 
-
-
-## Install equal
-
-For installation notes, see [Installation](../getting-started/installation.md) in the "Getting started" section.
-
 ## 1. Create a new package
 **(Estimated time : 2 minutes)**
 
-This part is quite easy: in the `packages` folder, we create a new folder named "blog".
-In addition, inside this new folder, let's create the following subdirectories (as they are mandatory): "classes" and "views".
+This part is quite easy: in the `packages` folder, we create a new folder named `blog`.
+In addition, inside this new folder, let's create a file named `manifest.json` and the following subdirectories (as they are mandatory): `classes` and `views`.
 
 Tree structure is now:
 ```
@@ -27,7 +21,7 @@ Tree structure is now:
       manifest.json
 ```
 
-### Add a manifest.json in blog 
+Content of `manifest.json` :
 
 ```json
 {
@@ -89,16 +83,16 @@ class Post extends Model {
             'content' => [
                 'type'=>'text',
                 'description' => "Content of the post.",
-                ],
+            ],
             'published'=> [
                 'type'=>'date',
                 'description' => "The date the post is published.",
-                ],
-            'author' => [
+            ],
+            'author_full_name' => [
                 'type'          => 'computed',
                 'result_type'   => 'string',
                 'store'         => true,
-                'function'      => 'calcAuthor'
+                'function'      => 'calcAuthorFullName'
             ]
         ];
     }
@@ -107,24 +101,9 @@ class Post extends Model {
 
 ```
 
-In addition, we want to be able to retrieve the name of the author of the post.
-The special field `creator` gives us the id of the user (`core\User`) who created the post, but we would like to be able to display author's name without having to perform additional requests.
+The `author_full_name` field is of type computed and its function for this is `calcAuthorFullName`. When a field is computed, we think a good practice is to prefix with `calc` the name of the function.   
 
-
-In order to do so, we add an `author_full_name` field. This field is of type computed and its function for this is calcAuthorFullName. When a field is computed we think a good practice is to prefix with `calc` the name of the function.   
-
-```php
-
-   'author_full_name' => [
-                'type'          => 'computed',
-                'result_type'   => 'string',
-                'store'         => true,
-                'function'      => 'calcAuthorFullName'
-            ]
-
-```
-
-The method we write to compute the author's full name is based on the User's fullname entry. We want to retrieve it with the user. Post extends from Model which has the property :        
+Post extends from Model which has the property :        
 ```php
 lib/equal/orm/Model.class.php
 
@@ -134,10 +113,11 @@ lib/equal/orm/Model.class.php
                 'default'           => QN_ROOT_USER_ID
             ], 
             
-             
 ```
 
-As such we can use $self which is an instance of Post and its method [read()](https://doc.equal.run/architecture-concepts/orm/#read) to get the creator of a post. We can call subproperties so we will get the creator['fullname'] entry.
+The special field `creator` gives us the id of the user (`core\User`) who created the post.
+
+We can use `$self` (which is an instance of Post) and its method [read()](https://doc.equal.run/architecture-concepts/orm/#read) to get the creator of a post. We can call subproperties so we will get the creator['fullname'] entry.
 
 ```php
 
@@ -209,11 +189,16 @@ Tree structure is now:
       /classes
           Post.class.php      
       /views
+      manifest.json
 ```
 
-## 3. Create some init data :
+## 3. Create some init data
 
 **(Estimated time : 1 minutes)**
+
+in the `blog` folder, we create a new folder named `init` and its subdirectory `data`.
+Inside the `data` folder, we create a file named `blog_Post.json`.
+
 Tree structure is now:
 ```
   /
@@ -224,9 +209,11 @@ Tree structure is now:
       /init
         /data
             blog_Post.json
+      /views
+      manifest.json
 
 ```
-Lets create two posts when we initialize our app. 
+Content of `blog_Post.json` : 
 
 ```json
 [
@@ -254,10 +241,12 @@ Lets create two posts when we initialize our app.
 
 ```
 
+This will create two posts when we initialize our application.
+
 ## 4. Create views
 **(Estimated time : 10 minutes)**
 
-In the `packages/blog/views`, create three new files:
+In the `packages/blog/views`, we create three new files:
 
 Tree structure is now:
 ```
@@ -273,8 +262,9 @@ Tree structure is now:
         menu.app.left.json
         Post.form.default.json
         Post.list.default.json
+      manifest.json
 ```
-### 1. menu.app.left.json
+### 4.1. menu.app.left.json
 A menu with posts and users entries.
 
 ```json
@@ -323,7 +313,7 @@ A menu with posts and users entries.
 
 ```
 
-### 2. Post.form.default.json
+### 4.2. Post.form.default.json
 A form view to create and update posts.
 
 ```json
@@ -352,33 +342,33 @@ A form view to create and update posts.
                       {
                         "type": "field",
                         "value": "title",
-                        "width": "25%",
+                        "width": "25%"
                       },
                       {
                         "type": "field",
                         "value": "published",
-                        "width": "25%",
+                        "width": "25%"
                       },
                       {
                         "type": "field",
                         "value": "content",
                         "width": "50%",
-                        "widget": {},
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
+                        "widget": {}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
-### 3. Post.list.default.json
+### 4.3. Post.list.default.json
 A list view to display a list of posts.
 
 ```json
@@ -423,7 +413,7 @@ A list view to display a list of posts.
 ```
 
 
-## 5. Test package consistency and initialize the blog backend app : 
+## 5. Test package consistency and initialize the blog backend app 
 **(Estimated time : 1 minute)**
 
 ```bash
@@ -432,6 +422,8 @@ A list view to display a list of posts.
 ./equal.run --do=init_package --package=blog --import=true
 
 ```
+
+## 6. Overview of the application
 
 Go to http://equal.local/apps/
 
@@ -442,13 +434,13 @@ At this stage you have a back end where users can connect and create blog posts.
 
 Now we want to create a front-end so that everybody can read our blog posts. 
 
-## 6. Create an application
+## 7. Create an application
 **(Estimated time : 15 minutes)**
 
-
-### 1. Create a three new files for the front-end app
-
 We will create a simple view in html and fetch the posts from back end in using vanilla javascript.
+
+in the `blog` folder, we create a new folder named `apps` and its subdirectory `blog`.
+Inside the `apps/blog` folder, we create three files.
 
 Tree structure is now:
 ```
@@ -462,15 +454,17 @@ Tree structure is now:
           manifest.json
       /classes
           Post.class.php      
-      /views
       /init
         /data
+      /views
+        menu.app.left.json
+        Post.form.default.json
+        Post.list.default.json
       manifest.json
 ```
 
-* In `packages/blog/apps/blog/index.html`
+### 7.1. index.html
 
-    
 ```html
 
 <!DOCTYPE html>
@@ -540,7 +534,7 @@ Tree structure is now:
 
 ```
 
-* In `packages/blog/apps/blog/manifest.json`
+### 7.2. manifest.json
 
 ```json
 
@@ -597,7 +591,7 @@ Tree structure is now:
 
 ```
 
-* Finally in `packages/blog/apps/blog/export.sh`
+### 7.3. export.sh
 
 With the index.html, we will create a zip file called web.app. You can run it directly in your console or you can make a script in export.sh.
 
@@ -615,7 +609,7 @@ cd /var/www/html/packages/blog/apps/blog/
 sh export.sh
 ```
 
-Initialize your package in /var/www/html/. This will create the app in /var/www/html/public/blog. 
+Initialize your package in /var/www/html/:
 
 ```bash
 cd /var/www/html/
@@ -623,15 +617,15 @@ cd /var/www/html/
 
 ```
 
-Now if you got to http://equal.local/blog/ you should see the blog page. 
+This will create the app in /var/www/html/public/blog. 
 
-**Problem**
+Now if you got to http://equal.local/blog/, you should see the blog page. 
+
+## 8. Create a controller
 
 We have not created any controller in eQual. If you look at the apiUrl you see that we use the basic built in get=model_collect which will only return data if your user is logged in in eQual. What we want is for everyone to be able to access the blog and read the posts. So we are going to make a public controller and a custom route.
 
-### 2. Make a simple controller and a route for posts.
-
-Finally, let's create a controller `packages/blog/data/post/collect.php` and a route `packages/blog/init/routes/98-blog.json`.
+Let's create a controller `packages/blog/data/post/collect.php` and a route `packages/blog/init/routes/98-blog.json`.
 
 Tree structure is now:
 ```
@@ -646,10 +640,6 @@ Tree structure is now:
           manifest.json
       /classes
           Post.class.php      
-      /views
-        menu.app.left.json
-        Post.form.default.json
-        Post.list.default.json
       /data
         /post
           collect.php
@@ -657,10 +647,14 @@ Tree structure is now:
         /data
         /routes
           98-blog.json
+      /views
+        menu.app.left.json
+        Post.form.default.json
+        Post.list.default.json
       manifest.json
 ```
 
-`packages/blog/data/post/collect.php`
+### 8.1. collect.php
 ```php
 <?php
 
@@ -708,9 +702,10 @@ $context->httpResponse()
 
 ```
 
-Now lets create the route `/posts` which will use our collect controller to get all posts.
+### 8.2. 98-blog.json
 
-`packages/blog/init/routes/98-blog.json`
+Let's create the route `/posts` which will use our collect controller to get all posts.
+
 ```json
 {"\/posts": {
     "GET" : {
@@ -721,7 +716,8 @@ Now lets create the route `/posts` which will use our collect controller to get 
 
 ```
 
-Now change the apiUrl in `packages/blog/apps/blog/index.html` to `http://equal.local/posts`
+We can change the apiUrl in `packages/blog/apps/blog/index.html` to `http://equal.local/posts` :
+
 ```javascript
 <script type="module">
     (async () => {
