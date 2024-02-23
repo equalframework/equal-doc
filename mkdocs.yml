@@ -22,6 +22,9 @@ extra_css:
   - 'assets/css/extra.css'
 plugins:
   - search  
+  - plantuml:
+      puml_url: https://www.plantuml.com/plantuml/
+      num_workers: 2
   - mike:
       canonical_version: null
       version_selector: true
@@ -99,8 +102,6 @@ nav:
      - 'CI/CD' : 'advanced/ci-cd.md'
      - 'External libraries' : 'advanced/external-libraries.md'
   - 'Low-Code & tools':
-     - 'eQui': 'low-code/equi.md'
-     - 'Shared Lib': 'low-code/shared-lib.md'
      - 'Low-Code' : 'low-code/low-code.md'
      - 'eQual Workbench' : 'low-code/workbench.md'
   - 'Contact & Support':
