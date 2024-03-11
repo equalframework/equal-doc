@@ -160,9 +160,8 @@ The **domain** property allows to conditionally display the data  (More Info: [d
 
  Example:
 
- ```php
- <?php
-  "domain": "["type", "<>", "I"]"
+ ```json
+  "domain": ["type", "<>", "I"]
  ```
 
 ---
@@ -178,7 +177,7 @@ Associative map for restriction the access of the view to specific users.
 
 Example :
 
-```
+```json
 "access": {
     "groups": ["users"]
 }
