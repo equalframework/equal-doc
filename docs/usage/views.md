@@ -74,27 +74,38 @@ This is the root of the structure of a view.
 | routes | list of [Routes](#routes) | Contextual link to other part of the application. |
 | access|  [Access](#access)| Define the ability to see the view for an user group or a user|
 
-##### List only attributes
+##### Attributes for list-views
 
 | **PROPERTY**| **TYPE**| **DESCRIPTION**|
 | --- | --- | --- |
-| group_by | [Group by](#group_by) | (optional)        |
 | order        | `string`   | (optional) `asc` or  `desc`  |
 | sort        |   `string`  | (optional)  field name(s) used to sort the view by default |
 | limit   |  `integer`>`number/natural`      | (optional)  number of item fetched     |
+| group_by | [Group by](#group_by) | (optional)        |
 |  operation | Associative array (name,[Operation](#operation)) | (optional) make calculation on the whole fetcthed data do display it
 |  export | [Export](#export)
 
-#### controller
+### order
+
+String holding the name(s) of the field to sort results on, separated with commas.
+Example :
+
+```json
+"order": "sku,product_model_id"
+```
+
+### controller
 
 The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
 
 The default values is `model_collect` (which is an alias for `core_model_collect`)
 
-#### group_by
+### group_by
 
 A `group_by` array can be set to describe the way the objects have to be grouped.
 Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
+
+When objects are grouped on fields, they're sorted on the field when it is a string, or on the `name` field when it is an object. In the latter case, the field to be used for sorting can be modified using the `order`  property.
 
 Example :
 
@@ -107,7 +118,8 @@ The operations items have the following structure :
 ```json
 {
     "field": "product_id",
-    "operation": ["SUM", "object.qty"]
+    "operation": ["SUM", "object.qty"],
+    "order": "name"
 }
 ```
 
@@ -117,7 +129,7 @@ Another example :
 "group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
 ```
 
-##### Binary operators
+#### Binary operators
 |**OPERATOR**|**RESULT**|**SYNTAX**|
 |--|--|--|
 |+|Sum of `a` and `b`.|`['+', a, b]`|
@@ -127,7 +139,7 @@ Another example :
 |%|Modulo `b` of `a`.|`['%', a, b]`|
 |^|`a` at power  `b`.|`['^', a, b]`|
 
-##### Unary operators
+#### Unary operators
 
 |**OPERATOR**|**SYNTAX**|
 |--|--|
@@ -137,20 +149,12 @@ Another example :
 |MIN|`['MIN', object.field]`|
 |MAX|`['MAX', object.field]`|
 
-#### order
-
-String holding the name(s) of the field to sort results on, separated with commas.
-Example :
-
-```json
-"order": "sku,product_model_id"
-```
 
 
 ----
 
 
-### Domain
+### domain
 
 The **domain** property allows to conditionally display the data  (More Info: [domain](../architecture-concepts/domains.md)).
 
@@ -163,7 +167,7 @@ The **domain** property allows to conditionally display the data  (More Info: [d
 
 ---
 
-### Access
+### access
 
 Associative map for restriction the access of the view to specific users.
 
@@ -182,7 +186,7 @@ Example :
 
 ----
 
-### Operation
+### operations
 
 This property allows to apply a series of operations on one or more columns, for the displayed records set.
 
@@ -246,7 +250,7 @@ Examples:
 
 ----
 
-### Action
+### action
 
 The optional **actions**  property  contains a list of objects defining a custom list of possible actions attached to the view.
 
@@ -366,7 +370,7 @@ ACTION.DELETE
 
 ---
 
-### Export
+### exports
 
 Printing a document such as a contract can be done in the `list` view. Multiple fields will have to be added such as the `id` of the contract, the `label`, the `icon` of the printer also known as "print" is added. Also, a small `description`, a `controller` having the value "model_export-print" used to trigger the printing action, the `view` which corresponds to the specific view "print.default" and finally `visible` field should be displayed as well.
 
@@ -388,7 +392,7 @@ All these fields are added inside of the <em>exports</em> section of list view, 
 
 ---
 
-### Header <a id="view_commons_header"></a>
+### header <a id="view_commons_header"></a>
 
 The **header** section allows to override the default behavior of the view.
 
@@ -405,7 +409,7 @@ The **header** section allows to override the default behavior of the view.
 ### Header Action
 
 !!! note "Distinction between actions and Header Actions"
-    Make sure not to mix up the "actions" section with the header "actions" subsection. The former lists the actions that are available for the whole view (genrally form views) while the latter can be used to allow or prevent specific actions on selected objects (generally list views).
+    Make sure not to mix up the "actions" section with the header "actions" subsection. The former lists the actions that are available for the whole view (generally form views) while the latter can be used to allow or prevent specific actions on selected objects (generally list views).
 
 The actions property can be used for 3 purposes: to force action buttons visibility; to define the order of the actions for buttons having multiple actions ("split buttons"); and to override the configuration of the subsequent Views (for relational fields).
 
@@ -481,7 +485,7 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
 
 ---
 
-### Selection
+### selection
 The `selection` property allows to customize the list of bulk actions that are available when one or more items are selected.
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
@@ -531,7 +535,7 @@ b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a 
 
 ---
 
-### Layout
+### layout
 
 The **layout** is the part of the view that contains all the information needed to display the Model in the view
 
