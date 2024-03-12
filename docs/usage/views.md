@@ -630,7 +630,7 @@ The **layout** is the part of the view that contains all the information needed 
 
 ### Widget
 
-Widget are used to give proerties that depends on the type of view.
+Widget are used to set properties that depends on the type of view.
 
 #### Structure Summary
 
@@ -638,14 +638,15 @@ Widget are used to give proerties that depends on the type of view.
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ----- |
-| link | `boolean` | is the content of the item a link ? |
-| heading | `boolean`| makes the item bigger |
-| type | `string` | edit the type of display of the item, depends on the type of the field |
-| values | list of `string` | depecrated, do not use.|
-| usage | `string` | override the usage of the field to display it|
-| header | [Header](#header) | *Associative Field Only*  Override the header of the view to display the relation|
-| domain | `array`>`domain` | *Associative Field Only*  Override the domain of the view to display the relation|
-| view | `string` | *Associative Field Only* precise the id of the view to use to display the relation|
+| link | `boolean` | Flag telling if the content of the item a link. |
+| heading | `boolean`| Emphasizes the item (large version of the widget). |
+| type | `string` | edit the type of display of the item, depends on the type of the field. |
+| values | list of `string` | deprecated, do not use. |
+| usage | `string` | override the usage of the field to display it. |
+| header | [Header](#header) | *Associative Field Only*.  Override the header of the view to display the relation. |
+| domain | `array`>`domain` | *Associative Field Only*.  Override the domain of the view to display the relation. |
+| view | `string` | *Associative Field Only*. Provide the id of the view to use to display the relation. |
+| autoselect | `boolean` | *One2Many Field Only*. Item is automatically selected when list contains only 1 (default = true). |
 
 
 ##### List view
@@ -655,7 +656,7 @@ Widget are used to give proerties that depends on the type of view.
 | link | `boolean` | is the content of the item a link ? |
 | sortable | `boolean`| can the user sort the list by this item ? |
 | type | `string` | edit the type of display of the item, depends on the type of the field |
-| values | list of `string` | depecrated, do not use.|
+| values | list of `string` | deprecated, do not use. |
 | domain | `array`>`domain` | |
 | usage | `string` | override the usage of the field to display it|
 
