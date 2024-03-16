@@ -74,7 +74,7 @@ The manifest is a file containing informations about the package and its Apps:
 |   `license`   | The license of the package.                                  | `"LGPL-3"`                 |
 |   `authors`   | Array holding the name(s) of the author(s).                  | `["Michael Scott"]`        |
 | `depends_on`  | List of packages that need to be initialized in order for the package to work. | `["core", "finance"]`      |
-|    `apps`     | applications related to the package <br>You can add an App object if your package need some views. <br> The Apps `manifest.json` bellow explain it. | `[myApp]`                  |
+|    `apps`     | applications related to the package <br />You can add an App object if your package need some views. <br /> The Apps `manifest.json` bellow explain it. | `[myApp]`                  |
 
 
 
@@ -100,6 +100,26 @@ A markdown file containing various relevant information about the package, its i
 | color (optional)   | Color assigned to the application (used for the button).     | `#FF9741`                                           |
 | extends (optional) | String telling which application it extends from, if any.    | `app`                                               |
 | access/groups      | List of groups the access to the application is restricted to. | `['users']`                                         |
-| params             | Object to be relayed to the targeted App (if supported).     | `"params": { "menus" : { "left": "myApp.left" }  }` |
+| params             | Object to be relayed to the targeted App targeted with `extends`(if supported). | `"params": { "menus" : { "left": "myApp.left" }  }` |
 | show_in_apps       | Flag telling if the application must be listed in the dashboard Apps list. | default: ``false``                                  |
 | tags (optional)    | List of labels for tagging of the application.               | `["equal", "core"]`                                 |
+
+
+#### params
+The `params` property allows to provide the surrogate application (`app`)  with parameters specific to the application being described. It can be used to define which menus must be loaded and which context must be displayed by default.
+
+Example:
+````
+"params": {
+    "menus": {
+        "left": "settings.left",
+        "top": "settings.top"
+    },
+    "context": {
+        "entity": "core\\User"
+        "view": "list.default",
+        "order": "id",
+        "sort": "asc"
+    }
+}
+````
