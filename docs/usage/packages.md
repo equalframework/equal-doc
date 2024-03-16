@@ -3,8 +3,8 @@
 In order to ease development and collaboration, eQual organizes application logic into themed packages represented by
 folders, located under the `/packages` directory.
 
-These packages contain components like models, views, controllers, and translation files. Models define data structure,
-views describe user interface, controllers manage data flow, and translations support multilingual features.
+These packages contain several components : models, views, controllers, and translation files. Models define data structure,
+views describe user interface, controllers manage data flow, and translations support i18n features.
 
 ## Package structure
 
@@ -51,7 +51,7 @@ package_name
 
 ### manifest.json
 
-The manifest is a file containing informations about the package and its apps:
+The manifest is a file containing informations about the package and its Apps:
 
 ```
 {
@@ -66,34 +66,40 @@ The manifest is a file containing informations about the package and its apps:
 }
 ```
 
-| **PROPERTY**  | **ROLE**                                                                                                                                                               | **EXAMPLES**               |
-|:-------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-|    `name`     | String holding the name of the package. This string can be used as identifier and should match the name of the folder of the package, and should contain letters only. | `"myPackage"`              |
-|   `version`   | The version of the package.                                                                                                                                            | `"1.0"`                    |
-| `description` | Short string describing the package.                                                                                                                                   | `"A very useful package."` |
-|   `license`   | The license of the package.                                                                                                                                            | `"LGPL-3"`                 |
-|   `authors`   | Array holding the name(s) of the author(s).                                                                                                                            | `["Michael Scott"]`        |
-| `depends_on`  | Packages that need to be initialized in order for the package to work.                                                                                                 | `["core", "finance"]`      |
-|    `apps`     | applications related to the package <br>You can add an App object if your package need some views. <br> The Apps manifest.json bellow explain it.                      | `[myApp]`                  |
+| **PROPERTY**  | **ROLE**                                                     | **EXAMPLES**               |
+| :-----------: | ------------------------------------------------------------ | -------------------------- |
+|    `name`     | String holding the name of the package. <br />This string can be used as identifier and should match the name of the folder of the package, and should contain letters only. | `"myPackage"`              |
+|   `version`   | The version of the package.                                  | `"1.0"`                    |
+| `description` | Short string describing the package.                         | `"A very useful package."` |
+|   `license`   | The license of the package.                                  | `"LGPL-3"`                 |
+|   `authors`   | Array holding the name(s) of the author(s).                  | `["Michael Scott"]`        |
+| `depends_on`  | List of packages that need to be initialized in order for the package to work. | `["core", "finance"]`      |
+|    `apps`     | applications related to the package <br>You can add an App object if your package need some views. <br> The Apps `manifest.json` bellow explain it. | `[myApp]`                  |
 
-### readme.md
 
-A markdown file containing various relevant information about the package, things to know about installation and
-configuration, and the features it offers.
+
+!!!note The `apps`  property might either contain strings or descriptor objects. 
+    The application `app` can indeed act as surrogate for creating custom Apps using all standard features without having to write additional Angular components. In such case, the descriptor is exepected to follow the structure defined below.
+
+
+
+### README.md
+
+A markdown file containing various relevant information about the package, its installation, configuration, and the features it offers.
 
 ## Apps
 
 ### manifest.json
 
-| **PROPERTY**       | **ROLE**                                                                            | **EXAMPLES**                                        |
-|--------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------|
-| name               | name of the application                                                             | `APPS_APP_SETTINGS`                                 |
-| description        | description of the application                                                      |                                                     |
-| url                | url of the application                                                              | `/auth`                                             |
-| icon (optional)    | material icons representing the application                                         | `settings`                                          |
-| color (optional)   | color attributed to the application                                                 | `#FF9741`                                           |
-| extends (optional) | tell which application it extend <br> In most case you probably have to use ``app`` | `app`                                               |
-| access/groups      | groups giving access to the application                                             | `['users']`                                         |
-| params/menus       | Object for inserting different layout menu                                          | `"params": { "menus" : { "left": "myApp.left" }  }` |
-| show_in_apps       | show the application in the apps list                                               | default: ``false``                                  |
-| tags (optional)    | tags of the application                                                             | `["equal", "core"]`                                 |
+| **PROPERTY**       | **ROLE**                                                     | **EXAMPLES**                                        |
+| ------------------ | ------------------------------------------------------------ | --------------------------------------------------- |
+| name               | The name of the application.                                 | `Settings`                                          |
+| description        | A short description of the role and usage of the application. |                                                     |
+| url                | Relative URL of the application.                             | `/settings`                                         |
+| icon (optional)    | Identifier of the (material) icon for representing the application. | `settings`                                          |
+| color (optional)   | Color assigned to the application (used for the button).     | `#FF9741`                                           |
+| extends (optional) | String telling which application it extends from, if any.    | `app`                                               |
+| access/groups      | List of groups the access to the application is restricted to. | `['users']`                                         |
+| params             | Object to be relayed to the targeted App (if supported).     | `"params": { "menus" : { "left": "myApp.left" }  }` |
+| show_in_apps       | Flag telling if the application must be listed in the dashboard Apps list. | default: ``false``                                  |
+| tags (optional)    | List of labels for tagging of the application.               | `["equal", "core"]`                                 |
