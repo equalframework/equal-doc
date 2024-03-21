@@ -399,15 +399,16 @@ The **header** section allows to override the default behavior of the view.
 
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
 | ------------ | ---- | ------------------------------------------------------------ |
-| actions      | [Header Action](#header-actions) | This property allows to customize the actions buttons shown in the left part of the View header. |
-| *[LIST ONLY]* selection | [Selection](#selection) | Action that aplies on item selection |
+| actions      | [Actions](#header-actions) | This property allows to customize the actions buttons shown in the left part of the View header. |
+| selection | [Selection](#selection) | Action that applies on item selection (*this property is intended for list views only*). |
 | visible      | `boolean` or `array`>`domain`                  | |
+| advanced_search | `boolean` or descriptor |  |
 
 ---
 
-### Header Action
+#### actions (header)
 
-!!! note "Distinction between actions and Header Actions"
+!!! note "Distinction between root `actions` property and header's `actions` sub section"
     Make sure not to mix up the "actions" section with the header "actions" subsection. The former lists the actions that are available for the whole view (generally form views) while the latter can be used to allow or prevent specific actions on selected objects (generally list views).
 
 The actions property can be used for 3 purposes: to force action buttons visibility; to define the order of the actions for buttons having multiple actions ("split buttons"); and to override the configuration of the subsequent Views (for relational fields).
@@ -445,7 +446,7 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
 | ACTION.SELECT | For relational fields, allows to select or add one or many objects and relay selection to parent View. | `SELECT` |
 | ACTION.OPEN |  | `OPEN` |
 
-#### Predefined actions :
+##### Predefined actions
 
 | **ACTION** | **DESCRIPTION** | **CONTROLLER** |
 | ---- | ---- | ---- |
@@ -459,7 +460,7 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
 | CANCEL | The action relating to the current view (form in edit mode : CREATE, EDIT), has been cancelled by the user. |  |
 | OPEN | A request for opening a form view for a given object has been received by the list. |  |
 
-#### Usage example :
+##### Usage example
 
 ```json
     "header": {
@@ -484,7 +485,7 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
 
 ---
 
-### selection
+#### selection
 The `selection` property allows to customize the list of bulk actions that are available when one or more items are selected.
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
@@ -530,6 +531,23 @@ b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a 
         ]
     }
 }
+```
+
+---
+
+#### advanced_search
+In the case where the specified controller for data collection is not the default controller (`core_mode_collect`), the UI checks if a view is associated with this controller (that must extend `core_model_collect`). Since controllers can be handled as an entity. In that case, its parameters are considered as fields that can be assigned in an "advanced search" form.
+
+Examples : 
+```
+    "advanced_search": false
+```
+
+```
+    "advanced_search": {
+        "show": true,
+        "open": true
+    }
 ```
 
 ---
