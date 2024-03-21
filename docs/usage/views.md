@@ -538,6 +538,8 @@ b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a 
 #### advanced_search
 In the case where the specified controller for data collection is not the default controller (`core_mode_collect`), the UI checks if a view is associated with this controller (that must extend `core_model_collect`). Since controllers can be handled as an entity. In that case, its parameters are considered as fields that can be assigned in an "advanced search" form.
 
+However, in the header, it is always possible to explicitly tell if the advanced search must be shown or not, and if it should be open when view loads (default behavior is closed).
+
 Examples : 
 ```
     "advanced_search": false
