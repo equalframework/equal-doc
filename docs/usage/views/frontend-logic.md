@@ -48,7 +48,7 @@ Here is an example of the views defined for the `core\User` entity :
 
 Forms views are JSON objects that describe how to render a specific view related to a given entity.
 
-Example: 
+**Example:** 
 
 ```json
 {
@@ -300,7 +300,7 @@ Entries items have a **context** property, which has the following structure :
 | sort         | (optional)                                               |
 | domain       | (optional) Domain to apply to specified view.            |
 
-Example:
+**Example:**
 
 ```json
 "id": "item.pos_sessions",
