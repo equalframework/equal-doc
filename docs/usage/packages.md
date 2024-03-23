@@ -35,51 +35,84 @@ package_name
 └── readme.md
 ```
 
-| **FOLDER** | **ROLE**                                        | **EXAMPLES**                                                               |
-|:----------:|-------------------------------------------------|----------------------------------------------------------------------------|
+| **FOLDER** | **ROLE**                                        | **EXAMPLES**                                                 |
+| :--------: | ----------------------------------------------- | ------------------------------------------------------------ |
 | `classes`  | model                                           | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
-| `actions`  | action handler (controller)                     | `core_manage`, `core_utils`                                                |
-|   `apps`   | applications related to the package             | `auth`, `apps`                                                             |
-|   `data`   | data provider                                   | `core_model_read`, `core_config_packages`                                  |
-|   `test`   | test units                                      | `default.php`                                                              |
-|   `init`   | initialize the package (entities, data, routes) | `core_Group.json`                                                          |
-|  `views`   | templates                                       | `User.form.default.json`, `User.list.default.json`                         |
-|   `i18n`   | translations                                    | `User.json`                                                                |
-|  `assets`  | static content (resources)                      | js scripts, stylesheets, fonts, images                                     |
+| `actions`  | action handler (controller)                     | `core_manage`, `core_utils`                                  |
+|   `apps`   | applications related to the package             | `auth`, `apps`                                               |
+|   `data`   | data provider                                   | `core_model_read`, `core_config_packages`                    |
+|  `tests`   | test units                                      | `default.php`                                                |
+|   `init`   | initialize the package (entities, data, routes) | `core_Group.json`                                            |
+|  `views`   | templates                                       | `User.form.default.json`, `User.list.default.json`           |
+|   `i18n`   | translations                                    | `User.json`                                                  |
+|  `assets`  | static content (resources)                      | js scripts, stylesheets, fonts, images                       |
 
-## Package descriptors
+## Self description
 
 ### manifest.json
 
-The manifest is a file containing informations about the package and its Apps:
+Packages manifests are an essential tool for managing the packages ecosystem and ensure compatibility between different components and versions of software libraries, facilitating seamless integration and streamlined development processes.
 
-```
+Each package has a manifest file (`manifest.json`) containing information about the package along with the apps it provides and the dependencies it requires. 
+
+| **PROPERTY**  | **ROLE**                                                     | **EXAMPLES**                                                 |
+| :-----------: | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|    `name`     | `(string)` Name of the package, also used as an identifier.<br />It should match the name of the folder of the package. | `"core"`                                                     |
+|   `version`   | `(string)` The version of the package, ensuring accurate versionning. | `"2.0"`                                                      |
+| `description` | `(string)` Short description of the package.                 | `"Foundations package holding the application logic of the elementary entities."` |
+|   `license`   | `(string)` The license (and version) of the package.         | `"LGPL-3"`                                                   |
+|   `authors`   | `(array <string>)` List of the name(s) of the author(s).     | `["Cedric Francoys"]`                                        |
+|    `tags`     | `(array <string>)` List of descriptive tags or keywords associated with the package for easier categorization and searchability. | `["Cedric Francoys"]`                                        |
+| `depends_on`  | `(array <string>)` List of packages that need to be present and initialized in order for the package to work. | `[]`                                                         |
+|  `requires`   | `(object)` Map specifying external libraries or packages required by the package, along with version constraints using semantic versionning. | `"requires": {"swiftmailer/swiftmailer": "^6.2"}`            |
+|    `apps`     | `(array <string | object>)` Applications embedded in the package. <br />The list provides either Apps names (identifier) or descriptors for virtual apps to be used with the STD App (see below). | `["apps", "auth", "app", "settings"]`                        |
+
+**Example:**
+
+```json
 {
     "name": "core",
-    "description": "Foundations package holding the application logic of the elementary entities.",
+    "description": "Foundation package holding common application logic and elementary entities.",
     "version": "2.0",
-    "authors": ["Cedric Francoys"],
-    "license": "LGPL-3",
+    "authors": ["Author Names"],
+    "license": "License Type",
+    "tags": [ "equal", "core" ],
     "depends_on": [],
-    "apps": [ "apps", "auth", "app", "settings" ],
-    "tags": ["equal", "core"]
+    "requires": {
+        "swiftmailer/swiftmailer": "^6.2",
+        "phpoffice/phpspreadsheet": "^1.4",
+        "dompdf/dompdf": "^0.8.3"
+    },
+    "apps": [ "apps", "auth", "app", "settings", "workbench", "welcome" ]
 }
 ```
 
-| **PROPERTY**  | **ROLE**                                                     | **EXAMPLES**               |
-| :-----------: | ------------------------------------------------------------ | -------------------------- |
-|    `name`     | String holding the name of the package. <br />This string can be used as identifier and should match the name of the folder of the package, and should contain letters only. | `"myPackage"`              |
-|   `version`   | The version of the package.                                  | `"1.0"`                    |
-| `description` | Short string describing the package.                         | `"A very useful package."` |
-|   `license`   | The license of the package.                                  | `"LGPL-3"`                 |
-|   `authors`   | Array holding the name(s) of the author(s).                  | `["Michael Scott"]`        |
-| `depends_on`  | List of packages that need to be initialized in order for the package to work. | `["core", "finance"]`      |
-|    `apps`     | applications related to the package <br />You can add an App object if your package need some views. <br /> The Apps `manifest.json` bellow explain it. | `[myApp]`                  |
+#### `apps` property
+The `apps`  property might either contain strings or descriptor objects.  The `app` application, defined in the core package,  can indeed act as surrogate for creating custom Apps using all standard features without having to write additional Angular components. In such case, the descriptor is expected to follow the structure defined below.
 
+**Example:**
 
-
-!!!note The `apps`  property might either contain strings or descriptor objects. 
-    The application `app` can indeed act as surrogate for creating custom Apps using all standard features without having to write additional Angular components. In such case, the descriptor is exepected to follow the structure defined below.
+```json
+{
+            "id": "inventory",
+            "name": "Inventory",
+            "extends": "app",
+            "description": "Application inventory",
+            "icon": "analytics",
+            "color": "#6C3483",
+            "access": {
+                "groups": [
+                    "users"
+                ]
+            },
+            "params": {
+                "menus": {
+                    "left": "inventory.left",
+                    "top": "inventory.top"
+                }
+            }
+        }
+```
 
 
 
