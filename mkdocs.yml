@@ -80,7 +80,8 @@ nav:
      - 'Searching': 'usage/searching.md'
      - 'Validation': 'usage/validation.md'
      - 'Routing': 'usage/routing.md'
-     - 'Views': 'usage/views.md'
+     - 'Views': 
+        - 'usage/views/views.md'
      - 'i18n': 'usage/i18n.md'
      - 'Error Handling': 'usage/error-handling.md'
      - 'Debugging': 'usage/debugging.md'
