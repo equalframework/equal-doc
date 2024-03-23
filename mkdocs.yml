@@ -106,6 +106,4 @@ nav:
   - 'Low-Code & tools':
      - 'Low-Code' : 'low-code/low-code.md'
      - 'eQual Workbench' : 'low-code/workbench.md'
-  - 'Contact & Support':
-     - 'Contact': 'contact-and-support/contact.md'
-     - 'Support': 'contact-and-support/support.md'
+  - 'Contact & Support': 'contact-and-support/contact-and-support.md'
