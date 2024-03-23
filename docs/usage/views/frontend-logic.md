@@ -1,10 +1,8 @@
 # Front-end logic
 
-
-
 Views are intended to describe how to present the objects to end-users under a given context. They are used as templates for the front-end, and are stored as JSON files within the `views` folder of their respective package.
 
-When an object or a collection of objects must be displayed in the UI, along with the data, the UI renderer also requests a template (view) and its translation.
+When an object or a collection of objects must be displayed in the UI, along with the data, the UI renderer also requests a view and its translation.
 
 Each view represents a mode of visualization: form, list, chart, dashboard, etc; and can be edited independently from the models they relate to.
 
