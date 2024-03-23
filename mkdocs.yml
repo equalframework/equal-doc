@@ -1,4 +1,4 @@
-site_name: eQual framework documentation
+site_name: eQual framework 
 site_url: https://doc.equal.run/
 docs_dir: docs
 # dev_addr: 127.0.0.1:8000
@@ -81,7 +81,11 @@ nav:
      - 'Validation': 'usage/validation.md'
      - 'Routing': 'usage/routing.md'
      - 'Views': 
-        - 'All': 'usage/views/views.md'
+        - 'Front-end logic': 'usage/views/frontend-logic.md'
+        - 'Common strucutre': 'usage/views/common-structure.md'
+        - 'Lists': 'usage/views/lists.md'
+        - 'Forms': 'usage/views/forms.md'
+        - 'Inheritance': 'usage/views/inheritance.md'
      - 'i18n': 'usage/i18n.md'
      - 'Error Handling': 'usage/error-handling.md'
      - 'Debugging': 'usage/debugging.md'

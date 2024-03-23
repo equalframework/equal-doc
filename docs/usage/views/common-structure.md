@@ -1,66 +1,6 @@
-# Views
+# Views common stucture
 
-Views are intended to describe how to present the objects to end-users under a given context.
-They are used as templates for the front-end, and are stored as JSON files within the `views` folder of their respective package.
-
-Each of them represents a mode of visualization: form, list, chart, dashboard, etc; and can be edited independently from the models they relate to.
-
-It is possible to define as many views (of different types, or variations of same type) as necessary.
-Each view is referenced by an ID, which is composed of its type and its name.
-
-As a convention, a default view for `list` and `form` types should be defined for each entity.
-
-**The generic filename format** is: `{class_name}.{view_type}.{view_name}.json`
-
-* `class_name`: the class name of the entity the view relates to (e.g. default form view for  `core\User` is stored as `packages/core/views/User.form.default.json`)
-* `view_type`: Possible values are :'*list*', '*form*','*chart*','*dashboard*'
-* `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
-
-
-
-Here is a recap for the `core\User` entity :
-
-| **FILENAME**       | **ENTITY** | **VIEW TYPE** | **VIEW NAME** | **VIEW ID** | **Workbench Name**
-| --------------------------------- | --------- | --------- | --------- | --------- | --- |
-| `core\views\User.list.default.json` | core\User | list | default | list.default | core\User:list.default
-| `core\views\User.form.default.json` | core\User | form | default | form.default | core\User:form.default
-
-
-## Front-end logic
-
-A **View** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
-Within a view, a layout defines the way in which the Items are linked to the model. The view is synchronized with the model during modifications.
-
-Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
-
-A **Model** is a collection of objects of a given entity. This class keeps the full schema of the entity with the default values that are then updated by this model after it requests the corresponding data from the server.
-
-A **Layout** is the layout associated with a given view. It is always linked to a Model.
-
-A **Item** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
-
-
-## List and Form view
-
-#### Form views
-
-**Forms** allow to view and edit individual objects. It is possible to define as many views as desired, and a given entity should always have default form view (`{entity}.form.default.json`).
-
-Forms views are JSON objects that describe how to render a specific view related to a given entity.
-
-#### List views
-
-List views are used to display collections of items. It contains the same properties mentioned in the ```Form View``` section, such as `name`, `description`, `layout` and additional ones, specific to Lists.
-Clicking on a row in the list redirects you to the form view related to the targeted entity.
-Ticking one or more checkboxes triggers the display of a list of available actions that can be applied on the selection.
-
----
-
-### View (root of the structure)
-
-This is the root of the structure of a view.
-
-#### Structure summary
+## Structure summary
 
 | **PROPERTY**| **TYPE**| **DESCRIPTION**|
 | --- | --- | --- |
@@ -74,8 +14,12 @@ This is the root of the structure of a view.
 | routes | list of [Routes](#routes) | Contextual link to other part of the application. |
 | access|  [Access](#access)| Define the ability to see the view for an user group or a user|
 
-##### Attributes for list-views
 
+Some attributes are meant to specific view types.
+The lists below recap the attributes specific to each view type.
+
+
+### List
 | **PROPERTY**| **TYPE**| **DESCRIPTION**|
 | --- | --- | --- |
 | order        | `string`   | (optional) `asc` or  `desc`  |
@@ -84,6 +28,22 @@ This is the root of the structure of a view.
 | group_by | [Group by](#group_by) | (optional)        |
 |  operation | Associative array (name,[Operation](#operation)) | (optional) make calculation on the whole fetcthed data do display it
 |  export | [Export](#export)
+
+### Menu
+
+**Items specifics : **
+| **PROPERTY**| **TYPE**| **DESCRIPTION**|
+| --- | --- | --- |
+| type        | `string`   | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
+
+### Dashboard
+
+**Items specifics : **
+| **PROPERTY**| **TYPE**| **DESCRIPTION**|
+| --- | --- | --- |
+| width        | `string`   | Width of the item (as percent value).  |
+
+## Attributes descriptors
 
 ### order
 
@@ -151,8 +111,6 @@ Another example :
 
 
 
-----
-
 
 ### domain
 
@@ -164,7 +122,6 @@ The **domain** property allows to conditionally display the data  (More Info: [d
   "domain": ["type", "<>", "I"]
  ```
 
----
 
 ### access
 
@@ -258,7 +215,7 @@ Each action item  relates to a button, displayed in the right side of the header
 !!! note "Distinction between actions and header.actions"
     Make sure not to mix up the "actions" section with the header "actions" subsection. The former lists the actions that are available for the whole view (genrally form views) while the latter can be used to allow or prevent specific actions on selected objects (generally list views).
 
-#### Structure summary
+**Structure:**
 
 | **PROPERTY**  | **TYPE**  | **DESCRIPTION**                                       |
 | --------------- | ---- | --------------------------------------------------------- |
@@ -367,7 +324,6 @@ ACTION.DELETE
 !!! note "Hiding a specific default action"
     Default actions can be hidden by using the targeted ID and setting the `visible` property to false.
 
----
 
 ### exports
 
@@ -404,7 +360,7 @@ The **header** section allows to override the default behavior of the view.
 | visible      | `boolean` or `array`>`domain`                  | |
 | advanced_search | `boolean` or descriptor |  |
 
----
+
 
 #### actions (header)
 
@@ -558,7 +514,7 @@ Examples :
 
 The **layout** is the part of the view that contains all the information needed to display the Model in the view
 
-#### Structure summary
+**Structure:**
 
 ##### Form View
 
@@ -817,550 +773,3 @@ $context->httpResponse()
 
 
 
-## Form views Example
-
-
-### Minimal example
-
-`Example.form.default.json`
-
-```json
-{
-  "name": "Example",
-  "description": "Simple form for displaying a basic objects",
-  "actions": [],
-  "layout": {
-    "groups": [
-      {
-        "label": "",
-        "sections": [
-          {
-            "rows": [
-              {
-                "columns": [
-                  {
-                    "width": "50%",
-                    "items": [
-                      {
-                          "type": "field",
-                          "value": "id",
-                          "width": "50%"
-                      },
-                      {
-                          "type": "field",
-                          "value": "name",
-                          "width": "50%"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-
-#### Real life example
-
-A real example of a form view is shown below, which is the Category form of a package having multiple `sections` (tabs) each having a label(Categories, Product Models and Booking Types) and an id(`section.categories_id`, `section.product_models`, `section.booking_types`) to be able to be translated in using the "i18n". The field called `name` has a `widget` property with an attribute `heading` set to true which emphasizes it by displaying it a little bigger.
-
-The view's name is `Category.form.default.json` and is as follows:
-
-```json
-{
-  "name": "Category",
-  "description": "Categories are not related to Families and allow a different way of grouping Products.",
-  "layout": {
-    "groups": [
-      {
-        "sections": [
-          {
-            "label": "Categories",
-            "id": "section.categories_id",
-            "rows": [
-              {
-                "columns": [
-                  {
-                    "width": "50%",
-                    "items": [
-                      {
-                        "type": "field",
-                        "value": "name",
-                        "width": "100%",
-                        "widget": {
-                            "heading": true
-                        }
-                      },
-                      {
-                        "type": "field",
-                        "value": "description",
-                        "width": "100%"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "label": "Product Models",
-            "id": "section.product_models",
-            "rows": [
-              {
-                "columns": [
-                  {
-                    "width": "100%",
-                    "items": [
-                      {
-                        "type": "field",
-                        "value": "product_models_ids",
-                        "width": "100%"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "label": "Booking Types",
-            "id": "section.booking_types",
-            "rows": [
-              {
-                "columns": [
-                  {
-                    "width": "100%",
-                    "items": [
-                      {
-                          "type": "field",
-                          "value": "booking_types_ids",
-                          "width": "100%"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-
-
-## List View Example
-
-
-### Minimal example
-
-The name of file is displayed like so: `packages/core/views/User.list.default.json`
-A list view is defined according to the following structure:
-
-```json
-{
-  "name": "",
-  "description": "",
-  "domain": [],
-  "filters": [
-    {
-        "id": "lang.french",
-        "label": "français",
-        "description": "Users with locale set to french",
-        "clause": ["language", "=", "fr"]
-    }
-  ],
-  "layout": {
-    "items": [
-        {
-            "type": "field",
-            "value": "id",
-            "width": "10%",
-            "sortable": true,
-            "readonly": true
-        },
-        {
-            "type": "field",
-            "value": "created",
-            "width": "25%",
-            "sortable": true
-        },
-        {
-            "type": "field",
-            "value": "validated",
-            "width": "10%"
-        },
-        {
-            "type": "field",
-            "value": "login",
-            "widget": {
-                "link": true
-            },
-            "width": "30%",
-            "sortable": true
-        },
-        {
-            "type": "field",
-            "value": "language",
-            "width": "10%",
-            "widget": {
-                "type": "select",
-                "values": ["fr", "en", "nl"]
-            }
-        },
-        {
-            "type": "field",
-            "value": "groups_ids",
-            "label": "Groups",
-            "width": "0%",
-            "visible": false,
-            "widget": {
-                "type": "one2many"
-            }
-        }
-    ]
-  }
-}
-```
-
-The list view of the Category form mentioned in the above section contains the `name` of the list which is Categories, a `description` and the main fields to be displayed for quick use like the "name" and the "description" of the categories.
-The list view is named *Category.list.default.json* and has the following structure:
-
-```json
-{
-    "name": "Categories",
-     "description": "This view is intended for displaying the list of categories.",
-     "layout": {
-         "items": [
-            {
-                 "type": "field",
-                 "value": "name",
-                 "width": "15%"
-            },
-            {
-                 "type": "field",
-                 "value": "description",
-                 "width": "25%"
-            }
-        ]
-    }
-}
-```
-
-
-
-## Menu Views
-
-Menus allow to define custom tree structures of action-buttons for accessing specific routes or contexts.
-
-Menu items have the following structure :
-
-| **PROPERTY** | **DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ |
-| id           | Identifier of the item (used for translations).              |
-| label        | Title of the item to display within the menu.                |
-| description  | (optional) Short string explaining the purpose of the item (the view it leads to). |
-| icon         | (optional) icon to show aside the item.                      |
-| type         | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
-
-
-
-Parent items have a **children** property, which is an array holding a list of items (which, in turn, can be either parents or entries).
-
-Entries items have a **context** property, which has the following structure :
-
-
-
-
-| **PROPERTY** | **DESCRIPTION**                                          |
-| ------------ | -------------------------------------------------------- |
-| entity       | Entity to which relates the view to show.                |
-| view         | ID of the view to use for showing the targeted entities. |
-| order        | (optional)                                               |
-| sort         | (optional)                                               |
-| domain       | (optional) Domain to apply to specified view.            |
-
-Example:
-
-```json
-"id": "item.pos_sessions",
-"label": "Sessions",
-"description": "",
-"icon": "menu_book",
-"type": "parent",
-"children": [
-    {
-        "id": "item.pos_sessions.pending",
-        "type": "entry",
-        "label": "Pending sessions",
-        "description": "",
-        "context": {
-            "entity": "lodging\\sale\\pos\\CashdeskSession",
-            "view": "list.default",
-            "order": "created",
-            "sort": "desc",
-            "domain": [ ["status", "=", "pending"], ["center_id", "in", "user.centers_ids"] ]
-        }
-    }
-]
-```
-
-
-
-As other views, a menu has a `name` property and a `layout` property, that describes how the items are going to be displayed.
-
-In the example shown below, one parent menu item is present named "New Booking" and it contains two children, "New Booking" to create a new booking and "All Bookings" that displays the list of all the bookings ordered by id and sorted in descending order.
-
-```json
-{
-    "name": "Booking menu",
-    "layout": {
-        "items": [
-            {
-                "id": "item.bookings",
-                "label": "Bookings",
-                "description": "",
-                "icon": "menu_book",
-                "type": "parent",
-                "children": [
-                    {
-                        "id": "item.new_booking",
-                        "type": "entry",
-                        "label": "New booking",
-                        "description": "",
-                        "icon": "add",
-                        "context": {
-                            "entity": "lodging\\sale\\booking\\Booking",
-                            "view": "form.default",
-                            "purpose": "create"
-                        }
-                    },
-                    {
-                        "id": "item.all_booking",
-                        "type": "entry",
-                        "label": "All bookings",
-                        "description": "",
-                        "context": {
-                            "entity": "lodging\\sale\\booking\\Booking",
-                            "view": "list.default",
-                            "order": "id",
-                            "sort": "desc"
-                        }
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
-
-
-
-## Dashboard Views
-
-Dashboard views are control panels, opening the possibility to show multiple views on the same page.
-
-The following example displays 4 different views to simplify the management of informations.
-
-| **PROPERTY** | **DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ |
-| id           | Identifier of the item (used for translations).              |
-| label        | Title of the item to display within the menu.                |
-| description  | (optional) Short string explaining the purpose of the item (the view it leads to). |
-| width        | Width of the field.                                          |
-| type         | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
-| entity       | Entity to which relates the view to show.                    |
-| view         | ID of the view to use for showing the targeted entities.     |
-| domain       | (optional) Domain to apply to specified view.                |
-
-
-```json
-{
-    "name": "Main dashboard",
-    "description": "",
-    "layout": {
-        "groups": [
-			{
-                "label": "test",
-                "height": "100%",
-                "sections": [
-                    {
-                        "rows": [
-                            {
-                                "height": "50%",
-                                "columns": [
-                                    {
-                                        "width": "100%",
-                                        "items": [
-                                            {
-                                                "id": "item.bookings",
-                                                "label": "Alertes",
-                                                "description": "",
-                                                "width": "50%",
-                                                "entity": "core\\alert\\Message",
-                                                "view": "list.dashboard",
-                                                "domain":  ["object_class", "=", "lodging\\sale\\booking\\Booking"]
-                                            },
-                                            {
-                                                "id": "item.bookings2",
-                                                "label": "Mes Réservations",
-                                                "description": "",
-                                                "width": "50%",
-                                                "entity": "lodging\\sale\\booking\\Booking",
-                                                "view": "list.dashboard",
-                                                "domain": ["creator", "=", "user.id"]
-                                            }
-
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "height": "50%",
-                                "columns": [
-                                    {
-                                        "width": "100%",
-                                        "items": [
-                                            {
-                                                "id": "item.bookings3",
-                                                "label": "CA Prévisionnel des réservations",
-                                                "description": "",
-                                                "width": "50%",
-                                                "entity": "lodging\\sale\\booking\\Booking",
-                                                "view": "chart.default"
-                                            },
-                                            {
-                                                "id": "item.bookings4",
-                                                "label": "Nombre de checkin",
-                                                "description": "",
-                                                "width": "50%",
-                                                "entity": "lodging\\sale\\booking\\Booking",
-                                                "view": "chart.checkin"
-                                            }
-
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
-
-
-
-#### list.dashboard
-
-This example demonstrates the possibility to name views the way we want.
-
-Here we use a new `list view`, that could, for example, have a different domain** (`"domain": ["creator", "=", "user.id"]`) than the `Booking.list.default.json` view.
-
-```json
-{
-    "name": "Booking list",
-    "description": "This view displays the list of bookings: the most recent on top.",
-    "access": {
-        "groups": ["booking.default.user"]
-     },
-    "order": "created",
-    "sort": "desc",
-    "domain": ["center_office_id", "in", "user.center_offices_ids"],
-    "layout": {
-        "items": [
-            {
-            }
-        ]
-    }
-}
-```
-
-
-
-
-## Charts
-
-Charts enable us to visually compare multiple sets of data. It can be very helpful to display statistics.
-
-Below is an example of a chart view, the proprerties are very similar to the ones we can find in menus (check the section above this one).
-
-### The properties
-The access property is allowing the people that belong to the group to see this chart. The layout describes how the items are going to be displayed.
-
-The range_interval property allows us to choose which period of time will delimit the data that we want to see, the possibilities are : "day, week, semester, year".
-
-The range_to & range_from properties allow us to choose, when the range starts and when it stops (linked with the range_interval property).
-Possibilities : date.[this|prev|next].[day|week|month|quarter|semester|year].[first|last].
-
-The dataset property is about the data that will be shown in the graph, we have the label property that will allow us to the name the element displayed.
-
-The operation property that will use the operations talked about in the above sections, will allow us to display a certain type of data.
-
-At last, the domain property allows us to filter the data even more.
-
-
-```json
-{
-    "name": "Booking total",
-    "description": "This view displays the amount of bookings in the DB",
-    "access": {
-        "groups": ["booking.default.user"]
-    },
-    "layout": {
-        "entity": "lodging\\sale\\booking\\Booking",
-        "group_by": "range",
-        "range_interval": "year",
-        "range_from": "date.this.year.first",
-        "range_to": "date.this.year.last",
-        "datasets": [
-            {
-                "label": "Nombre de réservations",
-                "operation": ["COUNT", "object.id"],
-                "domain": ["id", ">", 5]
-            }
-{
-    "name": "Main dashboard",
-    "layout": {
-        "groups": [
-            {
-                "label": "",
-                "height": "100%",
-                "sections": [
-                    {
-                        "rows": [
-                            {
-                                "height": "50%",
-                                "columns": [
-                                    {
-                                        "width": "50%",
-                                        "items": [
-                                            {
-                                                "id": "item.bookings",
-                                                "label": "Bookings",
-                                                "description": "",
-                                                "width": "50%",
-                                                "entity": "",
-                                                "view": ""
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
