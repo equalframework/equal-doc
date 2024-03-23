@@ -1,22 +1,12 @@
 # Front-end logic
 
 
-A **View** relates to an entity and has a type and a name. The view itself requests the corresponding data from the server (template or translation) when loading the layout at which a domain can be specified.
-Within a view, a layout defines the way in which the Items are linked to the model. The view is synchronized with the model during modifications.
 
-Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
+Views are intended to describe how to present the objects to end-users under a given context. They are used as templates for the front-end, and are stored as JSON files within the `views` folder of their respective package.
 
-A **Model** is a collection of objects of a given entity. This class keeps the full schema of the entity with the default values that are then updated by this model after it requests the corresponding data from the server.
+When an object or a collection of objects must be displayed in the UI, along with the data, the UI renderer also requests a template (view) and its translation.
 
-A **Layout** is the layout associated with a given view. It is always linked to a Model.
-
-A **Item** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
-
-## Views
-Views are intended to describe how to present the objects to end-users under a given context.
-They are used as templates for the front-end, and are stored as JSON files within the `views` folder of their respective package.
-
-Each of them represents a mode of visualization: form, list, chart, dashboard, etc; and can be edited independently from the models they relate to.
+Each view represents a mode of visualization: form, list, chart, dashboard, etc; and can be edited independently from the models they relate to.
 
 It is possible to define as many views (of different types, or variations of same type) as necessary.
 Each view is referenced by an ID, which is composed of its type and its name.
@@ -28,6 +18,18 @@ As a convention, a default view for `list` and `form` types should be defined fo
 * `class_name`: the class name of the entity the view relates to (e.g. default form view for  `core\User` is stored as `packages/core/views/User.form.default.json`)
 * `view_type`: Possible values are :'*list*', '*form*','*chart*','*dashboard*'
 * `view_name`: As a convention, classes should always have a 'default' view for types 'list' and 'view'.
+
+
+
+Within a view file, a layout defines the way in which the Items are linked to the model. The view is synchronized with the model during modifications.
+
+Keep in mind that if the view's class extends another class, which will be called the parent, then it should also contain all the fields from this parent class except the computed ones and the ones that are already present in this child class.
+
+A **Model** is a collection of objects of a given entity. This class keeps the full schema of the entity with the default values that are then updated by this model after it requests the corresponding data from the server.
+
+A **Layout** is the layout associated with a given view. It is always linked to a Model.
+
+A **Item** is responsible for displaying the value of an object's field (in 'view' or 'edit' mode). It synchronizes its value with the Model to which it is associated via the Layout and the View that is using it.
 
 
 
