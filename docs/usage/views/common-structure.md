@@ -20,6 +20,7 @@ The lists below recap the attributes specific to each view type.
 
 
 ### List
+
 | **PROPERTY**| **TYPE**| **DESCRIPTION**|
 | --- | --- | --- |
 | order        | `string`   | (optional) `asc` or  `desc`  |
@@ -31,14 +32,16 @@ The lists below recap the attributes specific to each view type.
 
 ### Menu
 
-**Items specifics : **
+**Items specifics : **  
+
 | **PROPERTY**| **TYPE**| **DESCRIPTION**|
 | --- | --- | --- |
 | type        | `string`   | (mandatory) either 'entry' or 'parent'. In case an item is a 'parent', it also have a 'children' property. |
 
 ### Dashboard
 
-**Items specifics : **
+**Items specifics : **  
+
 | **PROPERTY**| **TYPE**| **DESCRIPTION**|
 | --- | --- | --- |
 | width        | `string`   | Width of the item (as percent value).  |
@@ -634,142 +637,4 @@ Widget are used to set properties that depends on the type of view.
 | type | `string` | edit the type of display of the item, depends on the type of the field |
 | values | list of `string` | deprecated, do not use. |
 | domain | `array`>`domain` | |
-| usage | `string` | override the usage of the field to display it|
-
----
-
-## View Inheritance
-
-Classes may be used in different packages (extending parent classes with the possibility of adding new fields) and therefore, they also may have different view files.
-
-Here is an example of an extended class.
-
-
-```php
-<?php
-namespace lodging\sale\booking;
-
-class Contact extends \sale\booking\Contact {
-
-    public static function getName() {
-        return "Contact";
-    }
-
-    public static function getDescription() {
-        return "Booking contacts are persons involved in the organisation of a booking.";
-    }
-
-    public static function getColumns() {
-
-        return [
-            'owner_identity_id' => [
-                'type'              => 'many2one',
-                'foreign_object'    => 'lodging\identity\Identity',
-                'description'       => 'The organisation which the targeted identity is a partner of.',
-                'default'           => 1
-            ],
-
-            'partner_identity_id' => [
-                'type'              => 'many2one',
-                'foreign_object'    => 'lodging\identity\Identity',
-                'description'       => 'The targeted identity (the partner).',
-                'onupdate'          => 'identity\Partner::onupdatePartnerIdentityId',
-                'required'          => true
-            ],
-
-            'booking_id' => [
-                'type'              => 'many2one',
-                'foreign_object'    => 'lodging\sale\booking\Booking',
-                'description'       => 'Booking the contact relates to.',
-                'required'          => true
-            ],
-
-            'owner_identity_id' => [
-                'type'              => 'many2one',
-                'foreign_object'    => 'lodging\identity\Identity',
-                'description'       => 'The organisation which the targeted identity is a partner of.',
-                'default'           => 1
-            ]
-
-        ];
-    }
-}
-```
-
-To decide which view will be used, eQual uses a system of **class inheritance**, where the child view (*class extending the parent*) **replaces** the parent (*class being extended*) view file.
-
-To understand how it works, here is the code :
-
-```php
-<?php
-list($params, $providers) = announce([
-    'description'   => "Returns the JSON view related to an entity (class model), given a view ID (<type.name>).",
-    'params'        => [
-        'entity' =>  [
-            'description'   => 'Full name (including namespace) of the class to return (e.g. \'core\\User\').',
-            'type'          => 'string',
-            'required'      => true
-        ],
-        'view_id' =>  [
-            'description'   => 'The identifier of the view <type.name>.',
-            'type'          => 'string',
-            'default'       => 'list.default'
-        ]
-    ],
-    'response'      => [
-        'content-type'  => 'application/json',
-        'charset'       => 'utf-8',
-        'accept-origin' => '*'
-    ],
-    'providers'     => ['context', 'orm']
-]);
-
-
-list($context, $orm) = [$providers['context'], $providers['orm']];
-
-$entity = $params['entity'];
-
-// retrieve existing view meant for entity (recurse through parents)
-while(true) {
-    $parts = explode('\\', $entity);
-    $package = array_shift($parts);
-    $file = array_pop($parts);
-    $class_path = implode('/', $parts);
-    $file = QN_BASEDIR."/packages/{$package}/views/{$class_path}/{$file}.{$params['view_id']}.json";
-
-    if(file_exists($file)) {                               //(1)
-        break;
-    }
-
-    $parent = get_parent_class($orm->getModel($entity));   //(2)
-
-    if(!$parent || $parent == 'equal\orm\Model') {         //(3)
-        break;
-    }
-
-    $entity = $parent;
-}
-
-if(!file_exists($file)) {
-    throw new Exception("unknown_view_id", QN_ERROR_UNKNOWN_OBJECT);
-}
-
-if( ($view = json_decode(@file_get_contents($file), true)) === null) {
-    throw new Exception("malformed_view_schema", QN_ERROR_INVALID_CONFIG);
-}
-
-$context->httpResponse()
-        ->body($view)
-        ->send();
-```
-
-**What it does :**
-
-- **(1)** If the file exists in the view folder of the package where we are, the loop stops and uses that view.
-
-- **(2)** Otherwise, it loops through the parent classes one by one, and takes the first view file we encounter.
-
-- **(3)** This scenario goes on until we reach the root-parent class **`"equal\orm\Model"`**.
-
-
-
+| usage | `string` | override the usage of the field to display it. |
