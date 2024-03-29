@@ -209,7 +209,7 @@ Examples:
 
 ----
 
-### action
+### actions
 
 The optional **actions**  property  contains a list of objects defining a custom list of possible actions attached to the view.
 
@@ -290,7 +290,7 @@ Example:
 
 ---
 
-##### Filter
+### filters
 The `filters` property allows to customize the filtering features available in the header of the view.
 
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
@@ -348,7 +348,7 @@ All these fields are added inside of the <em>exports</em> section of list view, 
     ]
 ```
 
----
+
 
 ### header <a id="view_commons_header"></a>
 
@@ -359,9 +359,8 @@ The **header** section allows to override the default behavior of the view.
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
 | ------------ | ---- | ------------------------------------------------------------ |
 | actions      | [Actions](#header-actions) | This property allows to customize the actions buttons shown in the left part of the View header. |
-| selection | [Selection](#selection) | Action that applies on item selection (*this property is intended for list views only*). |
 | visible      | `boolean` or `array`>`domain`                  | |
-| advanced_search | `boolean` or descriptor |  |
+
 
 
 
@@ -442,199 +441,6 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
     }
 ```
 
----
 
-#### selection
-The `selection` property allows to customize the list of bulk actions that are available when one or more items are selected.
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| **default**  | `boolean` | (optional)telling if the default actions have to be present in the available action to apply on current selection. (default = false) |
-| **actions**  | list of [Action](#action) |(optional) An array of action items that can be applied on current selection. |
-
-
-Examples :
-
-a. Prevent selecting items within the list:
-
-```json
-"header": {
-    "selection": false
-}
-```
-
-b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a custom action :
-
-```json
-"header": {
-    "actions": {
-        "ACTION.CREATE" : false
-    },
-    "filters": {
-        "custom": true,
-        "quicksearch": false
-    },
-    "selection": {
-        "default" : false,
-        "actions" : [
-            {
-                "id": "header.selection.actions.mark_ignored",
-                "label": "Mark as ignored",
-                "icon": "",
-                "controller": "lodging_sale_booking_bankstatementline_bulk-ignore"
-            },
-            {
-                "id": "ACTION.CLONE",
-                "visible": false
-            }
-        ]
-    }
-}
-```
-
----
-
-#### advanced_search
-In the case where the specified controller for data collection is not the default controller (`core_mode_collect`), the UI checks if a view is associated with this controller (that must extend `core_model_collect`). Since controllers can be handled as an entity. In that case, its parameters are considered as fields that can be assigned in an "advanced search" form.
-
-However, in the header, it is always possible to explicitly tell if the advanced search must be shown or not, and if it should be open when view loads (default behavior is closed).
-
-Examples : 
-```
-    "advanced_search": false
-```
-
-```
-    "advanced_search": {
-        "show": true,
-        "open": true
-    }
-```
-
----
-
-### layout
-
-The **layout** is the part of the view that contains all the information needed to display the Model in the view
-
-**Structure:**
-
-##### Form View
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| Groups | list of [Group](#group) | Groups of Section used to split the page horizontally |
-
-##### List View
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| Items | list of [Item](#item) | List of the column to display |
-
----
-
-### Group
-
-**Groups** are horizontal part of a form view, containing sections.
-
-#### Structure summary
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| id | `string` | unique, used for translations.
-| label | `string` | (optional) name used when no translation is available.
-| sections |  list of [Section](#section) | list of section, represented as tabs |
-
----
-
-### Section
-
-**Section** Are tabs that contains information about an instance of a model
-
-#### Structure summary
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| id | `string` | unique id, used for translations.
-| label | `string` | (optional) name used when no translation is available.
-| rows |  list of [Row](#row) |  |
-|visible | `array`>`domain` | Domain that use the context to allow display of the section or not |
-
----
-
-### Row
-
-#### Structure summary
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| id | `string` | unique id, used for translations.
-| label | `string` | (optional) name used when no translation is available.
-| rows |  list of [Column](#column) |  |
-|visible | `array`>`domain` | Domain that use the context to allow display of the section or not |
-
----
-
-### Column
-
-#### Structure summary
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| id | `string` | unique id, used for translations.
-| label | `string` | (optional) name used when no translation is available.
-| rows |  list of [Item](#item) |  |
-|visible | `array`>`domain` | Domain that use the context to allow display of the section or not |
-| width  | `integer`>`number/natural:100` | width of the column |
-
----
-
-### Item
-
-**Items** are a descriptor of the way a **field** or a **label** of a **Model** is displayed in a view.
-
-#### Structure summary
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| id | `string` | (optional) unique id, used for traductions (traductions override label and value) |
-| label | `string` | (optional) override the value for the title value of the item |
-| type | `string` | type of item (either `field` or `label`) |
-| width |  `integer`>`number/natural:100`| width of the field (in percentage its parent) |
-| readonly | `boolean` | tell if the item is editable in a creation or edtition context of the usage of the view |
-| visible | `boolean` or `array`>`domain` | tell if the item should be displayed |
-| widget | [Widget](#widget) | Give properties to the item, depends on the type of view |
-
----
-
-### Widget
-
-Widget are used to set properties that depends on the type of view.
-
-#### Structure Summary
-
-##### Form view
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| link | `boolean` | Flag telling if the content of the item a link. |
-| heading | `boolean`| Emphasizes the item (large version of the widget). |
-| type | `string` | edit the type of display of the item, depends on the type of the field. |
-| values | list of `string` | deprecated, do not use. |
-| usage | `string` | override the usage of the field to display it. |
-| header | [Header](#header) | *Associative Field Only*.  Override the header of the view to display the relation. |
-| domain | `array`>`domain` | *Associative Field Only*.  Override the domain of the view to display the relation. |
-| view | `string` | *Associative Field Only*. Provide the id of the view to use to display the relation. |
-| autoselect | `boolean` | *One2Many Field Only*. Item is automatically selected when list contains only 1 (default = true). |
-
-
-##### List view
-
-| **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
-| ------------ | ------------------------------------------------------------ | ----- |
-| link | `boolean` | is the content of the item a link ? |
-| sortable | `boolean`| can the user sort the list by this item ? |
-| type | `string` | edit the type of display of the item, depends on the type of the field |
-| values | list of `string` | deprecated, do not use. |
-| domain | `array`>`domain` | |
-| usage | `string` | override the usage of the field to display it. |
+#### visible
+The `visible` property allows to place a condition in order to make the header visible or not.

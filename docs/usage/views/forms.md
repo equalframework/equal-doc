@@ -1,6 +1,60 @@
 # Forms
 
-Form views holde a **layout** element that contains all the information needed to display a single object in the view.
+
+## routes
+
+Examples
+```json
+    "routes": [
+        {
+            "id": "item.booking.file",
+            "label": "Booking form",
+            "description": "",
+            "icon": "library_books",
+            "route": "/booking/object.id",
+            "context": {
+                "entity": "lodging\\sale\\booking\\Booking",
+                "view": "form.default",
+                "domain": ["id", "=", "object.id"],
+                "reset": true
+            }
+        },
+        {
+            "id": "item.booking.edit",
+            "label": "Booked services",
+            "description": "",
+            "icon": "room_service",
+            "route": "/booking/object.id/services"
+        },
+        {
+            "id": "item.booking.contract",
+            "label": "Send contract",
+            "description": "",
+            "icon": "drive_file_rename_outline",
+            "route": "/booking/object.id/contract",
+            "visible": [["has_contract", "=", true], ["status", "=", "confirmed"]]
+        }
+    ]
+```
+
+```json
+    "routes": [
+        {
+            "id": "print.pdf",
+            "label": "Print tender",
+            "description": "",
+            "icon": "print",
+            "route": "/?get=renover_tender-pdf&id=object.id",
+            "target": "_blank",
+            "absolute": true
+        }
+    ]
+```
+
+
+## layout
+
+Form views hold a **layout** element that contains all the information needed to display a single object in the view.
 
 At the root of their layout descriptor, form views have a single array of groups descriptors.
 When rendered, a form view have all its groups shown one below another.
@@ -11,7 +65,7 @@ When rendered, a form view have all its groups shown one below another.
 | Groups | list of [Group](#group) | Groups of Section used to split the page horizontally |
 
 
-### Groups
+### groups
 
 **Groups** are horizontal part of a form view, containing sections.
 
@@ -23,7 +77,7 @@ When rendered, a form view have all its groups shown one below another.
 
 
 
-### Section
+### sections
 
 **Section** contain a part of the layout presented in rows and columns.
 
@@ -39,7 +93,7 @@ If a group has more than 1 section, its sections are presented tabs.
 
 
 
-### Row
+### rows
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ----- |
@@ -50,7 +104,7 @@ If a group has more than 1 section, its sections are presented tabs.
 
 
 
-### Column
+### columns
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ----- |
@@ -62,7 +116,7 @@ If a group has more than 1 section, its sections are presented tabs.
 
 
 
-### Item
+### items
 
 **Items** are a descriptor of the way a **field** or a **label** of a **Model** is displayed in a view.
 
