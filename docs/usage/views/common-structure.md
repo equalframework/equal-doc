@@ -354,12 +354,12 @@ All these fields are added inside of the <em>exports</em> section of list view, 
 
 The **header** section allows to override the default behavior of the view.
 
-##### **Structure summary**
+#### common structure
 
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
 | ------------ | ---- | ------------------------------------------------------------ |
-| actions      | [Actions](#header-actions) | This property allows to customize the actions buttons shown in the left part of the View header. |
-| visible      | `boolean` or `array`>`domain`                  | |
+| actions      | [Actions](#header-actions) | The `actions` property allows to customize the actions buttons shown in the left part of the View header. |
+| visible      | `boolean` or `array`>`domain`                  |The `visible` property allows to place a condition in order to make the header visible or not. |
 
 
 
@@ -384,7 +384,7 @@ Empty arrays or items set to false mean that the action is not available for the
 
 Here is the exhaustive list of the actions ID that are supported by the views. Each ID corresponds to a button that will be present (or not, according to the config of the view) in the header of the view. `header.actions` allows to map these actions ID with predefined or custom action items  (note that custom action ID are not accepted).
 
-##### **Structure summary**
+##### **Structure**
 
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
 | ------------ | ---- | ------------------------------------------------------------ |
@@ -404,7 +404,7 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
 | ACTION.SELECT | For relational fields, allows to select or add one or many objects and relay selection to parent View. | `SELECT` |
 | ACTION.OPEN |  | `OPEN` |
 
-##### Predefined actions
+**Predefined actions**
 
 | **ACTION** | **DESCRIPTION** | **CONTROLLER** |
 | ---- | ---- | ---- |
@@ -418,7 +418,7 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
 | CANCEL | The action relating to the current view (form in edit mode : CREATE, EDIT), has been cancelled by the user. |  |
 | OPEN | A request for opening a form view for a given object has been received by the list. |  |
 
-##### Usage example
+##### Examples
 
 ```json
     "header": {
