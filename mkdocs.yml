@@ -54,7 +54,9 @@ nav:
   - 'Welcome': 
       - 'eQual': 'index.md'
       - 'Release notes': 'welcome/release-notes.md'
-      - 'Contribution Guide': 'welcome/contribution-guide.md'
+      - 'Contribute': 
+         - 'Contribute': 'welcome/contribute.md'
+         - 'Contribution Guide': 'contributing/contribution-guide.md'
   - 'Getting Started':
       - 'Installation': 'getting-started/installation.md'
       - 'Quick Start': 'getting-started/quick-start.md'

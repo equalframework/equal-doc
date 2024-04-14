@@ -16,10 +16,13 @@ This document contains notes and guidelines on how to contribute to eQual.
 Active committers and contributors are invited to introduce themselves and request commit access to the project on the Discord [#join](https://discord.gg/65WcBQFVg6) channel. If you think you can help, we'd love to have you!
 
 ## First-time contributors
-We've tagged some issues to make it easy to get started :smile:
-[Good first issues](https://github.com/equalframework/equal/labels/good%20first%20issue) 
+There are always a few issues tagged [Good first issues](https://github.com/equalframework/equal/labels/good%20first%20issue) to make it easy to get started. 
 
-If you're interested in working on an issue, make sure it has either a `good-first-issue` label added. Add a comment on the issue and wait for the issue to be assigned before you start working on it (this helps to avoid multiple people working on similar issues).
+If you're interested in working on an issue:
+
+* Make sure it has either a `good-first-issue` label added. 
+
+* Add a comment on the issue and wait for the issue to be assigned before you start working on it (this helps to avoid multiple people working on similar issues).
 
 
 ## Bugs and Issues
@@ -55,7 +58,8 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-### Guidelines
+Guidelines for submitting a Pull Request:
+
 * Before opening a PR for additions or changes, please discuss those by filing an issue on [GitHub](https://github.com/equalframework/equal/issues) or asking about it on [Discord](https://discord.gg/BNCPYxD9kk) (#general channel). This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
 * Before submitting a PR, ensure that the code works with all PHP versions that we support (currently PHP 7.0 to PHP 7.4); that the test suite passes and that your code lints.
 * If you've changed some behavior, update the 'description' and 'help' attributes (when present).
@@ -71,16 +75,16 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 
 
-## Submitting a package or a library
+## Submitting a package
 
-### Guidelines
+Guidelines for submitting a package:
 
 * Check that your package will pass the consistency tests (`$ ./equal.run --do=test_package-consistency`).
 * Make sure your package comes with unit tests (in the `packages/{your_package}/tests/`) and that classes and controllers have descriptions and helpers.
 
 ## Submitting eQual core contributions
 
-### Guidelines
+Guidelines for eQual core contributions : 
 
 * All new development should be on feature/fix branches, which are then merged to the `master` branch once stable and approved; so the `master` branch is always the most up-to-date, working code
 * Avoid breaking changes unless there is an upcoming major release, which is infrequent. We encourage people to write distinct libraries and/or packages for most new advanced features, and care a lot about backwards compatibility.
