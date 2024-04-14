@@ -74,29 +74,3 @@ Guidelines for submitting a Pull Request:
 * [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "Pull Requests")
 
 
-
-## Submitting a package
-
-Guidelines for submitting a package:
-
-* Check that your package will pass the consistency tests (`$ ./equal.run --do=test_package-consistency`).
-* Make sure your package comes with unit tests (in the `packages/{your_package}/tests/`) and that classes and controllers have descriptions and helpers.
-
-## Submitting eQual core contributions
-
-Guidelines for eQual core contributions : 
-
-* All new development should be on feature/fix branches, which are then merged to the `master` branch once stable and approved; so the `master` branch is always the most up-to-date, working code
-* Avoid breaking changes unless there is an upcoming major release, which is infrequent. We encourage people to write distinct libraries and/or packages for most new advanced features, and care a lot about backwards compatibility.
-
-
-## Unit Tests
-When writing Unit Tests, please:
-
-* Always try to write Unit Tests for both the happy and unhappy scenarios.
-* Put all assertions in the Test itself, not in external classes or functions (even if this means code duplication between tests).
-* Always try to split the test logic into AAA callbacks `arrange()`, `act()`, `assert()` and `rollback()` for each Test.
-*  If you change any global settings, make sure that you reset to the default in the `rollback()`.
-* Don't over-complicate test code by testing several behaviors in the same test.
-
-This makes it easier to see exactly what is being tested when reviewing the PR. I want to be able to see it in the PR, not have to hunt in other unchanged classes to see what the test is doing.
