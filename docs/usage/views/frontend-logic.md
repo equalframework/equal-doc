@@ -480,64 +480,39 @@ Charts enable us to visually compare multiple sets of data. It can be very helpf
 
 Below is an example of a chart view, the proprerties are very similar to the ones we can find in menus (check the section above this one).
 
-**Example:**
-
-
-```json
-{
-    "name": "Booking total",
-    "description": "This view displays the amount of bookings in the DB",
-    "access": {
-        "groups": ["booking.default.user"]
-    },
-    "layout": {
-        "entity": "lodging\\sale\\booking\\Booking",
-        "group_by": "range",
-        "range_interval": "year",
-        "range_from": "date.this.year.first",
-        "range_to": "date.this.year.last",
-        "datasets": [
-            {
-                "label": "Nombre de réservations",
-                "operation": ["COUNT", "object.id"],
-                "domain": ["id", ">", 5]
-            }
-{
-    "name": "Main dashboard",
-    "layout": {
-        "groups": [
-            {
-                "label": "",
-                "height": "100%",
-                "sections": [
-                    {
-                        "rows": [
-                            {
-                                "height": "50%",
-                                "columns": [
-                                    {
-                                        "width": "50%",
-                                        "items": [
-                                            {
-                                                "id": "item.bookings",
-                                                "label": "Bookings",
-                                                "description": "",
-                                                "width": "50%",
-                                                "entity": "",
-                                                "view": ""
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+??? example "Example Chart view "
+    ``` json title="Booking.chart.default.json" linenums="1"
+    {
+        "name": "Total turnover of bookings",
+        "description": "This view displays the total turnover of the bookings.",
+        "access": {
+            "groups": ["booking.default.user"]
+        },
+        "controller": "core_model_chart",
+        "layout": {
+            "entity": "lodging\\sale\\booking\\Booking",
+            "stacked": false,
+            "group_by": "range",
+            "field": "date_from",
+            "range_interval": "month",
+            "range_from": "date.this.year.first",
+            "range_to": "date.this.year.last",
+            "datasets": [
+                {
+                    "label": "Réservations CA HTVA",
+                    "operation": ["SUM", "object.total"],
+                    "domain": ["status", "<>", "quote"]
+                },
+                {
+                    "label": "Réservations CA TVAC",
+                    "operation": ["SUM", "object.price"],
+                    "domain": ["status", "<>", "quote"]
+                }
+            ]
+        }
     }
-}
-```
+    ```
+
 
 
 
