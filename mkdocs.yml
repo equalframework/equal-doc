@@ -41,15 +41,12 @@ markdown_extensions:
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
-  - pymdownx.inlinehilite:
-      anchor_linenums: true
+  - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.details
   - pymdownx.smartsymbols
   - pymdownx.superfences
-  #- pymdownx.tabbed:
-  #    alternate_style: true  
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
