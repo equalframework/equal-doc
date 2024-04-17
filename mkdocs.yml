@@ -41,7 +41,8 @@ markdown_extensions:
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
-  - pymdownx.inlinehilite
+  - pymdownx.inlinehilite:
+      anchor_linenums: true
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.details
