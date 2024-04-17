@@ -163,5 +163,20 @@ There are some additional properties depending on the type of field the item rel
 
 
 
+For certain fields, the header has an impact on the layout of the corresponding widget in a form view.
 
+For instance, for many2one fields, header information is used to display (or not) the buttons for creating a new item or opening the selected item in a new context.
+
+By modifying the header, it is therefore possible to deactivate the display of these buttons.
+
+```json
+"widget": {
+    "header": {
+        "actions": {
+            "ACTION.CREATE": false,
+            "ACTION.OPEN": false
+        }
+    }
+}
+```
 

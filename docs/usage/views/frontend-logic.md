@@ -48,10 +48,10 @@ Here is an example of the views defined for the `core\User` entity :
 
 Forms views are JSON objects that describe how to render a specific view related to a given entity.
 
-**Example:** 
+??? **Example:** 
 
-```json
-{
+    ```json
+    {
     "name": "User",
     "description": "Basic form for displaying User.",
     "layout": {
@@ -185,8 +185,8 @@ Forms views are JSON objects that describe how to render a specific view related
             }
         ]
     }
-}
-```
+    }
+    ```
 
 
 
