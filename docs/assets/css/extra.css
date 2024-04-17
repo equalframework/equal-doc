@@ -11,12 +11,17 @@ article table {
 article table th {
 	/* text-transform: uppercase; */
 	padding: 0.4rem 0.8rem !important;
-	background-color: #3f51b5 !important;
+	background-color: var(--md-primary-fg-color) !important;
 	white-space: nowrap;
 }
+
 article table th strong {
 	color: white;
 	font-weight: 500;
+}
+
+article table th.filename {
+   background-color: var(--md-code-bg-color);
 }
 
 article .admonition {
