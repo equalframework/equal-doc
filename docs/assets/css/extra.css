@@ -11,7 +11,7 @@ article table {
 article table th {
 	/* text-transform: uppercase; */
 	padding: 0.4rem 0.8rem !important;
-	background-color: var(--md-primary-fg-color) !important;
+	background-color: var(--md-primary-fg-color);
 	white-space: nowrap;
 }
 
