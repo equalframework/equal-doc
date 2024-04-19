@@ -180,3 +180,11 @@ By modifying the header, it is therefore possible to deactivate the display of t
 }
 ```
 
+
+
+??? note "Using keyboard inputs"
+Navigation between input widgets is possible via the keyboard, primarily using the <tab> key.
+When opening dropdown selection boxes, the <up> and <down> keys allow navigation among the options.
+In form views, while in edit mode, it's also possible to use the combination <ctrl+s> to save the current form.
+In the case of a split button with multiple save actions (save and continue, save and close, ...), it's the first save action that is executed.
+During a keydown event, the keyboard status is captured by the visible Frame and relayed to the active context, which in turn relays it to the view (via a call to `keyboardAction()`).

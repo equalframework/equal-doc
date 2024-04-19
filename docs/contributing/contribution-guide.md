@@ -67,7 +67,7 @@ Here is a summary of the conventions used across the framework:
    - Class members, including attributes and methods, should follow camelCase convention.
      Example: `$this->myAttribute`, `calculateInterest()`
 
-**5. Entity Properties - snake_case **
+**5. Entity Properties - snake_case**
 
    - Entity properties (as defined in `getColumns()` for classes or `params` for controllers), should use snake_case.
      Example: `first_name`, `is_paid`
