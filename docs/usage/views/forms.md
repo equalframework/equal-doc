@@ -2,9 +2,10 @@
 
 
 ## routes
+Form views may hold a **routes** element, specific to the current view, and  that contains a series of descriptors that are used to display button s on the right pane.
 
-Examples
-```json
+??? example "Example of routes definition"
+    ``` json title="Booking.form.json" linenums="1"
     "routes": [
         {
             "id": "item.booking.file",
@@ -35,7 +36,7 @@ Examples
             "visible": [["has_contract", "=", true], ["status", "=", "confirmed"]]
         }
     ]
-```
+    ```
 
 ```json
     "routes": [
@@ -182,9 +183,8 @@ By modifying the header, it is therefore possible to deactivate the display of t
 
 
 
-??? note "Using keyboard inputs"
-Navigation between input widgets is possible via the keyboard, primarily using the <tab> key.
-When opening dropdown selection boxes, the <up> and <down> keys allow navigation among the options.
-In form views, while in edit mode, it's also possible to use the combination <ctrl+s> to save the current form.
-In the case of a split button with multiple save actions (save and continue, save and close, ...), it's the first save action that is executed.
-During a keydown event, the keyboard status is captured by the visible Frame and relayed to the active context, which in turn relays it to the view (via a call to `keyboardAction()`).
+??? tip "Using keyboard inputs"
+    Navigation between input widgets is possible via the keyboard, primarily using the <tab> key. When opening dropdown selection boxes, the <up> and <down> keys allow navigation among the options.
+    In form views, while in edit mode, it's also possible to use the combination <ctrl+s> to save the current form.
+    In the case of a split button with multiple save actions (save and continue, save and close, ...), it's the first save action that is executed.
+    During a keydown event, the keyboard status is captured by the visible Frame and relayed to the active context, which in turn relays it to the view (via a call to `keyboardAction()`).
