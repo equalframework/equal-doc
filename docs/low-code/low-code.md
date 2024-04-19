@@ -53,7 +53,62 @@ symbioseUIServices -[dotted]-> "Angular APP (ng)" : "import                "
 -->
 </span>
 
-## eQui - eQual UI 
+## eqUI  (eQual UI)
+
+
+
+### STD App
+
+The STD App allows to provide an empty app that can act as surrogate for basic app described in package manifest.
+
+* app name
+* menus
+* default action
+* specific acces (groups of users)
+
+
+The STD app is part of the core package and, when initialized, is installed under `/public/app`.
+
+
+The package manifest allows to provide a list of "apps" that can be either app ID (identifier of the app relating to a PATH), or a descriptor that provides information about a basic custom app that inherits (extends) from another.
+
+```
+{
+    "name": "demo",
+    "depends_on": [
+        "core"
+    ],
+    "apps" : [
+      {
+	"id": "my_app",
+	"name": "MyApp",
+        "extends": "app",
+        "description": "",
+	"icon": "sentiment_satisfied",
+        "color": "#29A1A1",
+        "access": {
+            "groups": [
+                "users"
+            ]
+        },
+        "params": {
+            "menus": {
+                "top": "app.left",
+                "left": "app.top"
+            }
+        }
+      }
+    ]
+}
+```
+
+!!! notes "Overriding apps"
+    It is possible to override an App by using the same ID (will be put as-is in the `/public` folder: if the target forlder already exists, it is overwritten)
+
+
+When a custom app extending another app is defined, the related URL is generated using the logic : `/app/#/:package/:app_id`
+
+
 
 ## Shared-lib
 
