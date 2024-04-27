@@ -98,13 +98,13 @@ nav:
      - 'ReST API': 'howtos-and-examples/rest-api.md'
      - 'Basic WebApp' : 'howtos-and-examples/basic-webapp.md'
   - 'Advanced':
+     - 'Cascade Configuration': 'advanced/cascade-configuration.md'
      - 'Security': 
         - 'Rights management': 'advanced/rights-management.md'
         - 'Authentication': 'advanced/authentication.md'
      - 'Workflows': 'advanced/workflows.md'
      - 'Logging': 'advanced/logging.md'
      - 'Remote APIs': 'advanced/remote-apis.md'
-     - 'Cascade Configuration': 'advanced/cascade-configuration.md'
      - 'External libraries' : 'advanced/external-libraries.md'
      - 'CI/CD' : 'advanced/ci-cd.md'
      - 'PHP Versions compatibility': 'php-versions-compatibility'
