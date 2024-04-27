@@ -98,13 +98,16 @@ nav:
      - 'ReST API': 'howtos-and-examples/rest-api.md'
      - 'Basic WebApp' : 'howtos-and-examples/basic-webapp.md'
   - 'Advanced':
-     - 'Security': 'advanced/security.md'
+     - 'Security': 
+        - 'Rights management': 'advanced/rights-management.md'
+        - 'Authentication': 'advanced/authentication.md'
      - 'Workflows': 'advanced/workflows.md'
      - 'Logging': 'advanced/logging.md'
      - 'Remote APIs': 'advanced/remote-apis.md'
      - 'Cascade Configuration': 'advanced/cascade-configuration.md'
-     - 'CI/CD' : 'advanced/ci-cd.md'
      - 'External libraries' : 'advanced/external-libraries.md'
+     - 'CI/CD' : 'advanced/ci-cd.md'
+     - 'PHP Versions compatibility': 'php-versions-compatibility'
   - 'Low-Code & tools':
      - 'Low-Code' : 'low-code/low-code.md'
      - 'eQual Workbench' : 'low-code/workbench.md'
