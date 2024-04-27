@@ -193,27 +193,28 @@ Object_ids are inseparable from the class: This type of ACL always indicates an 
 ??? tip "Overriding AccessController"
 
     As all eQual services, the AccesController service can be overridden by a custom service to match any specific logic.
-
+    
     **Example:**  
-
-    1. Under `/lib` folder, create a folder by the name of your project, you want a directory similar to this: `/lib/mylib/access/AccessController.class.php`
-
+    
+    1) Under `/lib` folder, create a folder by the name of your lib, and create a file for your Service (e.g. `/lib/mylib/access/AccessController.class.php`)  
+    
     ```php
     <?php
     namespace mylib\access; 
-
+    
     class AccessController extends \equal\access\AccessController {
         
         // rewrite functions here to override their default behavior
         public function hasRight($user_id, $operation, $object_class='*', $objects_ids=[]) { {
-		    // [...]
+    	    // [...]
         }	
         		
         // [...]
     }
     ```
     
-    2. When creating a controller that must use the specific logic, the service can be injected this way : 
+    2) When creating a controller that must use the specific logic, the service can be injected this way: 
+     
     ```
     <?php
     list($params, $providers) = eQual::announce([
@@ -228,7 +229,7 @@ Object_ids are inseparable from the class: This type of ACL always indicates an 
         ],
         'providers'     => [ 'context', 'orm', 'adapt' => 'mylib\access\AccessController']
     ]);
-
+    
     /**
      * @var \equal\php\Context               $context
      * @var \equal\orm\ObjectManager         $orm
