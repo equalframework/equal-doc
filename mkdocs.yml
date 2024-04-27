@@ -100,8 +100,8 @@ nav:
   - 'Advanced':
      - 'Cascade Configuration': 'advanced/cascade-configuration.md'
      - 'Security': 
-        - 'Rights management': 'advanced/rights-management.md'
-        - 'Authentication': 'advanced/authentication.md'
+        - 'Rights management': 'advanced/security/rights-management.md'
+        - 'Authentication': 'advanced/security/authentication.md'
      - 'Workflows': 'advanced/workflows.md'
      - 'Logging': 'advanced/logging.md'
      - 'Remote APIs': 'advanced/remote-apis.md'
