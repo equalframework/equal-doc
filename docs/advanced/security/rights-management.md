@@ -194,7 +194,8 @@ Object_ids are inseparable from the class: This type of ACL always indicates an 
 
     As all eQual services, the AccesController service can be overridden by a custom service to match any specific logic.
 
-    **Example:**
+    **Example:**  
+
     1. Under `/lib` folder, create a folder by the name of your project, you want a directory similar to this: `/lib/mylib/access/AccessController.class.php`
 
     ```php
