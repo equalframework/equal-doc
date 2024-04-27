@@ -215,7 +215,7 @@ Object_ids are inseparable from the class: This type of ACL always indicates an 
     
     2) When creating a controller that must use the specific logic, the service can be injected this way: 
      
-    ```
+    ```php
     <?php
     list($params, $providers) = eQual::announce([
         'description'   => 'Returns a list of entities according to given domain (filter), start offset, limit and order.',
