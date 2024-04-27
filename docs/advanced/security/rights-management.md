@@ -191,36 +191,49 @@ Object_ids are inseparable from the class: This type of ACL always indicates an 
 
 
 ??? tip "Overriding AccessController"
-    As all eQual services, the AccesController service can be overridden by a custom service to match any specific logic.
-    In `/lib`, create a folder by the name of your project, you want a directory similar to this: `/lib/myapp/access/AccessController.class.php`
 
-    Create an alternate `AccessController.class.php` 
+    As all eQual services, the AccesController service can be overridden by a custom service to match any specific logic.
 
     **Example:**
+    1. Under `/lib` folder, create a folder by the name of your project, you want a directory similar to this: `/lib/mylib/access/AccessController.class.php`
 
     ```php
     <?php
-    namespace myapp\access; // change 'myapp' with actual name
-    use equal\organic\Service;
-    use equal\services\Container;
+    namespace mylib\access; 
 
     class AccessController extends \equal\access\AccessController {
         
-      // rewrite functions here to override their default behavior
-        
-      // non-exhaustive example with filter:
-      filter($operation, $object_class='*', $object_fields=[], $object_ids=[]){
-        $user_id = $this->container->get('auth')->userId();
-        // grant READ rights over 'User' class when an user is 
-        // authenticated (0 = guest_user)
-        if($object_class == 'myapp\User') {
-          if($operation == QN_R_READ) {
-            if($user_id > 0) {
-              return $object_ids;
-            }    
-          }
-        }
-      }
-        
+        // rewrite functions here to override their default behavior
+        public function hasRight($user_id, $operation, $object_class='*', $objects_ids=[]) { {
+		    // [...]
+        }	
+        		
+        // [...]
     }
+    ```
+    
+    2. When creating a controller that must use the specific logic, the service can be injected this way : 
+    ```
+    <?php
+    list($params, $providers) = eQual::announce([
+        'description'   => 'Returns a list of entities according to given domain (filter), start offset, limit and order.',
+        'params'        => [
+        ],
+        'constants'     => ['DEFAULT_LANG'],
+        'response'      => [
+            'content-type'  => 'application/json',
+            'charset'       => 'utf-8',
+            'accept-origin' => '*'
+        ],
+        'providers'     => [ 'context', 'orm', 'adapt' => 'mylib\access\AccessController']
+    ]);
+
+    /**
+     * @var \equal\php\Context               $context
+     * @var \equal\orm\ObjectManager         $orm
+     * @var \equal\data\DataAdapterProvider  $dap
+     */
+    list($context, $orm, $dap) = [ $providers['context'], $providers['orm'], $providers['adapt'] ];
+    `
+    // [...]
     ```
