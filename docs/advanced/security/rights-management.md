@@ -156,13 +156,13 @@ If nothing is found, default rights are used.
 
 Example:
 
-1. Find ACLs for this class
+1. Find ACLs for this class  
     `lodging\identity\Identity`	=> class_name like `lodging\identity\Identity`
 
-2. Find wildcards
+3. Find wildcards  
     `lodging\identity\Identity`	=> `lodging\identity\*`, `lodging\*` 
 
-3. Find all parent classes
+4. Find all parent classes  
     `lodging\identity\Identity`	=> class_name like `identity\Identity`
 
     
@@ -218,7 +218,7 @@ Object_ids are inseparable from the class: This type of ACL always indicates an 
     ```php
     <?php
     list($params, $providers) = eQual::announce([
-        'description'   => 'Returns a list of entities according to given domain (filter), start offset, limit and order.',
+        'description'   => 'Controller with custom ACL handling.',
         'params'        => [
         ],
         'constants'     => ['DEFAULT_LANG'],
