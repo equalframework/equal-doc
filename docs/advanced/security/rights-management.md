@@ -190,59 +190,37 @@ Object_ids are inseparable from the class: This type of ACL always indicates an 
 
 
 
+??? tip "Overriding AccessController"
+    As all eQual services, the AccesController service can be overridden by a custom service to match any specific logic.
+    In `/lib`, create a folder by the name of your project, you want a directory similar to this: `/lib/myapp/access/AccessController.class.php`
 
+    Create an alternate `AccessController.class.php` 
 
+    **Example:**
 
+    ```php
+    <?php
+    namespace myapp\access; // change 'myapp' with actual name
+    use equal\organic\Service;
+    use equal\services\Container;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Overriding AccessController
-
-As all eQual services, the AccesController service can be overridden by a custom service to match any specific logic.
-
-In `/lib`, create a folder by the name of your project, you want a directory similar to this: `/lib/myapp/access/AccessController.class.php`
-
-Create an alternate `AccessController.class.php` 
-
-**Example: **
-
-```php
-<?php
-namespace myapp\access; // change 'myapp' with actual name
-use equal\organic\Service;
-use equal\services\Container;
-
-class AccessController extends \equal\access\AccessController {
-    
-  // rewrite functions here to override their default behavior
-    
-  // non-exhaustive example with filter:
-  filter($operation, $object_class='*', $object_fields=[], $object_ids=[]){
-    $user_id = $this->container->get('auth')->userId();
-    // grant READ rights over 'User' class when an user is 
-    // authenticated (0 = guest_user)
-    if($object_class == 'myapp\User') {
-      if($operation == QN_R_READ) {
-        if($user_id > 0) {
-          return $object_ids;
-        }    
+    class AccessController extends \equal\access\AccessController {
+        
+      // rewrite functions here to override their default behavior
+        
+      // non-exhaustive example with filter:
+      filter($operation, $object_class='*', $object_fields=[], $object_ids=[]){
+        $user_id = $this->container->get('auth')->userId();
+        // grant READ rights over 'User' class when an user is 
+        // authenticated (0 = guest_user)
+        if($object_class == 'myapp\User') {
+          if($operation == QN_R_READ) {
+            if($user_id > 0) {
+              return $object_ids;
+            }    
+          }
+        }
       }
+        
     }
-  }
-    
-}
-```
-
+    ```
