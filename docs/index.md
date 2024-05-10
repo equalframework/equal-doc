@@ -1,4 +1,4 @@
-![](assets/img/equal_logo_w_bg.png)
+![](_assets/img/equal_logo_w_bg.png)
 
 # eQual Framework
 

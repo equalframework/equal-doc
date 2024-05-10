@@ -110,7 +110,7 @@ lib/equal/orm/Model.class.php
   'creator' => [
                 'type'              => 'many2one',
                 'foreign_object'    => 'core\User',
-                'default'           => QN_ROOT_USER_ID
+                'default'           => EQ_ROOT_USER_ID
             ], 
             
 ```
@@ -474,7 +474,7 @@ Tree structure is now:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eQual Blog</title>
-    <link rel="icon" type="image/x-icon" href="https://doc.equal.run/assets/img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="https://doc.equal.run/_assets/img/favicon.png">
     <style>
       .list {
           list-style: none;

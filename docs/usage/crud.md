@@ -18,7 +18,7 @@ By convention, in case of error, a negative integer is returned.
 ### Supported errors codes
 
 !!! note "error codes"
-    All codes are prefixed with `QN_ERROR_` (not show in the table to avoid redundancy). So, for instance,  `UNKNOWN` will appear as `QN_ERROR_UNKNOWN` in code.
+    All codes are prefixed with `EQ_ERROR_` (not show in the table to avoid redundancy). So, for instance,  `UNKNOWN` will appear as `EQ_ERROR_UNKNOWN` in code.
 
 | **NAME**    | **VALUE** | **DESCRIPTION** |
 | ----------- | ----- | --------- |

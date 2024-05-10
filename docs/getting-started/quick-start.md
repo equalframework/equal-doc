@@ -200,7 +200,7 @@ Replace this :
 ```
 By this :
 ```json
-    "DEFAULT_RIGHTS": "QN_R_CREATE | QN_R_READ | QN_R_DELETE | QN_R_WRITE"
+    "DEFAULT_RIGHTS": "EQ_R_CREATE | EQ_R_READ | EQ_R_DELETE | EQ_R_WRITE"
 ```
 
 

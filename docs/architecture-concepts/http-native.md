@@ -8,7 +8,7 @@ A controller can announce which content-type must be used for the output. And in
 
 The following schema summarizes the way HTTP requests are handled in order to generate a response.
 
-![http-request](../assets/img/http-request.drawio.png)
+![http-request](../_assets/img/http-request.drawio.png)
 
 ## Controllers
 

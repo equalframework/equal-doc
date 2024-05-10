@@ -9,9 +9,10 @@ article table {
 }
 
 article table th {
-	/* text-transform: uppercase; */
-	padding: 0.4rem 0.8rem !important;
-	background-color: var(--md-primary-fg-color);
+	text-transform: capitalize !important;
+	padding: 4px 18px !important;
+    background-color: #5c5f70;
+    font-weight: 500;	
 	white-space: nowrap;
 }
 

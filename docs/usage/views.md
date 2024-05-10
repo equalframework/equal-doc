@@ -278,7 +278,7 @@ If no parameter is required but the `confirm` property is set to `true`, then a 
 
 Here below is a flow diagram that recaps the interactions between the controller and the `confirm` property.
 
-<center><img src="/assets/img/eq_confirm_diagram.png" /></center>
+<center><img src="/_assets/img/eq_confirm_diagram.png" /></center>
 
 <a name="common_controller"></a>
 
@@ -779,7 +779,7 @@ while(true) {
     $package = array_shift($parts);
     $file = array_pop($parts);
     $class_path = implode('/', $parts);
-    $file = QN_BASEDIR."/packages/{$package}/views/{$class_path}/{$file}.{$params['view_id']}.json";
+    $file = EQ_BASEDIR."/packages/{$package}/views/{$class_path}/{$file}.{$params['view_id']}.json";
 
     if(file_exists($file)) {                               //(1)
         break;
@@ -795,11 +795,11 @@ while(true) {
 }
 
 if(!file_exists($file)) {
-    throw new Exception("unknown_view_id", QN_ERROR_UNKNOWN_OBJECT);
+    throw new Exception("unknown_view_id", EQ_ERROR_UNKNOWN_OBJECT);
 }
 
 if( ($view = json_decode(@file_get_contents($file), true)) === null) {
-    throw new Exception("malformed_view_schema", QN_ERROR_INVALID_CONFIG);
+    throw new Exception("malformed_view_schema", EQ_ERROR_INVALID_CONFIG);
 }
 
 $context->httpResponse()

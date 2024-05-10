@@ -14,7 +14,7 @@ In order to search amongst existing objects, the `search` method  uses a  `domai
 !!! note "About domains"
     To understand or learn more about domains, please refer to the  [`domain`](../architecture-concepts/domains.md)  section.
 
-![searching](../assets/img/searching.drawio.png)
+![searching](../_assets/img/searching.drawio.png)
 
 
 

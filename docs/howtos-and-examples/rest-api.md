@@ -245,7 +245,7 @@ list($context) = [$providers['context']];
 $user = User::id($params['user_id'])->read(['id'])->first();
 
 if(is_null($user)) {
-    throw new Exception('user_not_found', QN_ERROR_UNKNOWN_OBJECT);
+    throw new Exception('user_not_found', EQ_ERROR_UNKNOWN_OBJECT);
 }
 
 $task = Task::create($params)
@@ -329,7 +329,7 @@ list($context) = [$providers['context']];
 $user = User::id($params['user_id'])->read(['id'])->first();
 
 if(is_null($user)) {
-    throw new Exception('user_not_found', QN_ERROR_UNKNOWN_OBJECT);
+    throw new Exception('user_not_found', EQ_ERROR_UNKNOWN_OBJECT);
 }
 
 $task = Task::ids($params['id'])

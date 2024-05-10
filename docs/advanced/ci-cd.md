@@ -114,9 +114,9 @@ services:
     volumes:
       - /var/www/html
     environment:
-      - QN_DB_NAME=equal
-      - QN_DB_HOST=localhost
-      - QN_DB_PORT=3306
+      - EQ_DB_NAME=equal
+      - EQ_DB_HOST=localhost
+      - EQ_DB_PORT=3306
       - HTTPS_METHOD=noredirect
       - VIRTUAL_PORT=80
       - VIRTUAL_HOST=localhost

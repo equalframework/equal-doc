@@ -32,10 +32,10 @@ The list below shows the details for supported constants and their roles.
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
 |ROUTING_METHOD|JSON|Possible values are: 'ORM' and 'JSON' (router.json).|
-|ROUTING_CONFIG_DIR|QN_BASEDIR.'/config/routing'|Routing configuration directory.|
+|ROUTING_CONFIG_DIR|EQ_BASEDIR.'/config/routing'|Routing configuration directory.|
 |FILE_STORAGE_MODE|FS|Binary type storage mode (Possible values: 'DB' (database) and 'FS' (filesystem)).|
-|FILE_STORAGE_DIR|QN_BASEDIR.'/bin'|Binaries storage directory.|
-|DEFAULT_RIGHTS|QN_R_CREATE \| QN_R_READ \| QN_R_DELETE \| QN_R_WRITE|If no ACL is defined (which is the case by default) for an object nor for its class, any user will be granted the permissions in this constant.|
+|FILE_STORAGE_DIR|EQ_BASEDIR.'/bin'|Binaries storage directory.|
+|DEFAULT_RIGHTS|EQ_R_CREATE \| EQ_R_READ \| EQ_R_DELETE \| EQ_R_WRITE|If no ACL is defined (which is the case by default) for an object nor for its class, any user will be granted the permissions in this constant.|
 |ACCESS_CONTROL_LEVEL|class|By default, the control is done at the class level. It means that a user will be granted the same rights for every objects of a given class.|
 |DEFAULT_LANG|en|The language in which the content must be displayed by default (ISO 639-1).|
 |GUEST_USER_LANG|en|The language in which the content must be displayed by default (ISO 639-1) for the Guest User.|
@@ -53,7 +53,7 @@ The list below shows the details for supported constants and their roles.
 |EMAIL_SMTP_ACCOUNT_PASSWORD|password|Email password.|
 |EMAIL_SMTP_ACCOUNT_EMAIL|email.to.send.from@provider.com|Email address the email is sent from.|
 |EMAIL_SMTP_ABUSE_EMAIL|abuse@example.com|Email address to handle abusive emails (spams).|
-|EMAIL_SPOOL_DIR|QN_BASEDIR.'/spool'|Email spooler directory.|
+|EMAIL_SPOOL_DIR|EQ_BASEDIR.'/spool'|Email spooler directory.|
 
 ### Database related properties
 
@@ -74,7 +74,7 @@ The list below shows the details for supported constants and their roles.
 
 |**CONSTANT**|**DEFAULT VALUE**|**DESCRIPTION**|
 |--|--|--|
-|DEBUG_MODE|QN_DEBUG_PHP \| QN_DEBUG_ORM \| QN_DEBUG_SQL \| QN_DEBUG_APP|Filter the kind of errors that are present in the console.|
+|DEBUG_MODE|EQ_DEBUG_PHP \| EQ_DEBUG_ORM \| EQ_DEBUG_SQL \| EQ_DEBUG_APP|Filter the kind of errors that are present in the console.|
 |UPLOAD_MAX_FILE_SIZE|64\*1024*1024|maximum authorized size for file upload (in octet).|
 |LOGGING_ENABLED|true|Enable/Disable the logs (to keep track of object changes).|
 |DRAFT_VALIDITY|0|Draft validity in days.|
@@ -85,7 +85,7 @@ The list below shows the details for supported constants and their roles.
 |AUTH_TOKEN_HTTPS|false|Limit sending of auth token to HTTPS.|
 |APP_URL|http://equal.local|Root URL of the application.|
 |APP_NAME|eQual|Custom name of the Application.|
-|APP_LOGO_URL|/assets/img/logo.svg|Absolute URL of the logo to be used for the App (under the public folder).|
+|APP_LOGO_URL|/_assets/img/logo.svg|Absolute URL of the logo to be used for the App (under the public folder).|
 |ORG_NAME|eQual framework|Name or brand of the organization that owns the instance.|
 |ORG_URL|https://equal.run|Official website of the organization.|
 
@@ -112,7 +112,7 @@ The list below shows the details for supported constants and their roles.
 
 ## UI configuration 
 
-In order to bootstrap communication with the back-end, the front-end needs some information. To that end, a configuration file is expected under `./public/assets/env/config.json` to hold a series of public details that are needed by the UI.
+In order to bootstrap communication with the back-end, the front-end needs some information. To that end, a configuration file is expected under `./public/_assets/env/config.json` to hold a series of public details that are needed by the UI.
 
 That file can be generated manually or using the `init` controller.
 
@@ -130,7 +130,7 @@ The properties, roles and default values are describes in the list below.
 |company_name|eQual framework|ORG_NAME|
 |company_url|https://equal.run/|ORG_URL|
 |app_name|eQual|APP_NAME|
-|app_logo_url|/assets/img/logo.svg|APP_LOGO_URL|
+|app_logo_url|/_assets/img/logo.svg|APP_LOGO_URL|
 |app_settings_root_package|core|(deprecated?)|
 |license|AGPL v3.0|(manual - must be compliant)|
 |license_url|https://www.gnu.org/licenses/agpl-3.0.en.html|(manual - must be compliant)|

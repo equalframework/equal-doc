@@ -43,8 +43,8 @@ The root folder is also the place where to place a `composer.json` file and the 
 | `index.php`   | This script is also referred to as the dispatcher : its task is to include required libraries and to set the context. This is the main entry point. |
 | `console.php` | This is the only alternate entry point.                      |
 | `assets`      | static content, javascripts, stylesheets, images, config, translation |
-| `assets/env`  | eQual Configuration file.                                    |
-| `assets/i18n` | Translation files.                                           |
+| `_assets/env`  | eQual Configuration file.                                    |
+| `_assets/i18n` | Translation files.                                           |
 
 
 

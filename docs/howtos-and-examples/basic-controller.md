@@ -93,7 +93,7 @@ list($params, $providers) = announce([
 list($context) = [ $providers['context'] ];
 
 if(!class_exists($params['entity'])) {
-    throw new Exception("unknown_entity", QN_ERROR_UNKNOWN_OBJECT);
+    throw new Exception("unknown_entity", EQ_ERROR_UNKNOWN_OBJECT);
 }
 
 $collection = $params['entity']::search($params['domain'],
@@ -247,7 +247,7 @@ list($context, $orm, $adapter) = [$providers['context'], $providers['orm'],
 // adapt received values according to schema
 $entity = $orm->getModel($params['entity']);
 if(!$entity) {
-    throw new Exception("unknown_entity", QN_ERROR_INVALID_PARAM);
+    throw new Exception("unknown_entity", EQ_ERROR_INVALID_PARAM);
 }
 
 $schema = $entity->getSchema();

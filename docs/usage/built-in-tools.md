@@ -210,11 +210,11 @@ They are also defined inside the `eq.lib.php`file with a value attached :
  * #memo - we use powers of 2 for permission mask so that the addition of 
  numbers never leads to a colliding values
  */
-    define('QN_R_CREATE',    1);
-    define('QN_R_READ',      2);
-    define('QN_R_WRITE',     4);
-    define('QN_R_DELETE',    8);
-    define('QN_R_MANAGE',   16);
+    define('EQ_R_CREATE',    1);
+    define('EQ_R_READ',      2);
+    define('EQ_R_WRITE',     4);
+    define('EQ_R_DELETE',    8);
+    define('EQ_R_MANAGE',   16);
 ```
 
 **Use** :

@@ -305,11 +305,11 @@ public static function calcRightsTxt($om, $ids, $lang) {
     foreach($ids as $oid) {
         $rights_txt = array();
         $rights = $values[$oid]['rights'];
-        if($rights & QN_R_CREATE)   $rights_txt[] = 'create';
-        if($rights & QN_R_READ)     $rights_txt[] = 'read';
-        if($rights & QN_R_WRITE)    $rights_txt[] = 'write';
-        if($rights & QN_R_DELETE)   $rights_txt[] = 'delete';
-        if($rights & QN_R_MANAGE)   $rights_txt[] = 'manage';
+        if($rights & EQ_R_CREATE)   $rights_txt[] = 'create';
+        if($rights & EQ_R_READ)     $rights_txt[] = 'read';
+        if($rights & EQ_R_WRITE)    $rights_txt[] = 'write';
+        if($rights & EQ_R_DELETE)   $rights_txt[] = 'delete';
+        if($rights & EQ_R_MANAGE)   $rights_txt[] = 'manage';
         $res[$oid] = implode(', ', $rights_txt);
     }
     return $res;

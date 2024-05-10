@@ -7,7 +7,7 @@
 We have two main libraries that are used in our frontend applications: `eQualUI` and `sb-shared-lib` which is provided by [`symbiose-ui` repository](https://github.com/yesbabylon/symbiose-ui/tree/dev-2.0). 
 
 
-<center><img src="/assets/img/front_end_libs.png" /></center>
+<center><img src="/_assets/img/front_end_libs.png" /></center>
 <span>
 <!--
 

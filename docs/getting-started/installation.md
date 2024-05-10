@@ -264,7 +264,7 @@ If you are under a docker environment, replace the DB_HOST value with `equal_db`
 #### Front-end config 
 
 Make sure to have a valid front-end configuration 
-`./public/assets/env/config.json`
+`./public/_assets/env/config.json`
 
 `backend_url` & `rest_api_url` are particularly important to avoid CORS errors.
 

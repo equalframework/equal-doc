@@ -20,24 +20,55 @@ therefore use Collections returned by class autoloader.
 
 ## Object Definition
 
-Each object definition inherits from the Model Class that defines methods common to all objects.
+### Object Definition in ORM
 
-The 3 methods that should be present in all object classes are presented below (for a full list of the Model class
-available methods, see @):
+In the object-relational mapping (ORM) system, object definitions are structured using classes that inherit from the `equal\orm\Model`. This base class provides methods and properties that are common to all objects within the system.
 
-* `getName()`
-* `getDescription()`
-* `getColumns()`
+#### Field Definitions with `getColumns()`
 
-Model fields are defined using the `getColumns ()` method, which returns an associative array that maps the fields names
-with their definitions.
+Each model class must implement at least one mandatory method: `getColumns()`. This method is essential as it defines the model fields.
+
+The `getColumns()` returns an associative array, mapping field names to their definitions. This method allows for the specification of each field's characteristics, such as type, default values, constraints, and any other relevant attributes.
+
+Below is a basic implementation of the `getColumns()` method in PHP:
 
 ```php
 <?php
 public static function getColumns() {
-	return [];
+    // Returns an empty array by default
+    return [];
 }
 ```
+
+
+## Classes inheritance 
+
+
+Classes can extend other classes, potentially from different packages, to add new fields or customize behavior.
+
+When a class inherits from another, objects instantiated from this class will contain not only the fields defined in the class itself but also all the fields defined in its ancestor classes. There can be multiple levels of inheritance.
+
+All model classes inherit from the class `equal\orm\Model`.
+
+### Object Storage Using ORM
+
+To store objects, the ORM utilizes a dedicated table in the database following the active record pattern. By convention, the name of the table for a given class is derived from the name of the first ancestor class that extends `equal\orm\Model`, with the full namespace converted to snake case. For example, objects of the class `realestate\RentalUnit` are stored in the "realestate_rentalunit" table.
+
+However, it is also possible to have inheritance that is distinct from the table assignment in the database.
+
+For example, the classes `sale\customer\Customer` and `identity\Contact` both inherit from the class `identity\Partner`. However, they are distinct objects which are preferable not to mix. In such cases, it is possible to manually define the table to be used for a class via the `getTable()` method.
+
+### Impact of Inheritance on Translations
+
+Inheritance affects translation files as well. All fields are eligible for providing a translation. If some fields are common between a class and its ancestor, they can be overridden. If not, the translations from the first ancestor declaring a translation will be utilized.
+
+If a JSON file is absent for a given class, the system returns the first available JSON file from the class ancestors. For example, if no translation file is defined for `lodging\realestate\RentalUnit`, then the translation file for `realestate\RentalUnit` will be returned.
+
+### Impact of Inheritance on Views
+
+The inheritance system influences how views are managed in software applications. When a view is related to a class that inherits from another, the view can leverage all the properties and methods available from the ancestor classes. This allows for a more flexible and powerful user interface design, accommodating extended functionality as defined by the inheritance chain.
+
+
 
 ## ObjectManager methods
 
@@ -60,7 +91,7 @@ string $lang=DEFAULT_LANG] )
 
 #### Parameters
 
-| **PARAMETER** | **DESCRIPTION**                                              |
+| **Parameter** | **Description**                                              |
 | ------------- | ------------------------------------------------------------ |
 | class         | Class of the objects we want to retrieve.                    |
 | ids           | List of identifiers of the objects we want to retrieve.      |
@@ -90,7 +121,7 @@ string $lang=DEFAULT_LANG, boolean $create=false] )
 
 #### Parameters
 
-| **PARAMETER** | **DESCRIPTION**                                              |
+| **Parameter** | **Description**                                    |
 | ------------- | ------------------------------------------------------------ |
 | object_class  | Class of the objects we want to update.                      |
 | ids           | Ids of the objects to update.                                |
@@ -141,7 +172,7 @@ $sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG] )
 
 #### Parameters
 
-| **PARAMETER** | **DESCRIPTION**                                              |
+| **Parameter** | **Description**                                              |
 | ------------- | ------------------------------------------------------------ |
 | class         | Class of the objects we want to look for.                    |
 | domain        | Search criteria that objects have to match.                  |
@@ -170,7 +201,7 @@ boolean $check_unique=false, boolean $check_required=false)
 
 #### Parameters
 
-| **PARAMETER** | **DESCRIPTION**                                       |
+| **Parameter** | **Description**                                       |
 | ------------- | ----------------------------------------------------- |
 | class         | Class of the object we want to validate.              |
 | values        | Associative array containing fields and their values. |

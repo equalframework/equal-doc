@@ -28,10 +28,10 @@ foreach($schema as $field => $def) {
     // required fields must be provided and cannot be left/set to null
     if( isset($def['required']) && $def['required'] && (!isset($values[$field]) 
     || is_null($values[$field])) ) {
-        $error_code = QN_ERROR_INVALID_PARAM;
+        $error_code = EQ_ERROR_INVALID_PARAM;
         $res[$field]['missing_mandatory'] = 'Missing mandatory value.'; 
-        trigger_error("QN_DEBUG_ORM::mandatory field {$field} is missing for 
-        instance of {$class}", QN_REPORT_WARNING);
+        trigger_error("EQ_DEBUG_ORM::mandatory field {$field} is missing for 
+        instance of {$class}", EQ_REPORT_WARNING);
     }
 }
 ```
@@ -110,8 +110,8 @@ If the rules aren't followed, an error is sent.
 
 ```php
 <?php
- trigger_error("QN_DEBUG_ORM::field {$field} violates unique constraint with 
- object {$oid}", QN_REPORT_WARNING);
+ trigger_error("EQ_DEBUG_ORM::field {$field} violates unique constraint with 
+ object {$oid}", EQ_REPORT_WARNING);
 ```
 
 
