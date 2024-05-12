@@ -20,11 +20,11 @@ therefore use Collections returned by class autoloader.
 
 ## Object Definition
 
-### Object Definition in ORM
+### Models
 
 In the object-relational mapping (ORM) system, object definitions are structured using classes that inherit from the `equal\orm\Model`. This base class provides methods and properties that are common to all objects within the system.
 
-#### Field Definitions with `getColumns()`
+#### Fields Definition
 
 Each model class must implement at least one mandatory method: `getColumns()`. This method is essential as it defines the model fields.
 
@@ -34,11 +34,76 @@ Below is a basic implementation of the `getColumns()` method in PHP:
 
 ```php
 <?php
+[...]
+    
 public static function getColumns() {
     // Returns an empty array by default
     return [];
 }
 ```
+
+#### Default Values
+
+The `default` property of a field allows automatically assigning a default value when creating a new object. The framework supports scalar values, closures, and references to class methods for defining default values.
+
+##### Scalar Values
+
+Scalar values include numbers, strings, and results from PHP function calls that are evaluated when the class is parsed. In this case, there is no special handling, and all created instances will have the value (or the result of the function) as assigned during the class declaration. This assignment of default values occurs when the ORM first retrieves the class definition.
+
+For example:
+
+```php
+<?php 
+[...]
+    
+'day' => [
+    'type'    => 'date',
+    'default' => time()
+]
+```
+
+This will generate instances with the same timestamp for all subsequent calls within the same thread.
+
+##### Closure
+
+Using a closure allows for dynamic generation of default values, where a new value can be determined each time a new instance is created. However, this method is limited to basic functionalities and does not allow for the retrieval of contextual information (like services, current user, etc.).
+
+Example of using a closure:
+
+```php
+<?php 
+[...]
+    
+'day' => [
+    'type'    => 'date',
+    'default' => function () { return time(); }
+]
+```
+
+This configuration will generate instances with a different timestamp for each creation of a new instance.
+
+##### Class Methods
+
+Default values can also be defined by referencing a class method. This method can dynamically compute the default value based on additional context such as the current user.
+
+For instance:
+
+```php
+<?php 
+[...]
+    
+'user_id' => [
+    'type'           => 'many2one',
+    'foreign_object' => 'core\User',
+    'default'        => 'defaultUserId'
+]
+
+public static function defaultUserId($self, $auth) {
+    return $auth->userId();
+}
+```
+
+In this example, the default value for the `user_id` field is dynamically obtained from the `defaultUserId` method, which utilizes the current authentication service to fetch the user ID.
 
 
 ## Classes inheritance 

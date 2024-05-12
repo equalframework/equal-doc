@@ -22,7 +22,7 @@ The `selection` property allows to customize the list of bulk actions that are a
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ----- |
-| **default**  | `boolean` | (optional)telling if the default actions have to be present in the available action to apply on current selection. (default = false) |
+| **default**  | `boolean` | (optional) Flag telling if the default actions have to be present in the available action to apply on current selection. (defaults to true) |
 | **actions**  | list of [Action](#action) |(optional) An array of action items that can be applied on current selection. |
 
 

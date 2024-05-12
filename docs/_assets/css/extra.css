@@ -33,3 +33,11 @@ article .admonition {
 	/* allow use of max available space in the center area */
     max-width: 100%;
 }
+
+.md-typeset__table {
+  width: 100%;
+}
+
+.md-typeset__table table:not([class]) {
+  display: table
+}
