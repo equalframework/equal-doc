@@ -5,7 +5,7 @@ body {
 
 article table {
 	font-size: 0.95em !important;
-	border-radius: .3rem !important;
+	border-radius: 8px !important;
 }
 
 article table th {
@@ -14,6 +14,14 @@ article table th {
     background-color: #5c5f70;
     font-weight: 500;	
 	white-space: nowrap;
+}
+
+article table thead th:first-of-type {
+    border-top-left-radius: 8px;
+}
+
+article table thead th:last-of-type {
+    border-top-right-radius: 8px;
 }
 
 article table th strong {
