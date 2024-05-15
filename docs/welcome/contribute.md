@@ -60,7 +60,7 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 Guidelines for submitting a Pull Request:
 
-* Before opening a PR for additions or changes, please discuss those by filing an issue on [GitHub](https://github.com/equalframework/equal/issues) or asking about it on [Discord](https://discord.gg/BNCPYxD9kk) (#general channel). This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
+* Before opening a PR for additions or changes, please discuss those by filing an issue on [GitHub](https://github.com/equalframework/equal/issues) or asking about it on [Discord](https://discord.gg/xNAXyhbYBp) (#general channel). This will save you development time by getting feedback upfront and make review faster by giving the maintainers more context and details.
 * Before submitting a PR, ensure that the code works with all PHP versions that we support (currently PHP 7.4 to PHP 8.3); that the test suite passes and that your code lints.
 * If you've changed some behavior, update the 'description' and 'help' attributes (when present).
 * If you are going to submit a pull request, please fork from `master`, and submit your pull request back as a fix/feature branch referencing the GitHub issue number

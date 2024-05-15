@@ -17,7 +17,7 @@ All contributors are welcome !
 ## How to get in touch
 
 * For contributing, signaling a bug or joining the project, please use the eQual project on [GitHub](https://github.com/equalframework/equal) 
-* For contact us and keeping up with what we're working on, join the community on our [discord server](https://discord.gg/BNCPYxD9kk)
+* For contact us and keeping up with what we're working on, join the community on our [discord server](https://discord.gg/xNAXyhbYBp)
 
 
 
