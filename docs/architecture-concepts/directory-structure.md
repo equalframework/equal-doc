@@ -1,8 +1,8 @@
 # Directory structure
 
-To understand the framework, here is what you need to know about its folders
 
 
+The directory structure of the eQual framework is designed for simplicity and efficiency, providing a clear organization that enhances the development process.
 
 ## Root directory structure
 

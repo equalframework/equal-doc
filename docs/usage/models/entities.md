@@ -1,15 +1,28 @@
-# Model definition
+# Entities
 
-Each Model is defined in a `.class.php` file , located in the `/packages/{package_name}/classes` file of the package it relates to (see [Directory Structure](directory-structure.md)). All classes inherit from a common ancestor: the `Model` class, declared in the `equal\orm` namespace and defined in  `/lib/equal/orm/Model.class.php`.
+Models are defined as PHP classes declared within related `.class.php` files.   
+The models defintions are located in the `/packages/{package_name}/classes` folder of the package they relate to (see [Directory Structure](/architecture-concepts/directory-structure)).   
+All classes inherit from a common `Model`ancestor which is declared in the `equal\orm` namespace and defined in the file `/lib/equal/orm/Model.class.php`.  
 
-A class is always referred to as an **entity** and belongs to a package. Packages and their subdirectories are used as namespaces.
+A class is always referred to as an **entity** and belongs to a specific package.   
+In turn, the packages and its subdirectories are used as namespace.
 
-The syntax is : `{{package_name}}\{{class_name}}` (ex. :`core\setting\SettingValue`).
+Example:  
+```
+core\setting\SettingValue
+```
+
+
+##  Classes
 
 A class consists of a series of fields definition, along with specific methods.
 
+Classes definitions from a same package are placed into the folder `/packages/{package_name}/classes/.`
 
-Here is an example of a `Category ` class having multiple fields for which we will then show how to write its ```Form View``` and ```List View```.
+The structure of an entity is based on its fields, which are defined using descriptors in an associative array structure, return by a dedicated method **`getColumns()`**.
+
+
+Here below is an example of an hypothetical entitty named `Category`.
 
 ```php
 <?php 
@@ -47,34 +60,13 @@ class Category extends Model {
 
 
 
-##  Classes
-
-Objects are grouped into classes that define the structure and methods of those objects. 
-
-Classes definitions from a same package are placed into the folder `//packages/[package_name]/classes//.`
-
-Here is an example of the class definition syntax :
-```php
-<?php
-namespace school;
-use equal\orm\Model;
-
-class Student extends Model {
-  public static function getColumns() {
-    return [
-      'firstname'  => ['type' => 'string'],
-      'lastname'   => ['type' => 'string'],
-      'birthdate'  => ['type' => 'date']
-    ];
-  }
-}
-```
 
 
+## Entity storage
 
-## Consistency with Database
+eQual uses an `ObjectManager` service which is an implementation of the Active Record pattern.
 
-Classes are mapped with database tables. Each table having structure (columns) matching the fields defined in the model. 
+It means that classes are mapped with database tables. Each table having structure (columns) matching the fields defined in the model. 
 
 Consistency between models (`*.class.php` files) and database schema is done at package initialization (columns types must be compatible). It must be maintained manually in case of change.
 
