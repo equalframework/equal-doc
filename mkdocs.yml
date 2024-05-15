@@ -104,7 +104,6 @@ nav:
      - 'Security': 
         - 'Rights management': 'advanced/security/rights-management.md'
         - 'Authentication': 'advanced/security/authentication.md'
-     - 'Workflows': 'advanced/workflows.md'
      - 'Logging': 'advanced/logging.md'
      - 'Remote APIs': 'advanced/remote-apis.md'
      - 'External libraries' : 'advanced/external-libraries.md'
