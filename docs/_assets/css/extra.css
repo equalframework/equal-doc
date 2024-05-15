@@ -12,6 +12,7 @@ article table th {
 	text-transform: capitalize !important;
 	padding: 4px 18px !important;
     background-color: #5c5f70;
+	color: white;
     font-weight: 500;	
 	white-space: nowrap;
 }

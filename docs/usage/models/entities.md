@@ -64,7 +64,7 @@ class Category extends Model {
 
 ## Entity storage
 
-eQual uses an `ObjectManager` service which is an implementation of the Active Record pattern.
+eQual uses an `ObjectManager` service which implements the Active Record pattern.
 
 It means that classes are mapped with database tables. Each table having structure (columns) matching the fields defined in the model. 
 
@@ -92,7 +92,6 @@ The following types are supported by the ORM :
 * `integer`
 * `float`
 * `string`
-* `text`
 * `date`
 * `time`
 * `datetime`
@@ -103,8 +102,8 @@ The following types are supported by the ORM :
 * `computed`
 * `alias`
 
-!!! note "usage property"
-	The `usage` property is complementary to the `type` property and allows to refine the way the field should be handled by the ORM and the DBMS, and how it should be rendered in the UI. 
+!!! tip "usage property"
+	The `usage` property is complementary to the `type` property and allows to refine the way the field should be handled by the ORM and the DBMS, and how it should be rendered in the UI (see [Usages](/architecture-concepts/usages/)). 
 	
 
 #### boolean

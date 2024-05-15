@@ -1,7 +1,7 @@
 # Usages
 
-Usages is a that can be used to define all at once : how to store a value, how to convert it from one context to
-another, how to validate it and how to represent it in the UI.
+Usages is a concept used to define at the same time how to store a value; how to convert it from one context to
+another; how to validate it; and how to render it for a human (through UI or generated documents).
 
 Types are aliases representing specific usages.
 
