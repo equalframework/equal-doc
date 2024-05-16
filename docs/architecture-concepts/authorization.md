@@ -10,7 +10,7 @@ Access Control is a crucial topic, and eQual provides several mechanisms to auth
 * PBAC (Policy-Based Access Control)
 
 !!! info "Other policy systems"
-    An interesting comparison of some existing policy systems can be found on [openpolicyagent.org](https://www.openpolicyagent.org/docs/latest/comparison-to-other-systems/)
+    An interesting comparison of some existing policy systems can be found on the excellent [openpolicyagent.org](https://www.openpolicyagent.org/docs/latest/comparison-to-other-systems/)
 
 ### Lexicon
 
@@ -308,8 +308,12 @@ access {
 }
 ```
 
-!!! ,ote "ACL at package initialization"
+
+
+!!! note "ACL at package initialization"
     For classes implying some initial ACL and rights based on users and groups, it is recommended to include related JSON files in the `./init` folder of the package for importing those ACL at package init.
+
+
 
 ## Collections Handling
 
