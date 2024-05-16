@@ -8,8 +8,10 @@ article table {
 	border-radius: 8px !important;
 }
 
-article table th {
-	text-transform: capitalize !important;
+
+article :not(details) table th {
+	/* #memo - cannot capitalize since some titles are case-sensitive code or var names*/
+	/* text-transform: capitalize !important; */
 	padding: 4px 18px !important;
     background-color: #5c5f70;
 	color: white;

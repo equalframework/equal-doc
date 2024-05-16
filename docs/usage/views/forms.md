@@ -63,7 +63,7 @@ When rendered, a form view have all its groups shown one below another.
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ----- |
-| Groups | list of [Group](#group) | Groups of Section used to split the page horizontally |
+| groups | list of [Group](#group) | Groups of Section used to split the page horizontally |
 
 
 ### groups
@@ -133,7 +133,7 @@ If a group has more than 1 section, its sections are presented tabs.
 
 
 
-### Widget
+### widget
 
 Widget are used to set properties that depends on the type of view.
 
@@ -147,7 +147,7 @@ Widget are used to set properties that depends on the type of view.
 
 There are some additional properties depending on the type of field the item relates to:
 
-**Associative fields (one2many, many2many)**
+**Relational fields (one2many, many2many)**
 
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
@@ -164,7 +164,43 @@ There are some additional properties depending on the type of field the item rel
 
 
 
-For certain fields, the header has an impact on the layout of the corresponding widget in a form view.
+**many2one**
+
+| **PROPERTY** | **TYPE** | **DESCRIPTION**                                         |
+| ------------ | -------- | ------------------------------------------------------- |
+| fields       | `array`  | *Many2One Field Only*. List of sub-fields to be loaded. |
+
+For `many2one` fields, since the display involves the name, an object is requested (instead of simply the id).
+
+The default fields that are requested are `id` and `name`. However, it is possible to specify additional subfields. This is might be necessary if those are involved in a domain within the view (as a filter or a visibility condition).
+
+!!! note "Path to sub fields"
+    If sub-objects are required, a path can be specified using the dot notation (e.g. `object.target_id.target_field`).
+
+Example:
+
+```json
+{
+    "type": "field",
+    "label": "Booking",
+    "value": "booking_id",
+    "width": "100%",
+    "widget": {
+        "fields": ["customer_id", "customer_identity_id.name"],
+        "readonly": true
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+For relational fields, the header has an impact on the layout of the corresponding widget in a form view.
 
 For instance, for many2one fields, header information is used to display (or not) the buttons for creating a new item or opening the selected item in a new context.
 
@@ -183,7 +219,11 @@ By modifying the header, it is therefore possible to deactivate the display of t
 
 
 
-??? tip "Using keyboard inputs"
+
+
+
+
+!!! tip "Using keyboard inputs"
     Navigation between input widgets is possible via the keyboard, primarily using the `<tab>` key. When opening dropdown selection boxes, the `<up>` and `<down>` keys allow navigation among the options.  
     In form views, while in edit mode, it's also possible to use the combination `<ctrl+s>` to save the current form.  
     In the case of a split button with multiple save actions (save and continue, save and close, ...), it's the first save action that is executed.  
