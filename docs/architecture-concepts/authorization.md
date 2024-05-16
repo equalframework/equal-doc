@@ -315,33 +315,39 @@ access {
 
 #### Create
 
-If the entity has a `getRoles()` method:  
+If the entity has a `getRoles()` method: 
+
 * Creation is not supported (roles relate to existing objects).
 * Use actions (e.g., a 'create' action conditioned by policies, which adds the 'owner' role for the user to the created object).
 
-Otherwise:  
+Otherwise:
+
 * Check if the user has the right `R_CREATE` on the entity (via their groups and/or permissions on parent entities).
 * If not, creation fails.
 
 #### Search
 
-If the entity has a `getRoles()` method:  
-* Identify roles with `R_READ` permission (according to the entity's roles).
-* Search for objects where the user has one of these roles (via `core_assignment`), and add a condition to the domain (`id in []`).
+If the entity has a `getRoles()` method: 
 
-Otherwise:  
+* Identify roles with `R_READ` permission (according to the entity's roles). 
+* Search for objects where the user has one of these roles (via `core_assignment`), and add a condition to the domain (`id in []`).	
+
+Otherwise: 
+
 * Check if the user has the `R_READ` permission on the entity (via their groups and/or rights on parent entities: `getUserRights(user_id, class)`).
 * If yes, apply the search with the domain.
 * If not, list objects where the user has the `R_READ` permission (direct), and add a condition to the domain (`id in []`).
 
 #### Read, Update, Delete
 
-If the entity has a `getRoles()` method (not inherited):  
+If the entity has a `getRoles()` method (not inherited):
+
 * Identify roles with the `R_READ` permission (according to the entity's roles).
 * For each object in the collection, verify if the user has one of these roles.
 * If not, the operation fails (all-or-nothing: the user must have the required rights on all objects in the collection, or the operation is canceled).
 
-Otherwise:  
+Otherwise: 
+
 * Check if the user has the `R_READ` permission on the entity (via their groups and/or rights on parent entities).
 * If yes, the operation is allowed.
 * If not, verify for each object if the user has the `R_READ` permission.
