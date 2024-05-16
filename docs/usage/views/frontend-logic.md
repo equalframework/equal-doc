@@ -489,6 +489,9 @@ Below is an example of a chart view, the proprerties are very similar to the one
             "groups": ["booking.default.user"]
         },
         "controller": "core_model_chart",
+        "header": {
+            "modes": ["grid", "chart"]
+        },
         "layout": {
             "entity": "lodging\\sale\\booking\\Booking",
             "stacked": false,
@@ -512,7 +515,6 @@ Below is an example of a chart view, the proprerties are very similar to the one
         }
     }
     ```
-
 
 
 

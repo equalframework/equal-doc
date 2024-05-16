@@ -40,6 +40,8 @@ Describes what the controller does.
 
 Array containing values used by the controller, which may be required.
 
+
+
 ### constants
 
 List of strings, representing constant names, used by the system.
@@ -122,6 +124,20 @@ Example:
 <?php 
 'providers'   => ['context', 'orm' , 'auth']     
  //'orm'= ObjectManager & 'auth'=AuthentificationManager
+```
+
+### examples
+The controller announcement allows the description of an `examples` property, in the form of an associative array intended for providing example calls.
+
+This property is optional but valuable for frequently used controllers. When defined, by convention, it includes one example per call type. Each example corresponds to a key in the map: `CLI`, `HTTP`, and `PHP`.
+
+Example:
+```php
+'examples' => [
+    'CLI'   => './equal.run --get=contractika_sd_absences --id=16',
+    'HTTP'  => '/?get=contractika_sd_absences&id=16',
+    'PHP'   => "eQual::run('get', 'contractika_sd_absences', ['id' => 16]);"
+],
 ```
 
 

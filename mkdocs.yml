@@ -111,5 +111,6 @@ nav:
      - 'PHP Versions compatibility': 'php-versions-compatibility'
   - 'Low-Code & tools':
      - 'Low-Code' : 'low-code/low-code.md'
+     - 'Pipelines' : 'low-code/pipelines.md'
      - 'eQual Workbench' : 'low-code/workbench.md'
   - 'Contact & Help': 'contact-and-help/contact-and-help.md'
