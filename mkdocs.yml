@@ -63,6 +63,7 @@ nav:
       - 'Configuration': 'getting-started/configuration.md'
       - 'Deployment': 'getting-started/deployment.md'
   - 'Architecture Concepts':
+      - 'Pogramming paradigm': 'architecture-concepts/programming-paradigm.md'
       - 'HTTP native': 'architecture-concepts/http-native.md'
       - 'Services': 'architecture-concepts/services.md'
       - 'ORM': 'architecture-concepts/orm.md'
@@ -71,6 +72,7 @@ nav:
       - 'Domains': 'architecture-concepts/domains.md'
       - 'Operations': 'architecture-concepts/operations.md'
       - 'Usages': 'architecture-concepts/usages.md'
+      - 'Authorization': 'architecture-concepts/authorization.md'
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
      - 'Directory Structure': 'usage/directory-structure.md'
@@ -89,6 +91,7 @@ nav:
         - 'Common strucutre': 'usage/views/common-structure.md'
         - 'Lists': 'usage/views/lists.md'
         - 'Forms': 'usage/views/forms.md'
+        - 'Widgets': 'usage/views/widgets.md'
         - 'Inheritance': 'usage/views/inheritance.md'
      - 'i18n': 'usage/i18n.md'
      - 'Error Handling': 'usage/error-handling.md'

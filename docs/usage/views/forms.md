@@ -194,12 +194,6 @@ Example:
 
 
 
-
-
-
-
-
-
 For relational fields, the header has an impact on the layout of the corresponding widget in a form view.
 
 For instance, for many2one fields, header information is used to display (or not) the buttons for creating a new item or opening the selected item in a new context.
