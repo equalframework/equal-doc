@@ -8,7 +8,6 @@ article table {
 	border-radius: 8px !important;
 }
 
-
 article :not(details) table th {
 	/* #memo - cannot capitalize since some titles are case-sensitive code or var names*/
 	/* text-transform: capitalize !important; */
@@ -38,6 +37,11 @@ article table th.filename {
 
 article .admonition {
 	font-size: 0.95em !important;
+}
+
+.md-nav {
+	/* left menu font size*/
+    font-size: 18px;
 }
 
 .md-grid {
