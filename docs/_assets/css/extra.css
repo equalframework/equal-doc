@@ -39,7 +39,7 @@ article .admonition {
 	font-size: 0.95em !important;
 }
 
-.md-nav {
+.md-nav.md-nav--primary {
 	/* left menu font size*/
     font-size: 18px;
 }

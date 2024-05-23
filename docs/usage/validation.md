@@ -10,9 +10,17 @@ This function is used at different times :
 - with Controller Calls
 
 !!! note "Calling the scripts"
-    In addition to the usual objects, Controllers are in eQual, also objects.                                                                                                                                                   	And as such, their `params` or`getColumns() fields` for usual objects **must** be validated by the validate function ;
+    eQual handles both Models and Controllers as entities. As such, their fields (repectively provided by `getColumns() and `params`) are validated by following a same logic.
 
-​	
+
+### Type and Usage
+The validation of a given value is made by comparing it to the expected format for the field the value relates to.
+Comparisions are made based on constraints. Constraints are either explicit (@see `getConstraints()`) or implicit, by using a specific Type or Usage in the field definition.  
+
+* Constraints apply based on a Usage.
+* There is always a Usage assigned to a field.
+* If it is not in the definition, it is created by default based on the Type.
+* Therefore, Usage is prioritized for field validation (the Type and the Usage must be compatible).
 
 ### Validate function 
 
