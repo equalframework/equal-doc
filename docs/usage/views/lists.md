@@ -83,6 +83,67 @@ Examples :
 ```
 
 
+## order
+
+String holding the name(s) of the field to sort results on, separated with commas.
+Example :
+
+```json
+"order": "sku,product_model_id"
+```
+
+## limit
+
+Integer providing the maximum number of items that can be shown on each page of the list.
+(Read more details about pagination.)
+
+## controller
+
+The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
+
+The default values is `model_collect` (which is an alias for `core_model_collect`)
+
+## group_by
+
+A `group_by` array can be set to describe the way the objects have to be grouped.
+Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
+
+When objects are grouped on fields, they're sorted on the field when it is a string, or on the `name` field when it is an object. In the latter case, the field to be used for sorting can be modified using the `order`  property.
+
+Example :
+
+```json
+"group_by": ["date"]
+```
+
+The operations items have the following structure :
+
+```json
+{
+    "open": true,
+    "field": "product_id",
+    "operation": ["SUM", "object.qty"],
+    "order": "name"
+}
+```
+
+Another example :
+
+```json
+"group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
+```
+
+
+
+!!!tip "'open' property"
+    The 'open' property is a bool allowing to request a group to be expanded by default.
+
+
+
+
+## operation 
+
+Associative array (name,[Operation](#operation)) | (optional) make calculation on the whole fetcthed data do display it
 
 
 ## layout 
@@ -122,7 +183,6 @@ When rendered, a list view consists of a table with each of its columns showing 
 Widget are used to set properties that depends on the type of view.
 
 **Structure Summary**
-
 
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |

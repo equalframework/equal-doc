@@ -26,8 +26,6 @@ The lists below recap the attributes specific to each view type.
 | order        | `string`   | (optional) `asc` or  `desc`  |
 | sort        |   `string`  | (optional)  field name(s) used to sort the view by default |
 | limit   |  `integer`>`number/natural`      | (optional)  number of item fetched     |
-| group_by | [Group by](#group_by) | (optional)        |
-|  operation | Associative array (name,[Operation](#operation)) | (optional) make calculation on the whole fetcthed data do display it
 |  export | [Export](#export)
 
 ### Menu
@@ -48,49 +46,6 @@ The lists below recap the attributes specific to each view type.
 
 ## Attributes descriptors
 
-### order
-
-String holding the name(s) of the field to sort results on, separated with commas.
-Example :
-
-```json
-"order": "sku,product_model_id"
-```
-
-### controller
-
-The optional **controller**  property specifies the controller that must be requested for fetching the Model collection that will feed the View (either a single object or a collection of objects).
-
-The default values is `model_collect` (which is an alias for `core_model_collect`)
-
-### group_by
-
-A `group_by` array can be set to describe the way the objects have to be grouped.
-Each item in the array is either a field name or the descriptor of an operation to perform on a specific field.
-
-When objects are grouped on fields, they're sorted on the field when it is a string, or on the `name` field when it is an object. In the latter case, the field to be used for sorting can be modified using the `order`  property.
-
-Example :
-
-```json
-"group_by": ["date"]
-```
-
-The operations items have the following structure :
-
-```json
-{
-    "field": "product_id",
-    "operation": ["SUM", "object.qty"],
-    "order": "name"
-}
-```
-
-Another example :
-
-```json
-"group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
-```
 
 #### Binary operators
 |**OPERATOR**|**RESULT**|**SYNTAX**|
