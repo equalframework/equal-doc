@@ -63,6 +63,7 @@ nav:
       - 'Configuration': 'getting-started/configuration.md'
       - 'Deployment': 'getting-started/deployment.md'
   - 'Architecture Concepts':
+      - 'Directory Structure': 'architecture-concepts/directory-structure.md'
       - 'Pogramming paradigm': 'architecture-concepts/programming-paradigm.md'
       - 'HTTP native': 'architecture-concepts/http-native.md'
       - 'Services': 'architecture-concepts/services.md'
@@ -75,7 +76,6 @@ nav:
       - 'Authorization': 'architecture-concepts/authorization.md'
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
-     - 'Directory Structure': 'usage/directory-structure.md'
      - 'Packages': 'usage/packages.md'
      - 'Model Definition': 
         - 'Entities': 'usage/models/entities.md'
