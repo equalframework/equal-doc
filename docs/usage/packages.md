@@ -25,6 +25,8 @@ package_name
 ├── init
 │   ├── data
 │   |   └── *.json
+|   ├── test
+│   |   └── *.json
 │   ├── demo
 │   |   └── *.json
 │   ├── bin
@@ -49,7 +51,7 @@ package_name
 ```
 
 |  Folder   | Role                   | Example            |
-| :-------: | ---------------------- | ------------------ |
+| :------- | ---------------------- | ------------------ |
 | `classes` | model                                           | `core\User.class.php`, `core\Group.class.php`, `core\Permission.class.php` |
 | `actions` | action handler (controller)                     | `core_manage`, `core_utils`                                  |
 |  `apps`   | applications related to the package             | `auth`, `apps`                                               |
@@ -60,7 +62,7 @@ package_name
 |  `i18n`   | translations                                    | `User.json`                                                  |
 | `assets`  | static content (resources)                      | js scripts, stylesheets, fonts, images                       |
 
-## Self description
+## Self description (root)
 
 ### README.md
 
@@ -72,17 +74,18 @@ Packages manifests are an essential tool for managing the packages ecosystem and
 
 Each package has a manifest file (`manifest.json`) containing information about the package along with the apps it provides and the dependencies it requires. 
 
-| <span>Property&nbsp;&nbsp;&nbsp;&nbsp;</span> | Role                                                         | Example                                                  |
-| :-------------------------------------------: | ------------------------------------------------------------ | -------------------------------------------------------- |
-|                    `name`                     | `(string)` Name of the package, also used as an identifier.<br />It should match the name of the folder of the package. | `"core"`                                                 |
-|                   `version`                   | `(string)` The version of the package, ensuring accurate versionning. | `"2.0"`                                                  |
-|                 `description`                 | `(string)` Short description of the package.                 | `"A short and yet explicit description of the package."` |
-|                   `license`                   | `(string)` The license (and version) of the package.         | `"LGPL-3"`                                               |
-|                   `authors`                   | `(array <string>)` List of the name(s) of the author(s).     | `["Cedric Francoys"]`                                    |
-|                    `tags`                     | `(array <string>)` List of descriptive tags or keywords associated with the package for easier categorization and searchability. | `["Cedric Francoys"]`                                    |
-|                 `depends_on`                  | `(array <string>)` List of packages that need to be present and initialized in order for the package to work. | `[]`                                                     |
-|                  `requires`                   | `(object)` Map specifying external libraries or packages required by the package, along with version constraints using semantic versionning. | `"requires": {"swiftmailer/swiftmailer": "^6.2"}`        |
-|                    `apps`                     | `(array <string | object>)` Applications embedded in the package. <br />The list provides either Apps names (identifier) or descriptors for virtual apps to be used with the STD App (see below). | `["apps", "auth", "app", "settings"]`                    |
+| <span>Property&nbsp;&nbsp;&nbsp;&nbsp;</span> | Role                                                         | Example                                                    |
+| :-------------------------------------------: | ------------------------------------------------------------ | ---------------------------------------------------------- |
+|                    `name`                     | `(string)` Name of the package, also used as an identifier.<br />It should match the name of the folder of the package. | `"core"`                                                   |
+|                   `version`                   | `(string)` The version of the package, ensuring accurate versionning. | `"2.0"`                                                    |
+|                 `description`                 | `(string)` Short description of the package.                 | `"A short and yet explicit description of the package."`   |
+|                   `license`                   | `(string)` The license (and version) of the package.         | `"LGPL-3"`                                                 |
+|                   `authors`                   | `(array <string>)` List of the name(s) of the author(s).     | `["Cedric Francoys"]`                                      |
+|                    `tags`                     | `(array <string>)` List of descriptive tags or keywords associated with the package for easier categorization and searchability. | `["Cedric Francoys"]`                                      |
+|                 `depends_on`                  | `(array <string>)` List of packages that need to be present and initialized in order for the package to work. | `[]`                                                       |
+|                  `requires`                   | `(object)` Map specifying external libraries or packages required by the package, along with version constraints using semantic versionning. | `"requires": {"swiftmailer/swiftmailer": "^6.2"}`          |
+|                   `config`                    | `(object)` Map associating config constants to the values specific to the package. | `"config": {"APP_LOGO_URL": "/assets/img/brand/logo.svg"}` |
+|                    `apps`                     | `(array <string | object>)` Applications embedded in the package. <br />The list provides either Apps names (identifier) or descriptors for virtual apps to be used with the STD App (see below). | `["apps", "auth", "app", "settings"]`                      |
 
 **Example:**
 
@@ -134,7 +137,7 @@ The `apps`  property might either contain strings or descriptor objects.  The `a
 
 
 
-## Apps
+## apps folder
 
 ### manifest.json
 
@@ -173,3 +176,23 @@ Example:
     }
 }
 ````
+
+
+
+## actions folder
+
+## data folder
+
+## tests folder
+
+## init folder
+
+| Subfolder | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| data      | The name of the application.                                 |
+| test      | A short description of the role and usage of the application. |
+| demo      | Relative URL of the application.                             |
+| bin       |                                                              |
+| routes    |                                                              |
+| assets    | HTML dependencies (img, js, css) to be copied in the `public/assets` folder. |
+

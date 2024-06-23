@@ -1,14 +1,14 @@
 # Pipeline
 
-## Definition
+The Pipeline Editor is a "low-code" development tool, part of the Workbench App, designed to assist developers in orchestrating a series of operations in a predefined order using Controllers (PHP scripts) reliant on the eQual framework. This approach facilitates problem-solving and the accomplishment of specific tasks, fundamentally the creation of an algorithm.  
 
-The Pipeline Editor is designed to assist developers in orchestrating a series of operations in a predefined order using PHP scripts. This approach facilitates problem-solving or the accomplishment of specific tasks, which is fundamentally the creation of an algorithm.
+The tool enables to visually arrange and connect nodes representing Controllers in a graphical interface, eliminating the need for direct coding at each step. The flow of the application can be defined simply by connecting these nodes, significantly reducing development time and improving accuracy by explicitly visualizing how data moves through the application.  
 
-The tool enables this to be done in a visual manner, where developers can arrange and connect nodes representing controllers in a graphical interface, without requiring direct coding for each step of the operation.
+Special nodes, named 'Routers', direct data between Controllers, ensuring that the order of operations and data flow are consistent with the application's requirements. By testing the created pipelines, developers can observe the data path, adjust parameters, and optimize the performance of their solutions.  
 
-Developers can define the flow of the application simply by connecting these nodes, significantly reducing development time and improving accuracy by explicitly visualizing how data moves through the application.
+The Pipeline Editor transforms the way problems are approached and solutions are implemented in modern software development by offering a structured and intuitive method for designing algorithms through a graphical interface. This visual composition of algorithms minimizes the need for manual coding, enhances accuracy, and accelerates development time by explicitly showing the data flow through the application.
 
-By testing the created pipelines, developers can observe the flow of data, adjust parameters, and optimize the performance of their solutions.
+
 
 ## Create a pipeline
 
