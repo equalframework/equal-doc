@@ -32,12 +32,12 @@ This pseudo JSON structure below shows how inheritance can be applied on an exis
 
 ```json
 {
+    // Specifies the base view that this layout extends from.
+    "extends": {
+        "entity": "core\\User",
+        "view": "form.default"
+    },
     "layout": {
-        // Specifies the base view that this layout extends from.
-        "extends": {
-            "entity": "core\\User",
-            "view": "form.default"
-        },
         // Lists elements that should be removed from the base view.
         "remove": [],
         // Describes the modifications or updates to be applied to elements in the base view.
@@ -77,17 +77,20 @@ This pseudo JSON structure below shows how inheritance can be applied on an exis
 
 Building the resulting view is achieved by following the logic below : 
 
-1. **Within `layout`:**
-   - If `extends` is present, we load (with controller/recursion) the targeted view.
-  
-2. **If `remove` is present:**
-   - We traverse the view and remove all elements whose ID is present in the `remove` array.
-  
-3. **If `update` is present:**
-   - For all keys (IDs), we search for the element in the view.
-     - If found:
-       - adapt its attributes if `attributes` is present.
-       - add elements before it if `before` is present.
-       - add elements after it if `after` is present.
-       - add to the beginning of its children list if `prepend` is present.
-       - add to the end of its children list if `append` is present.
+1. **Within the view:**
+   
+  - If `extends` is present, we load (with controller/recursion) the targeted view.
+
+2. **Within `layout`:**
+
+  * **If `remove` is present:**
+      - We traverse the view and remove all elements whose ID is present in the `remove` array.
+
+
+  * **If `update` is present:**
+       - For all keys (IDs), we search for the element in the view; if found:
+           - adapt its attributes if `attributes` is present.
+           - add elements before it if `before` is present.
+           - add elements after it if `after` is present.
+           - add to the beginning of its children list if `prepend` is present.
+           - add to the end of its children list if `append` is present.
