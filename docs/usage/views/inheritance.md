@@ -84,8 +84,8 @@ Building the resulting view is achieved by following the logic below :
     **If `remove` is present:** We traverse the view and remove all elements whose ID is present in the `remove` array.
 
     **If `update` is present:** For all keys (IDs), we search for the element in the view; if found:
-        * adapt its attributes if `attributes` is present.
-        * add elements before it if `before` is present.
-        * add elements after it if `after` is present.
-        * add to the beginning of its children list if `prepend` is present.
-        * add to the end of its children list if `append` is present.
+    * adapt its attributes if `attributes` is present.
+    * add elements before it if `before` is present.
+    * add elements after it if `after` is present.
+    * add to the beginning of its children list if `prepend` is present.
+    * add to the end of its children list if `append` is present.
