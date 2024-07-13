@@ -60,7 +60,17 @@ Policies are methods defined at the entity level, describing the authorization l
 
 In the context of the eQual framework, "roles" refer to specific sets of permissions or levels of access assigned to users for interacting with objects within a given class.
 
-Roles serve as an alternative to Access Control Lists (ACLs) for managing user rights. They enable the definition and enforcement of constraints such as Separation of Duty (SoD), ensuring that critical tasks are divided among multiple users to enhance security and reduce the risk of fraud or error. This role-based approach simplifies the management of permissions by grouping them into roles, which can then be assigned to users based on their responsibilities and needs.
+Roles serve as an alternative to Access Control Lists (ACLs) for managing user rights. They enable the definition and enforcement of constraints such as Separation of Duty (SoD), ensuring that critical tasks are divided among multiple users to enhance security and reduce the risk of fraud or error. 
+
+In some situations, the role-based approach can simplify the management of permissions by grouping them into roles, which can then be assigned to users based on their responsibilities and needs.
+
+
+In summary, Roles can be used in several ways:
+
+* They can be arbitrarily used in policies or actions to condition certain treatments on the assignment of the user to one or more specific roles by making calls to `AccessController::hasRole()`.
+
+* In the `getRoles` definition, it is also possible to match roles to specific rights (create, read, update, delete, manage). In this case, the method `AccessController::hasRight()` also takes these rights into account.
+
 
 **Objets core_role**
 
@@ -71,22 +81,22 @@ public static function getRoles() {
     return [
         "owner" => [
             "description" => "",
-            "rights" => R_READ | R_WRITE | R_DELETE | R_MANAGE
+            "rights" => EQ_R_READ | EQ_R_UPDATE | EQ_R_DELETE | EQ_R_MANAGE
         ],
         "admin" => [
             "description" => "",
             "implied_by" => ['owner'],
-            "rights" => R_READ | R_WRITE | R_DELETE 
+            "rights" => EQ_R_READ | EQ_R_UPDATE | EQ_R_DELETE 
         ],
         "editor" => [
             "description" => "",
             "implied_by" => ['admin'],
-            "rights" => R_READ | R_WRITE
+            "rights" => EQ_R_READ | EQ_R_UPDATE
         ],
         "viewer" => [
             "description" => "",
             "implied_by" => ['editor'],
-            "rights" => R_READ
+            "rights" => EQ_R_READ
         ]
     ];
 }
@@ -153,12 +163,14 @@ Permissions can be inherited from one of the groups a user belongs to. Additiona
 
 ### AccessController Methods
 
-```php
-AccessController::hasRole($user_id, $role, $object_class, $object_id) // used at the object level in policy handlers or `can[...]()` methods
-AccessController::hasRight($user_id, $operation_mask, $object_class, $object_ids) // used at the collection level for CRUD operations
-AccessController::canPerform($user_id, $action, $collection) // check if the user can perform an action based on associated policies
-AccessController::isCompliant($user_id, $policy, $collection) // check policy compliance at the collection level
-```
+
+| Method                                                        | Description                                                                     |
+|---------------------------------------------------------------|---------------------------------------------------------------------------------|
+| `AccessController::hasRole($user_id, $role, $object_class, $object_id)` | Used at the object level in policy handlers or `can[...]()` methods.             |
+| `AccessController::hasRight($user_id, $operation_mask, $object_class, $object_ids)` | Used at the collection level for CRUD operations.                               |
+| `AccessController::canPerform($user_id, $action, $collection)` | Checks if the user can perform an action based on associated policies.           |
+| `AccessController::isCompliant($user_id, $policy, $collection)` | Checks policy compliance at the collection level.                                |
+
 
 ### Collection Methods
 
