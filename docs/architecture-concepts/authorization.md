@@ -36,7 +36,7 @@ Access Control
 ├── Model (at field level, using `access`, `readonly`, and `visible` attributes)
 ├── CRUD operations
 │    ├── CRWD rights (ACL) (via `hasRight()`)
-│    └── (through `can[...]()` methods), Policies (via `isCompliant()`), Roles (via `hasRole()`)
+│    └── through `can[...]()` methods, Policies (via `isCompliant()`), Roles (via `hasRole()`)
 └── Actions
      ├── Roles (via `hasRole()`) : restrict action to certain roles (RBAC)
      └── Policies (via `isCompliant()`) : restrict action to certain policies (complex rules ABAC, PBAC)
@@ -58,11 +58,13 @@ Policies are methods defined at the entity level, describing the authorization l
 
 ### Roles
 
+In the context of the eQual framework, "roles" refer to specific sets of permissions or levels of access assigned to users for interacting with objects within a given class.
+
+Roles serve as an alternative to Access Control Lists (ACLs) for managing user rights. They enable the definition and enforcement of constraints such as Separation of Duty (SoD), ensuring that critical tasks are divided among multiple users to enhance security and reduce the risk of fraud or error. This role-based approach simplifies the management of permissions by grouping them into roles, which can then be assigned to users based on their responsibilities and needs.
+
 **Objets core_role**
 
-Fields: `user_id`, `object_class`, `object_id`, `role`
-
-Roles allow deducing rights and defining constraints like Separation of Duty (SoD).
+Fields: `user_id`, `object_class`, `object_id`, `role`.
 
 ```php
 public static function getRoles() {
@@ -88,7 +90,9 @@ public static function getRoles() {
         ]
     ];
 }
+```
 
+```php
 public static function getRoles() {
     return [
         "payment-creator" => [
