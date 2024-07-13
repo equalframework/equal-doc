@@ -716,9 +716,10 @@ Let's create the route `/posts` which will use our collect controller to get all
 
 ```
 
-We can change the apiUrl in `packages/blog/apps/blog/index.html` to `http://equal.local/posts` :
+We can now use the api URL in `packages/blog/apps/blog/index.html` :
 
 ```javascript
+[...]
 <script type="module">
     (async () => {
         const apiUrl = "http://equal.local/posts"
@@ -726,25 +727,7 @@ We can change the apiUrl in `packages/blog/apps/blog/index.html` to `http://equa
             method: "GET",
             headers: { "Accept": "*/*" }
         });
-        let posts = await response.json();
-        let ul = document.querySelector(".list");
-        posts.forEach(post => {
-            let blogPost = document.createElement('li');
-            let newTitle = document.createElement("h2");
-            let newContent = document.createElement("div");
-            let newAuthor = document.createElement("h3");
-            let newPublished = document.createElement('div');
-            blogPost.classList.add("post")
-            newTitle.textContent = post.title;
-            newContent.innerHTML = post.content;
-            newAuthor.textContent = `Written by ${post.author_full_name}`;
-            newPublished.textContent = `On ${new Date(post.published).toLocaleDateString()}`;
-            blogPost.appendChild(newTitle);
-            blogPost.appendChild(newAuthor);
-            blogPost.appendChild(newPublished);
-            blogPost.appendChild(newContent);
-            ul.appendChild(blogPost);
-        });
+       [...]
     })();
 </script>
 
