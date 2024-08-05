@@ -3,20 +3,31 @@
 eQual comes with an object-relational mapper (ORM) that greatly eases the interactions with the database by handling the
 data conversions, classes inheritance and objects relations.
 
-The ObjectManager service is dedicated to Object-Relational Mapping. It handles all tasks that relate to objects search
+The ORM service is dedicated to low-level operations on entities (Object-Relational Mapping).  It handles all tasks that relate to objects search
 and manipulations and offers an abstract layer for DBMS queries.
 
-The ORM can be used in order to :
+It primarily allows for searching, retrieving, and modifying lists of objects (Model).
+Operations performed by the ORM are not subject to constraints related to application logic consistency, user permissions, event handling, field calculation, or entity relationship consistency.
+
+All checks (permissions, workflow, data validation, etc.) are exclusively handled via Collections.
+
+Controllers mostly require high-level manipulations (including data conversion, validation and permission checks) and
+therefore use [Collections](collections.md).
+
+However, direct use of the ORM in controllers (or entity event handlers) is permitted (as is the use of the DbManipulator service), but it should be done with caution as it poses a potential security risk. Additionally, controllers that inject the ORM service generate a warning during package integrity checks.
+
+Furthermore, there are no logs at this level and no user concept (if fields do not contain a creator/modifier, it is assumed to be the super-user).
+
+
+
+
+The ORM implements methods allowing to :
 
 - **create**, **update** or **delete** one or more objects (based on the ID field)
 - **retrieve** a single entity or a list of entities (both based on the ID field)
 - **retrieve** a list of IDs of entities that match some criteria
 
-ObjectManager methods are for low-level manipulations (no data conversion nor validation, and no user permission check
-at this level). These are mostly used in methods of classes definition.
 
-Controllers mostly require high-level manipulations (including data conversion, validation and permission checks) and
-therefore use Collections returned by class autoloader.
 
 ## Object Definition
 
@@ -150,8 +161,7 @@ Fetches specified field values for the selected objects.
 
 ```php
 <?php
-mixed read( string $class [, int[] $ids=null, string[] $fields=null, 
-string $lang=DEFAULT_LANG] )
+mixed read( string $class [, int[] $ids=null, string[] $fields=null, string $lang=DEFAULT_LANG] )
 ```
 
 #### Parameters
@@ -180,8 +190,7 @@ that saving non-multilang fields in a non-default language will result in a loss
 
 ```php
 <?php
-mixed update( string $object_class, int[] $ids [, array[] $values=null, 
-string $lang=DEFAULT_LANG, boolean $create=false] )
+mixed update( string $object_class, int[] $ids [, array[] $values=null, string $lang=DEFAULT_LANG, boolean $create=false] )
 ```
 
 #### Parameters
@@ -231,8 +240,7 @@ Search for objects matching the domain criteria.
 
 ```php
 <?php
-mixed search( string $class [, array $domain=null, string $order='id', string 
-$sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG] )
+mixed search( string $class, array $domain=null, string $order='id', string $sort='asc', string $start='0', string $limit='0', string $lang=DEFAULT_LANG)
 ```
 
 #### Parameters
@@ -260,8 +268,7 @@ Checks whether the values of a given object fields are consistent with the relat
 
 ```php
 <?php
-mixed validate(string $class, int[] $ids, array[] $values, 
-boolean $check_unique=false, boolean $check_required=false)
+mixed validate(string $class, int[] $ids, array[] $values, boolean $check_unique=false, boolean $check_required=false)
 ```
 
 #### Parameters

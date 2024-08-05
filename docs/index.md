@@ -5,7 +5,7 @@
 eQual is a versatile, language-agnostic, and web-oriented framework, aiming to elegantly manage interactions between front-end Apps and Business Logic involved in modern Web Applications.
 
 **Natively Secure**  
-eQual offers native HTTP Auth support (JWT, CORS) to secure every endpoint, along with various Access Control strategies (ACL, RBAC, ABAC, PBAC).
+eQual offers native HTTP Auth support (JWT, CORS) to secure every endpoint, along with various Access Control strategies (ACL, RBAC, ReBAC, ABAC, PBAC).
 
 **Server-Side Scripting**  
 eQual allows to implement custom logic on any route endpoint, for quick creation of controllers and micro-services.

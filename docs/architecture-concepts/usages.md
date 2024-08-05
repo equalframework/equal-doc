@@ -8,43 +8,80 @@ Values are associated with specific types and usages, with constraints and adapt
 
 Entities are defined by inheriting from a base class called `Model`. This base class structures the data into various fields (`Field`).
 
-## Fields and Usages
+## Fields : Type, Content-Type & Usage
 
-Each field is associated with a type and a usage:
+Each type is associated with a generic content type, which allows both finding an equivalent in all languages and contexts, and associating a signature (schema) ensuring adequate storage and compatibility of data conversions between different languages.
+
+Usages are extensions of content types, allowing for increased precision in storage allocation, and also enable automatic association of formats, syntaxes, validation constraints, and rendering modes according to contexts.  
+
 - **Types**: The types handled by the ORM are limited to scalar and relational types such as `string`, `boolean`, `integer`, `float`, `date`, `datetime`, `time`, `binary`, `array`, `many2one`, `one2many`, `many2many`.
 - **Content-Types**: Each type is linked to a specific content-type, as shown in the provided equivalence (e.g., `boolean` is associated with `number/boolean`).
 - **Usages**: A usage is an extension of the content-type that includes additional information and constraints, such as size or specific standards (e.g., `number/integer:9` for integers with a maximum size of 9 digits).
 
 
+### Examples 
+
+**Native PHP type: "double"**
+
+| SQL Adapter                                           | Content-Type | Conversion Type                    |
+| ----------------------------------------------------- | ------------ | ---------------------------------- |
+| equal\data\adapt\adapters\sql\DataAdapterSqlRealMySql | number/real  | DECIMAL(integer_part,decimal_part) |
+| equal\data\adapt\adapters\sql\DataAdapterSqlSqlSrv    | number/real  | float(24)                          |
+
+**Native PHP type: "bool"**
+
+| SQL Adapter                                           | Content-Type   | Conversion Type |
+| ----------------------------------------------------- | -------------- | --------------- |
+| equal\data\adapt\adapters\sql\DataAdapterSqlRealMySql | number/boolean | TINYINT         |
+| equal\data\adapt\adapters\sql\DataAdapterSqlSqlSrv    | number/boolean | BOOLEAN         |
+
+
+**Usages, Syntaxes & Formats Examples**
+
+| Usage                      | Syntax                         | Example                |
+| -------------------------- | ------------------------------ | ---------------------- |
+| ISBN                       | urn/isbn.10                    | urn/isbn.10            |
+| Integer with Size          | number[size]/integer:precision | number[3]/integer:2    |
+| Language (ISO 639)         | language/iso-639:length        | language/iso-639:3     |
+| Real Number with Precision | number/real:precision.scale    | number/real:5.2        |
+| Date with Weekday          | date/weekday.mon:format        | date/weekday.mon:short |
+
+
 ### Types equivalence with Content-Types:
 
-- `boolean`   : `number/boolean`
-- `integer`   : `number/integer`
-- `float`     : `number/real`
-- `string`    : `text/plain`
-- `date`      : `date/plain`
-- `datetime`  : `date/datetime`
-- `time`      : `time/plain`
-- `binary`    : `binary/plain`
-- `many2one`  : `number/natural`
-- `one2many`  : `array`
-- `many2many` : `array`
-- `array`     : `array`
+| Type      | Content-Type   |
+| --------- | -------------- |
+| boolean   | number/boolean |
+| integer   | number/integer |
+| float     | number/real    |
+| string    | text/plain     |
+| date      | date/plain     |
+| datetime  | date/datetime  |
+| time      | time/plain     |
+| binary    | binary/plain   |
+| many2one  | number/natural |
+| one2many  | array          |
+| many2many | array          |
+| array     | array          |
 
 ### Type equivalence with Usages:
 
-- `boolean`   : `number/boolean`
-- `integer`   : `number/integer:9`
-- `float`     : `number/real:10.2`
-- `string`    : `text/plain:255`
-- `date`      : `date/plain`
-- `datetime`  : `date/time`
-- `time`      : `time/plain`
-- `binary`    : `binary/plain:64000000`
-- `many2one`  : `number/integer:9`
-- `one2many`  : `array`
-- `many2many` : `array`
-- `array`     : `array`
+### Content Types et Formats
+
+| Type      | Content Type               |
+|-----------|----------------------------|
+| boolean   | number/boolean             |
+| integer   | number/integer:9           |
+| float     | number/real:10.2           |
+| string    | text/plain:255             |
+| date      | date/plain                 |
+| datetime  | date/time                  |
+| time      | time/plain                 |
+| binary    | binary/plain:64000000      |
+| many2one  | number/integer:9           |
+| one2many  | array                      |
+| many2many | array                      |
+| array     | array                      |
 
 ### Constraints and Data Validation
 
