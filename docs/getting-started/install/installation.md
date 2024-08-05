@@ -28,15 +28,11 @@ $ wget https://raw.githubusercontent.com/equalframework/equal/master/.docker/doc
 ```
 
 And instantiate the stack by using the following command :  
-Under Linux:
-```bash
-$ docker-compose up -d
-```
-Under Windows:
 
 ```bash
 $ docker compose up -d
 ```
+
 
 
 !!! note "Using the Docker image"
@@ -326,3 +322,12 @@ Note: The body request may be empty, but it is preferable to specify a name for 
 []
 ```
 
+## 4. More
+
+### CLI autocomplete
+eQual comes with a command line autocompletion, made to ease commands typing in CLI
+
+To enable it, simply run 
+```
+source autocomplete
+```
