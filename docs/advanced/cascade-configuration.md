@@ -1,6 +1,14 @@
 ## Config
 
+eQual is a highly flexible, variable-geometry framework, designed to be used in a wide variety of contexts.
+
+
+
+A lot of features can be controlled using the main configuration file for setting parameters, that are handled as constants.
+
 The config constants are present globally inside the `config/config.json` file. 
+
+
 
 Some constants can be overridden in optional package specific config files.
 
@@ -11,6 +19,8 @@ Every overridden constant is limited to the package it belongs to.
 If they are used by a controller, they must be listed by it. If there is an error, the system displays `Error 500`.
 
 The constants are checked by the announce() function inside `eq.lib.php`.
+
+
 
 The constants that can be overridden inside the `config/config.json` file, @See [Getting-started](../getting-started/configuration.md).
 
