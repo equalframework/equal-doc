@@ -114,7 +114,7 @@ nav:
      - 'External libraries': 'advanced/external-libraries.md'
      - 'CI/CD': 'advanced/ci-cd.md'
      - 'Code Coverage': 'advanced/code-coverage.md'
-     - 'PHP Versions compatibility': 'php-versions-compatibility'
+     - 'PHP Versions compatibility': 'advanced/php-versions-compatibility'
   - 'Low-Code & tools':
      - 'Low-Code' : 'low-code/low-code.md'
      - 'Pipelines' : 'low-code/pipelines.md'
