@@ -1,6 +1,6 @@
 # Testing
 
-Before anything, please check your package consistency :
+Before running tests, remind to check targeted package consistency:
 
 |**PATH**|`core\actions\test\package-consistency.php`|
 | --------------- | ------------------------------------------------------------ |
@@ -176,6 +176,20 @@ There is 2 additional parameters (they have to fit right between 'expected' and 
 **Important :** Keep in mind that 'arrange' doesn't trigger if the test fails or doesn't match with the 'expected' field
 
 
+#### Passing values
+The recommended way to pass values across methods  is to structure the data to be passed via an associative array (map), and destructure it into variables upon reception:
+
+Example:  
+```php
+'arrange' => function () {
+    return ['a' => $a, 'b' => $b];
+},
+
+'act' => function ($data) {
+    ['a' => $a, 'b' => $b] = $data;
+}
+```
+
 
 ### Syntax details
 
@@ -237,3 +251,8 @@ Cascading logic :
 
 '$success = false' is the equivalent of '$status = ko'
 
+
+
+```php
+
+```

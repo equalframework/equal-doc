@@ -160,6 +160,8 @@ will be stored as `VARCHAR(20)`.
 
 #### text
 
+@deprecated : use "string" with a "usage" set to "text/plain" (which default to a length of 65.000)
+
 By default, texts are stored in DMBS as `text`.
 
 The TEXT data type has a size of string characters upto 65,535 bytes to manage classic long-form contents of the text.
@@ -250,20 +252,29 @@ M-N relation
 
 #### computed
 
+Computed fields can be either computed synchronously when the field is requested, or on might are not stored in the DB, unless .
 
-* result_type : select ('boolean', 'integer', 'float', 'string', 'text', 'html' )
-*  function: string holding name of a callable method
-* store : boolean
+The latter is necessary in order to be able to create domains that use it. In that case, an additional attribute  `store` must be set to true.
 
-Computed fields are not stored in the DB, unless the `store` attribute is set to true.
+To compute the resulting value,  this type comes with 2 possible attributes : 
 
-To get it,  we use the 'function' key, that will point at any function.
+* 'function' : either a string to a callable or a closure (ex. `function () { return time(); }`)
+* 'relation': an associative array describing the path to the resulting value (ex. `[ 'sale_entry_id' => 'vat_rate']`)
 
  It will return a processed value and afterwards, it can be stored inside the DB.
 
-> Most of the time the use of the store attribute requires that field(s) on which depends the computed value, has an onchange event, triggering the update of the calculated field (see example). 
+> Most of the time the use of the store attribute requires that field(s) on which depends the computed value, has an onchange event, triggering the upd**ate of the calculated field (see example).** 
 
-When trying to load a computed field, 
+
+
+**Recap** 
+
+* type: 'computed'
+* result_type : any ORM supported type (i.e. : 'boolean', 'integer', 'float', 'string', 'many2one', 'many2many', 'one2many')
+* 'function' | 'relation'
+* store : boolean
+
+When trying to load a computed field:
 
   * if 'store' is not defined or set to false, it computes the value using the provided method each time the field value is requested
   * if 'store' is set to true and the field isn't in the DB (NULL), it computes the value using the provided method
@@ -290,18 +301,18 @@ public static function onupdateRights($om, $ids, $values, $lang) {
     $om->update(__CLASS__, $oids, ['rights_txt' => null, $lang);
 }
 
-public static function calcRightsTxt($om, $ids, $lang) {
-    $res = array();
-    $values = $om->read('core\Permission', $ids, array('rights'), $lang);
-    foreach($ids as $oid) {
-        $rights_txt = array();
-        $rights = $values[$oid]['rights'];
+public static function calcRightsTxt($self) {
+    $res = [];
+    $values = $self->read('rights');
+    foreach($values as $id => $value) {
+        $rights_txt = [];
+        $rights = $value['rights'];
         if($rights & EQ_R_CREATE)   $rights_txt[] = 'create';
         if($rights & EQ_R_READ)     $rights_txt[] = 'read';
         if($rights & EQ_R_WRITE)    $rights_txt[] = 'write';
         if($rights & EQ_R_DELETE)   $rights_txt[] = 'delete';
         if($rights & EQ_R_MANAGE)   $rights_txt[] = 'manage';
-        $res[$oid] = implode(', ', $rights_txt);
+        $res[$id] = implode(', ', $rights_txt);
     }
     return $res;
 }

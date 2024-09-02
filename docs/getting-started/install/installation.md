@@ -123,12 +123,8 @@ If you are under a docker environment, replace the DB_HOST value with `equal_db`
 !!! note "DB_CHARSET"  
     If there are issues with the charset, it may be because UTF8 is an alias of utf8mb3 in mysql 8.0 (utf8/utf8mb3 can only store a maximum of three bytes and is deprecated. if you wish to store language characters and symbols, consider using utf8mb4).
 
-#### Front-end config 
-
-Make sure to have a valid front-end configuration 
-`./public/_assets/env/config.json`
-
-`backend_url` & `rest_api_url` are particularly important to avoid CORS errors.
+!!! note "Front-end config"
+    Make sure to set `backend_url` & `rest_api_url` according to your environment (virtual host), to avoid CORS errors.
 
 #### Database initialization
 

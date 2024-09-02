@@ -216,7 +216,5 @@ Note: eQual uses binary masks for granting rights.
 
 
 
-## More learning ressources
 
-See [*Usage*](../usage/directory-structure.md) and [*Howtos*](../howtos-and-examples/generic-cheat-sheet.md)
 
