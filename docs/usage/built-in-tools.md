@@ -72,6 +72,23 @@ This page lists an inventory of available scripts, grouped by category.
 
 
 
+#### `init_seed`
+| **PATH**        | `core\actions\init\seed.php`                                                       |
+|-----------------|------------------------------------------------------------------------------------|
+| **URL**         | `?do=init_seed&package=core`                                                       |
+| **CLI**         | `$ ./equal.run --do=init_seed --package=core`                                      |
+| **DESCRIPTION** | Seed objects for package using json configuration files in "{package}/init/seed/". |
+
+
+
+#### `init_anonymize`
+| **PATH**        | `core\actions\init\anonymize.php`                                                |
+|-----------------|----------------------------------------------------------------------------------|
+| **URL**         | `?do=init_anonymized&package=core`                                               |
+| **CLI**         | `$ ./equal.run --do=init_anonymized --package=core`                              |
+| **DESCRIPTION** | Anonymize objects using json configuration files in "{package}/init/anonymize/". |
+
+
 
 #### `package-consistency`
 
@@ -144,6 +161,25 @@ This page lists an inventory of available scripts, grouped by category.
 
 
 
+#### `model_generate`
+
+| **PATH**        | `core\actions\model\generate.php`                                             |
+|-----------------|-------------------------------------------------------------------------------|
+| **URL**         | `?do=model_generate&entity=core\Group&fields[name]=Admin`                     |
+| **CLI**         | `$ ./equal.run --do=model_generate --entity=core\\Group --fields[name]=Admin` |
+| **DESCRIPTION** | Generate a new object with random data and given values.                      |
+
+
+
+#### `model_anonymize`
+
+| **PATH**        | `core\actions\model\anonymize.php`                                                                 |
+|-----------------|----------------------------------------------------------------------------------------------------|
+| **URL**         | `?do=model_anonymize&entity=core\Group&fields[name]=Group1&domain=[id,=,15]`                       |
+| **CLI**         | `$ ./equal.run --do=model_anonymize --entity=core\\Group --fields[name]=Group1 --domain=[id,=,15]` |
+| **DESCRIPTION** | Anonymize an existing object with random data and given values.                                    |
+
+
 
 #### `model_update`
 
@@ -152,7 +188,6 @@ This page lists an inventory of available scripts, grouped by category.
 |**URL**|`?do=model_update&entity=core\Group&id=45&fields[name]=Worker`|
 |**CLI**|`$ ./equal.run --get=model_view --entity=core\\User --id=45 --fields[name]=Worker`|
 |**DESCRIPTION**|Update (fully or partially) the given object.|
-
 
 
 

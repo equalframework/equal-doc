@@ -80,6 +80,14 @@ This controller runs some consistency checks and works with any package:
 | **CLI**         | `$ ./equal.run --do=init_package --package=myPackage --import=true`                     |
 | **DESCRIPTION** | Initialise database for given package. If no package is given, initialize core package. |
 
+#### Seed data for your package
+
+| **PATH**        | `core\actions\init\seed.php`                                                       |
+|-----------------|------------------------------------------------------------------------------------|
+| **URL**         | `?do=init_seed&package=myPackage`                                                  |
+| **CLI**         | `$ ./equal.run --do=init_package --package=myPackage`                              |
+| **DESCRIPTION** | Seed objects for package using json configuration files in "{package}/init/seed/". |
+
 #### Run package test unit
 
 | **PATH**        | `core\actions\test\package.php`                                                                                                       |
