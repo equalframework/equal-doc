@@ -1,12 +1,8 @@
 # Seeding
 
-eQual comes with a handy automatic data population mechanism called seeding.
+eQual comes with a handy automatic data population mechanism called seeding. 
 
-Seeding allows for the automatic generation of objects.
-
-This is especially useful during development, as it enables developers and testers to work with consistent datasets.
-
-Seeding ensures that generated values are consistent with the field descriptors, as defined in the related `getColumns()` method.
+Seeding allows for the automatic generation of objects. This feature is especially useful during development, as it enables developers and testers to work with consistent datasets. In addition, seeding ensures that generated values are consistent with the field descriptors, as defined in the related `getColumns()` method.
 
 
 ## Init seed
