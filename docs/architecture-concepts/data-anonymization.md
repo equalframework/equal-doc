@@ -27,7 +27,7 @@ At the level of field descriptors, as defined in `getColumns()`, certain specifi
 
 * **sensitive**: When set to `true`, the field is always anonymized (even if not listed among the fields).
 
-* **generate**: Specifies how the field's values should be generated when it is anonymized. Must refer to a static method of the targeted entity (without parameters).
+* **generation**: Specifies how the field's values should be generated when it is anonymized. Must refer to a static method of the targeted entity (without parameters).
 
 A Model field can be anonymized automatically (without having to specify it in the `fields` option) by setting its sensitive option to true. 
 

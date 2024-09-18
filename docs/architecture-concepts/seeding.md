@@ -108,3 +108,8 @@ $ ./equal.run --do=model_generate --entity='core\User' --qty=5
 | **fields**          | Associative array mapping fields to their related values.    |
 | **set_object_data** | Maps fields from the created object to be used later in relationships domain. |
 | **relations**       | Relational fields descriptor, telling how to handle the object relations (many2one, one2many and many2many). |
+
+
+
+!!! note "generation attribute"
+    In the entity schema, described with `getColumns()` method, the `generation` attribute allows to specifies how the field's values should be generated. This attribute must refer to a static method of the targeted entity (with no arguments).

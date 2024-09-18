@@ -77,7 +77,7 @@ nav:
       - 'Usages': 'architecture-concepts/usages.md'
       - 'Authorization': 'architecture-concepts/authorization.md'
       - 'Seeding': 'architecture-concepts/seeding.md'
-      - 'Data anonymization': 'architecture-concepts/data-anonymization.md'
+      - 'Anonymization': 'architecture-concepts/data-anonymization.md'
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
      - 'Packages': 'usage/packages.md'
