@@ -1,5 +1,6 @@
 # Contributing to eQual
 
+[//]: # (TODO: UPDATE THE LINK TO THE SOURCE FILE)
 > [!NOTE]
 > To update this file, please refer to [source file](https://github.com/yesbabylon/doc/blob/main/eQual-framework-contributing.md)
 
