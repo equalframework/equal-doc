@@ -78,6 +78,7 @@ nav:
       - 'Authorization': 'architecture-concepts/authorization.md'
       - 'Seeding': 'architecture-concepts/seeding.md'
       - 'Anonymization': 'architecture-concepts/data-anonymization.md'
+      - 'Model factory': 'architecture-concepts/model-factory.md'
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
      - 'Packages': 'usage/packages.md'
