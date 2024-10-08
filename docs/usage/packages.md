@@ -107,6 +107,24 @@ Each package has a manifest file (`manifest.json`) containing information about 
 }
 ```
 
+#### `requires` property
+
+eQual is versionned so that there is a specific PHP version expected as "standard" environement (e.g. equal 1.0 = PHP 7.4, equal 2.0 = PHP 8.3).
+
+In the `manifest.json` file of a package, dependencies are specified in the "requires" property.
+
+When dependency constraints vary between different PHP versions, by convention, a `requires_` property is added in the manifest.
+
+Example:
+
+```json
+"requires_php8.3": {
+
+}
+```
+
+This notation is not taken into account during the package initialization nor Composer, but serves as a reminder for specific dependencies in cases where installation is performed in a non-standard environment.
+
 #### `apps` property
 The `apps`  property might either contain strings or descriptor objects.  The `app` application, defined in the core package,  can act as surrogate for creating custom Apps using all standard features without having to write additional Angular components. In such case, the descriptor is expected to be a full descriptor of the app, similar to the ones used in the manifest of Apps.
 
