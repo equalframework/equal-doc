@@ -160,11 +160,9 @@ will be stored as `VARCHAR(20)`.
 
 #### text
 
-@deprecated : use "string" with a "usage" set to "text/plain" (which default to a length of 65.000)
+**@deprecated** : use "string" with a "usage" set to "text/plain" (which default to a length of 65.000).
 
-By default, texts are stored in DMBS as `text`.
-
-The TEXT data type has a size of string characters upto 65,535 bytes to manage classic long-form contents of the text.
+By default, texts are stored in DMBS as `TEXT`. The TEXT data type has a size of string characters upto 65,535 bytes to manage classic long-form contents of the text.
 
 
 #### binary
