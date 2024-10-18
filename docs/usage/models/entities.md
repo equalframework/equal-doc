@@ -267,6 +267,9 @@ To compute the resulting value,  this type comes with 2 possible attributes :
 
 
 
+!!! note "Within 'function' callbacks"
+    Although it is possible, within a computed field callback, you should never call `update()` on a collection involving the current entity (`self`) since this would result in marking the object as an instance, even if it is still a draft (field `state`).
+
 **Recap** 
 
 * type: 'computed'
