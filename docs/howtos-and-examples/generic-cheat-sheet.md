@@ -2,7 +2,15 @@
 
 This section presents common questions along with some relevant examples.
 
+
+
 ## eQual Apps
+
+### Dashboard
+
+```
+http://equal.local/apps
+```
 
 ### Console
 
@@ -15,6 +23,8 @@ http://equal.local/console.php
 ```
 http://equal.local/workbench
 ```
+
+
 
 ## CLI commands
 
@@ -48,9 +58,9 @@ This controller runs some consistency checks and works with any package:
 
 > The level property has 3 options :
 >
-> - **'error'** (
+> - **'error'** 
     ex: `missing property 'entity' in file:  "packages\/lodging\/views\/sale\booking\InvoiceLine.form.default.json"`)
-> - **'warn'** (
+> - **'warn'** 
     ex: `WARN - I18 - Unknown field 'object_class' referenced in file "packages\/core\/i18n\/en\/alert\MessageModel.json"`
 > - **\*** (error & warn).
 
@@ -116,6 +126,8 @@ This controller runs some consistency checks and works with any package:
 | **CLI**  | `$ ./equal.run --do=model_update --entity=mypackage\MyObject --fields=[ids]=1 --fields=[name]=example` |
 | **PHP**  | ```run('do', 'mypackage_myobject_action', [/* parameters */])```                                       |
 
+
+
 ## Howtos
 
 ### How to create a new object?
@@ -124,9 +136,9 @@ This controller runs some consistency checks and works with any package:
 <?php
 use core\User;
 
-User::create(['firstname'=>'Bart']);
+User::create(['firstname' => 'Bart']);
 // which is equivalent to
-User::create()->update(['firstname'=>'Bart']);
+User::create()->update(['firstname' => 'Bart']);
 ```
 
 > Note: When creating an object, by default, the `state` fields is assigned to 'instance', unless another value is given
@@ -136,8 +148,11 @@ User::create()->update(['firstname'=>'Bart']);
 
 ```php
 <?php
-// count the number of items returned by the search method
-if(count(search($object_class, array(array(array('id', '=', $object_id)))))) {...}
+use core\User;
+
+if(count(User::search(['firstname', '=', 'Bart'])->ids()) {...}
+// or, if you know the object id
+if(User::id(123)->first()) {...}
 ```
 
 ### How to browse all objects of a given class?
@@ -153,8 +168,9 @@ $res = browse($object_class, search($object_class));
 ```php
 <?php
 // example: add the (deleted = 1) clause to every condition
-for($i = 0, $j = count($domain); $i < $j; ++$i)
+for($i = 0, $j = count($domain); $i < $j; ++$i) {
 	$domain[$i] = array_merge($domain[$i], array(array('deleted', '=', '1')));
+}
 ```
 
 ### How to obtain output (json/html) from another script ?

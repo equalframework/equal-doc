@@ -118,6 +118,7 @@ nav:
      - 'CI/CD': 'advanced/ci-cd.md'
      - 'Code Coverage': 'advanced/code-coverage.md'
      - 'PHP Versions compatibility': 'advanced/php-versions-compatibility'
+     - 'Handling Complex cases': 'advanced/complex-cases'
   - 'Low-Code & tools':
      - 'Low-Code' : 'low-code/low-code.md'
      - 'Pipelines' : 'low-code/pipelines.md'
