@@ -2,7 +2,7 @@
 
 Collections are widely used throughout the framework: they ease manipulations of entities (objects) and allow to execute a same operation on several objects in a single call.
 
-In eQual, a collection is a series of partial objects (the ORM loads only requested fields) on which one or more [CRUD operations](../usage/crud.md) can be applied.
+In eQual, a collection is a series of partial objects (the ORM loads only requested fields) on which one or more [CRUD operations](orm.md) can be applied.
 
 Using collections allows method chaining which makes code in controllers shorter and easier to read.
 

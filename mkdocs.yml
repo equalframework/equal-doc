@@ -87,7 +87,7 @@ nav:
         - 'Actions': 'usage/models/actions.md'
         - 'Workflows': 'usage/models/workflows.md'
      - 'Controllers': 'usage/controllers.md'
-     - 'CRUD': 'usage/crud.md'
+     - 'CLI': 'usage/cli.md'
      - 'Searching': 'usage/searching.md'
      - 'Validation': 'usage/validation.md'
      - 'Routing': 'usage/routing.md'

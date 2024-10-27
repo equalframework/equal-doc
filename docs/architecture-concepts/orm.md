@@ -126,6 +126,86 @@ When a class inherits from another, objects instantiated from this class will co
 
 All model classes inherit from the class `equal\orm\Model`.
 
+### Management of Relationships
+
+The ORM automatically manages relationships between entities, with dynamic support for overrides, avoiding the need to manually redefine relational fields.
+
+#### Dynamic Entity Creation
+
+When **eQual** encounters a request for an entity that does not yet exist, but whose namespace corresponds to a parent entity, the framework dynamically generates an empty entity that extends this parent entity. This ensures that relationships between entities remain consistent, even without explicitly overriding the fields. The framework follows a standard naming convention by automatically subclassing entities under the schema `my\package\name\space\Class`.
+
+##### Direct Relationships
+
+In a direct relationship between two entities, as in the example below:
+
+```php
+A {
+  b: rel_B
+}
+
+B {
+  a: rel_A
+}
+
+my\A extends A {
+  
+}
+
+my\B extends B {
+  
+}
+```
+
+When an entity **my\A** requests the property **b**, the framework automatically returns an object of class **my\B**.
+
+##### Indirect Relationships
+
+In the case of indirect relationships, where an intermediate entity links two other entities, as in the following example:
+
+```php
+A {
+  c: rel_C
+}
+
+B {
+}
+
+C {
+  b: rel_B
+}
+
+my\B extends B {
+  other: any
+}
+
+my\C extends C {
+}
+
+my\A extends A {
+}
+```
+
+When the relationship **c.b** is requested from the entity **my\A**, the ORM will return an object of class **my\B**, allowing access to the additional field `other` defined in class **my\B**.
+
+#### Namespace Handling in Relationships
+
+When processing relational fields, the ORM automatically checks the namespace of the related entities. If part of the namespace does not directly match the package of the processed entity but refers to an existing package, the framework prefixes the current processing package to the namespace. This ensures that custom entities are used when necessary.
+
+#### Resolution of Parent Entities
+
+If a custom entity does not exist in a given namespace, the ORM falls back to the parent entity. This ensures the consistency of the relational schema and prevents inconsistencies when extended entities are involved.
+
+#### Advantages
+
+- **Transparent entity overriding**: It is not necessary to manually override entities to maintain relationship consistency. 
+- **Relational consistency**: Dynamically generated entities retain correct relationships with their parent entities, ensuring access to all properties and methods, even in complex relationships.
+- **Simplicity in view overriding**: Views can be overridden without requiring entity rewriting, facilitating changes in user interfaces and data relationships.
+
+#### Constraints to Observe
+
+- **Naming conventions**: Entity overrides must follow the framework's naming convention, such as `package\name\space\Class` and `my\package\name\space\Class`.
+- **Namespace collisions**: There can be no namespace collisions; if the second part of a class's namespace matches a package name, then this class **must** be inherited from a parent class within that package.
+
 ### Object Storage Using ORM
 
 To store objects, the ORM utilizes a dedicated table in the database following the active record pattern. By convention, the name of the table for a given class is derived from the name of the first ancestor class that extends `equal\orm\Model`, with the full namespace converted to snake case. For example, objects of the class `realestate\RentalUnit` are stored in the "realestate_rentalunit" table.
@@ -153,6 +233,45 @@ Objects manipulations are made on selections of objects, described as an array o
 All methods can either return an array (in case of success), or an integer (in case of error, the integer is an error
 code).
 
+###   create
+
+#### Description
+
+```php
+<?php
+/**
+ * Creates a new instance of given class and, if given, assigns values to targeted fields.
+ *
+ * @param  string       $entity       Class of the object to create.
+ * @param  array        $fields       Associative array mapping each field to its assigned value.
+ * @param  string       $lang         Language in which to store multilang fields.
+ * @param  boolean      $use_draft    If set to false, disables the re-use of outdated drafts.
+ * @return integer      Identfier of the newly created object or, in case of error, the code of the error that was raised.
+ */
+function create($entity, $fields, $lang=null, $use_draft=true)
+```
+
+### search
+
+Retrieve identifiers of objects matching given criterias set (domain).
+
+#### Description
+```php
+<?php
+/**
+ * Searches for the objects that comply with the domain (series of criteria).
+ *
+ * @param   string     $class       Class of the objects to search for.
+ * @param   array      $domain      Domain (disjunction of conjunctions) defining the criteria the objects have to match.
+ * @param   array      $sort        Associative array mapping fields and orders on which result have to be sorted.
+ * @param   integer    $start       The offset at which to start the segment of the list of matching objects.
+ * @param   string     $limit       The maximum number of results/identifiers to return.
+ *
+ * @return  integer|array   Returns an array of matching objects ids.
+ */
+function search($class, $domain=null, $sort=['id' => 'asc'], $start='0', $limit='0', $lang=null)
+```
+
 ### read
 
 Fetches specified field values for the selected objects.
@@ -161,7 +280,16 @@ Fetches specified field values for the selected objects.
 
 ```php
 <?php
-mixed read( string $class [, int[] $ids=null, string[] $fields=null, string $lang=DEFAULT_LANG] )
+/**
+ * Reads a collection of objects from a given class, based on a list of identfiers.
+ *
+ * @param   string     $class       Class of the objects to retrieve.
+ * @param   mixed      $ids         Identifier(s) of the object(s) to retrieve (accepted types: array, integer, string).
+ * @param   mixed      $fields      Name(s) of the field(s) to retrieve (accepted types: array, string).
+ * @param   string     $lang        Language under which return fields values (only relevant for multilang fields).
+ * @return  int|array  Resulting associative array mapping ids with objects, or error identifier.
+ */
+function read($entity, $ids, $fields, $lang=null)
 ```
 
 #### Parameters
@@ -190,7 +318,16 @@ that saving non-multilang fields in a non-default language will result in a loss
 
 ```php
 <?php
-mixed update( string $object_class, int[] $ids [, array[] $values=null, string $lang=DEFAULT_LANG, boolean $create=false] )
+/** 
+ * Updates specified fields of seleced objects and stores changes into database.
+ *
+ * @param   string    $class        Class of the objects to write.
+ * @param   mixed     $ids          Identifier(s) of the object(s) to update (accepted types: array, integer, numeric string).
+ * @param   mixed     $fields       Array mapping fields names with the value (PHP) to which they must be set.
+ * @param   string    $lang         Language under which fields have to be stored (only relevant for multilang fields).
+ * @return  int|array Returns an array of updated ids, or an error identifier in case an error occured.
+*/
+function update($class, $ids, $fields, $lang=null)
 ```
 
 #### Parameters
@@ -216,7 +353,16 @@ Deletes an object permanently or puts it in the "trash bin" (i.e. setting the 'd
 
 ```php
 <?php
-mixed remove( string $class, array $ids [, boolean $permanent=false] )
+/**
+ * Deletes an object permanently or put it in the "trash bin" (i.e. setting the 'deleted' flag to 1).
+ *
+ * @param   string  $class          Class of the object to delete.
+ * @param   array   $ids            Array of ids of the objects to delete.
+ * @param   boolean $permanent      Flag for soft deleted (marked as deleted) or hard deletion (removed from DB).
+ *
+ * @return  integer|array   Returns a list of ids of deleted objects, or an error identifier in case an error occured.
+ */
+function delete($entity, $ids, $permanent=false)
 ```
 
 #### Parameters
