@@ -11,7 +11,8 @@ Here are the properties are specific to views.
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
 | ------------ | ---- | ------------------------------------------------------------ |
 | selection | [Selection](#selection) | Action that applies on item selection (*this property is intended for list views only*). |
-| visible      | `boolean` or `array`>`domain`                  | |
+| actions |                         | Map allowing to disable specific actions for the view. |
+| selection |                   | Descriptor for the actions that can be applied when one or more items are selected in the list. |
 | advanced_search | `boolean` or descriptor |  |
 
 
@@ -36,7 +37,7 @@ a. Prevent selecting items within the list:
 }
 ```
 
-b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a custom action :
+b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a custom action :	
 
 ```json
 "header": {
@@ -103,6 +104,29 @@ The optional **controller**  property specifies the controller that must be requ
 
 The default values is `model_collect` (which is an alias for `core_model_collect`)
 
+## filters
+
+It is possible to pre-define "custom" filters, which will be displayed among the list of user-defined custom filters. These pre-defined filters provide preset filtering options that complement the user's own configurations.
+
+Example :
+```
+    "filters": [
+        {
+            "id": "lang.french",
+            "label": "français",
+            "description": "Users with locale set to french.",
+            "clause": ["language", "=", "fr"]
+        }
+    ],
+```
+
+
+
+!!! Note "clause or dommain"
+    Both "clause" and "domain" are allowed to describe a filter
+
+
+
 ## group_by
 
 A `group_by` array can be set to describe the way the objects have to be grouped.
@@ -116,21 +140,21 @@ Example :
 "group_by": ["date"]
 ```
 
-The operations items have the following structure :
+The group_by descriptors use the structure shown in the following example:
 
 ```json
-{
+"group_by":[ {
     "open": true,
     "field": "product_id",
     "operation": ["SUM", "object.qty"],
     "order": "name"
-}
+}]
 ```
 
 Another example :
 
 ```json
-"group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"]}]
+"group_by": ["date", {"field": "product_id", "operation": ["SUM", "object.qty"], "open": false}]
 ```
 
 
