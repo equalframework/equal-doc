@@ -116,6 +116,51 @@ public static function defaultUserId($self, $auth) {
 
 In this example, the default value for the `user_id` field is dynamically obtained from the `defaultUserId` method, which utilizes the current authentication service to fetch the user ID.
 
+##### Settings
+
+Default values for fields can be dynamically defined using a Setting value.
+This mechanism allows eQual to retrieve default values directly from the settings stored in the database.
+To enable this functionality, configure the field's `default` value as *`defaultFromSetting`*.
+
+If the corresponding Setting is not found in the database, the `setting_default` value will act as a fallback.
+
+Example of using a setting:
+
+```php
+<?php
+[...]
+
+'printer_type' => [
+    'type'            => 'string',
+    'selection'       => [
+        'pos-80',
+        'iso-a4'
+    ],
+    'description'     => 'Printer format to be used for Point Of Sale tickets.',
+    'default'         => 'defaultFromSetting',
+    'setting_default' => 'iso-a4'
+]
+
+```
+
+For eQual to be able to find the Setting, it must be part of the *default* `SettingSection` and follow a naming convention for the `Setting` code field.
+ 
+In the table above are the Setting values for the field `printer_type` of the class `identity\CenterOffice`:
+
+| Field   | Value                      |
+|---------|----------------------------|
+| package | identity                   |
+| section | default                    |
+| code    | center_office.printer_type |
+
+The code is composed of:
+  - the namespace (without the package) in snake case and dotted instead of slashed (e.g. `core\alert\MessageModel` becomes `alert.message_model`)
+  - the field name prefixed by a dot
+
+In that case, if the Setting `identity.default.center_office.printer_type` does not exist, `iso-a4` will be used as default.
+
+This approach provides greater flexibility in assigning default values to fields, allowing adjustments to be made dynamically via database settings without requiring code changes.
+This eliminates the need for redeployment or manual code modifications when default values need to be updated, streamlining maintenance and enhancing adaptability.
 
 ## Classes inheritance 
 
