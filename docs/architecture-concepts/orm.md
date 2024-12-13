@@ -144,7 +144,7 @@ Example of using a setting:
 ```
 
 For eQual to be able to find the Setting, it must be part of the *default* `SettingSection` and follow a naming convention for the `Setting` code field.
- 
+
 In the table above are the Setting values for the field `printer_type` of the class `identity\CenterOffice`:
 
 | Field   | Value                      |
@@ -356,8 +356,7 @@ Returns an integer (error code) if an error occurred.
 Sets new values for one or more object instances.
 
 !!! note "multilang fields"
-    While saving in a specific language, no test is done to check that specified fields are defined as multilang (it means
-that saving non-multilang fields in a non-default language will result in a loss of data).
+    While saving in a specific language, no test is done to check that specified fields are defined as multilang (it means that saving non-multilang fields in a non-default language will result in a loss of data).
 
 #### Description
 
@@ -392,7 +391,8 @@ Returns an integer (error code) if an error occurred.
 
 ### delete
 
-Deletes an object permanently or puts it in the "trash bin" (i.e. setting the 'deleted' flag to 1).
+Deletes a series of object.
+A flag allows to chose to permanently delete them, or to put them it in the "trash bin" (in the latter case, the object is not removed from the store, but marked as 'deleted').
 
 #### description
 

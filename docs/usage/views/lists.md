@@ -10,9 +10,8 @@ Here are the properties are specific to views.
 
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
 | ------------ | ---- | ------------------------------------------------------------ |
-| selection | [Selection](#selection) | Action that applies on item selection (*this property is intended for list views only*). |
+| selection | [Selection](#selection) | Descriptor for the actions that can be applied when one or more items are selected in the list. |
 | actions |                         | Map allowing to disable specific actions for the view. |
-| selection |                   | Descriptor for the actions that can be applied when one or more items are selected in the list. |
 | advanced_search | `boolean` or descriptor |  |
 
 
@@ -24,12 +23,11 @@ The `selection` property allows to customize the list of bulk actions that are a
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ----- |
 | **default**  | `boolean` | (optional) Flag telling if the default actions have to be present in the available action to apply on current selection. (defaults to true) |
-| **actions**  | list of [Action](#action) |(optional) An array of action items that can be applied on current selection. |
+| **actions**  | array of [Action](#action) |(optional) An array of action items that can be applied on current selection. |
 
+**Examples :**
 
-Examples :
-
-a. Prevent selecting items within the list:
+**a. Prevent selecting items within the list:**
 
 ```json
 "header": {
@@ -37,13 +35,10 @@ a. Prevent selecting items within the list:
 }
 ```
 
-b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a custom action :	
+**b. Allow custom filters, disable quick search, and  allow only `ACTION.CLONE` and a custom action :**
 
 ```json
 "header": {
-    "actions": {
-        "ACTION.CREATE" : false
-    },
     "filters": {
         "custom": true,
         "quicksearch": false
@@ -52,26 +47,39 @@ b. Hide default actions for the selection, allow only `ACTION.CLONE`, and add a 
         "default" : false,
         "actions" : [
             {
+                "id": "ACTION.CLONE"
+            },
+            {
                 "id": "header.selection.actions.mark_ignored",
                 "label": "Mark as ignored",
                 "icon": "",
                 "controller": "lodging_sale_booking_bankstatementline_bulk-ignore"
-            },
-            {
-                "id": "ACTION.CLONE",
-                "visible": false
             }
         ]
     }
 }
 ```
 
+
+
+#### actions
+
+**Examples:**
+```json
+"header": {
+    "actions": {
+        "ACTION.CREATE" : false
+    }
+}
+```
+
 #### advanced_search
+
 In the case where the specified controller for data collection is not the default controller (`core_mode_collect`), the UI checks if a view is associated with this controller (that must extend `core_model_collect`). Since controllers can be handled as an entity. In that case, its parameters are considered as fields that can be assigned in an "advanced search" form.
 
 However, in the header, it is always possible to explicitly tell if the advanced search must be shown or not, and if it should be open when view loads (default behavior is closed).
 
-Examples : 
+**Examples : **
 ```
     "advanced_search": false
 ```
@@ -183,12 +191,10 @@ When rendered, a list view consists of a table with each of its columns showing 
 
 
 
-### Items
+### items
 
 
 **Items** are a descriptor of the way a **field** or a **label** of a **Model** is displayed in a view.
-
-#### Structure summary
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ----- |
@@ -202,20 +208,100 @@ When rendered, a list view consists of a table with each of its columns showing 
 
 
 
-### Widget
+#### Widget
 
-Widget are used to set properties that depends on the type of view.
+The widget property can be used to set properties that depends on the type of view.
 
-**Structure Summary**
+When a widget targets a view, the properties of the related schema can be overridden by assigning custom values.
+
+**Properties common to all fields**
 
 
 | **PROPERTY** | **TYPE** |**DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ----- |
-| link | `boolean` | is the content of the item a link ? |
-| sortable | `boolean`| can the user sort the list by this item ? |
-| type | `string` | edit the type of display of the item, depends on the type of the field |
+| link | `boolean` | If set to true, the value will be displayed as a link. |
+| sortable | `boolean`| Can the user sort the list by this item ? |
+| type | `string` | Edit the type of display of the item, depends on the type of the field |
 | domain | `array`>`domain` | |
-| usage | `string` | override the usage of the field to display it|
+| usage | `string` | Override the usage of the field to display it|
+
+**Properties specific to many2one and many2many fields**
+
+Most of the properties can be forced within the widget
+
+| PROPERTY   | **TYPE**        | **DESCRIPTION**        |
+| ---------- | --------------- | ---------------------- |
+| header     | `header object` | @see [Header](#header) |
+| controller |                 |                        |
+| start      |                 |                        |
+| limit      |                 |                        |
+| sort       |                 |                        |
+| order      |                 |                        |
+| group_by   |                 |                        |
+
+
+**Examples:**
+
+
+(For one2many relation)
+
+**Default**
+
+(no overrides in `widget`)
+
+* View Mode
+  - "create" button
+
+* Edit Mode
+  - "create" button
+  - Selection allowed
+      - Actions: "remove"
 
 
 
+**Custom actions**
+
+```json
+"widget": {
+    "header": {
+        "selection": {
+            "default": false,
+            "actions": [
+                {"id": "ACTION.EDIT_INLINE"},
+                {"id": "ACTION.CLONE"}
+            ]
+        }
+    }
+}
+```
+
+* View Mode
+  - "create" button
+
+* Edit Mode
+  - "create" button
+  - Selection allowed
+    - Actions: "edit inline", "duplicate"
+
+
+
+##### No selection or actions
+
+```json
+"widget": {
+    "header": {
+        "selection": false,
+        "actions": {
+            "ACTION.CREATE": false
+        }
+    }
+}
+```
+
+* View Mode
+  - No action buttons
+
+* Edit Mode
+  - No action buttons
+  - Selection / Actions
+    - No selection allowed
