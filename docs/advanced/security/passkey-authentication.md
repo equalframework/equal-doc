@@ -50,7 +50,7 @@ This workflow applies to users with an existing passkey.
         - Use passkey: _The user proceeds with passkey authentication. The system sends the challenge to the user’s device, and the authentication completes upon signature verification._
         - Switch to password: _The user can choose to fall back to password authentication if the passkey method is unavailable (e.g., device not accessible)._
 
-#### Passkey authentication diagram
+#### Passkey authentication technical diagram
 
 <center><img src="/_assets/uml/passkey_authentication.png" /></center>
 
