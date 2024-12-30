@@ -39,7 +39,7 @@ Users can either create a passkey or skip the setup (once or always). The proces
 <center><img src="/_assets/uml/passkey_register.png" /></center>
 
 The relying party is the eQual backend API, it proposes 2 endpoints for passkey registration:
- 
+
   - get=user_passkey-register-options
   - do=user_passkey-register
 
@@ -192,10 +192,19 @@ Options:
 A Passkey Authenticator is a device or platform that securely stores and manages passkeys, enabling passwordless login through Web Authentication (WebAuthn).
 Authenticators are a critical component of the WebAuthn API, as they perform the cryptographic operations required for passkey authentication.
 
-Supported authenticators:
+#### Supported authenticators:
 
 - `USB`: Security keys connected via USB.
 - `NFC`: Near-field communication-enabled security keys.
 - `BLE`: Bluetooth-enabled authenticators.
 - `Hybrid`: Authenticators supporting multiple communication methods.
 - `Internal`: Built-in authenticators like Touch ID or Windows Hello.
+
+
+
+#### Passkey managers supported by eQual
+* Apple: integrated into iCloud Keychain (passkey generation and usage).
+* Bitwarden: open-source password manager, allowing secure storage and synchronization of passkeys.
+* Google Account: authentication with compatible devices through password& passkeys.
+* Microsoft Hello: integrated into Windows using biometric methods or a secure PIN.
+
