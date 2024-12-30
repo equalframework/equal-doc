@@ -20,7 +20,7 @@ Users can either create a passkey or skip the setup (once or always). The proces
 
 <center><img src="/_assets/uml/passkey_sign_in_workflow.png" /></center>
 
-## Authentication workflows
+## Passkey authentication workflows
 
 ### 1. If the user has no passkey yet
 
