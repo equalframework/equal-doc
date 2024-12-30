@@ -9,7 +9,18 @@ Passkeys can be securely stored on the user's device or hardware token and offer
 - The passkey authentication is disabled by default, enable the setting `core.security.passkey_creation` to activate it.
 - To test it in development mode, use `localhost` hostname instead of `equal.local`. Passkey authentication in a browser requires HTTPS protocol, but `localhost` is an exception that allows HTTP protocol.
 
-## Authentication workflows
+## Sign in workflow
+
+You will find below a diagram that describes a sign-in workflow for user authentication and optional passkey creation.
+It begins with the user entering their login credentials and checks if the user exists in the system.
+If the user has a passkey, they can choose to use it for authentication, with access granted if the passkey is valid.
+If no passkey is used, the workflow proceeds to validate the user's password.
+Upon successful password verification, the system may offer the option to create a passkey for future logins.
+Users can either create a passkey or skip the setup (once or always). The process concludes with the user being successfully authenticated.
+
+<center><img src="/_assets/uml/passkey_sign_in_workflow.png" /></center>
+
+## Passkey authentication workflows
 
 ### 1. If the user has no passkey yet
 
