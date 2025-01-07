@@ -2,7 +2,7 @@
 
 
 
-## Case : Handling Data Consistency in Complex Entity Logic
+## Case : Handling efficient Data Consistency in Complex Entity Logic
 
 ### Presentation
 For scenarios involving complex entities logic, ensuring data consistency can be challenging and involve non-trivial logic. 
@@ -29,3 +29,25 @@ In parallel, controllers are defined to handle the actions executed via the fron
 These controllers contain business logic and group the appropriate actions. Based on the fields modified, they trigger the necessary refreshes on the affected objects via the `refresh` methods. These refreshes are limited to a single object level or, in some cases, two levels—especially when child objects directly depend on the configuration of their parent (e.g., assignments, consumption, etc.).
 
 When necessary, these controllers use the `ObjectManager::disableEvents()` method to avoid any conflicts with other events defined on the classes or fields involved.
+
+## Case : Dealing with large datasets
+
+(This can be applied in conjunction with other strategies presented here.)
+
+- Avoid non-stored computed fields.
+- If computed fields are involved, prefer using 'instant' fields.
+- Use the ORM service without relying on collections.
+
+## Case : Special datasets architecture
+
+### Deep datasets : TREES
+Using `collections` makes it easy to present data in a tree-like structure by pre-loading several levels of related objects and efficiently building hierarchical relationships.
+
+By combining this approach with specific front-end logic, UI components can refresh only the parts of the tree that have changed.
+
+To prevent performance issues, ensure the tree's depth remains limited.
+
+
+### MAPS
+
+To simplify handling large datasets in the front-end, datasets can be structured as associative arrays (e.g., key-value relationships or graph-like data). This approach organizes data in a way that enables efficient lookups, updates, and navigation, making it easier to work with extensive and complex datasets.
