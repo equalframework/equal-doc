@@ -77,7 +77,7 @@ The authentication options are defined by the following passkey settings:
 - Cross-platform: _all, cross-platform, platform_
 - Allowed authenticators: _USB, NFC, BLE, Hybrid, Internal_
 
-#### Example:
+**Example:**
 
 A returning user opens their shopping app.
 They enter their username and are prompted to authenticate using their registered passkey.
@@ -199,6 +199,20 @@ Authenticators are a critical component of the WebAuthn API, as they perform the
 - `BLE`: Bluetooth-enabled authenticators.
 - `Hybrid`: Authenticators supporting multiple communication methods.
 - `Internal`: Built-in authenticators like Touch ID or Windows Hello.
+
+
+
+Below are common formats for authenticators and their corresponding `auth_level`:
+
+| **Format**          | **Description**                                            | **auth_level**  | **Justification**                                      |
+| ------------------- | ---------------------------------------------------------- | --------------- | ------------------------------------------------------ |
+| `android-key`       | Android-secured key stored in hardware (TrustZone).        | **AAL2 / AAL3** | AAL3 if using secure enclaves; otherwise, AAL2.        |
+| `android-safetynet` | Android server-side validation without dedicated hardware. | **AAL2**        | Provides guarantees without requiring secure hardware. |
+| `apple`             | Apple Secure Enclave with Touch ID/Face ID.                | **AAL2 / AAL3** | AAL3 with biometrics; AAL2 otherwise.                  |
+| `fido-u2f`          | FIDO U2F hardware keys (non-biometric).                    | **AAL3**        | Meets AAL3 requirements with phishing-resistant keys.  |
+| `none`              | No attestation or unknown authenticator origin.            | **AAL1**        | Minimal guarantees on authentication method.           |
+| `packed`            | Embedded attestation with public keys.                     | **Variable**    | May qualify as AAL2 or AAL3 based on underlying setup. |
+| `tpm`               | Trusted Platform Module (TPM) for secure key storage.      | **AAL3**        | Ensures hardware-based resistance to key cloning.      |
 
 
 
