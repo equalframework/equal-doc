@@ -79,6 +79,7 @@ nav:
       - 'Seeding': 'architecture-concepts/seeding.md'
       - 'Anonymization': 'architecture-concepts/data-anonymization.md'
       - 'Model factory': 'architecture-concepts/model-factory.md'
+      - 'Model import': 'architecture-concepts/model-import.md'
       - 'Settings & Parameters': 'architecture-concepts/application-parameters.md'
   - 'Usage':
      - 'Built-in tools': 'usage/built-in-tools.md'
