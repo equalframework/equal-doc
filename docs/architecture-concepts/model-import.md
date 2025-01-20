@@ -74,8 +74,6 @@ Using the **phone** transformer with a configured prefix of `32` (Belgium):
     Sets `true` if the value contains a specific string.
   - **`field-does-not-contain`**  
     Sets `true` if the value does not contain a specific string.
-  - **`map-value`**  
-    Replaces a value with another configured value.
   - **`replace`**  
     Substitutes a word/character with another specified word/character.
   - **`trim`**  
