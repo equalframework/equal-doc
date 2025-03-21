@@ -1,10 +1,14 @@
 # Operations
 
-Operations are determined processes to obtain a result, using operators to do so.
+The **operations** in eQual allow to define **aggregation or computation logic** to be applied on one or more fields of the records being displayed (typically in a list view). 
 
-In eQual, there exists two types of operators:
+These operations are useful for **showing totals, averages, counts, or custom calculations** on the dataset.
 
-#### 1) unary operators
+### Operation types
+
+There are two types of operators:
+
+**1) unary operators**
 
 ```php
 <?php
@@ -15,7 +19,7 @@ In eQual, there exists two types of operators:
 private static $unary_operators = ['ABS', 'AVG', 'COUNT', 'DIFF', 'MAX', 'MIN', 'SUM'];
 ```
 
-#### 2) binary operators 
+**2) binary operators**
 
 ```php
 <?php
@@ -34,7 +38,7 @@ private static $binary_operators = [
 ```
 
 
-#### Operation Syntax
+### Operation Syntax
 
 ```
 Unary operators : [ OPERATOR, {FIELD | OPERATION} ]
@@ -45,80 +49,126 @@ Binary operators : [ OPERATOR, {FIELD | OPERATION}, {FIELD | OPERATION} ]
 ```
 
 
-**Examples:**
+
+## Where Can Operations Be Used?
+
+Operations can be defined at **three different levels** within a list view configuration:
+
+### 1. As a Simple Field in `group_by`
+
+This is used to group results and can optionally apply an operation to that field.
+
+**Example:**
 
 ```json
-{
-    "name": "Fund Request Line Entry Lot",
-    "description": "Interface for model definition classes.",
-    "group_by": [
-        {
-            "open": true,
-            "field": "ownership_id",
-            "operation": ["SUM", "object.called_amount"],
-            "operations": {
-                "called_amount": {
-                    "operation": "SUM",
-                    "usage": "amount/money:2"
-                }
-            }
-        }
-    ],
-    "operations": {
-        "total": {
-            "called_amount": {
-                "operation": "SUM",
-                "usage": "amount/money:2"
-            }
-        }
-    },
+"group_by": ["date"]
 ```
+
+
+
+### 2. As an Object Inside `group_by`
+
+You can use an object to apply an operation to a specific field while adding additional options like sort order.
+
+**Example:**
+
+```json
+"group_by": [
+  {
+    "field": "time_slot_id",
+    "operation": ["SUM", "object.qty"],
+    "order": "order"
+  }
+]
+```
+
+#### `operations` Attribute Inside `group_by` Object
+
+The `operations` attribute (plural) lets you define **multiple operations** per group, mapping them to specific fields.
+
+**Example:**
+
+```json
+"group_by": [
+  {
+    "field": "ownership_id",
+    "colspan": 2,
+    "operations": {
+      "called_amount": {
+        "operation": "SUM",
+        "usage": "amount/money:2"
+      }
+    }
+  }
+]
+```
+
+> 💡 This adds flexibility, enabling multiple computed values per group with specific formatting.
+
+
+
+### 3. In the `operations` Property (Global)
+
+This section defines **named rows of operations**, independent from groupings. Each row can contain one or more named calculations.
+
+**Example:**
 
 ```json
 "operations": {
-    "total": {
-        "total_paid": {
-            "id": "operations.total.total_paid",
-            "label": "Total received",
-            "operation": "SUM",
-            "usage": "amount/money:2"
-        },
-        "total_due": {
-            "operation": "SUM",
-            "usage": "amount/money:2"
-        }
+  "total": {
+    "total_paid": {
+      "id": "operations.total.total_paid",
+      "label": "Total received",
+      "operation": "SUM",
+      "usage": "amount/money:2"
+    },
+    "total_due": {
+      "operation": "SUM",
+      "usage": "amount/money:2"
     }
+  }
 }
 ```
 
 
 
+## Operation Syntax
 
-In the charts views, if we want to display the `SUM` (unary operator) of a specific field : 
+Operations follow a functional-style array syntax that supports both unary and binary operators.
+
+**Unary operator:**
 
 ```json
-"layout": {
-        "entity": "lodging\\sale\\booking\\BookingLine",
-        "group_by": "range",
-        "range_interval": "month",
-        "range_from": "date.this.year.first",
-        "range_to": "date.this.year.last",
-        "datasets": [
-            {
-                "label": "Repas CA TVAC",
-                "operation": ["SUM", "object.total"],
-                "domain": ["is_meal", "=", 1]
-            },
-            {
-                "label": "Repas CA HTVA",
-                "operation": ["SUM", "object.price"],
-                "domain": ["is_meal", "=", 1]
-            }
-        ]
-    }
+["SUM", "object.qty"]
 ```
 
-In this example, we would have the `SUM`of the total field of all the `BookingLine objects`.
+**Binary operator:**
 
-> NB: It also needs to match the domain : `["is_meal", "=", 1]`.
+```json
+["DIV", ["SUM", "object.total"], ["COUNT", "object.id"]]
+```
+
+
+
+## Operation Object Format
+
+Each operation supports the following properties:
+
+- **`operation`**: Operator or nested operation array
+- **`usage`**: Output format (e.g., `amount/money:2` for 2-decimal currency)
+- **`label`**: Display label (optional, used in UI)
+- **`id`**: Translation key (optional, used for i18n)
+
+
+
+## Summary 
+
+| Level                   | Example                                                      | Description                                   |
+| ----------------------- | ------------------------------------------------------------ | --------------------------------------------- |
+| `group_by` (simple)     | `"group_by": ["date"]`                                       | Basic grouping                                |
+| `group_by` (object)     | `{ "field": "product_id", "operation": ["SUM", "object.qty"] }` | Group with aggregation                        |
+| `group_by[].operations` | `{ "called_amount": { "operation": "SUM" } }`                | Field-level operations in a group             |
+| `operations` (global)   | `"operations": { "total": { ... } }`                         | Aggregated values in named rows (like totals) |
+
+
 

@@ -153,6 +153,7 @@ The group_by descriptors use the structure shown in the following example:
 ```json
 "group_by":[ {
     "open": true,
+    "colspan": 3,
     "field": "product_id",
     "operation": ["SUM", "object.qty"],
     "order": "name"
@@ -167,15 +168,43 @@ Another example :
 
 
 
-!!!tip "'open' property"
-    The 'open' property is a bool allowing to request a group to be expanded by default.
+**Recap**
+
+| Property     | Type                | Description                                                  |
+| ------------ | ------------------- | ------------------------------------------------------------ |
+| `field`      | `string`            |  The field on which to group the data. Can be a scalar field (e.g., `date`) or a relation (e.g., `product_id`). |
+| `operation`  | `array` or `string` |  An operation to perform on the grouped data. Accepts an operation array like `["SUM", "object.qty"]` or a string operator. |
+| `order`      | `string`            |  Field used to sort the groups. By default, uses `"name"` for object fields, or the field value itself for scalars. |
+| `open`       | `boolean`           |  Indicates whether the group should be expanded (`true`) or collapsed (`false`) by default in the UI. |
+| `operations` | `object`            |  A mapping of additional operations to apply to specific fields inside this group. Useful for displaying multiple computed values with formatting. |
 
 
 
 
-## operation 
+## operations
 
-Associative array (name,[Operation](#operation)) | (optional) make calculation on the whole fetcthed data do display it
+Associative array ([Operation](/architecture-concepts/operations) | (optional) make calculation on the whole fetcthed data do display it.
+
+**Examples:**
+
+```
+"operations": {
+  "total": {
+    "total_paid": {
+      "id": "operations.total.total_paid",
+      "label": "Total received",
+      "operation": "SUM",
+      "usage": "amount/money:2"
+    },
+    "total_due": {
+      "operation": "SUM",
+      "usage": "amount/money:2"
+    }
+  }
+}
+```
+
+
 
 
 ## layout 
