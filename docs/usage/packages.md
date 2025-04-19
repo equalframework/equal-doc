@@ -62,6 +62,8 @@ package_name
 |  `i18n`   | translations                                    | `User.json`                                                  |
 | `assets`  | static content (resources)                      | js scripts, stylesheets, fonts, images                       |
 
+
+
 ## Self description (root)
 
 ### README.md
@@ -74,7 +76,7 @@ Packages manifests are an essential tool for managing the packages ecosystem and
 
 Each package has a manifest file (`manifest.json`) containing information about the package along with the apps it provides and the dependencies it requires. 
 
-| <span>Property&nbsp;&nbsp;&nbsp;&nbsp;</span> | Role                                                         | Example                                                    |
+| Property | Role                                                         | Example                                                    |
 | :-------------------------------------------: | ------------------------------------------------------------ | ---------------------------------------------------------- |
 |                    `name`                     | `(string)` Name of the package, also used as an identifier.<br />It should match the name of the folder of the package. | `"core"`                                                   |
 |                   `version`                   | `(string)` The version of the package, ensuring accurate versionning. | `"2.0"`                                                    |
@@ -83,7 +85,8 @@ Each package has a manifest file (`manifest.json`) containing information about 
 |                   `authors`                   | `(array <string>)` List of the name(s) of the author(s).     | `["Cedric Francoys"]`                                      |
 |                    `tags`                     | `(array <string>)` List of descriptive tags or keywords associated with the package for easier categorization and searchability. | `["Cedric Francoys"]`                                      |
 |                 `depends_on`                  | `(array <string>)` List of packages that need to be present and initialized in order for the package to work. | `[]`                                                       |
-|                  `requires`                   | `(object)` Map specifying external libraries or packages required by the package, along with version constraints using semantic versionning. | `"requires": {"swiftmailer/swiftmailer": "^6.2"}`          |
+|                  `requires`                   | `(object)` Map specifying external libraries or packages required by the package, along with version constraints using semantic versioning. | `"requires": {"swiftmailer/swiftmailer": "^6.2"}`          |
+|                `requires_bin`                 | `(object)` Map specifying binaries required by the package that must be available on the host OS. |                                                            |
 |                   `config`                    | `(object)` Map associating config constants to the values specific to the package. | `"config": {"APP_LOGO_URL": "/assets/img/brand/logo.svg"}` |
 |                    `apps`                     | `(array <string | object>)` Applications embedded in the package. <br />The list provides either Apps names (identifier) or descriptors for virtual apps to be used with the STD App (see below). | `["apps", "auth", "app", "settings"]`                      |
 
@@ -124,6 +127,63 @@ Example:
 ```
 
 This notation is not taken into account during the package initialization nor Composer, but serves as a reminder for specific dependencies in cases where installation is performed in a non-standard environment.
+
+
+
+#### `requires_bin` property
+
+
+The `requires_bin` field in the package manifest allows to declare system-level dependencies (binaries) that must be available on the host system.
+
+Since package managers and package names vary between operating systems, eQual uses an OS-aware mechanism to resolve and (optionally) install the required binaries. The actual package to install is determined **based on the identified operating system** at runtime.
+
+You should always provide a `generic` entry as the default fallback, and override it with specific values when a package name differs on a particular system.
+
+The table below lists all supported OS codes you can use in the `package` field of a binary requirement, for defining which identifier to use with the system’s package manager.
+
+
+|Code | Target OS | package manager |
+|--|--|--|
+|`generic` | **any** | OS default |
+|`ubuntu` | Ubuntu, Linux Mint | apt |
+|`debian` | Debian | apt (if distinct from Ubuntu) |
+|`fedora` | Fedora, RHEL, CentOS Stream | dnf|
+|`arch` | Arch Linux, Manjaro | pacman|
+|`alpine` | Alpine Linux | apk|
+|`mac` | macOS | brew (Homebrew)|
+|`windows` | Windows 10+ | choco (Chocolatey) |
+
+??? example "Example for `requires_bin` structure"
+    ```
+    "requires_bin": {
+      "qpdf": {
+        "version": ">=10.0",
+        "check": "qpdf --version",
+        "package": {
+          "generic": "qpdf"
+        }
+      },
+      "freetype": {
+        "version": "^2.0",
+        "check": "pkg-config --exists freetype2",
+        "package": {
+          "generic": "libfreetype6-dev",
+          "mac": "freetype",
+          "arch": "freetype2"
+        }
+      },
+      "mssql_driver": {
+        "version": "^17.0",
+        "check": "odbcinst -q -d | grep -i 'ODBC Driver 17 for SQL Server'",
+        "package": {
+          "generic": "msodbcsql17",
+          "mac": null // not supported
+        }
+      }
+    }
+    ```
+
+
 
 #### `apps` property
 The `apps`  property might either contain strings or descriptor objects.  The `app` application, defined in the core package,  can act as surrogate for creating custom Apps using all standard features without having to write additional Angular components. In such case, the descriptor is expected to be a full descriptor of the app, similar to the ones used in the manifest of Apps.
