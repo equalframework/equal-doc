@@ -19,10 +19,10 @@ The solution involves a strategy combining the use of classes and controllers.
 
 Within the targeted classes, `refresh` methods are created to group the logic that ensures data consistency. These methods can be called on demand, based on the following principles:
 
-* The method names `refresh` are arbitrary but follow a coherent logic.
-* `refresh` methods are designed to update only one object at a time.
-* These methods act solely on a single object level, without affecting higher or lower levels.
-* `refresh` methods are not triggered automatically. They are invoked only when a valid version of the data is required, typically at the end of the update cycle, after all modifications have been applied.
+* The **method names** `refresh` are arbitrary but follow a coherent logic.
+* `refresh` methods are designed to update only **one object at a time**.
+* These methods act solely on **a single object level**, without affecting higher or lower levels (unless cases with a strong hierarchy, where sub-objects directly depends on the parent object state).
+* `refresh` methods are **not triggered automatically**. They are invoked only when a valid version of the data is required, typically at the end of the update cycle, after all modifications have been applied.
 
 In parallel, controllers are defined to handle the actions executed via the front-end application. It is important to restrict available actions on the front-end to only authorized operations, excluding direct calls to functions like `model_update` or `model_delete`.
 
