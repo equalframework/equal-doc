@@ -101,6 +101,27 @@ Example :
 "order": "sku,product_model_id"
 ```
 
+## sort
+
+String indicating the sort direction(s) to apply to the corresponding fields in the `order` parameter. Accepted values are:
+
+* `"asc"` (ascending)
+* `"desc"` (descending)
+
+If multiple fields are specified in `order`, you can specify a comma-separated list of directions matching the order of the fields.
+
+If omitted or incomplete, the default `"asc"` order is applied to unspecified fields.
+
+Example:
+
+```json
+"order": "sku,product_model_id",
+"sort": "asc,desc"
+```
+
+This will sort results by `sku` ascending and then by `product_model_id` descending.
+
+
 ## limit
 
 Integer providing the maximum number of items that can be shown on each page of the list.
@@ -130,9 +151,8 @@ Example :
 
 
 
-!!! Note "clause or dommain"
+!!! Note "clause or domain"
     Both "clause" and "domain" are allowed to describe a filter
-
 
 
 ## group_by
