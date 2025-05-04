@@ -226,6 +226,32 @@ Associative array ([Operation](/architecture-concepts/operations) | (optional) m
 
 
 
+### Binary operators
+
+| **OPERATOR** | **RESULT**                      | **SYNTAX**    |
+| ------------ | ------------------------------- | ------------- |
+| +            | Sum of `a` and `b`.             | `['+', a, b]` |
+| -            | Difference between `a` and `b`. | `['-', a, b]` |
+| *            | Product of `a` by `b`.          | `['*', a, b]` |
+| /            | Division of `a` by `b`.         | `['/', a, b]` |
+| %            | Modulo `b` of `a`.              | `['%', a, b]` |
+| ^            | `a` at power  `b`.              | `['^', a, b]` |
+
+### Unary operators
+
+| **OPERATOR** | **SYNTAX**                                                   |
+| ------------ | ------------------------------------------------------------ |
+| SUM          | `['SUM', object.field]`                                      |
+| AVG          | `['AVG', object.field]` (which is a shortcut for `['/', ['SUM', object.field], ['COUNT', object.field]]`) |
+| COUNT        | `['COUNT', object.field]`                                    |
+| MIN          | `['MIN', object.field]`                                      |
+| MAX          | `['MAX', object.field]`                                      |
+
+
+
+
+
+
 
 ## layout 
 Lists views hold a **layout**  element that contains all the information needed to display the a list of objects that must be presented  in the view.

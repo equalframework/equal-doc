@@ -44,30 +44,6 @@ The lists below recap the attributes specific to each view type.
 | --- | --- | --- |
 | width        | `string`   | Width of the item (as percent value).  |
 
-## Attributes descriptors
-
-
-#### Binary operators
-|**OPERATOR**|**RESULT**|**SYNTAX**|
-|--|--|--|
-|+|Sum of `a` and `b`.|`['+', a, b]`|
-|-|Difference between `a` and `b`.|`['-', a, b]`|
-|*|Product of `a` by `b`.|`['*', a, b]`|
-|/|Division of `a` by `b`.|`['/', a, b]`|
-|%|Modulo `b` of `a`.|`['%', a, b]`|
-|^|`a` at power  `b`.|`['^', a, b]`|
-
-#### Unary operators
-
-|**OPERATOR**|**SYNTAX**|
-|--|--|
-|SUM|`['SUM', object.field]`|
-|AVG|`['AVG', object.field]` (which is a shortcut for `['/', ['SUM', object.field], ['COUNT', object.field]]`)|
-|COUNT|`['COUNT', object.field]`|
-|MIN|`['MIN', object.field]`|
-|MAX|`['MAX', object.field]`|
-
-
 
 
 ### domain
@@ -97,8 +73,6 @@ Example :
     "groups": ["users"]
 }
 ```
-
-----
 
 ### operations
 
@@ -162,7 +136,6 @@ Examples:
 ```
 
 
-----
 
 ### actions
 
@@ -194,8 +167,6 @@ If no parameter is required but the `confirm` property is set to `true`, then a 
 Here below is a flow diagram that recaps the interactions between the controller and the `confirm` property.
 
 <center><img src="/_assets/img/eq_confirm_diagram.png" /></center>
-
-<a name="common_controller"></a>
 
 Example:
 
@@ -243,10 +214,19 @@ Example:
 ]
 ```
 
----
+
+### controller
+Data Controller for retrieving the data associated with the view. 
+
+Example :
+``` 
+"controller": "core_model_collect"
+```
+
+
 
 ### filters
-The `filters` property allows to customize the filtering features available in the header of the view.
+The `filters` property allows to customize the filtering features available in the header of the view (if enabled).
 
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
 | ------------ | ------------------------------------------------------------ | ---- |
@@ -314,7 +294,8 @@ The **header** section allows to override the default behavior of the view.
 | **PROPERTY** | **TYPE** | **DESCRIPTION**                                              |
 | ------------ | ---- | ------------------------------------------------------------ |
 | actions      | [Actions](#header-actions) | The `actions` property allows to customize the actions buttons shown in the left part of the View header. |
-| visible      | `boolean` or `array`>`domain`                  |The `visible` property allows to place a condition in order to make the header visible or not. |
+| filters | `boolean`                  |Flag for displaying the default filtering input. |
+| layout | `string` | 'full' (default) or 'inline'. The `inline` mode displays a compact list view with no header bar, minimal navigation controls, and actions shown as icons — ideal for embedded or widget-style layouts. |
 
 
 
@@ -396,6 +377,3 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
     }
 ```
 
-
-#### visible
-The `visible` property allows to place a condition in order to make the header visible or not.
