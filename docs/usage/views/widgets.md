@@ -74,3 +74,41 @@ Example with an `issue_date` field defined as datetime, which should be displaye
     }
 }
 ```
+
+
+
+## Styling
+
+You can define simple visual customizations directly in widget definitions using style-related properties. These properties are **flat**, **coherent**, and **easy to memorize**, and they allow styling without custom CSS.
+
+### Supported style properties
+
+| Property           | Description                             | Example              |
+| ------------------ | --------------------------------------- | -------------------- |
+| `text-color`       | Text color (named or hex)               | `"red"`, `"#333"`    |
+| `text-weight`      | Font weight                             | `"bold"`, `"500"`    |
+| `text-align`       | Horizontal alignment                    | `"left"`, `"center"` |
+| `text-decoration`  | Text decoration                         | `"underline"`        |
+| `background-color` | Background color                        | `"lightgray"`        |
+| `border-color`     | Border color                            | `"blue"`             |
+| `border-radius`    | Border corner radius (CSS syntax)       | `"4px"`, `"0.25rem"` |
+| `padding`          | Inner spacing                           | `"8px"`              |
+| `margin`           | Outer spacing                           | `"0 auto"`           |
+| `icon`             | Icon to display (by name or emoji)      | `"info"`, `"⚠️"`     |
+| `icon-position`    | Icon placement relative to text         | `"left"`, `"right"`  |
+| `icon-color`       | Icon color (falls back to `text-color`) | `"orange"`           |
+
+### Example
+
+```json
+{
+  "widget": "label",
+  "text": "Important notice",
+  "text-color": "#b30000",
+  "text-weight": "bold",
+  "background-color": "#fff3cd",
+  "border-color": "#f5c6cb",
+  "icon": "⚠️",
+  "icon-position": "left"
+}
+```
