@@ -14,7 +14,7 @@ article :not(details) table th {
 	padding: 4px 18px !important;
     background-color: #5c5f70;
 	color: white;
-    font-weight: 500;	
+    font-weight: 500;
 	white-space: nowrap;
 }
 

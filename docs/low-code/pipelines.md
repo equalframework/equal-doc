@@ -1,51 +1,249 @@
-# Pipeline
 
-The Pipeline Editor is a "low-code" development tool, part of the Workbench App, designed to assist developers in orchestrating a series of operations in a predefined order using Controllers (PHP scripts) reliant on the eQual framework. This approach facilitates problem-solving and the accomplishment of specific tasks, fundamentally the creation of an algorithm.  
+# Pipeline Editor Documentation
 
-The tool enables to visually arrange and connect nodes representing Controllers in a graphical interface, eliminating the need for direct coding at each step. The flow of the application can be defined simply by connecting these nodes, significantly reducing development time and improving accuracy by explicitly visualizing how data moves through the application.  
+## What is a Pipeline?
 
-Special nodes, named 'Routers', direct data between Controllers, ensuring that the order of operations and data flow are consistent with the application's requirements. By testing the created pipelines, developers can observe the data path, adjust parameters, and optimize the performance of their solutions.  
+A **pipeline** is a sequence of connected operations used to process and transform data step by step. Each operation is represented by a component called a **Controller**, which performs a specific task and passes its result to the next component in the chain. This concept enables developers to design and implement algorithms visually and modularly.
 
-The Pipeline Editor transforms the way problems are approached and solutions are implemented in modern software development by offering a structured and intuitive method for designing algorithms through a graphical interface. This visual composition of algorithms minimizes the need for manual coding, enhances accuracy, and accelerates development time by explicitly showing the data flow through the application.
+In the Pipeline Editor, part of the Workbench App, you can build these pipelines using a graphical interface, eliminating the need for writing boilerplate code manually. It simplifies development, enhances accuracy, and makes data flow and logic easy to understand and modify.
+
+Pipelines are especially useful in applications that need to process data in stages, transform structures, apply business logic, or coordinate a series of backend operations.
+
+## Glossary
+
+- **Controller**: A PHP script based on the eQual framework that performs a specific operation in the pipeline.
+- **Node**: A visual block in the pipeline representing either a controller or a router.
+- **Router**: A special node used to direct outputs from one or more controllers to one or more subsequent nodes.
+- **Input parameters (input params)**: Values or configurations passed to a controller for its execution.
+- **Output values**: The results produced by a controller after its execution.
+- **Link**: A visual and logical connection between the output of one node and the input of another.
+
+## Creating a Pipeline
+
+### Add a Controller
+
+To add a node to the pipeline:
+
+1. Click the '+' button in the top-right corner.
+2. A list of available controllers will appear.
+3. Use the search or filters to find your desired controller (based on type or package).
+4. You can also add a **Router** node from this menu.
+
+![Add Controller](/_assets/img/pipeline_add_controller.png)
+
+### Create a Link
+
+To create a connection between nodes:
+
+1. Click the connector button on the **source** node.
+2. Then click the connector on the **target** node.
+
+![Create Link](/_assets/img/pipeline_create_link.png)
+
+### Edit an Element
+
+#### Edit a Node
+
+- Click a node to see its options.
+- You can:
+  - Delete the node.
+  - Rename it and update its description.
+  - Change its appearance (icon, color).
+  - View or set input parameters from the **Data** tab.
+
+If the node is a **Router**, the right panel will show which nodes feed into it.
+
+![Edit Node](/_assets/img/pipeline_edit_node.png)
+
+#### Edit a Link
+
+- Click a link to configure or delete it.
+- On the right panel, you can map the output from the source to the input of the target.
+- If the target is a router, the input field will remain empty.
+
+![Edit Link](/_assets/img/pipeline_edit_link.png)
+
+### Save, Load, and Run a Pipeline
+
+- Click the **Save** button to store your pipeline.
+- Click **Load** to retrieve an existing pipeline.
+- Use the **Run** button to execute the pipeline and view logs in real time.
+
+![Save Load Run](/_assets/img/pipeline_save_load_run.png)
+![Modal Run](/_assets/img/pipeline_modal_run.png)
 
 
+# Pipeline Output Specification (Detailed)
 
-## Create a pipeline
+This section explains in detail how controller **responses** are defined in a pipeline. Each controller declares the format and structure of the **output values** it produces, which helps the frontend interpret data and chain it to subsequent nodes.
 
-### Add a controller
+---
 
-To add a controller in the form of a node to the pipeline, you must click on the '+' button at the top right (1). A list of controllers will appear on the right (2). You can search within this list (3) or apply a filter to your search (4), based on the type of controller (data or actions) or based on a package. You can also add a node representing a router (5). The router allows distributing the outputs of multiple controllers to other controllers.
+## Terminology
 
-<img src="/_assets/img/pipeline_add_controller.png" style="height : 200px;">
+- **Input Parameters (input params)**: Configuration values passed to a controller at runtime.
+- **Output Values**: The data returned by a controller, which can be used by the next node in the pipeline.
 
-### Create a link
+---
 
-To create a link between two nodes, you must click on the button to the right of the source node (1), and then click on the button to the left of the target node (2).
+## Response Signature
 
-<img src="/_assets/img/pipeline_create_link.png" style="height : 200px;">
+Each controller declares its response using the following signature:
 
-### Edit an element
+```php
+"response" => [
+  "content-type" => "application/json",
+  "schema" => [
+    "type"   => "entity" | "any" | scalar type,
+    "usage"  => "{usage notation}", // optional
+    "qty"    => "one" | "many",
+    "entity" => "core\User",       // required if type is 'entity'
+    "values" => []                  // required if type is 'any'
+  ]
+]
+```
 
-You can edit a node or a link by clicking on it.
+---
 
-When you click on a node representing a controller, a delete button (1) and a description of the node (2) appear next to it. On the right, you can change the name of the node or its description (3). You can also change the appearance of the node, such as the icon or the color, by going to the 'Appearance' tab (4). The 'Data' tab (5) allows you to view the input parameters of a controller as well as its description. You can enter the value of a parameter (6).
+## Response Types
 
-If the node is a router, you will see the delete button appear, and on the right, you will see a list of controllers from which it receives the output.
+### 1. Scalar Response
 
-<img src="/_assets/img/pipeline_edit_node.png" style="height : 200px;">
+A scalar response returns a primitive value such as a string, integer, boolean, or float.
 
-When you click on a link, a delete button (1) appear next to it. On the right, you can link the output of a source node to the input of a target node (2).
+#### Example
 
-If the link has a router node as the target, there will be nothing displayed in the input column.
+```php
+"schema" => [
+  "type" => "string",
+  "qty"  => "one" // or "many" if it returns an array of strings
+]
+```
 
-<img src="/_assets/img/pipeline_edit_link.png" style="height : 200px;">
+- `type`: a primitive PHP type (`string`, `integer`, `boolean`, etc.).
+- `qty`: `"one"` if it's a single value, `"many"` if it's an array.
 
-### Save, load and run
+#### Use Case
 
-You can save (1) and load (2) a pipeline. Don't forget to provide a name for it (2). Yon can also run a pipeline (4).
+Used when the output is a basic data type such as the result of a count, ID list, or status flag.
 
-<img src="/_assets/img/pipeline_save_load_run.png" style="height : 200px;">
+---
 
-When you click on the 'run' button, a modal window appears. Once the pipeline is launched (1), logs are displayed to keep you informed about the progress of the execution (2).
+### 2. Entity-Based Response
 
-<img src="/_assets/img/pipeline_modal_run.png" style="height : 200px;">
+Returns an object from the ORM, represented as an entity class.
+
+#### Example
+
+```php
+"schema" => [
+  "type"   => "entity",
+  "qty"    => "one",         // or "many" for multiple entities
+  "entity" => "core\User"
+]
+```
+
+- `entity`: specifies the ORM class that represents the data.
+
+#### Notes
+
+- **No nested objects**: Only IDs of sub-objects are returned by default.
+- This keeps the payload light and allows the frontend to decide if it wants to fetch full details later.
+
+#### Use Case
+
+Used when you return user, order, or domain-specific entities directly.
+
+---
+
+### 3. Arbitrary or Custom Object Response
+
+Returns a structured JSON object not bound to ORM entities.
+
+#### Example
+
+```php
+"schema" => [
+  "description" => "custom address",
+  "type" => "any",
+  "qty"  => "one",
+  "values" => [
+    "code" => [
+      "type" => "integer",
+      "usage" => "number/integer{0,100}",
+      "description" => ""
+    ],
+    "name" => [
+      "type" => "string",
+      "usage" => "text/plain:64",
+      "description" => ""
+    ],
+    "choice" => [
+      "type" => "string",
+      "selection" => ["a", "b", "c"],
+      "description" => ""
+    ]
+  ]
+]
+```
+
+- `type`: must be `any`.
+- `values`: a map describing the structure of the returned object.
+  - each field has its own type, usage constraints, and optional description.
+
+#### Use Case
+
+Used for complex results such as transformed data, grouped statistics, or configuration-like outputs.
+
+#### Tip
+
+Providing the `values` field allows the frontend to auto-fill compatible input params for chained controllers.
+
+---
+
+## Examples
+
+### model_collect
+
+```php
+"schema" => [
+  "type" => "any",
+  "qty"  => "many"
+]
+```
+
+- Returns an array of arbitrary JSON objects.
+
+### model_search
+
+```php
+"schema" => [
+  "type" => "integer",
+  "qty"  => "many"
+]
+```
+
+- Returns an array of integers, often used for IDs.
+
+---
+
+## Output Schema Summary
+
+Each controller must clearly define its response to enable the frontend to visualize, validate, and link data flows.
+
+- **Scalar**: lightweight values.
+- **Entity**: ORM-based outputs (only IDs of sub-entities).
+- **Custom (any)**: JSON objects with optional schema hints for better interoperability.
+
+> The clearer your response schema is, the more dynamic and powerful your pipeline becomes.
+
+## Summary
+
+The Pipeline Editor revolutionizes how developers design, connect, and execute logical operations within an application. By abstracting the complexity of code into a clean and visual format, it fosters rapid development and reduces errors.
+
+- Compose algorithms visually.
+- Integrate controllers and routers.
+- Manage input/output relationships.
+- Test and debug workflows seamlessly.
+
+> The more consistent and descriptive your controller responses are, the more powerful and dynamic your pipelines become.
