@@ -85,18 +85,18 @@ You can define simple visual customizations directly in widget definitions using
 
 | Property           | Description                             | Example              |
 | ------------------ | --------------------------------------- | -------------------- |
-| `text-color`       | Text color (named or hex)               | `"red"`, `"#333"`    |
-| `text-weight`      | Font weight                             | `"bold"`, `"500"`    |
-| `text-align`       | Horizontal alignment                    | `"left"`, `"center"` |
-| `text-decoration`  | Text decoration                         | `"underline"`        |
-| `background-color` | Background color                        | `"lightgray"`        |
-| `border-color`     | Border color                            | `"blue"`             |
-| `border-radius`    | Border corner radius (CSS syntax)       | `"4px"`, `"0.25rem"` |
+| `text_color`       | Text color (named or hex)               | `"red"`, `"#333"`    |
+| `text_weight`      | Font weight                             | `"bold"`, `"500"`    |
+| `text_align`       | Horizontal alignment                    | `"left"`, `"center"` |
+| `text_decoration`  | Text decoration                         | `"underline"`        |
+| `background_color` | Background color                        | `"lightgray"`        |
+| `border_color`     | Border color                            | `"blue"`             |
+| `border_radius`    | Border corner radius (CSS syntax)       | `"4px"`, `"0.25rem"` |
 | `padding`          | Inner spacing                           | `"8px"`              |
 | `margin`           | Outer spacing                           | `"0 auto"`           |
-| `icon`             | Icon to display (by name or emoji)      | `"info"`, `"⚠️"`     |
-| `icon-position`    | Icon placement relative to text         | `"left"`, `"right"`  |
-| `icon-color`       | Icon color (falls back to `text-color`) | `"orange"`           |
+| `icon`             | Icon to display (by name or emoji)      | `"info"`, `"⚠️"`      |
+| `icon_position`    | Icon placement relative to text         | `"left"`, `"right"`  |
+| `icon_color`       | Icon color (falls back to `text-color`) | `"orange"`           |
 
 ### Example
 
