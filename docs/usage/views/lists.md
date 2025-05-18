@@ -64,14 +64,83 @@ The `selection` property allows to customize the list of bulk actions that are a
 
 #### actions
 
+The `actions` property allows fine control over the visibility and behavior of action buttons applying to List views (`ACTION.CREATE`, `ACTION.SELECT`, `ACTION.OPEN`).
+
+For any of the predefined actions (`ACTION.CREATE`, `ACTION.SELECT`, `ACTION.EDIT`, `ACTION.SAVE`, `ACTION.CANCEL`), you can:
+
+* use a boolean to enable/disable the action 
+* provide a map of "{mode: boolean}" to enable/disable the action depending on the current mode (view, edit)
+* or use an array of descriptors to define overloads or conditional behaviors
+
 **Examples:**
+
+Disable an action entirely (never visible, whatever the mode):
+
 ```json
 "header": {
     "actions": {
-        "ACTION.CREATE" : false
+        "ACTION.CREATE": false
     }
 }
 ```
+
+Enable an action depending on mode:
+
+```json
+"header": {
+    "actions": {
+        "ACTION.EDIT": {
+            "view": true,
+            "edit": false
+        },
+        "ACTION.SAVE": {
+            "edit": true,
+            "view": false
+        },
+        "ACTION.DELETE": false
+    }
+}
+```
+
+Overload an action's behavior with additional options (visible in all modes):
+
+```json
+"header": {
+    "actions": {
+        "ACTION.CREATE": [
+            {
+                "view": "form.create",
+                "description": "Overload form to use for objects creation.",
+                "domain": ["parent_status", "=", "object.status"],
+                "access": {
+                    "groups": ["admin"]
+                },
+                "controller": "custompackage_mode_update"
+            }
+        ]
+    }
+}
+```
+
+Overload an action's behavior only for 'view' mode:
+
+
+```
+"header": {
+    "actions": {
+        "ACTION.CREATE": {
+            "view": [
+    	        {
+	                "view": "form.create",
+                	"description": "Overload form to use for objects creation."
+            	}
+            ],
+            "edit": false            
+        ]
+    }
+}
+```
+
 
 #### advanced_search
 
@@ -80,6 +149,7 @@ In the case where the specified controller for data collection is not the defaul
 However, in the header, it is always possible to explicitly tell if the advanced search must be shown or not, and if it should be open when view loads (default behavior is closed).
 
 **Examples : **
+
 ```
     "advanced_search": false
 ```
@@ -313,7 +383,6 @@ Most of the properties can be forced within the widget
 | sort       |                 |                        |
 | order      |                 |                        |
 | group_by   |                 |                        |
-
 
 **Examples:**
 
