@@ -90,8 +90,7 @@ Enable an action depending on mode:
 "header": {
     "actions": {
         "ACTION.EDIT": {
-            "view": true,
-            "edit": false
+            "visible":  ["support.default.user", "in", "user.groups"]
         },
         "ACTION.SAVE": {
             "edit": true,
