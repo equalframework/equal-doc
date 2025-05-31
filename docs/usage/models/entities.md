@@ -250,18 +250,52 @@ M-N relation
 
 #### computed
 
-Computed fields can be either computed synchronously when the field is requested, or on might are not stored in the DB, unless .
+Computed fields allow you to dynamically derive values based on other data in the model. These values can either be computed **synchronously at runtime** (when the field is accessed) or **precomputed and stored in the database**.
 
-The latter is necessary in order to be able to create domains that use it. In that case, an additional attribute  `store` must be set to true.
+Storing the value in the database is necessary if the field needs to be used in **domains** or other indexed queries. In that case, you must set the additional attribute:
 
-To compute the resulting value,  this type comes with 2 possible attributes : 
+```php
+'store' => true
+```
 
-* 'function' : either a string to a callable or a closure (ex. `function () { return time(); }`)
-* 'relation': an associative array describing the path to the resulting value (ex. `[ 'sale_entry_id' => 'vat_rate']`)
 
- It will return a processed value and afterwards, it can be stored inside the DB.
 
-> Most of the time the use of the store attribute requires that field(s) on which depends the computed value, has an onchange event, triggering the upd**ate of the calculated field (see example).** 
+To define how the computed value is generated, the field supports two possible attributes:
+
+##### **`function`**
+
+A callable used to compute the value. It can be:
+
+* A **string referencing a method name**, typically defined in the current class or a parent class.
+* An **anonymous function** (closure), e.g.:
+
+  ```php
+  'function' => function () { return time(); }
+  ```
+
+It is **strongly recommended** to define named methods with **`protected` scope**, so they:
+
+* Remain **inaccessible from outside** the class, preserving encapsulation.
+* Are still **available to child classes**, enabling controlled inheritance and overrides.
+
+
+
+> ⚠️ In most cases, when using the `store` attribute, you must also define an **`onchange` event** on the field(s) that influence the computed value. This ensures the computed field is updated when its dependencies change in the front-end (see example).
+
+
+
+##### **`relation`**
+
+An associative array describing a **path of relations** to follow in order to retrieve the value from a related entity. For example:
+
+```php
+'relation' => [ 'sale_entry_id' => 'vat_rate' ]
+```
+
+This means: follow the relation to `sale_entry_id`, then retrieve the `vat_rate` field from that related object.
+
+Once the computed value is evaluated (either via `function` or `relation`), and if `store` is set to `true`, the result can be **persisted in the database**.
+
 
 
 
@@ -287,7 +321,7 @@ When trying to load a computed field:
 // ...
     'rights' => [
         'type'		   => 'integer',
-        'onupdate'	   => 'onchangeRights'
+        'dependents'   => ['rights_txt']
     ],
     'rights_txt' => [
         'type'		   => 'computed', 
@@ -297,12 +331,7 @@ When trying to load a computed field:
     ],
 // ...
 
-
-public static function onupdateRights($om, $ids, $values, $lang) {
-    $om->update(__CLASS__, $oids, ['rights_txt' => null, $lang);
-}
-
-public static function calcRightsTxt($self) {
+protected static function calcRightsTxt($self) {
     $res = [];
     $values = $self->read('rights');
     foreach($values as $id => $value) {
@@ -432,6 +461,10 @@ Some fields are reserved but optional (with a convention of use):
 
 ## Getters methods
 
+By convention, **getter methods** (`getSomething()`) are always declared with **`public` scope**. These are the **only methods that may be accessed from outside the class** by external code, other than the internal calls made by the ORM (i.e., the `ObjectManager`).
+
+This convention ensures a clear and controlled interface for exposing object data, while maintaining strict encapsulation of internal logic and behaviors.
+
 | **NAME**         | **DESCRIPTION**                                              |
 | ---------------- | ------------------------------------------------------------ |
 | getName()        | Get Model readable name.                                     |
@@ -446,9 +479,11 @@ Some fields are reserved but optional (with a convention of use):
 | getDefaults()    | Return default values.                                       |
 | getTable()       | Return the name of the DB table to be used for storing objects of current class. |
 | getWorkflow()    | Returns the workflow associated with the entity. For more details @see [Workflows](../advanced/workflows.md) section. |
-| getRoles()       |                                                              |
-| getActions()     |                                                              |
-| getPolicies()    |                                                              |
+| getRoles()       | Returns the list of roles explicitly associated with the entity, typically used for access control customization. |
+| getActions()     | Returns a list of available actions that can be triggered on the entity (e.g. for workflows or UI). |
+| getPolicies()    | Returns the access control policies that can be applied to the entity, and possibly used in roles and actions. |
+
+
 
 
 
@@ -468,3 +503,9 @@ Some fields are reserved but optional (with a convention of use):
 
 
 # Custom methods
+
+Custom methods can be added to classes in order to extend their functionality beyond the default behavior provided by the framework.
+
+It is **strongly recommended** to define these methods with **`private` scope** to ensure they are not inadvertently called from outside the class or exposed as public endpoints. This helps preserve encapsulation and avoids conflicts with core methods or naming conventions used by the framework.
+
+Private methods can still be invoked internally within the class, including from lifecycle hooks or custom logic. If a method needs to be shared between multiple internal methods, consider keeping it private unless a broader scope is explicitly required.
