@@ -234,6 +234,8 @@ The `filters` property allows to customize the filtering features available in t
 | label| `string` | default name is no translation is set |
 | clause | `array`>`clause` | Clause that will be added to the view domain to search with the filter |
 
+
+
 ```json
 "filters": [
     {
@@ -308,10 +310,9 @@ The **header** section allows to override the default behavior of the view.
 The actions property can be used for 3 purposes: to force action buttons visibility; to define the order of the actions for buttons having multiple actions ("split buttons"); and to override the configuration of the subsequent Views (for relational fields).
 
 * For **forms**, default actions are : `ACTION.EDIT`, `ACTION.SAVE`, `ACTION.CREATE`, `ACTION.CANCEL`
-* For **lists**, default actions are : `ACTION.CREATE`, `ACTION.SELECT`, `ACTION.OPEN`
+* For **lists**, default actions are : `ACTION.CREATE`, `ACTION.CREATE_INLINE` , `ACTION.SELECT`, `ACTION.OPEN`
 
 Each action item is either a boolean or an array of items describing the order of the buttons and parameters for subsequent views.
-
 
 !!! Note "Action descriptor"
     Actions descriptors used in the header has the same structure than View actions. Therefore, it is possible to force the view to use a specific controller when a standard button is clicked.
@@ -351,7 +352,7 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
 | CREATE |  | model_create |
 | SELECT | An object in the current list view has been selected (selection might consist in several selected objects). |  |
 | ADD | A context is requested for adding one or more object to a many2many list. | model_update |
-| CANCEL | The action relating to the current view (form in edit mode : CREATE, EDIT), has been cancelled by the user. |  |
+| CANCEL | The action relating to the current view (form in edit mode : CREATE, EDIT), has been cancelled by the user. | S |
 | OPEN | A request for opening a form view for a given object has been received by the list. |  |
 
 ##### Examples
@@ -375,5 +376,19 @@ Here is the exhaustive list of the actions ID that are supported by the views. E
             "ACTION.CANCEL": [ {"id": "CANCEL_AND_VIEW"}]
         }
     }
+```
+
+
+
+An inline header with a single  `CREATE_INLINE` action (which does not open a new context but adds a new line at the top of the list):
+
+```json
+    "header": {
+        "layout": "inline",
+        "actions": {
+            "ACTION.CREATE_INLINE": true
+        }
+    },
+
 ```
 
