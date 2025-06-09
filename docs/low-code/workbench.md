@@ -43,7 +43,7 @@ In workbench, you can find the component creator at the bottom left of every com
 
 The component creator allows you to create various type of components in eQual using templates to create a working basic component.
 
-The component creator is context aware and will autofill the fields with you current context.
+The component creator is context aware and will autofill the fields with your current context.
 You will have to respect the naming convention of each components to be able to create them.
 
 For our tutorial, let's start by creating a package called `tutorial` and the Model `tutorial\Post` using the component creator :
@@ -93,7 +93,7 @@ Then, there are buttons to interact with the Model :
         Leads to the translations editor of the Model <a href="#translate-a-component">see</a>
     </li>
     <li>
-        Leads to the workflow editor og the Model <a href="#creating-a-workflow">see</a>
+        Leads to the workflow editor of the Model <a href="#creating-a-workflow">see</a>
     </li>
 </ol>
 
@@ -107,7 +107,7 @@ After clicking on **(5)** on the model side menu, here we are in the model field
 
 #### Header
 
-You can see that the header has slightly changed. It is the same in all the different page of Worbench but have variation based on the possible interaction with the current page. Here we have :
+You can see that the header has slightly changed. It is the same in all the different page of Workbench but have variation based on the possible interaction with the current page. Here we have :
 
 1. Back button : allows to go back to the previous context (last page in the state you quit it)
 2. cancel/redo : allows to cancel and redo actions as `CTRL+Z` and `CTRL+Y` do.
@@ -133,7 +133,7 @@ The icon on the left of the name **(6)** gives two information about the field :
 - The background color represents the state of the field :
     - Gray is inherited from `equal\orm\Model`. It can't be edited or deleted because it is required by eQual to manage it in DB
     - Yellow is inherited. You can't delete an inherited field.
-    - Green is Overridden. It's an inherited field that has been edited in this Model. It cannot be deleted but can be reset to it's parent value
+    - Green is Overridden. It's an inherited field that has been edited in this Model. It cannot be deleted but can be reset to its parent value
     - Blue is basic field, neither inherited, neither overridden.
 
 As in the component menu, the field creator **(7)** is located at the bottom left of the screen. If you do not fill the name input, it will give an arbitrary name to the field.
@@ -155,7 +155,7 @@ Let's add properties to our `Post` Model :
 <img src="/_assets/img/workbench_field_published.png" style="width : 49%">
 <img src="/_assets/img/workbench_field_author_name.png" style="width : 49%">
 
-If you have theses fields at the end you can save the model.
+If you have these fields at the end you can save the model.
 
 <img src="/_assets/img/workbench_field_list.png" style="height : 400px;">
 
@@ -194,7 +194,7 @@ We will speak about model translation in this part but this also apply to contro
 
 You can translate the name and description of the model and add plural variation to be used in the view render motor of eQualUI **(1)**.
 
-Translating fields **(3)**, will allow your apps to display the name differently in the views depending on the lang of the user that visualizes it. It also override the `label` argument of a view field. You can chose whether or not a field is translated or not by checking the box **(2)**.
+Translating fields **(3)**, will allow your apps to display the name differently in the views depending on the lang of the user that visualizes it. It also override the `label` argument of a view field. You can choose whether or not a field is translated or not by checking the box **(2)**.
 
 #### View translation
 
@@ -317,7 +317,7 @@ Items have a width of 25%
 
 ### controller side menu
 
-The controller dide menu give information about the selected controller using the announcer of the controller, allows the user to call the controller for testing purpose and give access to parameter and return value edition and controller [traduction](#translate-a-component) edition.
+The controller side menu give information about the selected controller using the announcer of the controller, allows the user to call the controller for testing purpose and give access to parameter and return value edition and controller [traduction](#translate-a-component) edition.
 
 <img src="/_assets/img/workbench_controller_sp1.png">
 
@@ -401,19 +401,19 @@ Then, open the menu editor and edit the menu like so :
 5. Leads to controllers [submenu](#submenus)
 6. Leads to views [submenu](#submenus)
 7. Leads to routes [submenu](#submenus)
-8. Leads to init data editor [see](#create-intialdemo-data)
-9. Leads to demo data editor [see](#create-intialdemo-data)
+8. Leads to init data editor [see](#create-initialdemo-data)
+9. Leads to demo data editor [see](#create-initialdemo-data)
 
-### Create intial/demo data
+### Create initial/demo data
 
-Demo and initial data are the same strucutre but they are not saved at the same place to allow the developper to chose which he wants to import if he wants to import them
+Demo and initial data are the same structure but they are not saved at the same place to allow the developer to choose which he wants to import if he wants to import them
 
 <img src="/_assets/img/workbench_init_overview.png">
 
 1. This is the list of the init/demo files for the given package, you can navigate through them using the side pane.
 2. You can select the entity you want to modify its entries in a given file using the tab selector.
 3. This button allows you to interact with the Model properties, mostly delete the model's entry or select which languages you want to create the data for the model (uses also [ISO 639-1](https://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-1)).
-4. You can visualize the data entry as a list here (uses the list.default view of the model, make sure you created it trying to display the properties before creating data). By clicking on an entry, you can edit it's values (fields that are not multilang are only editable in `en``) :
+4. You can visualize the data entry as a list here (uses the list.default view of the model, make sure you created it trying to display the properties before creating data). By clicking on an entry, you can edit its values (fields that are not multilang are only editable in `en``) :
      <img src="/_assets/img/workbench_init_entry.png">
 5. To delete entry you need to select the desired items then click on this button
 6. **id strict** and **toggle id** buttons allows you to tell to the editor if the entry is bound to a specific id or not. You may uses bound id to create relations between items or if a component uses the id in a domain.
@@ -501,7 +501,7 @@ You can move by dragging the models in the visual representation **(3)** to adju
 
 When editing a model **(4)** you can disable the inheritance links and relations link from this model. You can also hide fields to make the UML more readable.
 
-This page handles printing. you can render your UML as PDF using the button **(5)** or by pressing `CTRL+P`. Make sure that the camera is in the top left corner of the diagram and edit the scale of the print to fit everting in the page.
+This page handles printing. you can render your UML as PDF using the button **(5)** or by pressing `CTRL+P`. Make sure that the camera is in the top left corner of the diagram and edit the scale of the print to fit everything in the page.
 
 <img src="/_assets/img/workbench_uml_print.png">
 
