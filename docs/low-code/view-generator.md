@@ -20,16 +20,16 @@ Contexts are used in:
 
 ### `context` Object Structure
 
-| Property      | Type   | Required | Description                                                                   |
-| ------------- | ------ | -------- | ----------------------------------------------------------------------------- |
+| Property      | Type   | Required | Description                                                  |
+| ------------- | ------ | -------- | ------------------------------------------------------------ |
 | `entity`      | string | ✅        | Fully qualified name of the ORM entity (e.g., `finance\\accounting\\Journal`) |
-| `domain`      | array  | ⛔        | Filtering logic, using `[field, operator, value]` or combined clauses         |
-| `view`        | string | ✅        | Target view ID to load (e.g., `list.default`, `form.extended`)                |
-| `type`        | string | ⛔        | Optional type to categorize context (e.g., `entry`, `detail`, `action`)       |
-| `id`          | string | ✅        | Unique identifier for the context (used in routing and UI references)         |
-| `label`       | string | ⛔        | Display label shown in UI                                                     |
-| `icon`        | string | ⛔        | Material icon or custom icon name                                             |
-| `description` | string | ⛔        | Optional short description of the context                                     |
+| `domain`      | array  |          | Filtering logic, using `[field, operator, value]` or combined clauses |
+| `view`        | string | ✅        | Target view ID to load (e.g., `list.default`, `form.extended`) |
+| `type`        | string |          | Optional type to categorize context (e.g., `entry`, `detail`, `action`) |
+| `id`          | string | ✅        | Unique identifier for the context (used in routing and UI references) |
+| `label`       | string |          | Display label shown in UI                                    |
+| `icon`        | string |          | Material icon or custom icon name                            |
+| `description` | string |          | Optional short description of the context                    |
 
 
 !!!note "Additional Notes"
@@ -58,7 +58,7 @@ Displays the `list.default` view for the `Journal` entity, filtered to show only
 }
 ```
 
-#### Example 2: Profile form for current user
+#### Example 2: Route to profile view for current user
 Dynamically loads the profile form for the currently logged-in user.
 ```json
 {
