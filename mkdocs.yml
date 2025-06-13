@@ -107,6 +107,7 @@ nav:
   - 'How-Tos & Examples':
      - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'
      - 'Basic Controller' : 'howtos-and-examples/basic-controller.md'
+     - 'Sneak Peek' : 'howtos-and-examples/sneak-peek.md'
      - 'ReST API': 'howtos-and-examples/rest-api.md'
      - 'Basic WebApp' : 'howtos-and-examples/basic-webapp.md'
   - 'Advanced':
