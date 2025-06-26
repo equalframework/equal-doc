@@ -66,7 +66,7 @@ nav:
       - 'Deployment': 'getting-started/deployment.md'
   - 'Architecture Concepts':
       - 'Directory Structure': 'architecture-concepts/directory-structure.md'
-      - 'Pogramming paradigm': 'architecture-concepts/programming-paradigm.md'
+      - 'Programming paradigm': 'architecture-concepts/programming-paradigm.md'
       - 'HTTP native': 'architecture-concepts/http-native.md'
       - 'Services': 'architecture-concepts/services.md'
       - 'ORM': 'architecture-concepts/orm.md'
@@ -95,7 +95,7 @@ nav:
      - 'Routing': 'usage/routing.md'
      - 'Views': 
         - 'Front-end logic': 'usage/views/frontend-logic.md'
-        - 'Common strucutre': 'usage/views/common-structure.md'
+        - 'Common structure': 'usage/views/common-structure.md'
         - 'Lists': 'usage/views/lists.md'
         - 'Forms': 'usage/views/forms.md'
         - 'Widgets': 'usage/views/widgets.md'
@@ -107,6 +107,7 @@ nav:
   - 'How-Tos & Examples':
      - 'Generic Cheat Sheet': 'howtos-and-examples/generic-cheat-sheet.md'
      - 'Basic Controller' : 'howtos-and-examples/basic-controller.md'
+     - 'Sneak Peek' : 'howtos-and-examples/sneak-peek.md'
      - 'ReST API': 'howtos-and-examples/rest-api.md'
      - 'Basic WebApp' : 'howtos-and-examples/basic-webapp.md'
   - 'Advanced':
@@ -120,8 +121,8 @@ nav:
      - 'External libraries': 'advanced/external-libraries.md'
      - 'CI/CD': 'advanced/ci-cd.md'
      - 'Code Coverage': 'advanced/code-coverage.md'
-     - 'PHP Versions compatibility': 'advanced/php-versions-compatibility'
-     - 'Handling Complex cases': 'advanced/complex-cases'
+     - 'PHP Versions compatibility': 'advanced/php-versions-compatibility.md'
+     - 'Handling Complex cases': 'advanced/complex-cases.md'
   - 'Low-Code & tools':
      - 'Low-Code' : 'low-code/low-code.md'
      - 'View generator' : 'low-code/view-generator.md'
