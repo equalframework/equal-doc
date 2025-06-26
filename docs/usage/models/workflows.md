@@ -184,6 +184,6 @@ Variants like `published`, `approved`, `rejected`, or `cancelled` can be added d
 
 ## Best Practices
 
-* Keep `state` values minimal and consistent across all object types.
+* Keep use of `state` values as minimal as possible.
 * Use `status` to implement domain-specific workflows with clear transition rules.
-* Avoid using the same labels in both `state` and `status` unless the distinction is clearly documented and enforced.
+* Avoid using the same labels in `status` that might lead to a confusion with `state` values.
