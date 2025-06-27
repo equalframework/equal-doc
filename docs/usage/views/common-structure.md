@@ -213,6 +213,8 @@ Example:
   }
 ]
 ```
+!!! note "List views"
+    Inline actions are specific to list views. See [Inline actions](./lists.md#inline-actions).
 
 
 ### controller
