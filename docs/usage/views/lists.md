@@ -448,7 +448,8 @@ Most of the properties can be forced within the widget
   - No action buttons
   - Selection / Actions
     - No selection allowed
-## Inline actions
+
+### Inline actions
 
 Actions can also be displayed directly on each row of a list instead of only in the header. Set `"inline": true` on an action descriptor to show its icon next to every line. This allows quick per-row interactions while keeping the header in the default `"full"` layout.
 
