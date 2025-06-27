@@ -448,3 +448,75 @@ Most of the properties can be forced within the widget
   - No action buttons
   - Selection / Actions
     - No selection allowed
+## Inline actions
+
+Actions can also be displayed directly on each row of a list instead of only in the header. Set `"inline": true` on an action descriptor to show its icon next to every line. This allows quick per-row interactions while keeping the header in the default `"full"` layout.
+
+```json
+{
+    "name": "Fund Request Lines",
+    "description": "Fund request lines with amount and apportionment.",
+    "operations": {
+        "total": {
+            "request_amount": {
+                "operation": "SUM",
+                "usage": "amount/money:2"
+            },
+            "allocated_amount": {
+                "operation": "SUM",
+                "usage": "amount/money:2"
+            }
+        }
+    },
+    "actions": [
+        {
+            "id": "action.generate_allocations",
+            "inline": true,
+            "label": "Generate allocations",
+            "icon": "play_arrow",
+            "description": "Generate the allocations of the fund request part.",
+            "controller": "core_model_do",
+            "params": {
+                "entity": "realestate\\funding\\FundRequestLine",
+                "action": "generate_allocation"
+            },
+            "confirm": true
+        }
+    ],
+    "layout": {
+        "items": [
+            {
+                "type": "field",
+                "label": "condominium",
+                "value": "condo_id",
+                "width": "25%"
+            },
+            {
+                "type": "field",
+                "label": "Fund request",
+                "value": "fund_request_id",
+                "width": "25%"
+            },
+            {
+                "type": "field",
+                "label": "apportionment",
+                "value": "apportionment_id",
+                "width": "25%"
+            },
+            {
+                "type": "field",
+                "label": "Requested amount",
+                "value": "request_amount",
+                "width": "15%"
+            },
+            {
+                "type": "field",
+                "label": "Allocated amount",
+                "value": "allocated_amount",
+                "width": "15%"
+            }
+        ]
+    }
+}
+```
+
