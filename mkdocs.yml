@@ -117,6 +117,7 @@ nav:
         - 'Authentication': 'advanced/security/authentication.md'
         - 'Passkey authentication': 'advanced/security/passkey-authentication.md'
      - 'Logging': 'advanced/logging.md'
+     - 'Alerts Dispatching': 'advanced/alerts-dispatching.md'
      - 'Remote APIs': 'advanced/remote-apis.md'
      - 'External libraries': 'advanced/external-libraries.md'
      - 'CI/CD': 'advanced/ci-cd.md'
