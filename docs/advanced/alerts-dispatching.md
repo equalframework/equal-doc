@@ -87,19 +87,52 @@ $dispatch->cancel('lodging.booking.mealprefs_assignment', 'sale\booking\Booking'
 
 A `200` status with an empty body is returned. This keeps alerts symmetrical: raised on inconsistency, removed on resolution.
 
-## Summary of Responsibilities
 
-| Component                | Responsibility                                               |
-| ------------------------ | ------------------------------------------------------------ |
-| `MessageModel`           | Declares the alert type and metadata                         |
-| `Message`                | Stores emitted alerts for a given object and model           |
-| `Dispatcher::dispatch()` | Triggers a new alert if not already present                  |
-| `Dispatcher::cancel()`   | Silently removes alert when the condition is resolved        |
-| `Dispatcher::dismiss()`  | Removes alert and optionally re-runs its controller          |
+!!! note "Additional Notes"
+    - The `alert` field, if defined on a model, is automatically cleared on dispatch.
+    - Alerts can be listed or filtered in the UI for a given object or user context.
+    - Priority of alerts is implicitly derived from severity and age.
 
-## Additional Notes
 
-- The `alert` field, if defined on a model, is automatically cleared on dispatch.
-- Alerts can be listed or filtered in the UI for a given object or user context.
-- Priority of alerts is implicitly derived from severity and age.
+
+## Check Controllers and Alert Integration
+
+### Purpose
+
+To validate business-specific consistency rules, the eQual framework provides a standard mechanism through **check controllers**, which are a special category of controllers extending `model_check`.
+
+These controllers are designed to operate either interactively or programmatically and act as the primary mechanism for triggering and resolving alerts.
+
+### Characteristics
+
+A **check controller** has the following properties:
+
+* **Entity-specific**: Always scoped to a given entity (based on its namespace) and bound to a specific object (`id`) or list of objects (`ids`).
+* **Callable independently**: Can be executed via API, scheduled job, action hook, or alert resolution trigger.
+* **Structured response**:
+
+  * Returns a standard HTTP status code (`200` if no error, or appropriate error status otherwise).
+  * Returns a JSON associative array mapping object IDs to a list of error codes (corresponding to `MessageModel.name` values).
+* **Alert-aware**: Can **create or cancel alert messages**, regardless of whether the result is actively used.
+* **Integrated logic**:
+
+  * Can be invoked from within an action (via `getActions()`), controller transitions (`onbefore`, `onafter`), or custom logic.
+  * The return value can be interpreted to raise an exception if business rules are violated.
+* **Symmetrical logic**: A single check controller is responsible for both **raising** and **clearing** alerts, ensuring consistent lifecycle management.
+
+### UI and User Feedback
+
+* In the front-end, error codes returned by check controllers can be translated using the associated `MessageModel` definitions (multilang `label` and `description`).
+* This allows seamless integration between backend consistency checks and user-visible warnings.
+
+### Alert Re-evaluation via Controller
+
+Each `Message` instance may optionally reference the controller that created it. This enables:
+
+* **Re-evaluation of alert state**: The system can re-run the associated controller (with preserved `params`) when a user dismisses the alert or upon certain events.
+* **Stateless verification**: The check controller remains the single source of truth for whether a situation still justifies the presence of an alert.
+
+
+!!! note "1 Alert = 1 Object "
+    Alerts are always bound to one and only one object and are managed by their related check controller.
 
