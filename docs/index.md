@@ -1,5 +1,10 @@
 ![](_assets/img/equal_logo_w_bg.png)
 
+# Welcome to eQual
+
+Welcome to **eQual**, a versatile web-oriented framework designed to help you build modern web applications with clarity and efficiency.  
+Whether you're developing backend services, APIs, or full-stack apps, eQual helps you **manage interactions between front-end apps and business logic** with minimal overhead.
+
 # eQual Framework
 
 eQual is a versatile, language-agnostic framework for building web applications. It manages interactions between front-end apps and business logic with minimal overhead.
@@ -13,10 +18,12 @@ eQual is a versatile, language-agnostic framework for building web applications.
 * **Code reusability** – controllers can be reused as functions
 * **Self-documented code** – descriptive tools for data structures and parameters
 
-## Get Started
+## Who Should Use This Documentation?
 
-Ready to try eQual? Follow the [Quick Start guide](getting-started/quick-start.md) to set up your environment and create your first package.
+This documentation is organized for different roles:
 
-## Learn More
+- **Application Developers** – guides and references to build apps with eQual.  
+- **DevOps / Operations** – deployment, environment, and maintenance guidance.  
+- **Community & Contributors** – rules, coding standards, and contribution workflow.  
+- **Help & Support** – troubleshooting and diagnostic resources.
 
-For sample controllers and CLI usage, see the [Sneak Peek example](howtos-and-examples/sneak-peek.md).
