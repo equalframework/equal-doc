@@ -56,6 +56,7 @@ nav:
       - 'Release notes': 'welcome/release-notes.md'
       - 'Choose your path': 'welcome/choose-path.md'
       - 'Contribute': 'welcome/contribute.md'
+      - 'End Users': 'welcome/end-users.md'
   - 'Application Developers':
       - 'Getting Started':
           - 'Installation': 'application-developers/getting-started/installation.md'
@@ -144,24 +145,22 @@ nav:
           - 'Shared-lib Setup': 'operations/deployment-environment/shared-lib-setup.md'
           - 'Pipeline Utilities': 'operations/deployment-environment/pipelines-utilities.md'
       - 'Database & Storage':
-          - 'Database administration': ''  
-          - 'Backup / Restore': ''   
           - 'Data Manipulation Utilities': 'operations/database-storage/data-manipulation-utilities.md'
       - 'Monitoring & Maintenance':
           - 'Rights Management Utilities': 'operations/monitoring-maintenance/rights-management-utilities.md'
           - 'Rights Management': 'operations/monitoring-maintenance/rights-management.md'
           - 'Logging': 'operations/monitoring-maintenance/logging-overview.md'
-          - 'Performance': 'operations/monitoring-maintenance/performance.md'
-          - 'Upgrades': ''  
+          - 'Performance': 'operations/monitoring-maintenance/performance.md'  
   - 'Community (Core / Contributors)':
       - 'Contribution Guide':
           - 'Coding standards': 'community/contribution-guide/coding-standards.md'
+          - 'Commit standards': 'community/contribution-guide/commit-standards.md'
           - 'How to Help': 'community/contribution-guide/how-to-help.md'
+          - 'Licensing guidelines': 'community/contribution-guide/licensing-guidelines.md'
           - 'PR workflow': 'community/contribution-guide/pr-workflow.md'
           - 'Tests & coverage': 'community/contribution-guide/tests-coverage.md'
       - 'Internal Architecture':
           - 'Framework internals': 'community/internal-architecture/framework-internals.md'
-          - 'Design principles': ''
   - 'Help & Support':
       - 'Troubleshooting & Diagnostics': 
           - 'Common issues': 'help-support/troubleshooting-diagnostic/common-issues.md'
