@@ -171,4 +171,3 @@ nav:
       - 'Contact & Support':
           - 'Report a bug': 'help-support/contact-support/report-bug.md'
           - 'Support channels': 'help-support/contact-support/support-channels.md'
-          - 'Security disclosure': 'help-support/contact-support/security-disclosure.md'
