@@ -10,14 +10,6 @@ Refer to the versions below for detailed changes:
 
 _(TODO: Populate with the latest changelog from the Git repository / releases)_
 
-- **Version 3.x** – Latest stable release (date)  
-  - Feature highlights  
-  - Fixed issues  
-  - Breaking changes
-
 ## Previous Versions
 
 _(Optional: Summaries of older releases)_
-
-- **Version 2.x** – (date)
-- **Version 1.x** – (date)
