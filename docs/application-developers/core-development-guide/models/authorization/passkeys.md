@@ -90,6 +90,49 @@ The Passkey implementation involves specific Controllers in the core `auth` pack
 *   **`user_passkey-auth`**: Performs the login.
     *   **Logic**: Verifies the challenge signature against the stored public key for the selected credential. Returns an authentication cookie on success.
 
+### Browser Integration Example (WebAuthn)
+
+The following client-side flow can be used to integrate passkeys with the controllers above.
+
+#### 1) Registration (create a passkey)
+
+1. Request creation options from `core_user_passkey-register-options` with user credentials.
+2. Extract and keep `register_token` for final verification.
+3. Convert binary markers (`=?BINARY?B?...?=`) returned by the backend into `ArrayBuffer`.
+4. Call `navigator.credentials.create(options)`.
+5. Send the resulting attestation payload to `core_user_passkey-register`:
+    * `register_token`
+    * `transports`
+    * `client_data_json` (Base64)
+    * `attestation_object` (Base64)
+
+#### 2) Authentication (use a passkey)
+
+1. Request authentication options from `core_user_passkey-auth-options` with the user login.
+2. Extract and keep `auth_token` for final verification.
+3. Convert binary markers (`=?BINARY?B?...?=`) into `ArrayBuffer`.
+4. Call `navigator.credentials.get(options)`.
+5. Send the resulting assertion payload to `core_user_passkey-auth`:
+    * `auth_token`
+    * `credential_id` (from `rawId`, Base64)
+    * `client_data_json` (Base64)
+    * `authenticator_data` (Base64)
+    * `signature` (Base64)
+    * `user_handle` (Base64, optional)
+
+#### 3) Required utility conversions
+
+In JavaScript, two utility helpers are typically required:
+
+* `recursiveBase64StrToArrayBuffer(obj)`: walks through the options payload and converts backend binary wrappers into `ArrayBuffer` before calling WebAuthn APIs.
+* `arrayBufferToBase64(buffer)`: converts WebAuthn binary responses to Base64 for JSON transport.
+
+#### 4) Practical notes
+
+* Use `https://` in production. In development, `localhost` is a browser exception allowing HTTP.
+* Keep `register_token` and `auth_token` untouched between options and final POST requests.
+* JSON payload field names are expected exactly as listed above by the matching passkey controllers.
+
 ## Authenticators and Assurance Levels
 
 Different authenticators provide different levels of security assurance. eQual maps these formats to [Authentication Assurance Levels (AALs)](./authentication.md#authentication-levels) as follows:
