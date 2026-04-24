@@ -6,7 +6,7 @@ This directory contains JSON Schema definitions (Draft 2020-12) for major eQual 
 
 ## Available Schemas
 
-### 1. **Package Manifest** (`package.json`)
+### 1. **Package Manifest** (`manifest.json`)
 - **Schema ID**: `urn:equal:json-schema:core:package.manifest`
 - **Usage**: Validate `packages/{package}/manifest.json` files
 - **Required fields**: `name`, `version`
