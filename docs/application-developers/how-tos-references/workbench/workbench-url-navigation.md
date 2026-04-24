@@ -21,7 +21,7 @@ These are the most common, but other params may be used for specific sections, s
 Example:
 
 ```text
-?tab=advanced&view=default.form&view_tab=layout&field=customer-label
+?tab=advanced&view=form.default&view_tab=layout&field=customer-label
 ```
 
 When focusing a field, the system will attempt to click it open if it's inside a collapsible section (like an accordion or a dropdown). However, this may not work in all cases, and some manual interaction might be required to open the section before the field can be focused. An example of this are checkboxes, the service will always verify if the target checkbox is already checked before attempting to click it, but if it's not checked, it will try to click the checkbox to open the section, which may not be the desired behavior in some cases. This is an area that may require further refinement in the future.
