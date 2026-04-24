@@ -134,6 +134,9 @@ nav:
           - 'Package': 'application-developers/how-tos-references/package.md'
           - 'Using Shared-lib': 'application-developers/how-tos-references/using-shared-lib.md'
           - 'Workbench Overview' : 'application-developers/how-tos-references/workbench-overview.md'
+          - 'Workbench':
+                - 'Workbench Overview': 'application-developers/how-tos-references/workbench/workbench-overview.md'
+                - 'Workbench URL Navigation': 'application-developers/how-tos-references/workbench/workbench-url-navigation.md'
   - 'Operations (DevOps / Sysadmin)':
       - 'Deployment & Environment':
           - 'Server setup': 'operations/deployment-environment/server-setup.md'
