@@ -113,7 +113,9 @@ nav:
           - 'Validation & Searching': 
                 - 'Validation': 'application-developers/core-development-guide/validation-searching/validation.md'
                 - 'Searching': 'application-developers/core-development-guide/validation-searching/searching.md'
-                - 'JSON Schemas': 'application-developers/core-development-guide/validation-searching/json-schemas.md'
+                - 'JSON Schemas': 
+                     - 'JSON Schemas Overview': 'application-developers/core-development-guide/validation-searching/json-schemas/json-schemas-overview.md'
+                     - 'JSON Schemas in eQual': 'application-developers/core-development-guide/validation-searching/json-schemas/json-schemas-equal.md'
           - 'Internationalization':
                 - 'Internationalization Overview': 'application-developers/core-development-guide/i18n/i18n-overview.md'
                 - 'Interface': 'application-developers/core-development-guide/i18n/i18n-interface.md'
@@ -133,7 +135,9 @@ nav:
           - 'API / CLI Reference': 'application-developers/how-tos-references/api-cli.md' 
           - 'Package': 'application-developers/how-tos-references/package.md'
           - 'Using Shared-lib': 'application-developers/how-tos-references/using-shared-lib.md'
-          - 'Workbench Overview' : 'application-developers/how-tos-references/workbench-overview.md'
+          - 'Workbench':
+                - 'Workbench Overview': 'application-developers/how-tos-references/workbench/workbench-overview.md'
+                - 'Workbench URL Navigation': 'application-developers/how-tos-references/workbench/workbench-url-navigation.md'
   - 'Operations (DevOps / Sysadmin)':
       - 'Deployment & Environment':
           - 'Server setup': 'operations/deployment-environment/server-setup.md'
