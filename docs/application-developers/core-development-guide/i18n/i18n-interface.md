@@ -44,6 +44,75 @@ This section translates specific [Views](../views-ui/frontend-logic.md) and thei
 
 Used for translating form validation errors or specific controller exceptions.
 
+### Error Message Translations
+
+Error messages raised through exceptions must be translatable.
+
+#### 1. Exception-based error messages
+
+When throwing an exception, the message string is used as the translation key:
+
+```php
+throw new \Exception('cannot_remove_non_proforma', EQ_ERROR_NOT_ALLOWED);
+```
+
+- The string `'cannot_remove_non_proforma'` acts as the **error identifier**.
+- This identifier must be defined in the translation file of the related class, under the `"error"` section.
+
+#### 2. Field-related error messages
+
+By default, error keys are organized by **field name**.
+
+Each field contains a set of error messages related to validation rules (for example: constraints, uniqueness).
+
+Example:
+
+```json
+"error": {
+    "login": {
+        "invalid_email": "Must be a valid email address."
+    },
+    "firstname": {
+        "too_short": "Must contain at least 2 characters.",
+        "invalid_chars": "Must not contain symbolic characters."
+    }
+}
+```
+
+- These messages are typically triggered by validation logic.
+- Structure: `error → field → error_code → translated message`
+
+#### 3. Global (non-field) error messages
+
+Errors that are **not linked to a specific field** must be defined under the `"errors"` key.
+
+These errors are always triggered via `throw new Exception(...)`, either:
+
+- in the class itself, or
+- in one of its associated controllers.
+
+Example:
+
+```json
+"error": {
+    "customer_id": {
+        "missing_mandatory": "Required field."
+    },
+    "center_id": {
+        "missing_mandatory": "Required field."
+    },
+    "status": {
+        "non_editable": "The booking status does not allow editing.",
+        "undefined_product_id": "Status cannot be changed if no product is defined."
+    },
+    "errors": {
+        "overbooking_detected": "Overbooking detected."
+    }
+}
+```
+
+- Structure for global errors: `error → errors → error_code → translated message`
+
 ### Comprehensive Example
 
 **File**: `packages/accounting/i18n/fr/VatRule.json`
