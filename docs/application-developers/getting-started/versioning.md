@@ -322,3 +322,109 @@ This command provides a **unified view of the current installation**, combining:
 - minimal information
 - still sufficient for identifying the release
 
+
+Below is a concise documentation section you can add.
+
+---
+
+# Release Process
+
+This section describes the standard procedure to create a new eQual release.
+
+The process is intentionally simple and relies on Git conventions and the `VERSION` file.
+
+
+
+## General Rules
+
+* The version branch (`2.0.1`) allows:
+
+  * hotfixes
+  * maintenance of a specific release line
+* The tag (`v2.0.1`) provides:
+
+  * an immutable reference
+  * compatibility with version resolution (GitHub API, etc.)
+* The `VERSION` file is the **source of truth**
+* Each release must correspond to a **Git tag**:
+
+```text
+v{VERSION}
+```
+
+Example:
+
+```text
+VERSION = 2.0.1 → tag = v2.0.1
+```
+
+* Each version should have a **dedicated branch** named after the version
+
+---
+
+## Standard Release Workflow
+
+For any release (patch, minor, or major):
+
+### 1. Create a version branch
+
+```bash
+git checkout -b 2.0.1
+```
+
+---
+
+### 2. Update the VERSION file
+
+Edit the `VERSION` file:
+
+```text
+2.0.1
+```
+
+---
+
+### 3. Commit the change
+
+```bash
+git commit -a -m "Release 2.0.1"
+```
+
+---
+
+### 4. Push the branch
+
+```bash
+git push origin 2.0.1
+```
+
+---
+
+### 5. Create the release tag
+
+```bash
+git tag v2.0.1
+git push origin v2.0.1
+```
+
+(Or create the release directly via GitHub using the same tag.)
+
+---
+
+## Main Release (Production)
+
+For a main (official) release, an additional step is required:
+
+### 6. Update the master branch
+
+```bash
+git checkout master
+git merge 2.0.1
+git push origin master
+```
+
+This ensures that:
+
+* `master` always reflects the latest stable release
+* new installations from `master` are aligned with the latest version
+
