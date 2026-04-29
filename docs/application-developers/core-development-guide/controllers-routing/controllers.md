@@ -35,7 +35,7 @@ The announcement array defines the controller's contract:
 *   **constants**: Package-specific constants used by the script.
 
 ### `description`
-A simple string describing the controller's purpose. This is used for documentation and by the [Workbench](../../how-tos-references/workbench-overview.md).
+A simple string describing the controller's purpose. This is used for documentation and by the [Workbench](../../how-tos-references/workbench/workbench-overview.md).
 
 ### `params`
 An associative array defining the input API. Each key is a parameter name, and its value is a definition array.
