@@ -1,5 +1,9 @@
 # Query Parameter Navigation Reference
 
+Workbench routing follows a hybrid pattern. Some URLs load dedicated feature screens, while others resolve to a shared multi-purpose entry screen. This is intentional: the Workbench home screen is not just a landing page, but a generic inspector driven by the current URL. It interprets the route, restores the selected package, model, view, menu, controller, or route, and then renders the corresponding information panel.
+
+As a result, several routes point to the same `AppComponent`. That component acts as a universal URL-driven inspector, whereas more specialized sub-routes load dedicated editing modules for tasks such as fields, translations, workflow, policies, actions, roles, or view editing.
+
 ## Workbench Route Recap
 
 | Full URL | Target |
