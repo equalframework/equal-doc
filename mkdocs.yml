@@ -63,6 +63,7 @@ nav:
           - 'Quick Start': 'application-developers/getting-started/quick-start.md'
           - 'Deployment': 'application-developers/getting-started/deployment.md'
           - 'Configuration': 'application-developers/getting-started/configuration.md'
+          - 'Versioning': 'application-developers/getting-started/versioning.md'
       - 'Core Development Guide':
           - 'Models (Entities / Actions / Workflows)':
                - 'Actions': 'application-developers/core-development-guide/models/actions.md'
