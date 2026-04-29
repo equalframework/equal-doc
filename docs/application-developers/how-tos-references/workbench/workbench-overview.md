@@ -67,7 +67,7 @@ See [Menu Editor](#edit-menus) and [Route Side Menu](#route-side-menu) for more 
 
 In workbench, you can find the component creator at the bottom left of every component selector of the app.
 
-<img src="../../../_assets/img/workbench_creator_location.png">
+<img src="/_assets/img/workbench_creator_location.png">
 
 The component creator allows you to create various type of components in eQual using templates to create a working basic component.
 
@@ -76,7 +76,7 @@ You will have to respect the naming convention of each components to be able to 
 
 You can find precise components in eQual Workbench by using the base menu to search in all the component of the instance :
 
-<img src="../../../_assets/img/workbench_find_explanation.png" style="height : 500px;">
+<img src="/_assets/img/workbench_find_explanation.png" style="height : 500px;">
 
 To search for a component, you can use the **search bar (1)** to filter the component using this syntax :
 
@@ -88,7 +88,7 @@ You can also use the **drop down menu (2)** to select the type (it will change i
 
 After choosing a component, the right side of the screen will render the model's side menu :
 
-<img src="../../../_assets/img/workbench_modelsp.png">
+<img src="/_assets/img/workbench_modelsp.png">
 
 This side menu give a lot of information about the Model : 
 
@@ -112,7 +112,7 @@ The other buttons are currently work in progress.
 
 #### Model Field Edition
 
-<img src="../../../_assets/img/workbench_model_first_look.png">
+<img src="/_assets/img/workbench_model_first_look.png">
 
 1. **Back button** : allows to go back to the previous context (last page in the state you left it)
 2. **Cancel/Redo** : allows to cancel and redo actions as `CTRL+Z` and `CTRL+Y` do.
@@ -145,7 +145,7 @@ As in the component menu, the **field creator (7)** is located at the bottom lef
 
 The view side menu give information about the selected view and access to its edition.
 
-<img src="../../../_assets/img/workbench_view_sidemenu.png">
+<img src="/_assets/img/workbench_view_sidemenu.png">
 
 * **Name and the description (1)** of the view
 * **Information (2)** about the layout of the view
@@ -156,7 +156,7 @@ The view side menu give information about the selected view and access to its ed
 
 View are huge JSON file that are hard to read. Workbench give the user a simpler way to edit the view using an interface that mimic the result of the view in eQualUI
 
-<img src="../../../_assets/img/workbench_view_editor_top.png">
+<img src="/_assets/img/workbench_view_editor_top.png">
 
 In the editor, view are segmented in 5 categories **(2)**. The content of these part may vary depending on the type of view you are editing.
 
@@ -174,8 +174,8 @@ In the editor, view are segmented in 5 categories **(2)**. The content of these 
 
 When you are editing the layout of a form or a search view, the editor will create a render that looks like the render of eQual UI.
 
-<img src="../../../_assets/img/workbench_view_editor_form.png" style="width : 49%">
-<img src="../../../_assets/img/workbench_view_editor_comparison.png" style="width : 49%">
+<img src="/_assets/img/workbench_view_editor_form.png" style="width : 49%">
+<img src="/_assets/img/workbench_view_editor_comparison.png" style="width : 49%">
 
 You can edit the layout visually using drag and drop. 
 
@@ -183,13 +183,13 @@ You can edit the layout visually using drag and drop.
 
 The view layout is represented as a list of column in the editor. You can edit the column and change their order by dragging and dropping them.
 
-<img src="../../../_assets/img/workbench_view_editor_list.png">
+<img src="/_assets/img/workbench_view_editor_list.png">
 
 ### Controller Side Menu
 
 The controller side menu give information about the selected controller using the announcer of the controller, allows the user to call the controller for testing purpose and give access to parameter and return value edition and controller [traduction](#translation-editor) edition.
 
-<img src="../../../_assets/img/workbench_controller_sp1.png">
+<img src="/_assets/img/workbench_controller_sp1.png">
 
 **1. Name and type** (GET = data controller or DO = action controller) of the controller.
 
@@ -197,11 +197,11 @@ The controller side menu give information about the selected controller using th
 
 **3. Response header** : Meta data about the response you will get by calling this controller.
 
-<img src="../../../_assets/img/workbench_controller_sp2.png">
+<img src="/_assets/img/workbench_controller_sp2.png">
 
 This list represents input parameters of the controller and can be filled to call the controller in workbench or generate cli command and http request to call the controller.
 
-<img src="../../../_assets/img/workbench_controller_sp3.png">
+<img src="/_assets/img/workbench_controller_sp3.png">
 
 **1.** Allows you to call the controller in workbench and see its response if all the required input parameter have a value.
 
@@ -221,11 +221,11 @@ This list represents input parameters of the controller and can be filled to cal
 
 The controller parameters editor works exactly like the [model field editor](#model-field-edition) without the inheritance handling and the advance panel.
 
-<img src="../../../_assets/img/workbench_controller_params.png">
+<img src="/_assets/img/workbench_controller_params.png">
 
 #### Editing Controller Responses
 
-<img src="../../../_assets/img/workbench_controller_return.png">
+<img src="/_assets/img/workbench_controller_return.png">
 
 In the return editor, you can modify the http response header **(1)**, and the eQual type of the content of the body **(2)**.
 
@@ -237,11 +237,11 @@ You can also precise the quantity (`one` or `many`) of variable you send **(3)**
 
 In addition of the "classic" types of eQual you can indicate an "entity" type that allow you to reference an eQual Model, or a data of type "any" : type "any" can be precise as a composite structure of eQual types if possible
 
-<img src="../../../_assets/img/workbench_controller_return2.png">
+<img src="/_assets/img/workbench_controller_return2.png">
 
 ### Menu Side Menu
 
-<img src="../../../_assets/img/workbench_menu_sp.png">
+<img src="/_assets/img/workbench_menu_sp.png">
 
 The menu side menu is in work in progress and only gives access to the **[menu editor](#edit-menus) (1)** and **menu [traduction editor](#translate-a-component) (2)**
 
@@ -249,7 +249,7 @@ The menu side menu is in work in progress and only gives access to the **[menu e
 
 The menu editor allows you to create/edit/delete menu items whilst having a preview of the final result.
 
-<img src="../../../_assets/img/workbench_menu_editor.png">
+<img src="/_assets/img/workbench_menu_editor.png">
 
 **1. Name of the view** for display purpose only (unrelated to its id which is attached to its filename).
 
@@ -263,7 +263,7 @@ All the editable properties of the view in workbench are properties findable in 
 
 ### Package Side Menu
 
-<img src="../../../_assets/img/workbench_package_sp.png">
+<img src="/_assets/img/workbench_package_sp.png">
 
 **1. Information about the package** : name, `package_consistency` reports and if the package has been initialized on the eQual instance.
 
@@ -287,7 +287,7 @@ Demo and initial data are the same structure but they are not saved at the same 
 
 #### Create `initial`/`demo` Data
 
-<img src="../../../_assets/img/workbench_init_overview.png">
+<img src="/_assets/img/workbench_init_overview.png">
 
 **1.** This is the list of the **init/demo files** for the given package, you can navigate through them using the side pane.
 
@@ -296,20 +296,20 @@ Demo and initial data are the same structure but they are not saved at the same 
 **3.** This button allows you to **interact with the Model properties**, mostly delete the model's entry or select which languages you want to create the data for the model (uses also [ISO 639-1](https://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-1)).
 
 **4.** You can **visualize the data entry** as a list here (uses the list.default view of the model, make sure you created it trying to display the properties before creating data). By clicking on an entry, you can edit its values (fields that are not multilang are only editable in `en``) :
-     <img src="../../../_assets/img/workbench_init_entry.png">
+     <img src="/_assets/img/workbench_init_entry.png">
      
 **5.** To **delete entry** you need to select the desired items then click on this button
 
 **6.** **`id strict` and `toggle id` button**s allows you to tell to the editor if the entry is bound to a specific id or not. You may uses `bound id` to create relations between items or if a component uses the id in a domain.
 
 **7.** The editor allows you to **import initial data** from the data of the eQual database. By clicking on this button, Workbench will fetch all the object of the Model and convert the one you select to initial/demo data :
-    <img src="../../../_assets/img/workbench_init_import.png">
+    <img src="/_assets/img/workbench_init_import.png">
 
 **8.** You can create initial **data entries** by hand using this button. this will open the edition menu automatically on the new item.
 
 ### Translation Editor
 
-<img src="../../../_assets/img/workbench_traduction_top.png" style="width : 100%; height : auto;">
+<img src="/_assets/img/workbench_traduction_top.png" style="width : 100%; height : auto;">
 
 In the translation editor, you can select or create a lang to translate your **entity (1)**. 
 
@@ -321,7 +321,7 @@ Translating en entity means to translate its fields (or parameters name for cont
 
 Translation applies to models. However, it also applies to controllers using params as their fields.
 
-<img src="../../../_assets/img/workbench_translation_model.png">
+<img src="/_assets/img/workbench_translation_model.png">
 
 You can translate the **name and description (1)** of the model and add plural variation to be used in the view render motor of eQualUI .
 
@@ -331,7 +331,7 @@ You can translate the **name and description (1)** of the model and add plural v
 
 There is not much to translate in views because the names of fields are already translated in [Model translation](#model-translation). Here, you will be able to translate groups, sections, row, column and label fields names.
 
-<img src="../../../_assets/img/workbench_translation_view.png">
+<img src="/_assets/img/workbench_translation_view.png">
 
 You can select which view to translate with the **tab selector (1)**, then you can **translate the view (2)**the same way you translate the model.
 
@@ -339,7 +339,7 @@ You can select which view to translate with the **tab selector (1)**, then you c
 
 Error translation works differently. You need to state for each field and error type the appropriate message.
 
-<img src="../../../_assets/img/workbench_translation_error.png">
+<img src="/_assets/img/workbench_translation_error.png">
 
 First you can choose if a field has error to translate via a **checkbox (1)**
 
@@ -349,7 +349,7 @@ Then, you can add error type to the **field (2)** and translate them.
 
 By using the button workflow in the [Model side menu](#model-field-editor), You can access the workflow editor :
 
-<img src="../../../_assets/img/workflow_overview.png">
+<img src="/_assets/img/workflow_overview.png">
 
 To create or edit a workflow, you can use the different **modes (1)** of the editor. 
 
@@ -365,11 +365,11 @@ On save, the workflow will be converted to php associative array in the Model ph
 
 Workbench has a UML Viewer/Editor that you can access by the side menu :
 
-<img src="../../../_assets/img/workbench_access_uml.png">
+<img src="/_assets/img/workbench_access_uml.png">
 
 The UML editor uses information contained in the models' structure to create automatically a diagram
 
-<img src="../../../_assets/img/workbench_uml_overview.png">
+<img src="/_assets/img/workbench_uml_overview.png">
 
 The UML editor is similar to the [workflow editor](#creating-a-workflow) in is internal working. you can switch between 3 **modes (2)** to create your workflows.
 
@@ -381,11 +381,11 @@ When **editing a model (4)** you can disable the inheritance links and relations
 
 This page handles printing. you can **render your UML as PDF (5)** using the button or by pressing `CTRL+P`. Make sure that the camera is in the top left corner of the diagram and edit the scale of the print to fit everything in the page.
 
-<img src="../../../_assets/img/workbench_uml_print.png">
+<img src="/_assets/img/workbench_uml_print.png">
 
 Adding a model is as simple as adding his name in the model list. The relations will add themselves.
 
-<img src="../../../_assets/img/workbench_uml_add.png">
+<img src="/_assets/img/workbench_uml_add.png">
 
 To delete a model from the representation, you can use the list of model, or select the model in the edition mode and press the delete button.
 
@@ -394,7 +394,7 @@ To delete a model from the representation, you can use the list of model, or sel
 
 Route edition is not currently supported by Workbench but you can view them in the main menu and they have a side menu :
 
-<img src="../../../_assets/img/workbench_routes.png">
+<img src="/_assets/img/workbench_routes.png">
 
 ### Pipeline Editor
 
