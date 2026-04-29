@@ -1,5 +1,34 @@
 # Query Parameter Navigation Reference
 
+## Workbench Route Recap
+
+| Full URL | Target |
+|---|---|
+| `/uml` | `UmlErdComponent` |
+| `/pipelines` | `PipelineComponent` |
+| `/routes` | `RoutesComponent` |
+| `/package/:package_name` | `AppComponent` |
+| `/package/:package_name/init-data/:type` | `InitDataComponent` |
+| `/package/:package_name/model/:class_name/fields` | `PackageModelFieldsComponent` |
+| `/package/:package_name/model/:class_name/translations` | `ModelTradEditorComponent` |
+| `/package/:package_name/model/:class_name/workflow` | `PackageModelWorkflowComponent` |
+| `/package/:package_name/model/:class_name/policies` | `PackageModelPoliciesComponent` |
+| `/package/:package_name/model/:class_name/actions` | `PackageModelActionsComponent` |
+| `/package/:package_name/model/:class_name/roles` | `PackageModelRolesComponent` |
+| `/package/:package_name/model/:class_name` | `AppComponent` |
+| `/package/:package_name/menu/:menu_name/translations` | `MenuTradEditorComponent` |
+| `/package/:package_name/menu/:menu_name/edit` | `PackageMenuComponent` |
+| `/package/:package_name/menu/:menu_name` | `AppComponent` |
+| `/package/:package_name/controller/:controller_type/:controller_name/edit` | `PackageControllerComponent` |
+| `/package/:package_name/controller/:controller_type/:controller_name` | `AppComponent` |
+| `/package/:package_name/route/:route_name` | `AppComponent` |
+| `/package/:package_name/routes` | `AppComponent` |
+| `/package/:package_name/package/:package_name` | `PackageComponent` |
+| `/package/:package_name/view/:entity_view/edit` | `PackageViewComponent` |
+| `/package/:package_name/view/:entity_view` | `AppComponent` |
+
+---
+
 This document lists the available query parameters and link patterns used for deep navigation in editors. This is intended as a reference for developers to understand and utilize the navigation system effectively. For specifics about implementation and usage, refer to the `QueryParamNavigatorService` code and related editor components.
 
 ---
