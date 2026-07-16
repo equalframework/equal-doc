@@ -1,18 +1,15 @@
-site_name: eQual framework 
+site_name: eQual framework
 site_url: https://doc.equal.run/
-docs_dir: docs
-# dev_addr: 127.0.0.1:8000
 repo_name: equal
 repo_url: https://github.com/equalframework/equal
 edit_uri: ""
+docs_dir: docs
 theme:
   name: material
   favicon: '_assets/img/favicon.png'
   logo: '_assets/img/eq_logo.png'
-  feature:
-    tabs: true
-  features: 
-    - navigation.instant  
+  features:
+    - navigation.instant
     - navigation.tracking
     - navigation.tabs
   # 404 page
@@ -21,22 +18,15 @@ theme:
 extra_css:
   - '_assets/css/extra.css'
 plugins:
-  - search  
-  - mike:
-      canonical_version: null
-      version_selector: true
-      css_dir: css
-extra:
-  version:
-    provider: mike
+  - search
 markdown_extensions:
-  - markdown.extensions.admonition
-  - markdown.extensions.codehilite:
+  - admonition
+  - codehilite:
       guess_lang: false
-  - markdown.extensions.def_list
-  - markdown.extensions.footnotes
-  - markdown.extensions.meta
-  - markdown.extensions.toc:
+  - def_list
+  - footnotes
+  - meta
+  - toc:
       permalink: true
   - pymdownx.betterem:
       smart_enable: all
