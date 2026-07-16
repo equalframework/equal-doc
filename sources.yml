@@ -1,0 +1,6 @@
+sources:
+  - name: FMT
+    repo: https://github.com/equalframework/equal.git
+    branch: main
+    path: DOC
+    target: .

@@ -1,5 +1,0 @@
-# Security Disclosure
-
-TODO
-
----
