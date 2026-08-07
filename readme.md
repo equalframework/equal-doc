@@ -73,3 +73,10 @@ https://squidfunk.github.io/mkdocs-material/reference/lists/
     * [ ] Praesent sed risus massa
 - [ ] Aenean pretium efficitur erat, donec pharetra, ligula non scelerisque
 ```
+
+## Running within a Docker container
+
+### `crontab -e`
+```
+0 12 * * * cd /home/doc.equal.run && docker compose exec docs /bin/sh -c "./build.sh" && docker compose restart docs
+```
