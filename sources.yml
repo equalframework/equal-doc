@@ -1,6 +1,6 @@
 sources:
   - name: eQual
     repo: https://github.com/equalframework/equal.git
-    branch: master
+    branch: 2.0.1
     path: DOC
     target: .
